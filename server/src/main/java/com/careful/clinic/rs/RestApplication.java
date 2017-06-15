@@ -1,4 +1,4 @@
-package ch.javaee.mini.web;
+package com.careful.clinic.rs;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -6,6 +6,6 @@ import javax.ws.rs.core.Application;
 /**
  * Created by marco on 11.03.17.
  */
-@ApplicationPath(value = "rest")
+@ApplicationPath("/rest")
 public class RestApplication extends Application{
 }

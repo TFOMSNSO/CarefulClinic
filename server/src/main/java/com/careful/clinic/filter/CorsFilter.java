@@ -1,4 +1,4 @@
-package ch.javaee.mini.web.filter;
+package com.careful.clinic.filter;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
