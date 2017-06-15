@@ -10,7 +10,7 @@ import {environment} from '../../environments/environment';
 @Injectable()
 export class HelloService {
 
-    serverUrl : string = environment.BACKEND_URL + "/rest/helloworld";
+    serverUrl : string = environment.BACKEND_URL + "server/rest/helloworld";
 
 
   constructor(private http: Http) { }

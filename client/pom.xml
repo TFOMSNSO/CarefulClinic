@@ -37,7 +37,7 @@
                         <id>build js</id>
                         <configuration>
                             <workingDirectory>./src</workingDirectory>
-                            <executable>ng</executable>
+                            <executable>ng.cmd</executable>
                             <arguments>
                                 <argument>build</argument>
                                 <argument>--target=production</argument>
