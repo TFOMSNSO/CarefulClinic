@@ -8,11 +8,13 @@ import { MdButtonModule,MdCardModule,MdMenuModule,MdToolbarModule,MdIconModule }
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello/hello.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HelloComponent
+    HelloComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +29,8 @@ import { HelloComponent } from './hello/hello.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       {
-        path: 'hello',
-        component: HelloComponent
+        path: 'questions',
+        component: QuestionsComponent
       }
     ]),
   ],

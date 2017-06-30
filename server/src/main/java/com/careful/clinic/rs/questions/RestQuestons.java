@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import com.careful.clinic.dao.questions.QuestionsDAO;
 import com.careful.clinic.model.questions.Questions;
 
-@javax.ws.rs.Path("/qustions")
+@javax.ws.rs.Path("/questions")
 public class RestQuestons {
 
 	@EJB

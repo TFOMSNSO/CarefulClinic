@@ -1,0 +1,23 @@
+<div id="container" [@listAnimation]="items.length">
+
+    <button (click)="pushItem()">Add item</button> 
+    <button (click)="removeItem()">Remove item</button>
+    
+    <div id="list" *ngFor="let item of items">
+      <label>{{ item }}</label>
+      <input type="checkbox">
+      
+    </div>
+
+    <div @explainerAnim>
+      <div class="col">
+        <p>I think Coursetro is one of the best learning resources online for Angular</p>
+      </div>
+      <div class="col">
+        <p>I think Coursetro is one of the best learning resources online for Angular</p>
+      </div>
+      <div class="col">
+        <p>I think Coursetro is one of the best learning resources online for Angular</p>
+      </div>
+    <div>
+  </div>
