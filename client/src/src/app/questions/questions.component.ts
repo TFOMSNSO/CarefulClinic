@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { QuestionsService } from './questions.service';
 import { OnInit } from '@angular/core';
+import {MdSelectModule} from '@angular/material';
 
-import { Question } from '../model/question';
+import { Question } from '../model/question.interface';
 
 @Component({
   selector: 'questions-component',
@@ -67,14 +68,15 @@ export class QuestionsComponent  implements OnInit{
   }
   
    getQuestions(): void {
-    this.questionsService.getAllQuestions().then(questions_rest => this.questions_rest = questions_rest);
+    this.questionsService.getAllQuestions()
+    .then(questions_rest => this.questions_rest = questions_rest);
+    
    }
    
    
   
   ngOnInit(): void {
     this.getQuestions();
-    console.log('TEST \n'+this.questions_rest);
   }
 
   

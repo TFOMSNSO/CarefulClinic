@@ -19,5 +19,31 @@
       <div class="col">
         <p>I think Coursetro is one of the best learning resources online for Angular</p>
       </div>
-    <div>
   </div>
+  </div>
+  
+  
+  
+  <md-toolbar color="primary" id="questions">
+    <span>MyCompany</span>
+    <span class="example-spacer"></span>
+    <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>menu</md-icon> Menu</button>
+  </md-toolbar>
+  <md-menu #appMenu="mdMenu">
+  	<button md-menu-item> Settings </button>
+  	<button md-menu-item> Help </button>
+  </md-menu>
+  
+<md-card class="example-card" *ngFor="let question of questions_rest" id="questions">
+
+  <!-- <img md-card-image src="{{ question.question }}"> -->
+  <md-card-header>
+    <md-select placeholder="State">
+   		<md-option *ngFor="let typeanswer of question.typeOfResponse" [value]="typeanswer.id">{{ typeanswer.type_response }}</md-option>
+	  </md-select>
+  </md-card-header>
+
+  
+  
+</md-card>
+      

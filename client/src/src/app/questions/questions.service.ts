@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {environment} from '../../environments/environment';
 
-import { Question } from '../model/question';
+import { Question } from '../model/question.interface';
 
 @Injectable()
 export class QuestionsService {
@@ -17,4 +17,5 @@ export class QuestionsService {
                .then(response => response.json() as Question[])
                //.catch(this.handleError);
   }
+  
 }
