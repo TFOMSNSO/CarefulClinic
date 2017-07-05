@@ -24,7 +24,28 @@
     }
 }
 
-#questions {
+/*#questions {
     width:70%;
     margin:auto;
+}*/
+
+md-card {
+  margin: 15px;
 }
+md-card-title {
+  margin-bottom: 50px;
+}
+md-card-actions {
+  margin-bottom: 0px;
+}
+md-select{
+margin: 5px;
+}
+.question-form {
+  width: 90%;
+}
+.full-width {
+  width: 100%;
+}
+
+

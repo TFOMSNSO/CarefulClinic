@@ -9,6 +9,7 @@ import { MdButtonModule,
 		 MdMenuModule,
 		 MdToolbarModule,
 		 MdIconModule,
+		 MdInputModule,
 		 MdSelectModule } from '@angular/material';
 
 import 'hammerjs';
@@ -36,6 +37,7 @@ import { QuestionsComponent } from './questions/questions.component';
     MdCardModule,
     MdToolbarModule,
     MdIconModule,
+    MdInputModule,
     MdSelectModule,
     ReactiveFormsModule,
     RouterModule.forRoot([

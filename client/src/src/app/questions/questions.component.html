@@ -34,16 +34,28 @@
   	<button md-menu-item> Help </button>
   </md-menu>
   
-<md-card class="example-card" *ngFor="let question of questions_rest" id="questions">
-
-  <!-- <img md-card-image src="{{ question.question }}"> -->
+<md-card class="example-card">
+<form #resultQuestionForm="ngForm" (ngSubmit)="onSubmit(resultQuestionForm)">
+<md-card-title>Add Question</md-card-title>
   <md-card-header>
-    <md-select placeholder="State">
-   		<md-option *ngFor="let typeanswer of question.typeOfResponse" [value]="typeanswer.id">{{ typeanswer.type_response }}</md-option>
-	  </md-select>
+      <md-card-title>
+      </md-card-title>
   </md-card-header>
-
-  
-  
+   <md-card-content>
+      <md-list>
+     <p *ngFor="let question of questions_rest ">
+      
+      	  <md-select  class='full-width' placeholder="{{ question.question }}">
+	   		<md-option *ngFor="let typeanswer of question.typeOfResponse" [value]="typeanswer.id">{{ typeanswer.type_response }}</md-option>
+	   	  </md-select>
+	   	
+      </p> 
+      </md-list>
+   </md-card-content>
+	  
+  	 <md-card-actions>
+  		<button md-raised-button color='primary'>Send</button>
+  	 </md-card-actions>
+  </form>
 </md-card>
       

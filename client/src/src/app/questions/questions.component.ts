@@ -2,9 +2,13 @@ import { Component } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { QuestionsService } from './questions.service';
 import { OnInit } from '@angular/core';
-import {MdSelectModule} from '@angular/material';
+import { NgForm } from '@angular/forms';
+import {MdSelectModule,MdInputModule} from '@angular/material';
+
 
 import { Question } from '../model/question.interface';
+//import { EntityQuestions } from '../model/entity_question.model';
+
 
 @Component({
   selector: 'questions-component',
@@ -54,6 +58,7 @@ export class QuestionsComponent  implements OnInit{
    
    
    questions_rest: Question[];
+   //entityquestions = new EntityQuestions();
 	
    items = [];
 
@@ -77,6 +82,10 @@ export class QuestionsComponent  implements OnInit{
   
   ngOnInit(): void {
     this.getQuestions();
+  }
+  
+  onSubmit(form: NgForm) {
+  console.log(form.controls);
   }
 
   
