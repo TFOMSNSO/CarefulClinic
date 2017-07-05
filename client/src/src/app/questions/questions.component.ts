@@ -3,6 +3,7 @@ import { trigger,style,transition,animate,keyframes,query,stagger } from '@angul
 import { QuestionsService } from './questions.service';
 import { OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import {MdSelectModule,MdInputModule} from '@angular/material';
 
 
@@ -56,15 +57,17 @@ import { Question } from '../model/question.interface';
 })
 export class QuestionsComponent  implements OnInit{
    
-   
+      
    questions_rest: Question[];
    //entityquestions = new EntityQuestions();
 	
    items = [];
+   public myForm: FormGroup;
 
-  constructor(private questionsService: QuestionsService) {
+  constructor(private questionsService: QuestionsService,private _fb: FormBuilder) {
     this.items = ['Hey this is an item', 'Here is another one','This is awesome'];
   }
+  
   pushItem() {
     this.items.push('Oh yeah that is awesome');
   }
@@ -72,21 +75,49 @@ export class QuestionsComponent  implements OnInit{
     this.items.pop();
   }
   
-   getQuestions(): void {
-    this.questionsService.getAllQuestions()
-    .then(questions_rest => this.questions_rest = questions_rest);
-    
+   getQuestions(): Promise<Question[]> {
+	    return this.questionsService.getAllQuestions();
    }
    
    
   
   ngOnInit(): void {
-    this.getQuestions();
+  
+  	this.myForm = this._fb.group({
+       		questions_list: this._fb.array([])
+    });
+    
+    this.getQuestions().then(result =>{
+    	this.questions_rest = result;
+    	for(let i = 0; i < this.questions_rest.length; i++){
+     		this.addQuestion(this.questions_rest[i]);
+  		}
+    		
+    })
   }
   
-  onSubmit(form: NgForm) {
-  console.log(form.controls);
+  
+  save(form: NgForm) {
+  console.log(form);
   }
+  
+  addQuestion(obj : Question) {
+  
+        const control = <FormArray>this.myForm.controls['questions_list'];
+        const addrCtrl = this.initQuestion(obj);
+        control.push(addrCtrl);
+        
+  }
+    
+	initQuestion(object : Question) {
+	
+	    return this._fb.group({
+	        id: [object.id],
+	        question: [object.question]
+	        
+	    });
+	    
+	}
 
   
 

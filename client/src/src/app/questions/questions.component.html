@@ -35,18 +35,18 @@
   </md-menu>
   
 <md-card class="example-card">
-<form #resultQuestionForm="ngForm" (ngSubmit)="onSubmit(resultQuestionForm)">
+<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
 <md-card-title>Add Question</md-card-title>
   <md-card-header>
       <md-card-title>
       </md-card-title>
   </md-card-header>
-   <md-card-content>
-      <md-list>
-     <p *ngFor="let question of questions_rest ">
+   <md-card-content formArrayName="questions_list">
+      <md-list *ngFor="let question of myForm.controls.questions_list.controls; let i=index">
+     <p  [formGroupName]="i">
       
-      	  <md-select  class='full-width' placeholder="{{ question.question }}">
-	   		<md-option *ngFor="let typeanswer of question.typeOfResponse" [value]="typeanswer.id">{{ typeanswer.type_response }}</md-option>
+      	  <md-select  class='full-width' placeholder="{{questions_rest[i].question}}" formControlName="question">
+	   		<md-option *ngFor="let typeanswer of questions_rest[i].typeOfResponse" [value]="typeanswer.id">{{ typeanswer.type_response }}</md-option>
 	   	  </md-select>
 	   	
       </p> 
@@ -58,4 +58,18 @@
   	 </md-card-actions>
   </form>
 </md-card>
+
+
+<!-- <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+<div formArrayName="questions_list">
+	<div *ngFor="let question of myForm.controls.questions_list.controls; let i=index">
+		<div [formGroupName]="i">
+			 <input type="text" formControlName="id">
+			  <input type="text" formControlName="question">
+			  <div *ngFor="let typpe of questions_rest[i].typeOfResponse">{{typpe.id}}</div>
+		</div>
+	</div>
+</div>
+ <button type="submit">Submit</button>
+</form> -->
       
