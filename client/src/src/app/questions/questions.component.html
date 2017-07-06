@@ -1,3 +1,7 @@
+<!-- Header -->
+<app-header></app-header>
+
+
 <div id="container" [@listAnimation]="items.length">
 
     <button (click)="pushItem()">Add item</button> 
@@ -35,7 +39,7 @@
   </md-menu>
   
 <md-card class="example-card">
-<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm);resetForm()">
 <md-card-title>Add Question</md-card-title>
   <md-card-header>
       <md-card-title>
@@ -43,18 +47,22 @@
   </md-card-header>
    <md-card-content formArrayName="questions_list">
       <md-list *ngFor="let question of myForm.controls.questions_list.controls; let i=index">
-     <p  [formGroupName]="i">
+     <p  [formGroupName]="i" @questionsAnim>
       
-      	  <md-select  class='full-width' placeholder="{{questions_rest[i].question}}" formControlName="question">
+      	  <md-select  class='full-width required' placeholder="{{questions_rest[i].question}}" formControlName="question">
 	   		<md-option *ngFor="let typeanswer of questions_rest[i].typeOfResponse" [value]="typeanswer.id">{{ typeanswer.type_response }}</md-option>
 	   	  </md-select>
+	   	  
 	   	
-      </p> 
+      </p>
+      <!-- <p>Form value: {{ myForm.value | json }}</p> 
+      <p>Form status: {{ myForm.status | json }}</p> -->
       </md-list>
    </md-card-content>
 	  
   	 <md-card-actions>
-  		<button md-raised-button color='primary'>Send</button>
+  		<button type='submit' md-raised-button color='primary'[disabled]="!myForm.valid">Send</button>
+  		<button type='button' md-raised-button color='primary' (click)="resetForm()">Reset</button>
   	 </md-card-actions>
   </form>
 </md-card>
@@ -71,5 +79,6 @@
 	</div>
 </div>
  <button type="submit">Submit</button>
+ 
 </form> -->
       

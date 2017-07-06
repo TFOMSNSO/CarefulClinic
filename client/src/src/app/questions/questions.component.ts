@@ -50,6 +50,32 @@ import { Question } from '../model/question.interface';
         ])
         
       ])
+    ]),
+    trigger('questionsAnim', [
+      transition('* => *', [
+      /*  query('.full-width', style({ opacity: 0, transform: 'translateY(-40px)' })),
+
+        query('.full-width', stagger('500ms', [
+          animate('800ms 1.2s ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        ])),
+
+        query('.full-width', [
+          animate(1000, style('*'))
+        ])
+        
+      ])*/
+      
+        query('.full-width', style({ opacity: 0 }), {optional: true}),
+
+        query('.full-width', stagger('700ms', [
+          animate('1s ease-in', keyframes([
+            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
+            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
+            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+          ]))]), {optional: true}),
+        
+      ])
+      
     ])
 
   ]
@@ -101,6 +127,11 @@ export class QuestionsComponent  implements OnInit{
   console.log(form);
   }
   
+  resetForm() {
+  	  this.myForm.reset(); 
+  }
+  
+  
   addQuestion(obj : Question) {
   
         const control = <FormArray>this.myForm.controls['questions_list'];
@@ -113,12 +144,9 @@ export class QuestionsComponent  implements OnInit{
 	
 	    return this._fb.group({
 	        id: [object.id],
-	        question: [object.question]
+	        question: [object.question,[Validators.required, Validators.pattern('^([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$')]]
 	        
 	    });
 	    
 	}
-
-  
-
 }

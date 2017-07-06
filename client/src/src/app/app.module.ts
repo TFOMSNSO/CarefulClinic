@@ -10,6 +10,7 @@ import { MdButtonModule,
 		 MdToolbarModule,
 		 MdIconModule,
 		 MdInputModule,
+		 MdProgressSpinnerModule,
 		 MdSelectModule } from '@angular/material';
 
 import 'hammerjs';
@@ -18,12 +19,15 @@ import { HelloComponent } from './hello/hello.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AddressComponent } from './customer/address.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { HeaderComponent } from './header/header.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloComponent,
     QuestionsComponent,
+    HeaderComponent,
     CustomerComponent,
     AddressComponent
   ],
