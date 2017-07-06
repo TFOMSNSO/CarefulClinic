@@ -2,15 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule }   from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdButtonModule,
+		 MaterialModule,
 		 MdCardModule,
 		 MdMenuModule,
 		 MdToolbarModule,
 		 MdIconModule,
 		 MdInputModule,
 		 MdProgressSpinnerModule,
+		 MdNativeDateModule,
+		 MdDatepickerModule,
 		 MdSelectModule } from '@angular/material';
 
 import 'hammerjs';
@@ -21,6 +23,8 @@ import { AddressComponent } from './customer/address.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { HeaderComponent } from './header/header.component';
 
+	/*rout module*/
+import { AppRoutingModule }     from './app.routing.module';
 
 @NgModule({
   declarations: [
@@ -39,25 +43,14 @@ import { HeaderComponent } from './header/header.component';
     MdButtonModule,
     MdMenuModule,
     MdCardModule,
+    AppRoutingModule,
     MdToolbarModule,
     MdIconModule,
     MdInputModule,
+    MdNativeDateModule,
+	MdDatepickerModule,
     MdSelectModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot([
-      {
-        path: 'questions',
-        component: QuestionsComponent
-      },
-      {
-        path: 'hello',
-        component: HelloComponent
-      },
-      {
-        path: 'customer',
-        component: CustomerComponent
-      }
-    ]),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

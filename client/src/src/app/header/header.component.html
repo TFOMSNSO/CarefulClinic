@@ -4,6 +4,7 @@
     <button md-button [mdMenuTriggerFor]="appMenu"><md-icon>menu</md-icon> Menu</button>
   </md-toolbar>
   <md-menu #appMenu="mdMenu">
-  	<button md-menu-item> Settings </button>
-  	<button md-menu-item> Help </button>
+  	<a [routerLink]="['/questions']"><button md-menu-item> Questions </button></a>
+  	<a [routerLink]="['/hello']"><button md-menu-item> Hello </button></a>
+  	<a [routerLink]="['/customer']"><button md-menu-item> Customer </button></a>
   </md-menu>

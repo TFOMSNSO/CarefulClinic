@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import { QuestionsService } from './questions.service';
 import { OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -18,53 +18,8 @@ import { Question } from '../model/question.interface';
   providers: [QuestionsService],
   animations: [
 
-    trigger('listAnimation', [
-      transition('* => *', [
-
-        query(':enter', style({ opacity: 0 }), {optional: true}),
-
-        query(':enter', stagger('300ms', [
-          animate('1s ease-in', keyframes([
-            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
-          ]))]), {optional: true}),
-        query(':leave', stagger('300ms', [
-          animate('1s ease-in', keyframes([
-            style({opacity: 1, transform: 'translateY(0)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 0, transform: 'translateY(-75%)',     offset: 1.0}),
-          ]))]), {optional: true})
-      ])
-    ]),
-    trigger('explainerAnim', [
-      transition('* => *', [
-        query('.col', style({ opacity: 0, transform: 'translateX(-40px)' })),
-
-        query('.col', stagger('500ms', [
-          animate('800ms 1.2s ease-out', style({ opacity: 1, transform: 'translateX(0)' })),
-        ])),
-
-        query('.col', [
-          animate(1000, style('*'))
-        ])
-        
-      ])
-    ]),
     trigger('questionsAnim', [
       transition('* => *', [
-      /*  query('.full-width', style({ opacity: 0, transform: 'translateY(-40px)' })),
-
-        query('.full-width', stagger('500ms', [
-          animate('800ms 1.2s ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
-        ])),
-
-        query('.full-width', [
-          animate(1000, style('*'))
-        ])
-        
-      ])*/
-      
         query('.full-width', style({ opacity: 0 }), {optional: true}),
 
         query('.full-width', stagger('700ms', [
@@ -76,7 +31,24 @@ import { Question } from '../model/question.interface';
         
       ])
       
-    ])
+    ]),
+    
+    trigger('flyInOut', [
+            state('in', style({ opacity: 1, transform: 'translateX(0)' })),
+            transition('void => *', [
+                style({
+                    opacity: 0,
+                    transform: 'translateX(-100%)'
+                }),
+                animate('0.6s ease-in')
+            ]),
+            transition('* => void', [
+                animate('0.2s 0.1s ease-out', style({
+                    opacity: 0,
+                    transform: 'translateX(100%)'
+                }))
+            ])
+        ])
 
   ]
   
@@ -110,6 +82,7 @@ export class QuestionsComponent  implements OnInit{
   ngOnInit(): void {
   
   	this.myForm = this._fb.group({
+  			date_response:['',Validators.required], 
        		questions_list: this._fb.array([])
     });
     
@@ -124,7 +97,7 @@ export class QuestionsComponent  implements OnInit{
   
   
   save(form: NgForm) {
-  console.log(form);
+  console.log(form.value);
   }
   
   resetForm() {
