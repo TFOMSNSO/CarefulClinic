@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {environment} from '../../environments/environment';
+
 
 import { Question } from '../model/question.interface';
 
@@ -16,6 +17,17 @@ export class QuestionsService {
                .toPromise()
                .then(response => response.json() as Question[])
                //.catch(this.handleError);
+  }
+
+    
+	createResponse(question: any): Promise<any> {
+	let headers = new Headers();
+	 console.log(JSON.stringify(question));
+	return this.http
+	  .post(this.serverUrl + '/add', JSON.stringify(question), {headers: headers})
+	  .toPromise()
+	  .then(res => res.json())
+	  //.catch(this.handleError);
   }
   
 }

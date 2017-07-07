@@ -20,9 +20,9 @@ import { Question } from '../model/question.interface';
 
     trigger('questionsAnim', [
       transition('* => *', [
-        query('.full-width', style({ opacity: 0 }), {optional: true}),
+        query('.full-width,.test', style({ opacity: 0 }), {optional: true}),
 
-        query('.full-width', stagger('700ms', [
+        query('.full-width,.test', stagger('1400ms', [
           animate('1s ease-in', keyframes([
             style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
             style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
@@ -96,12 +96,14 @@ export class QuestionsComponent  implements OnInit{
   }
   
   
-  save(form: NgForm) {
-  console.log(form.value);
+  save(form: NgForm):void {
+  console.log(JSON.stringify(form.value));
+  this.questionsService.createResponse(form.value);
   }
   
   resetForm() {
   	  this.myForm.reset(); 
+  	  
   }
   
   

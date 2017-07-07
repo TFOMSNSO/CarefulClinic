@@ -6,11 +6,15 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.careful.clinic.dao.questions.QuestionsDAO;
+import com.careful.clinic.model.QuestionResult;
 import com.careful.clinic.model.questions.Questions;
 import com.careful.clinic.model.questions.TypeOfResponse;
 
@@ -49,4 +53,16 @@ public class RestQuestons {
         //return questionsDao.getAll();
         return neww;
     }
+	
+	
+	@POST
+	@Path("add")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public QuestionResult add(QuestionResult questionresult) {
+		System.out.println("QuestionResult "+questionresult);
+		return new QuestionResult();
+        //return dao.create(wine);
+    }
+ 
 }

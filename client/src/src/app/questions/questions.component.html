@@ -3,12 +3,8 @@
 <md-card-title>Add Question</md-card-title>
   <md-card-header>
       <md-card-title>
-			<md-input-container>
-  	   			<input mdInput [mdDatepicker]="picker" placeholder="Date response" formControlName="date_response">
-  	   			<button mdSuffix [mdDatepickerToggle]="picker"></button>
-	   		</md-input-container>
-	   <md-datepicker #picker></md-datepicker>       
-      </md-card-title>
+      Some text for careFull clinic of Novosibirsk TFOMS
+	  </md-card-title>
   </md-card-header>
    <md-card-content formArrayName="questions_list">
       <md-list *ngFor="let question of myForm.controls.questions_list.controls; let i=index">
@@ -24,6 +20,11 @@
       <p>Form status: {{ myForm.status | json }}</p> -->
       </md-list>
    </md-card-content>
+   <md-input-container >
+  	   			<input mdInput [mdDatepicker]="picker" placeholder="Date response" formControlName="date_response">
+  	   			<button mdSuffix [mdDatepickerToggle]="picker"></button>
+  	   			<md-datepicker #picker></md-datepicker>
+   </md-input-container>
 	  
   	 <md-card-actions>
   		<button type='submit' md-raised-button color='primary'[disabled]="!myForm.valid">Send</button>

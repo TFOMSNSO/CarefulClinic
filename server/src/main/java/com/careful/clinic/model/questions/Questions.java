@@ -12,6 +12,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+
+/**
+ * @author pylypiv.sergey
+ * Сами вопросы для анкеты
+ *
+ */
 @Entity
 @Table(name = "Questions", uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 public class Questions implements Serializable{
