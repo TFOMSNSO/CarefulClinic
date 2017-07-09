@@ -3,18 +3,40 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule,
-		 MaterialModule,
-		 MdCardModule,
-		 MdMenuModule,
-		 MdToolbarModule,
-		 MdIconModule,
-		 MdInputModule,
-		 MdProgressSpinnerModule,
-		 MdNativeDateModule,
-		 MdDatepickerModule,
-		 MdSelectModule } from '@angular/material';
-
+import {
+  MdButtonModule,
+  MdButtonToggleModule,
+  MdCardModule,
+  MdCheckboxModule,
+  MdChipsModule,
+  MdCoreModule,
+  MdTableModule,
+  MdDatepickerModule,
+  MdDialogModule,
+  MdExpansionModule,
+  MdGridListModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
+  MdMenuModule,
+  MdNativeDateModule,
+  MdPaginatorModule,
+  MdProgressBarModule,
+  MdProgressSpinnerModule,
+  MdRadioModule,
+  MdRippleModule,
+  MdSelectModule,
+  MdSidenavModule,
+  MdSliderModule,
+  MdSlideToggleModule,
+  MdSnackBarModule,
+  MdSortModule,
+  MdTabsModule,
+  MdToolbarModule,
+  MdTooltipModule,
+  
+		 } from '@angular/material';
+import {CdkTableModule} from '@angular/cdk';
 import 'hammerjs';
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello/hello.component';
@@ -22,9 +44,15 @@ import { CustomerComponent } from './customer/customer.component';
 import { AddressComponent } from './customer/address.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { HeaderComponent } from './header/header.component';
+import {PeopleDatabase} from './table/people-database';
+import { TableComponent } from './table/table.component';
+import {TableHeaderDemo} from './table/table-header-demo';
 
 	/*rout module*/
 import { AppRoutingModule }     from './app.routing.module';
+
+
+
 
 @NgModule({
   declarations: [
@@ -33,26 +61,52 @@ import { AppRoutingModule }     from './app.routing.module';
     QuestionsComponent,
     HeaderComponent,
     CustomerComponent,
-    AddressComponent
+    AddressComponent,
+    TableComponent,
+    TableHeaderDemo
+    
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    MdButtonModule,
-    MdMenuModule,
-    MdCardModule,
     AppRoutingModule,
-    MdToolbarModule,
-    MdIconModule,
-    MdInputModule,
-    MdNativeDateModule,
-	MdDatepickerModule,
-    MdSelectModule,
-    ReactiveFormsModule
+	MdButtonModule,
+  MdButtonToggleModule,
+  MdCardModule,
+  MdCheckboxModule,
+  MdChipsModule,
+  MdCoreModule,
+  MdTableModule,
+  MdDatepickerModule,
+  MdDialogModule,
+  MdExpansionModule,
+  MdGridListModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
+  MdMenuModule,
+  MdNativeDateModule,
+  MdPaginatorModule,
+  MdProgressBarModule,
+  MdProgressSpinnerModule,
+  MdRadioModule,
+  MdRippleModule,
+  MdSelectModule,
+  MdSidenavModule,
+  MdSliderModule,
+  MdSlideToggleModule,
+  MdSnackBarModule,
+  MdSortModule,
+  MdTabsModule,
+  MdToolbarModule,
+  MdTooltipModule,
+  CdkTableModule,
+  ReactiveFormsModule
   ],
-  providers: [],
+  providers: [PeopleDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

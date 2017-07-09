@@ -61,6 +61,8 @@ export class QuestionsComponent  implements OnInit{
 	
    items = [];
    public myForm: FormGroup;
+   tessss = { id: '2017-06-30T17:00:00.000Z',  ques: [{id:'Zero',question:'dsdsdsdsdsdsds'}] };
+      
 
   constructor(private questionsService: QuestionsService,private _fb: FormBuilder) {
     this.items = ['Hey this is an item', 'Here is another one','This is awesome'];
