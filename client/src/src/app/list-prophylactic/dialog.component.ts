@@ -1,4 +1,5 @@
 import {Component, Inject, ViewChild, TemplateRef} from '@angular/core';
+import {DOCUMENT} from '@angular/platform-browser';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 
 @Component({
@@ -8,7 +9,7 @@ import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 })
 export class DialogComponent {
  constructor(public dialogRef: MdDialogRef<DialogComponent>,@Inject(MD_DIALOG_DATA) public data: any) {
- console.log('ddddd '+data);
+ console.log('ddddd '+JSON.stringify(data));
  }
   
 }
