@@ -1,0 +1,43 @@
+<md-card [@flyInOut]="'in'">
+<div @questionsAnim>
+	<md-table [dataSource]="dataSource" class="full-width">
+	
+		 <!-- Column Definition: ID -->
+	    <ng-container  cdkColumnDef="userId">
+	      <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
+	      <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+	    </ng-container>
+	
+	    <!-- Column Definition: Progress -->
+	    <ng-container cdkColumnDef="progress">
+	      <md-header-cell *cdkHeaderCellDef> Progress </md-header-cell>
+	      <md-cell *cdkCellDef="let row">
+	        <div class="demo-progress-stat">{{row.progress}}%</div>
+	        
+	      </md-cell>
+	    </ng-container>
+	
+	    <!-- Column Definition: Name -->
+	    <ng-container cdkColumnDef="userName">
+	      <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
+	      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+	    </ng-container>
+	
+	    <!-- Column Definition: Color -->
+	    <ng-container cdkColumnDef="color">
+	      <md-header-cell *cdkHeaderCellDef>Color</md-header-cell>
+	      <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.color}}</md-cell>
+	    </ng-container>
+	    
+	    <!-- Column Definition: Color -->
+	    <ng-container cdkColumnDef="edit">
+	      <md-header-cell *cdkHeaderCellDef>Edit</md-header-cell>
+	      <md-cell *cdkCellDef="let row" [style.color]="darkgray" (click)="preview(row)"><md-icon>edit</md-icon></md-cell>
+	    </ng-container>
+	    
+	
+		<md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+	    <md-row  *cdkRowDef="let row; columns: displayedColumns"></md-row>
+	</md-table>
+</div>	
+</md-card>

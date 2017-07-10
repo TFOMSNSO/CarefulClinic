@@ -6,11 +6,14 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 
 export class PersonDataSource extends DataSource<any> {
+
   constructor(private _peopleDatabase: PeopleDatabase,
               private _paginator: MdPaginator,
               private _sort: MdSort) {
     super();
   }
+  
+   
 
   connect(): Observable<UserData[]> {
     const displayDataChanges = [

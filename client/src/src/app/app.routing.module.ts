@@ -6,6 +6,8 @@ import { HelloComponent } from './hello/hello.component';
 import { CustomerComponent } from './customer/customer.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { TableComponent } from './table/table.component';
+import { ListProphylacticComponent } from './list-prophylactic/list-prophylactic.component';
+import { DialogDemo } from './z_dialog/dialog-demo';
 
 
 
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'questions', component: QuestionsComponent },
   { path: 'hello', component: HelloComponent },
   { path: 'customer', component: CustomerComponent },
-  { path: 'table', component: TableComponent }
+  { path: 'table', component: TableComponent },
+  { path: 'list_prophylactic', component: ListProphylacticComponent },
+  { path: 'z_dialog', component: DialogDemo }
 ];
 
 @NgModule({

@@ -34,8 +34,8 @@ import {
   MdTabsModule,
   MdToolbarModule,
   MdTooltipModule,
-  
-		 } from '@angular/material';
+} from '@angular/material';
+
 import {CdkTableModule} from '@angular/cdk';
 import 'hammerjs';
 import { AppComponent } from './app.component';
@@ -44,14 +44,23 @@ import { CustomerComponent } from './customer/customer.component';
 import { AddressComponent } from './customer/address.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { HeaderComponent } from './header/header.component';
-import {PeopleDatabase} from './table/people-database';
+//import {PeopleDatabase} from './table/people-database';
+import {PeopleDatabase} from './list-prophylactic/people-database';
 import { TableComponent } from './table/table.component';
 import {TableHeaderDemo} from './table/table-header-demo';
+import { ListProphylacticComponent } from './list-prophylactic/list-prophylactic.component';
+import { DialogComponent } from './list-prophylactic/dialog.component';
+import { DialogDemo } from './z_dialog/dialog-demo';
+import { JazzDialog } from './z_dialog/dialog2-demo';
+import { ContentElementDialog } from './z_dialog/dialog3-demo';
+import { IFrameDialog } from './z_dialog/dialog4-demo';
+
+
+
+
 
 	/*rout module*/
 import { AppRoutingModule }     from './app.routing.module';
-
-
 
 
 @NgModule({
@@ -63,8 +72,12 @@ import { AppRoutingModule }     from './app.routing.module';
     CustomerComponent,
     AddressComponent,
     TableComponent,
-    TableHeaderDemo
-    
+    TableHeaderDemo,
+    ListProphylacticComponent,
+    DialogComponent,DialogDemo
+    ,JazzDialog
+    ,ContentElementDialog
+    ,IFrameDialog
     
   ],
   imports: [
@@ -107,6 +120,7 @@ import { AppRoutingModule }     from './app.routing.module';
   ReactiveFormsModule
   ],
   providers: [PeopleDatabase],
+  entryComponents: [DialogComponent,JazzDialog,ContentElementDialog,IFrameDialog],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
