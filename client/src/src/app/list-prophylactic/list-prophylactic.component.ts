@@ -7,6 +7,7 @@ import { trigger,style,transition,animate,keyframes,query,stagger, state } from 
 import {MdDialog, MdDialogRef} from '@angular/material';
 import { DialogComponent } from './dialog.component';
 
+
 export type UserProperties = 'userId' | 'userName' | 'progress' | 'color' | 'edit' | undefined;
 
 @Component({
@@ -55,6 +56,7 @@ export class ListProphylacticComponent implements OnInit {
   dataSource: ProphylacticDataSource | null;
   displayedColumns: UserProperties[] = [];
   constructor(public _peopleDatabase: PeopleDatabase,public dialog: MdDialog) { }
+  dialogRef: MdDialogRef<DialogComponent> | null;
   
   
   
@@ -71,7 +73,7 @@ export class ListProphylacticComponent implements OnInit {
   
   preview(pr:any):void{
   
-   let dialogRef = this.dialog.open(DialogComponent);
+   this.dialogRef = this.dialog.open(DialogComponent,JSON.stringify(pr));
    // dialogRef.afterClosed().subscribe(result => {
      // this.selectedOption = result;
     //});
