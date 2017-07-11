@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, TemplateRef,ElementRef } from '@angular/core';
 import {PeopleDatabase, UserData} from './people-database';
 import {ProphylacticDataSource} from './data-source';
 import {MdPaginator} from '@angular/material';
@@ -7,6 +7,11 @@ import { trigger,style,transition,animate,keyframes,query,stagger, state } from 
 import { DialogComponent } from './dialog.component';
 import {DOCUMENT} from '@angular/platform-browser';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/observable/fromEvent';
 
 
 export type UserProperties = 'userId' | 'userName' | 'progress' | 'color' | 'edit' | undefined;
@@ -59,17 +64,23 @@ export class ListProphylacticComponent implements OnInit {
   displayedColumns: UserProperties[] = [];
   constructor(public _peopleDatabase: PeopleDatabase,public dialog: MdDialog) { }
   dialogRef: MdDialogRef<DialogComponent> | null;
-  configcc = {
-    data: {
-      message: 'Jazzy jazz jazz'
-    }
-  }
   
   
+	getNotify(note:string): void{
+		this.dataSource.filter = note;
+	}
   
 
   ngOnInit() {
     this.connect();
+     /*Observable.fromEvent(this.filter.nativeElement, 'keyup')
+        .debounceTime(150)
+        .distinctUntilChanged()
+        .subscribe(() => {
+          if (!this.dataSource) { return; }
+         this.dataSource.filter = this.filter.nativeElement.value;
+         
+        });*/
   }
 
   connect() {

@@ -54,6 +54,8 @@ import { DialogDemo } from './z_dialog/dialog-demo';
 import { JazzDialog } from './z_dialog/dialog2-demo';
 import { ContentElementDialog } from './z_dialog/dialog3-demo';
 import { IFrameDialog } from './z_dialog/dialog4-demo';
+import {ListProphylacticHeaderComponent} from './list-prophylactic/list-prophylactic.header.component';
+
 
 
 
@@ -78,6 +80,7 @@ import { AppRoutingModule }     from './app.routing.module';
     ,JazzDialog
     ,ContentElementDialog
     ,IFrameDialog
+    ,ListProphylacticHeaderComponent
     
   ],
   imports: [
