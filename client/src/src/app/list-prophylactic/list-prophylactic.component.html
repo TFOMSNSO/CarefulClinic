@@ -1,14 +1,15 @@
 <md-card [@flyInOut]="'in'">
 
 <md-sidenav-container class="example-container">
-  <md-sidenav #sidenav class="example-sidenav">
+  <md-sidenav #sidenav class="nav_header">
     Jolly good!
+    <button type="button" md-button (click)="sidenav.close()">Close sidenav</button>
   </md-sidenav>
 	<md-list>
-		<md-card-title>Prophylactic examination of the population</md-card-title>
+		<md-card-title>Prophylactic examination of the population </md-card-title>
 		<md-card-header>
 			 <table-header (filterOut)="getNotify($event)"></table-header>
-			 <button type="button" md-button (click)="sidenav.open()">Open sidenav</button>
+			 <button id="btn_header" (click)="sidenav.open()" md-fab><md-icon>add</md-icon></button>
 		</md-card-header>
 	</md-list>
 </md-sidenav-container>	
