@@ -22,7 +22,6 @@ export class QuestionsService {
     
 	createResponse(question: any): Promise<any> {
 	let headers = new Headers({'Content-Type': 'application/json'});
-	 console.log(JSON.stringify(question));
 	return this.http
 	  .post(this.serverUrl + '/add', JSON.stringify(question), {headers: headers})
 	  .toPromise()

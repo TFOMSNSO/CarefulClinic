@@ -1,4 +1,47 @@
 <md-sidenav #sidenav class="nav_header">
-    Jolly good!
-    <button type="button" md-button (click)="sidenav.close()">Close sidenav</button>
+	<md-card class="example-card">
+		<form [formGroup]="myForm" novalidate (ngSubmit)="searchPerson(myForm);resetForm();sidenav.close()">
+		<md-card-title>
+			<md-toolbar color="primary" class="mat-elevation-z10">
+	      		Search
+	    	</md-toolbar>
+		</md-card-title>
+		<md-card>
+			<md-card-header>
+      			<md-card-title>
+      				Some text for careFull clinic of Novosibirsk TFOMS
+	  			</md-card-title>
+  			</md-card-header>
+  			
+  			<md-card-content>
+  				<md-input-container style="width: 100%">
+  					<input mdInput placeholder="Surname" formControlName="surname">
+  					<md-error>This field is required</md-error>
+  				</md-input-container><br/>
+  				<md-input-container style="width: 100%">	
+  					<input mdInput placeholder="Firstname" formControlName="firstname">
+  					<md-error>This field is required</md-error>
+  				</md-input-container><br/>
+  				<md-input-container style="width: 100%">	
+  					<input mdInput placeholder="Laststname" formControlName="lastname">
+  					<md-error>This field is required</md-error>
+  				</md-input-container><br/>
+  				<md-input-container style="width: 100%">
+					<input mdInput [mdDatepicker]="picker" placeholder="Date response" formControlName="bithday">
+	   				<button mdSuffix [mdDatepickerToggle]="picker"></button>
+	   				<md-datepicker #picker></md-datepicker>
+	   				<md-error>This field is required</md-error>
+  				</md-input-container>
+  			</md-card-content>
+  			
+  		</md-card>
+  		<md-card id='lastblocksearch'>	
+  			<md-card-actions>
+  				<button type='submit' md-raised-button color='primary'[disabled]="!myForm.valid">Search</button>
+  				<button type='button' md-raised-button color='primary' (click)="resetForm()">Reset</button>
+  				<button type='button' md-raised-button color='warn' (click)="sidenav.close()">Cancel</button>
+  	 		</md-card-actions>
+  	 	</md-card>
+		</form>
+	</md-card>
 </md-sidenav>

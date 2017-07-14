@@ -65,6 +65,7 @@ import { SadeaveSearchComponent } from './list-prophylactic/sidenave.search.comp
 
 	/*rout module*/
 import { AppRoutingModule }     from './app.routing.module';
+import { SidenaveSearchService } from './list-prophylactic/sidenave-search.service';
 
 
 @NgModule({
@@ -125,7 +126,7 @@ import { AppRoutingModule }     from './app.routing.module';
   CdkTableModule,
   ReactiveFormsModule
   ],
-  providers: [PeopleDatabase],
+  providers: [PeopleDatabase, SidenaveSearchService],
   entryComponents: [DialogComponent,JazzDialog,ContentElementDialog,IFrameDialog],
   bootstrap: [AppComponent]
 })
