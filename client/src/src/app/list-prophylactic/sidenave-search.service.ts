@@ -9,11 +9,11 @@ export class SidenaveSearchService {
   serverUrl : string = environment.BACKEND_URL + "/rest/prophylactic";
   constructor(private http: Http) { }
   
- searchPerson(per_data: any): Promise<any> {
+ searchPersonGer(per_data: any): Promise<any> {
 	let headers = new Headers({'Content-Type': 'application/json'});
 	 console.log(JSON.stringify(per_data));
 	return this.http
-	  .post(this.serverUrl + '/search', JSON.stringify(per_data), {headers: headers})
+	  .post(this.serverUrl + '/search_person_ger', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
 	  .then(res => console.log('test form' +res.json()))
   } 

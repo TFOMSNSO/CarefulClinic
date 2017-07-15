@@ -38,8 +38,7 @@ export class SadeaveSearchComponent   implements OnInit{
  }
  
  searchPerson(form: NgForm): void{
- 	console.log(JSON.stringify(form.value));
-  	this.sidenaveSearchService.searchPerson(form.value);
+  	this.sidenaveSearchService.searchPersonGer(form.value);
  }
  
  resetForm() {
