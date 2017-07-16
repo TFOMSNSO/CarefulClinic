@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyDatePickerModule } from 'mydatepicker';
 import {
   MdButtonModule,
   MdButtonToggleModule,
@@ -40,8 +41,6 @@ import {CdkTableModule} from '@angular/cdk';
 import 'hammerjs';
 import { AppComponent } from './app.component';
 import { HelloComponent } from './hello/hello.component';
-import { CustomerComponent } from './customer/customer.component';
-import { AddressComponent } from './customer/address.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { HeaderComponent } from './header/header.component';
 //import {PeopleDatabase} from './table/people-database';
@@ -74,8 +73,6 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     HelloComponent,
     QuestionsComponent,
     HeaderComponent,
-    CustomerComponent,
-    AddressComponent,
     TableComponent,
     TableHeaderDemo,
     ListProphylacticComponent,
@@ -86,8 +83,10 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     ,ListProphylacticHeaderComponent
     ,SadeaveSearchComponent
     
+    
   ],
   imports: [
+  	MyDatePickerModule,
     BrowserModule,
     FormsModule,
     HttpModule,

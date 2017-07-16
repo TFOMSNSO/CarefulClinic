@@ -2,7 +2,7 @@ import { Component,ElementRef,ViewChild } from '@angular/core';
 import { SidenaveSearchService } from './sidenave-search.service';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {IMyDpOptions} from 'mydatepicker';
 
 @Component({
   moduleId: module.id,
@@ -25,8 +25,18 @@ export class SadeaveSearchComponent   implements OnInit{
 	      surname: ['', Validators.required],
 	      firstname: ['', Validators.required],
 	      lastname: ['', Validators.required],
-	      bithday: ['']
+	      bithday: ['', Validators.required]
 	    });
+  }
+  
+  myDatePickerOptions: IMyDpOptions = {
+        // other options...
+        dateFormat: 'dd.mm.yyyy',
+    };
+    
+  clearDate(): void {
+    	// Clear the date using the patchValue function
+    	this.myForm.patchValue({bithday: null});
   }
 
 	
@@ -37,7 +47,8 @@ export class SadeaveSearchComponent   implements OnInit{
  	this.variable_sidenave.toggle(true);
  }
  
- searchPerson(form: NgForm): void{
+ searchPerson(form: any): void{
+ 	form.value.bithday = form.value.bithday.formatted; 
   	this.sidenaveSearchService.searchPersonGer(form.value);
  }
  

@@ -26,12 +26,15 @@
   					<input mdInput placeholder="Laststname" formControlName="lastname">
   					<md-error>This field is required</md-error>
   				</md-input-container><br/>
-  				<md-input-container style="width: 100%">
-					<input mdInput [mdDatepicker]="picker" placeholder="Date response" formControlName="bithday">
+  				<!-- <md-input-container style="width: 100%"> -->
+					<!-- <input mdInput [mdDatepicker]="picker" placeholder="Date response" formControlName="bithday">
 	   				<button mdSuffix [mdDatepickerToggle]="picker"></button>
-	   				<md-datepicker #picker></md-datepicker>
+	   				<md-datepicker #picker></md-datepicker> -->
+	   				
+	   				 <my-date-picker name="bithday" [options]="myDatePickerOptions"
+                    formControlName="bithday"></my-date-picker>
 	   				<md-error>This field is required</md-error>
-  				</md-input-container>
+  				<!-- </md-input-container> -->
   			</md-card-content>
   			
   		</md-card>

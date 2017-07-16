@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import { QuestionsService } from './questions.service';
 import { OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import {MdSelectModule,MdInputModule} from '@angular/material';
 
@@ -98,7 +97,7 @@ export class QuestionsComponent  implements OnInit{
   }
   
   
-  save(form: NgForm):void {
+  save(form: any):void {
   console.log(JSON.stringify(form.value));
   this.questionsService.createResponse(form.value);
   }
@@ -111,8 +110,8 @@ export class QuestionsComponent  implements OnInit{
   
   addQuestion(obj : Question) {
   
-        const control = <FormArray>this.myForm.controls['questions_list'];
-        const addrCtrl = this.initQuestion(obj);
+        let control = <FormArray>this.myForm.controls['questions_list'];
+        let addrCtrl = this.initQuestion(obj);
         control.push(addrCtrl);
         
   }

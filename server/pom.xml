@@ -60,6 +60,13 @@
         
 
    <dependencies>
+   <!-- <dependency>
+        <groupId>clientws</groupId>
+        <artifactId>community</artifactId>
+        <scope>system</scope>
+        <version>1</version>
+        <systemPath>C:\wildfly-10.1.0.Final\clientws.jar</systemPath>
+    </dependency> -->
         
         <dependency>
             <groupId>javaee-angular-cli-starter</groupId>
