@@ -1,5 +1,11 @@
 package com.careful.clinic.rs.prophylactic;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Collection;
+import java.util.List;
+
+import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -8,41 +14,32 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.xml.sax.SAXException;
+
+import com.careful.clinic.dao.prophylactic.ProphylacticDAO;
+import com.careful.clinic.dao.questions.QuestionsDAO;
 import com.careful.clinic.model.PersonModel;
+import com.careful.clinic.model.questions.Questions;
 
 
 @javax.ws.rs.Path("/prophylactic")
 public class RestServiceProphylactic {
+	
+	@EJB
+	ProphylacticDAO prophylacticDAO;
 	
 	
 	@POST
 	@Path("/search_person_ger")
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public PersonModel searchGer(PersonModel personmodel) {
-/*		System.out.println("TEST 1 "+personmodel);
-		String []args={personmodel.getSurname(),personmodel.getFirstname(),personmodel.getLastname(),personmodel.getBithday()};
-		Main1.main(args);
-		System.out.println("TEST 2 "+personmodel);
-*/		/*DispanceryInfo disSoap = new DispanceryInfo(); 
-		DispanceryInfoSoap port = disSoap.getDispanceryInfoSoap();
-		SendRequest sr = new SendRequest();
+	public Collection<?> searchGer(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
 		
-		sr.setSurname(personmodel.getSurname());
-		sr.setName(personmodel.getFirstname());
-		sr.setMiddleName(personmodel.getLastname());
-		sr.setDateBirth(personmodel.getBithday());
+		List<?> df = (List<?>) prophylacticDAO.getInfoProphylactic(personmodel);
 		
-		
-		SendResponse res = port.getPersonData(sr);
-		ResponseData resData = null;
-		resData = res.getData();
-		System.out.println("test "+resData);
-*/		
-		
-		
-		return personmodel;
+		return df;
 
 	}
 

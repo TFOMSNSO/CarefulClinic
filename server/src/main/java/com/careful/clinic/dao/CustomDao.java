@@ -20,7 +20,7 @@ public class CustomDao {
     public CustomDao() {
     }
     
-    @PersistenceContext
+    @PersistenceContext(unitName="primary")
     private EntityManager em;
     
     public Customer getCustomer(int id) {

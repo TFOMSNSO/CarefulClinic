@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  BACKEND_URL: window.location.protocol + '//' + window.location.hostname + ':' + 8081
+  BACKEND_URL: window.location.protocol + '//' + window.location.hostname + ':' + 8080
 };

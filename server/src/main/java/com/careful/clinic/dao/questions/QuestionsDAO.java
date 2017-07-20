@@ -19,7 +19,7 @@ public class QuestionsDAO {
 	public QuestionsDAO() {
 	}
 	
-	@PersistenceContext
+	@PersistenceContext(unitName="primary")
     private EntityManager em;
 	
 	@SuppressWarnings("unchecked")

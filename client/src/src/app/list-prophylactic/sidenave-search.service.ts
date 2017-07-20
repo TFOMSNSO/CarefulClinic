@@ -15,7 +15,7 @@ export class SidenaveSearchService {
 	return this.http
 	  .post(this.serverUrl + '/search_person_ger', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
-	  .then(res => console.log('test form' +res.json()))
+	  .then(res => console.log('test form' +JSON.stringify(res.json())))
   } 
 
 }
