@@ -15,31 +15,31 @@
 <md-card-content @questionsAnim> 
 	<md-table [dataSource]="dataSource" class="full-width">
 	
-		 <!-- Column Definition: ID -->
-	    <ng-container  cdkColumnDef="userId">
-	      <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
-	      <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+		 <!-- Column Definition:  -->
+	    <ng-container  cdkColumnDef="personSurname">
+	      <md-header-cell *cdkHeaderCellDef> Surname </md-header-cell>
+	      <md-cell *cdkCellDef="let row"> {{row.personSurname}} </md-cell>
 	    </ng-container>
 	
-	    <!-- Column Definition: Progress -->
-	    <ng-container cdkColumnDef="progress">
-	      <md-header-cell *cdkHeaderCellDef> Progress </md-header-cell>
+	    <!-- Column Definition:  -->
+	    <ng-container cdkColumnDef="personKindfirstname">
+	      <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
 	      <md-cell *cdkCellDef="let row">
-	        <div class="demo-progress-stat">{{row.progress}}%</div>
+	        <div class="demo-progress-stat">{{row.personKindfirstname}}</div>
 	        
 	      </md-cell>
 	    </ng-container>
 	
-	    <!-- Column Definition: Name -->
-	    <ng-container cdkColumnDef="userName">
-	      <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
-	      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+	    <!-- Column Definition -->
+	    <ng-container cdkColumnDef="personKindlastname">
+	      <md-header-cell *cdkHeaderCellDef> LastName </md-header-cell>
+	      <md-cell *cdkCellDef="let row"> {{row.personKindlastname}} </md-cell>
 	    </ng-container>
 	
-	    <!-- Column Definition: Color -->
-	    <ng-container cdkColumnDef="color">
-	      <md-header-cell *cdkHeaderCellDef>Color</md-header-cell>
-	      <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.color}}</md-cell>
+	    <!-- Column Definition -->
+	    <ng-container cdkColumnDef="personBirthday">
+	      <md-header-cell *cdkHeaderCellDef> Bithday </md-header-cell>
+	      <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.personBirthday}}</md-cell>
 	    </ng-container>
 	    
 	    <!-- Column Definition: Color -->

@@ -6,11 +6,17 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export let LATEST_ID: number = 0;
 
 export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
   edit: string;
+  enp: string;
+  personSurname: string;
+  personKindfirstname: string;
+  personKindlastname: string;
+  personBirthday: string;
+  personLinksmoestablishmentid: string;
+  snils: string;
+  tele2: string;
+  teledom: string;
+  telework: string;
 }
 
 @Injectable()
@@ -26,10 +32,10 @@ export class PeopleDatabase {
   initialize() {
     LATEST_ID = 0;
     this.dataChange.next([]);
-    for (let i = 0; i < 100; i++) { this.addPerson(); }
+    for (let i = 0; i < 10; i++) { this.addPerson(); }
   }
 
-  shuffle(changeReferences: boolean) {
+ /* shuffle(changeReferences: boolean) {
     let copiedData = this.data.slice();
     for (let i = copiedData.length; i; i--) {
       let j = Math.floor(Math.random() * i);
@@ -43,7 +49,8 @@ export class PeopleDatabase {
           name: userData.name,
           progress: userData.progress,
           color: userData.color,
-          edit: userData.edit
+          edit: userData.edit,
+          enp: userData.enp
         };
       });
     }
@@ -51,7 +58,7 @@ export class PeopleDatabase {
     this.dataChange.next(copiedData);
   }
 
-  addPerson() {
+  addPersonTest() {
     const name =
         NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
         NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
@@ -62,7 +69,38 @@ export class PeopleDatabase {
       name: name,
       progress: Math.round(Math.random() * 100).toString(),
       color: COLORS[Math.round(Math.random() * (COLORS.length - 1))],
-      edit: ''
+      edit: '',
+      enp: 'test',
+      personSurname: '',
+	  personKindfirstname: '',
+	  personKindlastname: '',
+	  personBirthday: '',
+	  personLinksmoestablishmentid: '',
+	  snils: '',
+	  tele2: '',
+	  teledom: '',
+	  telework: ''
+    });
+
+    this.dataChange.next(copiedData);
+  }*/
+  
+   addPerson() {
+    const name = 'test name'
+    const copiedData = this.data.slice();
+    
+    copiedData.push({
+      edit: '',
+      enp: 'test',
+      personSurname: 'Sergh',
+	  personKindfirstname: 'Sergh',
+	  personKindlastname: 'Sergh',
+	  personBirthday: '',
+	  personLinksmoestablishmentid: '',
+	  snils: '',
+	  tele2: '',
+	  teledom: '',
+	  telework: ''
     });
 
     this.dataChange.next(copiedData);

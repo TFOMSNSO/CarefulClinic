@@ -15,6 +15,7 @@ import {IMyDpOptions} from 'mydatepicker';
 
 export class SadeaveSearchComponent   implements OnInit{
 
+	private palceholdervalue: string = 'Bithday';
 	public myForm: FormGroup;
 	@ViewChild('sidenav') variable_sidenave: any;
 
@@ -31,7 +32,8 @@ export class SadeaveSearchComponent   implements OnInit{
   
   myDatePickerOptions: IMyDpOptions = {
         // other options...
-        dateFormat: 'dd.mm.yyyy',
+        dateFormat: 'dd.mm.yyyy'
+        
     };
     
   clearDate(): void {

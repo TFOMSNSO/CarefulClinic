@@ -14,7 +14,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 
 
-export type UserProperties = 'userId' | 'userName' | 'progress' | 'color' | 'edit' | undefined;
+export type UserProperties = 'personSurname' | 'personKindfirstname' | 'personKindlastname' | 'personBirthday' | 'edit' | undefined;
+
 
 @Component({
   moduleId: module.id,
@@ -84,11 +85,12 @@ export class ListProphylacticComponent implements OnInit {
   }
 
   connect() {
-    this.displayedColumns = ['userId', 'userName', 'progress', 'color', 'edit'];
+    this.displayedColumns = ['personSurname','personKindfirstname','personKindlastname','personBirthday','edit'];
     this.dataSource = new ProphylacticDataSource(this._peopleDatabase);
     this._peopleDatabase.initialize();
   }
   
+  //execute dialog
   preview(pr:any):void{
 	let cc = {data: pr}  
    this.dialogRef = this.dialog.open(DialogComponent,cc);

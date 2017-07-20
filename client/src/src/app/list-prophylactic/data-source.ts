@@ -24,7 +24,7 @@ export class ProphylacticDataSource extends DataSource<any> {
     
     return Observable.merge(...displayDataChanges).map(() => {
       let data = this._peopleDatabase.data.slice().filter((item: UserData) =>{
-        let srhStr = (item.name + item.color).toLowerCase();
+        let srhStr = (item.personSurname + item.personKindfirstname).toLowerCase();
         return srhStr.indexOf(this.filter.toLowerCase()) != -1;
       });
 
