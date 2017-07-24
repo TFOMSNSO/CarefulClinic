@@ -1,5 +1,6 @@
 import { Component,ElementRef,ViewChild } from '@angular/core';
 import { SidenaveSearchService } from './sidenave-search.service';
+import { PeopleDatabase } from './people-database';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
@@ -19,7 +20,8 @@ export class SadeaveSearchComponent   implements OnInit{
 	public myForm: FormGroup;
 	@ViewChild('sidenav') variable_sidenave: any;
 
-	constructor(private sidenaveSearchService: SidenaveSearchService,private formBuilder: FormBuilder){}
+	constructor(private sidenaveSearchService: SidenaveSearchService,private formBuilder: FormBuilder,
+				private personSearchIsurService: PeopleDatabase){}
 	
 	 ngOnInit() {
 	    this.myForm =  this.formBuilder.group({
@@ -51,7 +53,8 @@ export class SadeaveSearchComponent   implements OnInit{
  
  searchPerson(form: any): void{
  	form.value.bithday = form.value.bithday.formatted; 
-  	this.sidenaveSearchService.searchPersonGer(form.value);
+  	//this.sidenaveSearchService.searchPersonGer(form.value);
+  	this.personSearchIsurService.searchPersonInsur(form.value);
  }
  
  resetForm() {

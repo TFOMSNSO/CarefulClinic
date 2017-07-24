@@ -17,96 +17,134 @@ import java.util.Date;
 @NamedQuery(name="Personadd.findAll", query="SELECT p FROM Personadd p")
 public class Personadd implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	/*tele2: string;
+	  teledom: string;
+	  telework: string;
+	  edit: string;*/
 
 	@Id
 	@Column(name="PERSONADD_ADDRESSID")
+	@JsonIgnore
 	private long personaddAddressid;
 
 	@Column(name="BIRTH_OKSM")
+	@JsonIgnore
 	private String birthOksm;
-
-	private String born;
-
+	
+	
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="D_DATE")
-	private Date dDate;
+	@JsonIgnore
+	private Date d_Date;
 
 	@Column(name="D_NUM")
-	private String dNum;
+	@JsonIgnore
+	private String d_Num;
 
 	@Column(name="D_SER")
-	private String dSer;
+	@JsonIgnore
+	private String d_Ser;
 
 	@Column(name="D_V")
-	private BigDecimal dV;
+	@JsonIgnore
+	private BigDecimal d_V;
+	
 
+	
 	@Temporal(TemporalType.DATE)
+	@JsonIgnore
 	private Date d1;
 
 	@Temporal(TemporalType.DATE)
+	@JsonIgnore
 	private Date d2;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="DATE_PRIK")
+	@JsonIgnore
 	private Date datePrik;
 
 	@Temporal(TemporalType.DATE)
+	@JsonIgnore
 	private Date datepassport;
 
 	@Column(name="DOK_VI")
+	@JsonIgnore
 	private String dokVi;
-
+	
+	@JsonIgnore
 	private String email;
-
+	
+	@JsonIgnore
 	private String enp;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="ENP_DATE")
+	@JsonIgnore
 	private Date enpDate;
-
+	
+	@JsonIgnore
 	private BigDecimal fpolic;
 
+	@JsonIgnore
 	private BigDecimal kateg;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="LAST_DR")
+	@JsonIgnore
 	private Date lastDr;
 
 	@Column(name="LAST_FAM")
+	@JsonIgnore
 	private String lastFam;
 
 	@Column(name="LAST_IM")
+	@JsonIgnore
 	private String lastIm;
 
 	@Column(name="LAST_OT")
+	@JsonIgnore
 	private String lastOt;
 
+	@JsonIgnore
 	private BigDecimal method;
 
 	@Column(name="PERSONADD_PRIM")
+	@JsonIgnore
 	private String personaddPrim;
 
+	@JsonIgnore
 	private BigDecimal petition;
 
 	@Column(name="PR_ADRES")
+	@JsonIgnore
 	private String prAdres;
 
 	@Column(name="PR_FAM")
+	@JsonIgnore
 	private String prFam;
 
 	@Column(name="PR_IM")
+	@JsonIgnore
 	private String prIm;
 
 	@Column(name="PR_OT")
+	@JsonIgnore
 	private String prOt;
 
 	@Column(name="PR_TEL")
+	@JsonIgnore
 	private String prTel;
 
+	@JsonIgnore
 	private BigDecimal pred;
 
+	@JsonIgnore
 	private BigDecimal russian;
 
+	@JsonIgnore
 	private String snils;
 
 	private String tele2;
@@ -117,22 +155,31 @@ public class Personadd implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="VS_DATE")
+	@JsonIgnore
 	private Date vsDate;
 
 	@Column(name="VS_NUM")
+	@JsonIgnore
 	private String vsNum;
 
+	@JsonIgnore
 	private BigDecimal za;
 
 	@Temporal(TemporalType.DATE)
+	@JsonIgnore
 	private Date zad;
 
+	@JsonIgnore
 	private BigDecimal zap;
 
 	//bi-directional one-to-one association to Person
 	@OneToOne(mappedBy="personadd")
 	@JsonIgnore
 	private Person person;
+	
+	@Column(name="BORN")
+	@JsonIgnore
+	private String born;
 
 	public Personadd() {
 	}
@@ -161,36 +208,37 @@ public class Personadd implements Serializable {
 		this.born = born;
 	}
 
+	@JsonIgnore
 	public Date getDDate() {
-		return this.dDate;
+		return this.d_Date;
 	}
 
-	public void setDDate(Date dDate) {
-		this.dDate = dDate;
+	public void setDDate(Date d_Date) {
+		this.d_Date = d_Date;
 	}
-
+	@JsonIgnore
 	public String getDNum() {
-		return this.dNum;
+		return this.d_Num;
 	}
 
-	public void setDNum(String dNum) {
-		this.dNum = dNum;
+	public void setDNum(String d_Num) {
+		this.d_Num = d_Num;
 	}
-
+	@JsonIgnore
 	public String getDSer() {
-		return this.dSer;
+		return this.d_Ser;
 	}
 
-	public void setDSer(String dSer) {
-		this.dSer = dSer;
+	public void setDSer(String d_Ser) {
+		this.d_Ser = d_Ser;
 	}
-
+	@JsonIgnore
 	public BigDecimal getDV() {
-		return this.dV;
+		return this.d_V;
 	}
 
-	public void setDV(BigDecimal dV) {
-		this.dV = dV;
+	public void setDV(BigDecimal d_V) {
+		this.d_V = d_V;
 	}
 
 	public Date getD1() {
@@ -475,13 +523,13 @@ public class Personadd implements Serializable {
 		builder.append(", born=");
 		builder.append(born);
 		builder.append(", dDate=");
-		builder.append(dDate);
+		builder.append(d_Date);
 		builder.append(", dNum=");
-		builder.append(dNum);
+		builder.append(d_Num);
 		builder.append(", dSer=");
-		builder.append(dSer);
+		builder.append(d_Ser);
 		builder.append(", dV=");
-		builder.append(dV);
+		builder.append(d_V);
 		builder.append(", d1=");
 		builder.append(d1);
 		builder.append(", d2=");

@@ -7,7 +7,7 @@
 	  </md-card-title>
   </md-card-header>
    <md-card-content formArrayName="questions_list">
-      <md-list *ngFor="let question of myForm.controls.questions_list; let i=index">
+      <md-list *ngFor="let question of myForm.controls.questions_list.controls; let i=index">
      <p  [formGroupName]="i" @questionsAnim>
       
       	  <md-select  class='full-width required' placeholder="{{questions_rest[i].question}}" formControlName="question">

@@ -1,7 +1,180 @@
-<h1 md-dialog-title>Dialog</h1>
-<div md-dialog-content>What would you like to do?</div>
+<!-- { "personBirthday": "20.07.1986", "personKindfirstname": "ÑÅÐÃÅÉ", "personKindlastname": "ÐÎÌÀÍÎÂÈ×", "personLinksmoestablishmentid": 4, "personSurname": "ÏÛËÛÏÈÂ", "personadd": { "tele2": null, "teledom": "89132053828", "telework": null } } -->
+
+
+<h2 md-dialog-title>{{title}}</h2>
+<md-dialog-content>
+<md-tab-group color="primary" (selectChange)="check($event)">
+  <md-tab label="{{tab1}}">
+  
+  <md-list>
+	  <table cellspacing="0">
+	  <tr>
+	    <td>
+		     <md-list-item>
+	    	  	<!-- <img md-list-avatar src="app/list-prophylactic/icon/ic_account_box_black_48dp_1x.png" alt="Desc 1"> -->
+				<md-input-container>
+		      		<input mdInput placeholder="{{surname}}" value="{{data.personSurname}}">
+		    	</md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data.personKindfirstname}}" placeholder="{{firstname}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data.personKindlastname}}" placeholder="{{lastname}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    </tr>
+	    <tr>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data.years}}" placeholder="{{t_years}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data.personBirthday}}" placeholder="{{bithday}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	  	 <td  *ngIf="data.personadd.tele2">
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data.personadd.tele2}}" placeholder="{{telefon}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td  *ngIf="data.personadd.teledom">
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data.personadd.teledom}}" placeholder="{{telefon}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td  *ngIf="data.personadd.telework">
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data.personadd.telework}}" placeholder="{{telefon}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	  </tr>
+	  </table>
+  </md-list>
+  
+	  
+  </md-tab>
+  <md-tab  label="{{tab2}}"><div [@toggle]="show" 
+        (@toggle.start)="animationStarted($event)"
+        (@toggle.done)="animationDone($event)"
+     *ngIf="show" ><md-spinner style="margin:auto;"></md-spinner></div><div [@toggle]="!show" *ngIf="!show">
+     <!-- {{data_ger | json}}
+     { "start_date_etap1": "null", "end_date_etap1": "null", "start_date_etap2": "null", "end_date_etap2": "null", "ref_id_person": "6164625", "pm_god": "2017", "pm_kvartal": "null", "adress": "îáë. Íîâîñèáèðñêàÿ ã. Îáü ïåð. Ñîëíå÷íûé ä. 5", "tel": "null", "pm_result": "-1", "pm_HOSPITAL_RESULT": "540651" } -->
+     <table cellspacing="0">
+	  <tr>
+	    <td>
+		     <md-list-item>
+				<md-input-container>
+		      		<input mdInput placeholder="{{start_date_etap1}}" value="{{data_ger.start_date_etap1}}">
+		    	</md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.end_date_etap1}}" placeholder="{{end_date_etap1}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    </tr>
+	    <tr>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.start_date_etap2}}" placeholder="{{start_date_etap2}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.end_date_etap2}}" placeholder="{{end_date_etap2}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	 </tr>
+	 <tr>
+	 	<td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.ref_id_person}}" placeholder="{{ref_id_person}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.pm_god}}" placeholder="{{pm_god}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.pm_kvartal}}" placeholder="{{pm_kvartal}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	 </tr>
+	 <tr>
+	 	<td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.tel}}" placeholder="{{tel}}">
+			    </md-input-container>
+		    </md-list-item>
+	 	</td>
+	 	<td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.pm_result}}" placeholder="{{pm_result}}">
+			    </md-input-container>
+		    </md-list-item>
+	 	</td>
+	 	<td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_ger.pm_HOSPITAL_RESULT}}" placeholder="{{PM_HOSPITAL_RESULT}}">
+			    </md-input-container>
+		    </md-list-item>
+	 	</td>
+	 </tr>
+	    </table>
+	    
+		    <md-list-item>
+			    <md-input-container class="full-width">
+			      <textarea mdInput placeholder="{{adress}}">{{data_ger.adress}}</textarea>
+			    </md-input-container>
+		    </md-list-item>
+
+     </div>
+     </md-tab>
+  <md-tab  label="{{tab3}}"></md-tab>
+</md-tab-group>
+</md-dialog-content>
 <div md-dialog-actions>
-  <button md-button md-dialog-close="Option 1">Option 1</button>
-  <button md-button md-dialog-close="Option 2">Option 2</button>
+  <button md-raised-button color="accent" md-dialog-close="Option 1">{{ close_card}}</button>
 </div>
+
+
 

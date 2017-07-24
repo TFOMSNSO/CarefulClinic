@@ -90,9 +90,25 @@ export class ListProphylacticComponent implements OnInit {
     this._peopleDatabase.initialize();
   }
   
+  
+  
   //execute dialog
   preview(pr:any):void{
-	let cc = {data: pr}  
+	let cc = {
+				disableClose: true,
+			    panelClass: 'custom-overlay-pane-class',
+			    hasBackdrop: true,
+			    backdropClass: '',
+			    width: '70%',
+			    height: '500px',
+			    position: {
+			      top: '',
+			      bottom: '',
+			      left: '',
+			      right: ''
+			    },
+				data: pr
+	}  
    this.dialogRef = this.dialog.open(DialogComponent,cc);
    // dialogRef.afterClosed().subscribe(result => {
      // this.selectedOption = result;
@@ -103,7 +119,6 @@ export class ListProphylacticComponent implements OnInit {
         return val;
 	});
 	
-	console.log('test\n'+result);
   }
 
 

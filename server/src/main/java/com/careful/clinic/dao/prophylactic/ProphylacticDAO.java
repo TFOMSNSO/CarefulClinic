@@ -42,9 +42,53 @@ public class ProphylacticDAO {
     private EntityManager em_developer;
 	
 	
+	public Collection<?> getInfoInsur(PersonModel personmodel) throws ParseException{
+		
+		TypedQuery<Person> query = em_developer.createNamedQuery("Person.findByFIOD", Person.class)
+        		
+				.setParameter("personSurname", personmodel.getSurname().toUpperCase())
+				.setParameter("personKindfirstname", personmodel.getFirstname().toUpperCase())
+				.setParameter("personKindlastname", personmodel.getLastname().toUpperCase())
+				.setParameter("personBirthday", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
+		
+		return query.getResultList();
+		
+	}
+	
+	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException{
+		
+		StoredProcedureQuery storedProcedure =  em_dream2.createStoredProcedureQuery("sys.connect_mis.disp_fiod");
+        
+        storedProcedure.registerStoredProcedureParameter("response",String.class, ParameterMode.OUT);
+        
+        storedProcedure.registerStoredProcedureParameter("surname",String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("firstname",String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("lastname",String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("datebythday",String.class, ParameterMode.IN);
+        
+        storedProcedure.setParameter("surname", personmodel.getSurname());
+        storedProcedure.setParameter("firstname", personmodel.getFirstname());
+        storedProcedure.setParameter("lastname", personmodel.getLastname());
+        storedProcedure.setParameter("datebythday", personmodel.getBithday());
+
+        storedProcedure.execute();
+
+        String respXml = (String)storedProcedure.getOutputParameterValue("response");
+        //em_dream2.getTransaction().commit();
+        // java.lang.NullPointerException
+        ResponseGer rGer = parseResponse(respXml);
+        List<ResponseGer> ls = new ArrayList<ResponseGer>(1);
+        ls.add(rGer);
+
+		
+		return ls;
+		
+	}
+	
+	
 	public Collection<?> getInfoProphylactic(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException{
 		
-		//em_developer.getTransaction();
+
         TypedQuery<Person> query = em_developer.createNamedQuery("Person.findByFIOD", Person.class)
         		
         							.setParameter("personSurname", personmodel.getSurname().toUpperCase())
@@ -52,7 +96,7 @@ public class ProphylacticDAO {
         							.setParameter("personKindlastname", personmodel.getLastname().toUpperCase())
         							.setParameter("personBirthday", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
         List<Person> results = query.getResultList();
-        System.out.println("TEST1 "+results);
+        
         /*
          *******************************************************
         */

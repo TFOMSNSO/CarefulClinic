@@ -2,6 +2,10 @@ package com.careful.clinic.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -20,42 +24,65 @@ import java.util.Date;
 })
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	  /*enp: string;
+	   * 
+	  personSurname: string;
+	  personKindfirstname: string;
+	  personKindlastname: string;
+	  personBirthday: string;
+	  personLinksmoestablishmentid: string;
+	  tele2: string;
+	  teledom: string;
+	  telework: string;
+	  edit: string;*/
 
 	@Id
+	@JsonIgnore
 	private String enp;
 
-	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
+	//@Temporal(TemporalType.DATE)
 	@Column(name="PERSON_BIRTHDAY")
 	private Date personBirthday;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="PERSON_DATECHANGE")
+	@JsonIgnore
 	private Date personDatechange;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="PERSON_DATEINPUT")
+	@JsonIgnore
 	private Date personDateinput;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="PERSON_DATEPOLICY")
+	@JsonIgnore
 	private Date personDatepolicy;
 
 	@Column(name="PERSON_DOCPERSONID")
+	@JsonIgnore
 	private BigDecimal personDocpersonid;
 
 	@Column(name="PERSON_ESTABLISHMENTAMBUL")
+	@JsonIgnore
 	private BigDecimal personEstablishmentambul;
 
 	@Column(name="PERSON_ESTABLISHMENTDENT")
+	@JsonIgnore
 	private BigDecimal personEstablishmentdent;
 
 	@Column(name="PERSON_ESTABLISHMENTID")
+	@JsonIgnore
 	private BigDecimal personEstablishmentid;
 
 	@Column(name="PERSON_INSPECTION")
+	@JsonIgnore
 	private BigDecimal personInspection;
 
 	@Column(name="PERSON_INSPECTORID")
+	@JsonIgnore
 	private BigDecimal personInspectorid;
 
 	@Column(name="PERSON_KINDFIRSTNAME")
@@ -68,42 +95,54 @@ public class Person implements Serializable {
 	private BigDecimal personLinksmoestablishmentid;
 
 	@Column(name="PERSON_NUMDOC")
+	@JsonIgnore
 	private String personNumdoc;
 
 	@Column(name="PERSON_NUMPOLICY")
+	@JsonIgnore
 	private String personNumpolicy;
 
 	@Column(name="PERSON_OPERATION")
+	@JsonIgnore
 	private BigDecimal personOperation;
 
 	@Column(name="PERSON_OUTID")
+	@JsonIgnore
 	private BigDecimal personOutid;
 
 	@Column(name="PERSON_REGNUMBER")
+	@JsonIgnore
 	private String personRegnumber;
 
 	@Column(name="PERSON_SERDOC")
+	@JsonIgnore
 	private String personSerdoc;
 
 	@Column(name="PERSON_SERPOLICY")
+	@JsonIgnore
 	private String personSerpolicy;
 
 	@Column(name="PERSON_SEX")
+	@JsonIgnore
 	private String personSex;
 
 	@Column(name="PERSON_SOCIALID")
+	@JsonIgnore
 	private BigDecimal personSocialid;
 
 	@Column(name="PERSON_STATUSID")
+	@JsonIgnore
 	private BigDecimal personStatusid;
 
 	@Column(name="PERSON_STATUSREC")
+	@JsonIgnore
 	private BigDecimal personStatusrec;
 
 	@Column(name="PERSON_SURNAME")
 	private String personSurname;
 
 	@Column(name="SMO_OLD")
+	@JsonIgnore
 	private BigDecimal smoOld;
 
 	//bi-directional one-to-one association to Personadd

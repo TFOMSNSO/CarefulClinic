@@ -31,6 +31,15 @@ public class RestServiceProphylactic {
 	ProphylacticDAO prophylacticDAO;
 	
 	
+	/**
+	 * Одновременный поиск в ГЭР и РСЕРЗ
+	 * @param personmodel критерии поиска
+	 * @return Коллекция, где первым элементом является объект из базы застрахованных, вторым элементом объект из гэра  
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	@POST
 	@Path("/search_person_ger")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -42,5 +51,42 @@ public class RestServiceProphylactic {
 		return df;
 
 	}
+	
+	
+	/**
+	 * Поиск в базе застрахованных (РС ЕРЗ)
+	 * @param personmodel критерии поиска
+	 * @return объект из базы застрахованных.
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	@POST
+	@Path("/search_person_insur")
+	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> searchInsur(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
+		
+		List<?> df = (List<?>) prophylacticDAO.getInfoInsur(personmodel);
+		
+		return df;
+
+	}
+	
+	
+	
+	@POST
+	@Path("/search_ger")
+	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> searchG(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
+		
+		List<?> df = (List<?>) prophylacticDAO.getInfoG(personmodel);
+		
+		return df;
+
+	}
+
 
 }
