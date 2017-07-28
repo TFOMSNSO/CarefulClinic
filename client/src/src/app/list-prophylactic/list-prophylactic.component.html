@@ -1,29 +1,30 @@
 <md-card [@flyInOut]="'in'">
-<sidenav-component #var_sidenav></sidenav-component>
+<sidenav-component #var_sidenav (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-component>
 
 <md-sidenav-container class="example-container">
   
 	<md-list>
-		<md-card-title>Prophylactic examination of the population </md-card-title>
+		<md-card-title>{{lists_insur}}</md-card-title>
 		<md-card-header>
 			 <table-header (filterOut)="getNotify($event)"></table-header>
-			 <button id="btn_header" (click)="var_sidenav.open()" md-fab><md-icon>add</md-icon></button>
+			 <button id="btn_header"  (click)="var_sidenav.open()" md-fab><md-icon>add</md-icon></button>
 		</md-card-header>
 	</md-list>
 </md-sidenav-container>	
 
-<md-card-content @questionsAnim> 
+<md-card-content @questionsAnim>
+	<md-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></md-progress-bar> 
 	<md-table [dataSource]="dataSource" class="full-width">
 	
 		 <!-- Column Definition:  -->
 	    <ng-container  cdkColumnDef="personSurname">
-	      <md-header-cell *cdkHeaderCellDef> Surname </md-header-cell>
+	      <md-header-cell *cdkHeaderCellDef>{{surname}}</md-header-cell>
 	      <md-cell *cdkCellDef="let row"> {{row.personSurname}} </md-cell>
 	    </ng-container>
 	
 	    <!-- Column Definition:  -->
 	    <ng-container cdkColumnDef="personKindfirstname">
-	      <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
+	      <md-header-cell *cdkHeaderCellDef>{{firstname}}</md-header-cell>
 	      <md-cell *cdkCellDef="let row">
 	        <div class="demo-progress-stat">{{row.personKindfirstname}}</div>
 	        
@@ -32,19 +33,24 @@
 	
 	    <!-- Column Definition -->
 	    <ng-container cdkColumnDef="personKindlastname">
-	      <md-header-cell *cdkHeaderCellDef> LastName </md-header-cell>
+	      <md-header-cell *cdkHeaderCellDef>{{lastname}}</md-header-cell>
 	      <md-cell *cdkCellDef="let row"> {{row.personKindlastname}} </md-cell>
 	    </ng-container>
 	
 	    <!-- Column Definition -->
 	    <ng-container cdkColumnDef="personBirthday">
-	      <md-header-cell *cdkHeaderCellDef> Bithday </md-header-cell>
-	      <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.personBirthday}}</md-cell>
+	      <md-header-cell *cdkHeaderCellDef>{{bithday}}</md-header-cell>
+	      <md-cell *cdkCellDef="let row"> {{row.personBirthday}}</md-cell>
+	    </ng-container>
+	    <!-- Column Definition -->
+	    <ng-container cdkColumnDef="personYears">
+	      <md-header-cell *cdkHeaderCellDef>{{ t_years}}</md-header-cell>
+	      <md-cell *cdkCellDef="let row" > {{row.years}}</md-cell>
 	    </ng-container>
 	    
 	    <!-- Column Definition: Color -->
 	    <ng-container cdkColumnDef="edit">
-	      <md-header-cell *cdkHeaderCellDef>Edit</md-header-cell>
+	      <md-header-cell *cdkHeaderCellDef></md-header-cell>
 	      <md-cell *cdkCellDef="let row" [style.color]="darkgray" (click)="preview(row)"><md-icon>edit</md-icon></md-cell>
 	    </ng-container>
 	    
@@ -52,5 +58,6 @@
 		<md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
 	    <md-row  *cdkRowDef="let row; columns: displayedColumns"></md-row>
 	</md-table>
+	
 </md-card-content>
 </md-card>

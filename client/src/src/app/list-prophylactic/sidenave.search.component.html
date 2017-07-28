@@ -3,48 +3,44 @@
 		<form [formGroup]="myForm" novalidate (ngSubmit)="searchPerson(myForm);resetForm();sidenav.close()">
 		<md-card-title>
 			<md-toolbar color="primary" class="mat-elevation-z10">
-	      		Search
+	      		{{serch_form}}
 	    	</md-toolbar>
 		</md-card-title>
-		<md-card>
+		<md-card style="box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0), 0 2px 2px 0 rgba(0, 0, 0, 0),0 1px 5px 0 rgba(0, 0, 0, 0);">
 			<md-card-header>
       			<md-card-title>
-      				Some text for careFull clinic of Novosibirsk TFOMS
+      				<!-- Some text for careFull clinic of Novosibirsk TFOMS -->
 	  			</md-card-title>
   			</md-card-header>
   			
   			<md-card-content>
   				<md-input-container style="width: 40%">
-  					<input mdInput placeholder="Surname" formControlName="surname">
-  					<md-error>This field is required</md-error>
+  					<input mdInput placeholder="{{surname}}"  formControlName="surname">
+  					<md-error>{{field_is_required}}</md-error>
   				</md-input-container><br/>
   				<md-input-container style="width: 60%">	
-  					<input mdInput placeholder="Firstname" formControlName="firstname">
-  					<md-error>This field is required</md-error>
+  					<input mdInput placeholder="{{firstname}}"  formControlName="firstname">
+  					<md-error>{{field_is_required}}</md-error>
   				</md-input-container><br/>
   				<md-input-container style="width: 80%">	
-  					<input mdInput placeholder="Laststname" formControlName="lastname">
-  					<md-error>This field is required</md-error>
+  					<input mdInput placeholder="{{lastname}}"  formControlName="lastname">
+  					<md-error>{{field_is_required}}</md-error>
   				</md-input-container><br/>
-  				<!-- <md-input-container style="width: 100%"> -->
-					<!-- <input mdInput [mdDatepicker]="picker" placeholder="Date response" formControlName="bithday">
-	   				<button mdSuffix [mdDatepickerToggle]="picker"></button>
-	   				<md-datepicker #picker></md-datepicker> -->
-	   				<br/>
-	   				 <my-date-picker [placeholder]="palceholdervalue"  name="bithday" [options]="myDatePickerOptions" formControlName="bithday"></my-date-picker>
+  					<br/>
+	   				 <my-date-picker [placeholder]="bithday"  name="bithday" [options]="myDatePickerOptions" formControlName="bithday"></my-date-picker>
 	   				 <span *ngIf="!myForm.controls.bithday.valid" class="help-block text-danger">
-	   				 	<md-error>This field is required</md-error>
+	   				 	<md-error>{{field_is_required}}</md-error>
 	   				 </span> 
 	   				
   				<!-- </md-input-container> -->
   			</md-card-content>
   			
-  		</md-card>
-  		<md-card id='lastblocksearch'>	
-  			<md-card-actions>
-  				<button type='submit' md-raised-button color='primary'[disabled]="!myForm.valid">Search</button>
-  				<button type='button' md-raised-button color='primary' (click)="resetForm()">Reset</button>
-  				<button type='button' md-raised-button color='warn' (click)="sidenav.close()">Cancel</button>
+  		<!-- </md-card>
+  		<md-card id='lastblocksearch'> -->	
+  			<md-card-actions id='lastblocksearch'>
+  				<button type='submit' md-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
+  				<button type='button' md-raised-button color='primary' (click)="resetForm()">{{reset}}</button>
+  				<button type='button' md-raised-button color='warn' (click)="sidenav.close()">{{cancel}}</button>
   	 		</md-card-actions>
   	 	</md-card>
 		</form>

@@ -1,9 +1,10 @@
-import { Component,ElementRef,ViewChild } from '@angular/core';
+import { Component,ElementRef,ViewChild,Output, EventEmitter} from '@angular/core';
 import { SidenaveSearchService } from './sidenave-search.service';
 import { PeopleDatabase } from './people-database';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
+import {environment} from '../../environments/environment';
 
 @Component({
   moduleId: module.id,
@@ -16,12 +17,24 @@ import {IMyDpOptions} from 'mydatepicker';
 
 export class SadeaveSearchComponent   implements OnInit{
 
-	private palceholdervalue: string = 'Bithday';
+	reset: string = environment.reset;
+	cancel: string = environment.cancel;
+	field_is_required: string = environment.field_is_required;
+	serch_form: string = environment.serch_form;
+	surname: string = environment.surname;
+	firstname : string = environment.firstname;
+	lastname : string = environment.lastname;
+	bithday : string = environment.bithday;
 	public myForm: FormGroup;
+	
 	@ViewChild('sidenav') variable_sidenave: any;
-
-	constructor(private sidenaveSearchService: SidenaveSearchService,private formBuilder: FormBuilder,
-				private personSearchIsurService: PeopleDatabase){}
+	@Output() progress_bar_emit: EventEmitter<any> = new EventEmitter<any>();
+	
+	constructor(private sidenaveSearchService: SidenaveSearchService,
+					private formBuilder: FormBuilder,
+					private personSearchIsurService: PeopleDatabase){}
+					
+			
 	
 	 ngOnInit() {
 	    this.myForm =  this.formBuilder.group({
@@ -52,9 +65,15 @@ export class SadeaveSearchComponent   implements OnInit{
  }
  
  searchPerson(form: any): void{
+ 	this.progress_bar_emit.emit({note: 'true', result:''});
  	form.value.bithday = form.value.bithday.formatted; 
   	//this.sidenaveSearchService.searchPersonGer(form.value);
-  	this.personSearchIsurService.searchPersonInsur(form.value);
+  	this.personSearchIsurService.searchPersonInsur(form.value)
+  	.then(result =>{
+  	//console.log('cxcx '+result);
+  	//result === 0 ? alert('ЗЛ отсутвует'):''
+  		this.progress_bar_emit.emit({note :'false', result: result});
+  	})
  }
  
  resetForm() {

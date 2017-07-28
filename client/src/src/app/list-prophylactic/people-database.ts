@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import {environment} from '../../environments/environment';
 
 
+
 export let LATEST_ID: number = 0;
 
 export interface UserData {
@@ -18,6 +19,7 @@ export interface UserData {
   personLinksmoestablishmentid: string;
   edit: string;
   years: string;
+  personEstablishmentambul: string;
 	  personadd:{
 		  tele2: string;
 		  teledom: string;
@@ -38,6 +40,7 @@ export interface UserData {
 
 @Injectable()
 export class PeopleDatabase {
+  
   dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
 
   get data(): UserData[] { return this.dataChange.value; }
@@ -47,16 +50,36 @@ export class PeopleDatabase {
       this.initialize();
   }
   
+  private handleError(error: any): Promise<any> {
+  console.error('An error occurred', error); // for demo purposes only
+  return Promise.reject(error.message || error);
+}
+  
   searchPersonInsur(per_data: any): Promise<any> {
 	let headers = new Headers({'Content-Type': 'application/json'});
 	return this.http
 	  .post(this.serverUrl + '/search_person_insur', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
-	  //.then(res => console.log('test form' +JSON.stringify(res.json())))
-	  .then(res =>{ 
-					this.addPerson_t(res.json()[0]);
-	  })
+	  .then(res =>res.json().length != 0 ? this.addPerson_t(res.json()[0]) : res.json().length)
+	  .catch(this.handleError);
   }
+  searchPersonInformir(per_data: any): Promise<any[]> {
+	let headers = new Headers({'Content-Type': 'application/json'});
+	return this.http
+	  .post(this.serverUrl + '/search_informed', JSON.stringify(per_data), {headers: headers})
+	  .toPromise()
+	  .then(res => res.json())
+	  
+  }
+    searchPlanPersonInformir(adressid: string): Promise<any[]> {
+	let headers = new Headers({'Content-Type': 'application/json'});
+	return this.http
+	  .post(this.serverUrl + '/search_plan_informed/'+adressid,null,{headers: headers})
+	  .toPromise()
+	  .then(res => res.json())
+  }
+
+  
   searchPersonGer(per_data: any): Promise<any> {
 	let headers = new Headers({'Content-Type': 'application/json'});
 	
@@ -120,4 +143,8 @@ addPerson_t(data: any) {
 
     this.dataChange.next(copiedData);
   }*/
+  
+  
+  
+  
 }

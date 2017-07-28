@@ -1,12 +1,17 @@
 <!-- { "personBirthday": "20.07.1986", "personKindfirstname": "ÑÅÐÃÅÉ", "personKindlastname": "ÐÎÌÀÍÎÂÈ×", "personLinksmoestablishmentid": 4, "personSurname": "ÏÛËÛÏÈÂ", "personadd": { "tele2": null, "teledom": "89132053828", "telework": null } } -->
 
-
-<h2 md-dialog-title>{{title}}</h2>
-<md-dialog-content>
+<md-toolbar color="primary">
+	    <span>{{title}}</span><br>
+	    <md-dialog-actions>
+ 			<button md-raised-button color="accent" md-dialog-close="Option 1">{{ close_card}}</button>
+		</md-dialog-actions> 
+</md-toolbar>
 <md-tab-group color="primary" (selectChange)="check($event)">
-  <md-tab label="{{tab1}}">
+
+  <md-tab id="tab1" label="{{tab1}}">
   
-  <md-list>
+  <md-card>
+  <md-card-content> 
 	  <table cellspacing="0">
 	  <tr>
 	    <td>
@@ -69,17 +74,26 @@
 		    </md-list-item>
 	    </td>
 	  </tr>
+	  <tr>
+		  <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="540{{data.personEstablishmentambul}}" placeholder="{{PM_HOSPITAL_RESULT}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	 </tr>
 	  </table>
-  </md-list>
+	  </md-card-content>
+  </md-card>
   
 	  
   </md-tab>
   <md-tab  label="{{tab2}}"><div [@toggle]="show" 
         (@toggle.start)="animationStarted($event)"
         (@toggle.done)="animationDone($event)"
-     *ngIf="show" ><md-spinner style="margin:auto;"></md-spinner></div><div [@toggle]="!show" *ngIf="!show">
-     <!-- {{data_ger | json}}
-     { "start_date_etap1": "null", "end_date_etap1": "null", "start_date_etap2": "null", "end_date_etap2": "null", "ref_id_person": "6164625", "pm_god": "2017", "pm_kvartal": "null", "adress": "îáë. Íîâîñèáèðñêàÿ ã. Îáü ïåð. Ñîëíå÷íûé ä. 5", "tel": "null", "pm_result": "-1", "pm_HOSPITAL_RESULT": "540651" } -->
+     *ngIf="show" ><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></div><div [@toggle]="!show" *ngIf="!show">
+     
      <table cellspacing="0">
 	  <tr>
 	    <td>
@@ -169,12 +183,71 @@
 
      </div>
      </md-tab>
-  <md-tab  label="{{tab3}}"></md-tab>
+  <md-tab  label="{{tab3}}">
+  <div *ngIf="data_informir.length > 0; else other_content" >
+  <table>
+    <tr>
+	    <td>
+		     <md-list-item>
+				<md-input-container>
+		      		<input mdInput placeholder="{{surname}}" value="{{data_informir[0].fam}}">
+		    	</md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_informir[0].im}}" placeholder="{{firstname}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    <td>
+		    <md-list-item>
+			    <md-input-container>
+			      <input mdInput value="{{data_informir[0].ot}}" placeholder="{{lastname}}">
+			    </md-input-container>
+		    </md-list-item>
+	    </td>
+	    </tr>
+  </table>
+  <table cellspacing="0" *ngFor="let data of data_informir">
+	    <tr>
+		    <td>
+			    <md-list-item>
+				    <md-input-container>
+				      <input mdInput value="{{data.nstage}}" placeholder="{{nstage}}">
+				    </md-input-container>
+			    </md-list-item>
+		    </td>
+		    <td>
+			    <md-list-item>
+				    <md-input-container>
+				      <input mdInput value="{{data.tinfo}}" placeholder="{{tinfo}}">
+				    </md-input-container>
+			    </md-list-item>
+		    </td>
+    	    <td>
+			    <md-list-item>
+				    <md-input-container>
+				      <input mdInput value="{{data.dinfo}}" placeholder="{{dinfo}}">
+				    </md-input-container>
+			    </md-list-item>
+		    </td>
+	    </tr>
+  </table>
+  </div>
+  <ng-template #other_content>
+  	<div *ngIf="flag_informed; else date_note"><h1><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></h1></div>
+  	<ng-template #date_note><md-error><h3>{{data_not_found}}</h3></md-error></ng-template>
+  </ng-template>
+  
+  <!-- {{data_informir | json}} -->
+  <!-- <h1>{{ data_plan_informir | json}}</h1> -->
+  </md-tab>
 </md-tab-group>
-</md-dialog-content>
-<div md-dialog-actions>
-  <button md-raised-button color="accent" md-dialog-close="Option 1">{{ close_card}}</button>
-</div>
 
 
 
+<!-- <div style="margin-left: 20px;" md-dialog-actions> -->
+
+<!-- </div> -->

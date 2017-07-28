@@ -12,9 +12,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
+import {MdSnackBar} from '@angular/material';
+import {environment} from '../../environments/environment';
 
 
-export type UserProperties = 'personSurname' | 'personKindfirstname' | 'personKindlastname' | 'personBirthday' | 'edit' | undefined;
+export type UserProperties = 'personSurname' | 'personKindfirstname' | 'personKindlastname' | 'personBirthday' | 'personYears' | 'edit' | undefined;
 
 
 @Component({
@@ -60,15 +62,43 @@ export type UserProperties = 'personSurname' | 'personKindfirstname' | 'personKi
   
 })
 export class ListProphylacticComponent implements OnInit {
-
+   t_years: string = environment.t_years;
+  lists_insur: string = environment.lists_insur;
+  surname: string = environment.surname;
+  firstname: string = environment.firstname;
+  lastname: string = environment.lastname;
+  bithday: string = environment.bithday;
+  action_add_person = environment.action_add_person;
+  add_table = environment.add_table;
+  bad_action_add_person = environment.bad_action_add_person;
+  
+  progress_bar: boolean = false;
   dataSource: ProphylacticDataSource | null;
   displayedColumns: UserProperties[] = [];
-  constructor(public _peopleDatabase: PeopleDatabase,public dialog: MdDialog) { }
+  constructor(public _peopleDatabase: PeopleDatabase,
+  				  public dialog: MdDialog,
+  				  public snackBar: MdSnackBar) { }
   dialogRef: MdDialogRef<DialogComponent> | null;
   
   
 	getNotify(note:string): void{
 		this.dataSource.filter = note;
+	}
+	
+	handleProgressUpdated($event):void{
+	   this.progress_bar = JSON.parse($event.note);
+	   
+	   // false - флаг закрытия прогресс бара; 0/1 - результат поиска в РС ЕРЗ 
+	   if($event.note === 'false' && $event.result !== 0){
+			   this.snackBar.open(this.action_add_person,this.add_table, {
+		    		 duration: 3000,
+		   		 });
+    	 }
+    	 if($event.note === 'false' && $event.result === 0){
+			   this.snackBar.open(this.bad_action_add_person,undefined, {
+		    		 duration: 4000,
+		   		 });
+    	 }
 	}
   
 
@@ -85,7 +115,7 @@ export class ListProphylacticComponent implements OnInit {
   }
 
   connect() {
-    this.displayedColumns = ['personSurname','personKindfirstname','personKindlastname','personBirthday','edit'];
+    this.displayedColumns = ['personSurname','personKindfirstname','personKindlastname','personBirthday','personYears','edit'];
     this.dataSource = new ProphylacticDataSource(this._peopleDatabase);
     this._peopleDatabase.initialize();
   }

@@ -11,6 +11,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 import { PeopleDatabase } from './people-database';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-list-prophylactic',
@@ -41,37 +42,44 @@ import { trigger,style,transition,animate,keyframes,query,stagger, state } from 
 export class DialogComponent{
  
  
- private title='\u041A\u0430\u0440\u0442\u043E\u0447\u043A\u0430';
- private tab1='\u0414\u0430\u043D\u043D\u044B\u0435 \u0420\u0421 \u0415\u0420\u0417';
- private tab2='\u0414\u0430\u043D\u043D\u044B\u0435 \u0413\u042D\u0420';
- private tab3='\u0418\u043D\u0444\u043E\u0440\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435';
- private surname = '\u0424\u0430\u043C\u0438\u043B\u0438\u044F';
- private firstname = '\u0418\u043C\u044F';
- private lastname = '\u041E\u0442\u0447\u0435\u0441\u0442\u0432\u043E';
- private bithday = '\u0414\u0430\u0442\u0430 \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F';
- private telefon = '\u0422\u0435\u043B\u0435\u0444\u043E\u043D';
- private t_years = '\u041F\u043E\u043B\u043D\u044B\u0445 \u043B\u0435\u0442';
+ title:string = environment.title;
+ tab1: string = environment.tab1;
+ data_not_found: string = environment.data_not_found; 
+ tab2: string = environment.tab2;
+ tab3: string = environment.tab3;
+ surname: string = environment.surname;
+ firstname : string = environment.firstname;
+ lastname : string = environment.lastname;
+ bithday : string = environment.bithday;
+ telefon : string = environment.telefon;
+ t_years : string = environment.t_years;
+ start_date_etap1 : string = environment.start_date_etap1;
+ end_date_etap1 : string = environment.end_date_etap1 ;
+ start_date_etap2 : string = environment.start_date_etap2;
+ end_date_etap2 : string = environment.end_date_etap2;
+ ref_id_person : string = environment.ref_id_person;
+ pm_god : string = environment.pm_god;
+ pm_kvartal : string = environment.pm_kvartal;
+ PM_HOSPITAL_RESULT : string = environment.PM_HOSPITAL_RESULT;
+ adress : string = environment.adress ;
+ tel : string = environment.tel;
+ pm_result : string = environment.pm_result;
+ close_card : string = environment.close_card;
+ nstage : string = environment.nstage;
+ dinfo : string = environment.dinfo ;
+ tinfo : string = environment.tinfo;
  
- private start_date_etap1 = '\u0414\u0430\u0442\u0430 \u043D\u0430\u0447\u0430\u043B\u0430 \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u044D\u0442\u0430\u043F\u0430';
- private end_date_etap1 = '\u0414\u0430\u0442\u0430 \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u043F\u0435\u0440\u0432\u043E\u0433\u043E \u044D\u0442\u0430\u043F\u0430';
- private start_date_etap2 = '\u0414\u0430\u0442\u0430 \u043D\u0430\u0447\u0430\u043B\u0430 \u0432\u0442\u043E\u0440\u043E\u0433\u043E \u044D\u0442\u0430\u043F\u0430';
- private end_date_etap2 = '\u0414\u0430\u0442\u0430 \u043E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u044F \u0432\u0442\u043E\u0440\u043E\u0433\u043E \u044D\u0442\u0430\u043F\u0430';
- private ref_id_person = '\u0418\u0414 \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0430 \u0432 \u0418\u0421 \u0413\u042D\u0420';
- private pm_god = '\u0413\u043E\u0434 \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u0434\u0438\u0441\u043F\u0430\u043D\u0441\u0435\u0440\u0438\u0437\u0430\u0446\u0438\u0438';
- private pm_kvartal = '\u041A\u0432\u0430\u0440\u0442\u0430\u043B \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u0434\u0438\u0441\u043F\u0430\u043D\u0441\u0435\u0440\u0438\u0437\u0430\u0446\u0438\u0438';
- private PM_HOSPITAL_RESULT = '\u041A\u043E\u0434 \u041B\u041F\u0423';
- private adress = '\u0410\u0434\u0440\u0435\u0441 \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0430';
- private tel = '\u0422\u0435\u043B\u0435\u0444\u043E\u043D \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u0430';
- private pm_result = '\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F';
- private close_card = '\u0417\u0430\u043A\u0440\u044B\u0442\u044C';
  
  
  
  
+ private data_ger;
+ private data_plan_informir;
+ private data_informir = [];
  
- private data_ger ;
   @Input() show:boolean = true;
   flag:boolean = true;
+  flag_informed:boolean = true;
   /*@HostListener('document:click')
   onClick(){
     this.show=!this.show;
@@ -94,7 +102,7 @@ export class DialogComponent{
  	
  	// tab 'Данные ГЭР' have the index equal 1
  	if($event.index === 1 && this.flag){
- 	console.log('fff '+this.flag);
+ 	
  	    this.flag =false;
 	 	let data_cust ={
 	 	  surname: this.data.personSurname,
@@ -103,12 +111,52 @@ export class DialogComponent{
 	 	  bithday:this.data.personBirthday
 	 	}
 	 	this.personSearchIsurService.searchPersonGer(data_cust)
-	 	//.then(res => this.data_ger=res);
 	 	.then(result =>{
 	 	 // this.show = 'out';
 	 	 this.show=!this.show;
 	 	  this.data_ger=result;
 	 	});
+ 	}
+ 	
+ 	if($event.index === 2){
+ 	
+	 	let data_cust ={
+		 	  surname: this.data.personSurname,
+		 	  firstname:this.data.personKindfirstname,
+		 	  lastname:this.data.personKindlastname,
+		 	  bithday:this.data.personBirthday
+		 	}
+		 	
+		this.personSearchIsurService.searchPersonInformir(data_cust)
+	 	.then(result =>{
+	 	
+	 		this.personSearchIsurService.searchPlanPersonInformir('623375')
+	 		.then(result_2 =>{ 
+	 			this.data_plan_informir = result_2;
+	 			this.data_informir = result;
+	 			this.flag_informed = false;
+	 			
+	 			for (var index in this.data_informir) {
+	 				   this.data_informir[index].nstage === 0 ?  this.data_informir[index].nstage = environment.no_inform :
+	 				   this.data_informir[index].nstage === 1 ?  this.data_informir[index].nstage = environment.one_part_inform :
+	 				   this.data_informir[index].nstage === 2 ?  this.data_informir[index].nstage = environment.second_part_inform :
+	 				   this.data_informir[index].nstage === 3 ?  this.data_informir[index].nstage = environment.secondory_inform : '';
+	 				   
+	 				   this.data_informir[index].tinfo === 1 ?  this.data_informir[index].tinfo = environment.tinfo_1 :
+	 				   this.data_informir[index].tinfo === 2 ?  this.data_informir[index].tinfo = environment.tinfo_2 :
+	 				   this.data_informir[index].tinfo === 3 ?  this.data_informir[index].tinfo = environment.tinfo_3 :
+	 				   this.data_informir[index].tinfo === 4 ?  this.data_informir[index].tinfo = environment.tinfo_4 :
+	 				   this.data_informir[index].tinfo === 5 ?  this.data_informir[index].tinfo = environment.tinfo_5 :
+	 				   this.data_informir[index].tinfo === 6 ?  this.data_informir[index].tinfo = environment.tinfo_6 :
+	 				   this.data_informir[index].tinfo === 7 ?  this.data_informir[index].tinfo = environment.tinfo_7 : '';
+  					
+				}
+	 			
+	 			
+	 		});
+	 		
+	 		
+	 	}); 	
  	}
  	
  }

@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -70,12 +71,22 @@ public class RestServiceProphylactic {
 		
 		List<?> df = (List<?>) prophylacticDAO.getInfoInsur(personmodel);
 		
-		return df;
+		return	df;
+		
 
 	}
 	
 	
 	
+	/**
+	 * Поиск в базе АИС ГЭР 
+	 * @param personmodel критерии поиска
+	 * @return объект из базы АИС ГЭР.
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	@POST
 	@Path("/search_ger")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -88,5 +99,35 @@ public class RestServiceProphylactic {
 
 	}
 
+	/**
+	 * Поиск в базе информированных
+	 * @param personmodel критерии поиска
+	 * @return объект из базы информированных
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
+	@POST
+	@Path("/search_informed")
+	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> searchInform(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
+		
+		return prophylacticDAO.getInfoInform(personmodel);
+	}
+	
+	
+	@POST
+	@Path("/search_plan_informed/{adressid}")
+	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> searchPlanInform(@PathParam("adressid") String adressid) throws ParserConfigurationException, SAXException, IOException, ParseException {
+		
+		List<?> df = (List<?>) prophylacticDAO.getInfoPlanInform(Integer.valueOf(adressid));
+		
+		return df;
+
+	}
 
 }

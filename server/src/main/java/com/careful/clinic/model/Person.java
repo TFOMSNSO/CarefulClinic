@@ -38,7 +38,7 @@ public class Person implements Serializable {
 	  edit: string;*/
 
 	@Id
-	@JsonIgnore
+	@Column(name="ENP")
 	private String enp;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
@@ -66,7 +66,6 @@ public class Person implements Serializable {
 	private BigDecimal personDocpersonid;
 
 	@Column(name="PERSON_ESTABLISHMENTAMBUL")
-	@JsonIgnore
 	private BigDecimal personEstablishmentambul;
 
 	@Column(name="PERSON_ESTABLISHMENTDENT")
@@ -146,6 +145,7 @@ public class Person implements Serializable {
 	private BigDecimal smoOld;
 
 	//bi-directional one-to-one association to Personadd
+	
 	@OneToOne
 	@JoinColumn(name="PERSON_ADDRESSID")
 	private Personadd personadd;
@@ -153,6 +153,7 @@ public class Person implements Serializable {
 	public Person() {
 	}
 
+	@JsonIgnore
 	public String getEnp() {
 		return this.enp;
 	}

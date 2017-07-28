@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
+import {environment} from '../../environments/environment';
 
 @Component({
     selector:'app-header',
@@ -26,5 +27,5 @@ import { trigger,style,transition,animate,keyframes,query,stagger, state } from 
     ]
 })
 export class HeaderComponent{
-  
+   list_insur_menu: string = environment.list_insur_menu;
 }

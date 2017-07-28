@@ -9,3 +9,68 @@ table tr{
 .full-width {
   width: 100%;
 }
+
+div #md-tab-label-0-0{
+	float:left;
+    width:33.3%;
+    //height: 20px;
+    //background: #ff0000;
+}
+
+#tab2{
+ 	display: inline-block;
+    margin:0 auto;
+    width:33.3%;
+    //height: 20px;
+    //background: #00ff00;
+}
+
+#tab3{
+    float:right;
+    width:33.3%;
+    //height: 20px;
+    //background: #0000ff;
+}
+
+/deep/.mat-tab-label {
+  min-width: 33.33% !important;
+ }
+ 
+/deep/ .mat-dialog-container {
+	 padding: 0;
+	 border-radius: 10px; 
+ }
+ 
+ /deep/.mat-toolbar{
+ 	height:30%;
+ 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+ }
+ 
+ 
+ /deep/ .mat-tab-header{
+     background-color: #efefef;
+     margin-top:7px;
+ }
+ 
+ /deep/ .mat-ink-bar{
+ 	background-color: #ff4081;
+ }    
+
+/deep/ .btn_d{ 
+    position: relative;
+    top: 186%;
+    z-index: 10000;
+    right: 10%;
+ }
+ 
+ /deep/ md-dialog-actions{
+ 	position: relative;
+    bottom: -103px;
+    z-index: 100000;
+    right: 85px;
+ }
+ 
+ /deep/ md-error{
+ 	text-align: center;
+ 	margin-top: 50px;
+}

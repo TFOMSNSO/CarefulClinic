@@ -16,8 +16,8 @@
 --
 
 -- You can use this file to load seed data into the database using SQL statements
-insert into MemberHibernate4Demo (id, name) values (1, 'John Smith') 
-insert into MemberHibernate4Demo (id, name) values (2, 'Madhumita Sadhukhan') 
+--insert into MemberHibernate4Demo (id, name) values (1, 'John Smith') 
+--insert into MemberHibernate4Demo (id, name) values (2, 'Madhumita Sadhukhan') 
 
 insert into Questions (id, question) values (1, 'Возраст')
 insert into Questions (id, question) values (2, 'Пол')

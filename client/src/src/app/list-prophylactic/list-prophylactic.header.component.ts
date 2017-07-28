@@ -1,4 +1,5 @@
 import { Component,ViewChild,Output,ElementRef,EventEmitter} from '@angular/core';
+import {environment} from '../../environments/environment';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { Component,ViewChild,Output,ElementRef,EventEmitter} from '@angular/core
   
   
   export class ListProphylacticHeaderComponent {
+    search : string = environment.search_table;
   	@ViewChild('filter') filter: ElementRef;
   	@Output() filterOut: EventEmitter<any> = new EventEmitter<any>();
   	

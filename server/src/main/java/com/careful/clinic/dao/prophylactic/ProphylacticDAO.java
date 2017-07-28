@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,6 +17,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
 import javax.xml.parsers.DocumentBuilder;
@@ -29,6 +32,8 @@ import org.xml.sax.SAXException;
 
 import com.careful.clinic.model.Person;
 import com.careful.clinic.model.PersonModel;
+import com.careful.clinic.model.PmI;
+import com.careful.clinic.model.PmMo2017;
 import com.careful.clinic.model.ResponseGer;
 
 @Stateless
@@ -50,6 +55,31 @@ public class ProphylacticDAO {
 				.setParameter("personKindfirstname", personmodel.getFirstname().toUpperCase())
 				.setParameter("personKindlastname", personmodel.getLastname().toUpperCase())
 				.setParameter("personBirthday", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
+		
+		List<?> ls = query.getResultList();
+		return ls;
+		
+	}
+	
+	public Collection<?> getInfoInform(PersonModel personmodel) throws ParseException{
+		
+		TypedQuery<PmI> query = em_dream2.createNamedQuery("PmI.findByFIOD", PmI.class)
+        		
+				.setParameter("fam", personmodel.getSurname().toUpperCase())
+				.setParameter("im", personmodel.getFirstname().toUpperCase())
+				.setParameter("ot", personmodel.getLastname().toUpperCase())
+				.setParameter("dr", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
+
+		
+		return new HashSet<>(query.getResultList());
+		
+	}
+	
+	public Collection<?> getInfoPlanInform(Integer adressid) throws ParseException{
+		
+		TypedQuery<PmMo2017> query = em_dream2.createNamedQuery("PmMo2017.findByAdressid", PmMo2017.class)
+        		
+				.setParameter("tfomsId", adressid);
 		
 		return query.getResultList();
 		
