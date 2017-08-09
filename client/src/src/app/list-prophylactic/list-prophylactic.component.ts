@@ -124,6 +124,7 @@ export class ListProphylacticComponent implements OnInit {
   
   //execute dialog
   preview(pr:any):void{
+	  
 	let cc = {
 				disableClose: true,
 			    panelClass: 'custom-overlay-pane-class',

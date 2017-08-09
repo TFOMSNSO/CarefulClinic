@@ -60,7 +60,18 @@ export class PeopleDatabase {
 	return this.http
 	  .post(this.serverUrl + '/search_person_insur', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
-	  .then(res =>res.json().length != 0 ? this.addPerson_t(res.json()[0]) : res.json().length)
+	  // lenght передаем как флаг отсутствия записи в рс ерз
+	  .then(res =>{
+	  
+	  let tmp_data = res.json();
+	   
+	  tmp_data[0].personLinksmoestablishmentid === 1 ?  tmp_data[0].personLinksmoestablishmentid = environment.linksmo_1  :
+	  tmp_data[0].personLinksmoestablishmentid === 2 ?  tmp_data[0].personLinksmoestablishmentid = environment.linksmo_2  :
+	  tmp_data[0].personLinksmoestablishmentid === 4 ?  tmp_data[0].personLinksmoestablishmentid = environment.linksmo_4  : environment.otkreplen
+	  
+	  tmp_data.length != 0 ? this.addPerson_t(tmp_data[0]) : tmp_data.length
+	  
+	  })
 	  .catch(this.handleError);
   }
   searchPersonInformir(per_data: any): Promise<any[]> {

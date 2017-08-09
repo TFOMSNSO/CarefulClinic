@@ -68,6 +68,7 @@ export class DialogComponent{
  nstage : string = environment.nstage;
  dinfo : string = environment.dinfo ;
  tinfo : string = environment.tinfo;
+ linksmo : string = environment.linksmo;
  
  
  
@@ -75,7 +76,7 @@ export class DialogComponent{
  
  private data_ger;
  private data_plan_informir;
- private data_informir = [];
+ data_informir = [];
  
   @Input() show:boolean = true;
   flag:boolean = true;
@@ -115,6 +116,11 @@ export class DialogComponent{
 	 	 // this.show = 'out';
 	 	 this.show=!this.show;
 	 	  this.data_ger=result;
+	 	  
+	 	  /*for (var index in this.data_ger) {
+	 	  
+	 	  	this.data_informir[index].nStage=== 0 ?  this.data_informir[index].nStage = environment.no_inform :
+	 	  }*/
 	 	});
  	}
  	
@@ -133,22 +139,23 @@ export class DialogComponent{
 	 		this.personSearchIsurService.searchPlanPersonInformir('623375')
 	 		.then(result_2 =>{ 
 	 			this.data_plan_informir = result_2;
+	 			
 	 			this.data_informir = result;
 	 			this.flag_informed = false;
 	 			
 	 			for (var index in this.data_informir) {
-	 				   this.data_informir[index].nstage === 0 ?  this.data_informir[index].nstage = environment.no_inform :
-	 				   this.data_informir[index].nstage === 1 ?  this.data_informir[index].nstage = environment.one_part_inform :
-	 				   this.data_informir[index].nstage === 2 ?  this.data_informir[index].nstage = environment.second_part_inform :
-	 				   this.data_informir[index].nstage === 3 ?  this.data_informir[index].nstage = environment.secondory_inform : '';
+	 				   this.data_informir[index].nStage=== 0 ?  this.data_informir[index].nStage = environment.no_inform :
+	 				   this.data_informir[index].nStage === 1 ?  this.data_informir[index].nStage = environment.one_part_inform :
+	 				   this.data_informir[index].nStage === 2 ?  this.data_informir[index].nStage= environment.second_part_inform :
+	 				   this.data_informir[index].nStage === 3 ?  this.data_informir[index].nStage = environment.secondory_inform : '';
 	 				   
-	 				   this.data_informir[index].tinfo === 1 ?  this.data_informir[index].tinfo = environment.tinfo_1 :
-	 				   this.data_informir[index].tinfo === 2 ?  this.data_informir[index].tinfo = environment.tinfo_2 :
-	 				   this.data_informir[index].tinfo === 3 ?  this.data_informir[index].tinfo = environment.tinfo_3 :
-	 				   this.data_informir[index].tinfo === 4 ?  this.data_informir[index].tinfo = environment.tinfo_4 :
-	 				   this.data_informir[index].tinfo === 5 ?  this.data_informir[index].tinfo = environment.tinfo_5 :
-	 				   this.data_informir[index].tinfo === 6 ?  this.data_informir[index].tinfo = environment.tinfo_6 :
-	 				   this.data_informir[index].tinfo === 7 ?  this.data_informir[index].tinfo = environment.tinfo_7 : '';
+	 				   this.data_informir[index].tInfo === 1 ?  this.data_informir[index].tInfo = environment.tinfo_1 :
+	 				   this.data_informir[index].tInfo=== 2 ?  this.data_informir[index].tInfo= environment.tinfo_2 :
+	 				   this.data_informir[index].tInfo === 3 ?  this.data_informir[index].tInfo = environment.tinfo_3 :
+	 				   this.data_informir[index].tInfo === 4 ?  this.data_informir[index].tInfo = environment.tinfo_4 :
+	 				   this.data_informir[index].tInfo === 5 ?  this.data_informir[index].tInfo = environment.tinfo_5 :
+	 				   this.data_informir[index].tInfo === 6 ?  this.data_informir[index].tInfo = environment.tinfo_6 :
+	 				   this.data_informir[index].tinfo === 7 ?  this.data_informir[index].tInfo = environment.tinfo_7 : '';
   					
 				}
 	 			

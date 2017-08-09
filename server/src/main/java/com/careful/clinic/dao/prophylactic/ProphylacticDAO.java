@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,6 +36,7 @@ import com.careful.clinic.model.PersonModel;
 import com.careful.clinic.model.PmI;
 import com.careful.clinic.model.PmMo2017;
 import com.careful.clinic.model.ResponseGer;
+import com.careful.clinic.model.WrapPmI;
 
 @Stateless
 @LocalBean
@@ -63,15 +65,32 @@ public class ProphylacticDAO {
 	
 	public Collection<?> getInfoInform(PersonModel personmodel) throws ParseException{
 		
-		TypedQuery<PmI> query = em_dream2.createNamedQuery("PmI.findByFIOD", PmI.class)
+		String queryStr = "SELECT NEW com.careful.clinic.model.WrapPmI(c.fam, c.im, c.ot, c.dr, c.nStage, c.dInfo, c.tInfo, c.smo) FROM PmI c WHERE c.fam = :fam "
+												     + "and c.im =:im and"
+												     + " c.ot =:ot and "
+												     + "c.dr =:dr order by c.dInfo desc";
+												     
+			  TypedQuery <WrapPmI> query = em_dream2.createQuery(queryStr, WrapPmI.class)
+					  .setParameter("fam", personmodel.getSurname().toUpperCase())
+						.setParameter("im", personmodel.getFirstname().toUpperCase())
+						.setParameter("ot", personmodel.getLastname().toUpperCase())
+						.setParameter("dr", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
+			  
+			  List<?> results = query.getResultList();
+		/*TypedQuery<PmI> query = em_dream2.createNamedQuery("PmI.findByFIOD", PmI.class)
         		
 				.setParameter("fam", personmodel.getSurname().toUpperCase())
 				.setParameter("im", personmodel.getFirstname().toUpperCase())
 				.setParameter("ot", personmodel.getLastname().toUpperCase())
 				.setParameter("dr", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
 
-		
-		return new HashSet<>(query.getResultList());
+		List<PmI> ls = query.getResultList();
+		System.out.println("LSSSS "+ls);
+*/
+			  
+			  Set s = new HashSet<>(results);
+			  System.out.println("LSSSS "+s);
+		return s;
 		
 	}
 	

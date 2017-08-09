@@ -20,9 +20,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import com.careful.clinic.dao.prophylactic.ProphylacticDAO;
-import com.careful.clinic.dao.questions.QuestionsDAO;
 import com.careful.clinic.model.PersonModel;
-import com.careful.clinic.model.questions.Questions;
 
 
 @javax.ws.rs.Path("/prophylactic")

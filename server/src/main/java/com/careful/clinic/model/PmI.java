@@ -17,7 +17,7 @@ import java.util.Date;
 @Entity
 @Table(name="PM_I")
 @NamedQueries({
-@NamedQuery(name="PmI.findByFIOD", query="SELECT c FROM PmI c WHERE c.fam = :fam "
+@NamedQuery(name="PmI.findByFIOD", query="SELECT c.fam, c.im, c.ot, c.dr, c.nStage, c.dInfo, c.tInfo, c.smo FROM PmI c WHERE c.fam = :fam "
 												     + "and c.im =:im and"
 												     + " c.ot =:ot and "
 												     + "c.dr =:dr order by c.dInfo desc")
@@ -26,7 +26,7 @@ public class PmI implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	
-	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
 	@Column(name="D_INFO")
 	private Date dInfo;
 
@@ -61,11 +61,11 @@ public class PmI implements Serializable {
 
 	public PmI() {
 	}
-
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
 	public Date getDInfo() {
 		return this.dInfo;
 	}
-
+	
 	public void setDInfo(Date dInfo) {
 		this.dInfo = dInfo;
 	}

@@ -125,4 +125,9 @@ export class QuestionsComponent  implements OnInit{
 	    });
 	    
 	}
+	
+	// task related functions
+  	getTasks(jobForm){
+    	return jobForm.get('questions_list').controls;
+  	}
 }
