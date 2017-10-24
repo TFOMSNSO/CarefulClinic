@@ -1,0 +1,18 @@
+<md-sidenav #sidenav_export_excel  class="nav_header">
+<!-- 		<md-card-title> -->
+			<md-toolbar color="primary" class="mat-elevation-z10">
+	      		<md-icon>folder</md-icon>{{serch_form}}
+	      		<md-icon style="right: 2%; position: absolute; cursor: pointer;" md-list-icon (click)="sidenav_export_excel.close()">close</md-icon>
+	    	</md-toolbar>
+<!-- 		</md-card-title> -->
+  			<md-nav-list>
+			      <a md-list-item *ngFor="let row of listExcelFiles"  (click)="downloadExcel(row.namefile)">
+			        <md-icon md-list-icon>tab</md-icon>
+			        <span md-line>{{row.namefile}}</span>
+			        <span md-line class="demo-secondary-text"> Description </span>
+			      </a>
+    </md-nav-list>
+    <br><br>
+  			 
+  			 
+</md-sidenav>

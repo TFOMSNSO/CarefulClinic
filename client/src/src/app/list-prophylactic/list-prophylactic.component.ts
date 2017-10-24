@@ -62,6 +62,11 @@ export type UserProperties = 'personSurname' | 'personKindfirstname' | 'personKi
   
 })
 export class ListProphylacticComponent implements OnInit {
+	_searchFIOD: string = environment.searchFIOD;
+	_searchKEYS: string = environment.searchKEYS;
+	_exportExcel: string = environment.exportExcel;
+	_cleartable: string = environment.cleartable;
+	_downloadtask: string = environment.downloadtask;
    t_years: string = environment.t_years;
   lists_insur: string = environment.lists_insur;
   surname: string = environment.surname;
@@ -75,6 +80,7 @@ export class ListProphylacticComponent implements OnInit {
   progress_bar: boolean = false;
   dataSource: ProphylacticDataSource | null;
   displayedColumns: UserProperties[] = [];
+  
   constructor(public _peopleDatabase: PeopleDatabase,
   				  public dialog: MdDialog,
   				  public snackBar: MdSnackBar) { }
@@ -124,7 +130,6 @@ export class ListProphylacticComponent implements OnInit {
   
   //execute dialog
   preview(pr:any):void{
-	  
 	let cc = {
 				disableClose: true,
 			    panelClass: 'custom-overlay-pane-class',
@@ -152,5 +157,19 @@ export class ListProphylacticComponent implements OnInit {
 	
   }
 
+get():void{
+	console.log(JSON.stringify(this.dataSource._peopleDatabase.data));
+	this._peopleDatabase.exportToExcel(this.dataSource._peopleDatabase.data);
+}
+
+isValidBtnExport(): boolean{
+	if(this.dataSource._peopleDatabase.data.length > 0) { return true;}else{ return false;}
+
+}
+
+cleartable():void{
+	//this.dataSource._peopleDatabase.data.next([]);
+	this._peopleDatabase.initialize();
+}
 
 }

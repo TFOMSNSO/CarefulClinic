@@ -28,4 +28,5 @@ import {environment} from '../../environments/environment';
 })
 export class HeaderComponent{
    list_insur_menu: string = environment.list_insur_menu;
+   exit_app: string = environment.exit_app;
 }

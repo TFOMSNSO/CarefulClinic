@@ -1,5 +1,7 @@
 <md-card [@flyInOut]="'in'">
-<sidenav-component #var_sidenav (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-component>
+<sidenav-component #var_sidenav (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-component> 
+<sidenavkeys-component #var_sidenav_search_keys ></sidenavkeys-component>
+<sidenav_export_excel-component #var_sidenav_export_excel ></sidenav_export_excel-component>
 
 <md-sidenav-container class="example-container">
   
@@ -7,7 +9,20 @@
 		<md-card-title>{{lists_insur}}</md-card-title>
 		<md-card-header>
 			 <table-header (filterOut)="getNotify($event)"></table-header>
-			 <button id="btn_header"  (click)="var_sidenav.open()" md-fab><md-icon>add</md-icon></button>
+			 
+			 <md-menu #menu_tab="mdMenu" >
+			  <button md-menu-item (click)="var_sidenav.open()">{{_searchFIOD}}</button>
+			  <button md-menu-item (click)="var_sidenav_search_keys.open()">{{_searchKEYS}}</button>
+			  <button md-menu-item [disabled]="!isValidBtnExport()" (click)="cleartable()">{{_cleartable}}</button>
+			  <button md-menu-item [disabled]="!isValidBtnExport()" (click)="get()">{{_exportExcel}}</button>
+			  <button md-menu-item (click)="var_sidenav_export_excel.open()">{{_downloadtask}}</button>
+			</md-menu>
+			
+			<button id="btn_header" md-icon-button [mdMenuTriggerFor]="menu_tab">
+			   <md-icon>more_vert</md-icon>
+			</button>
+			 
+			 <!-- <button id="btn_header"  (click)="var_sidenav.open()" md-fab><md-icon>add</md-icon></button> -->
 		</md-card-header>
 	</md-list>
 </md-sidenav-container>	
@@ -16,6 +31,12 @@
 	<md-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></md-progress-bar> 
 	<md-table [dataSource]="dataSource" class="full-width">
 	
+			 <!-- Position Column -->
+		    <ng-container mdColumnDef="position">
+		      <md-header-cell *mdHeaderCellDef> No. </md-header-cell>
+		      <md-cell *mdCellDef="let row"> {{row.rowIndex}} </md-cell>
+		    </ng-container>
+	    
 		 <!-- Column Definition:  -->
 	    <ng-container  cdkColumnDef="personSurname">
 	      <md-header-cell *cdkHeaderCellDef>{{surname}}</md-header-cell>

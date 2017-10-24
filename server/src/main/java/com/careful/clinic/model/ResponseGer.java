@@ -1,16 +1,18 @@
 package com.careful.clinic.model;
 
+import java.io.Serializable;
 
-public class ResponseGer{
+public class ResponseGer implements Serializable{
 	
-	 public ResponseGer() {
-		super();
-		// TODO Auto-generated constructor stub
+	private static final long serialVersionUID = 1L;
+
+	public ResponseGer() {
 	}
+	 
 	public ResponseGer(String start_date_etap1, String end_date_etap1, String start_date_etap2, String end_date_etap2,
 			String ref_id_person, String pm_god, String pm_kvartal, String pM_HOSPITAL_RESULT, String adress,
 			String tel, String pm_result) {
-		super();
+		
 		this.start_date_etap1 = start_date_etap1;
 		this.end_date_etap1 = end_date_etap1;
 		this.start_date_etap2 = start_date_etap2;
@@ -18,11 +20,12 @@ public class ResponseGer{
 		this.ref_id_person = ref_id_person;
 		this.pm_god = pm_god;
 		this.pm_kvartal = pm_kvartal;
-		PM_HOSPITAL_RESULT = pM_HOSPITAL_RESULT;
+		pm_HOSPITAL_RESULT = pM_HOSPITAL_RESULT;
 		this.adress = adress;
 		this.tel = tel;
 		this.pm_result = pm_result;
 	}
+	
 	private String start_date_etap1;
 	 private String end_date_etap1;
 	 private String start_date_etap2;
@@ -30,7 +33,7 @@ public class ResponseGer{
 	 private String ref_id_person;
 	 private String pm_god;
 	 private String pm_kvartal;
-	 private String PM_HOSPITAL_RESULT;
+	 private String pm_HOSPITAL_RESULT;
 	 private String adress;
 	 private String tel;
 	 private String pm_result;
@@ -53,7 +56,7 @@ public class ResponseGer{
 		builder.append(", pm_kvartal=");
 		builder.append(pm_kvartal);
 		builder.append(", PM_HOSPITAL_RESULT=");
-		builder.append(PM_HOSPITAL_RESULT);
+		builder.append(pm_HOSPITAL_RESULT);
 		builder.append(", adress=");
 		builder.append(adress);
 		builder.append(", tel=");
@@ -105,12 +108,7 @@ public class ResponseGer{
 	public void setPm_kvartal(String pm_kvartal) {
 		this.pm_kvartal = pm_kvartal;
 	}
-	public String getPM_HOSPITAL_RESULT() {
-		return PM_HOSPITAL_RESULT;
-	}
-	public void setPM_HOSPITAL_RESULT(String pM_HOSPITAL_RESULT) {
-		PM_HOSPITAL_RESULT = pM_HOSPITAL_RESULT;
-	}
+	
 	public String getAdress() {
 		return adress;
 	}
@@ -129,7 +127,14 @@ public class ResponseGer{
 	public void setPm_result(String pm_result) {
 		this.pm_result = pm_result;
 	}
-	 
-	 
+
+	public String getPm_HOSPITAL_RESULT() {
+		return pm_HOSPITAL_RESULT;
+	}
+
+	public void setPm_HOSPITAL_RESULT(String pm_HOSPITAL_RESULT) {
+		this.pm_HOSPITAL_RESULT = pm_HOSPITAL_RESULT;
+	}
+	
 
 }

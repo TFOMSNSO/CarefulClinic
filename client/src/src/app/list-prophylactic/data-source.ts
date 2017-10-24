@@ -11,7 +11,7 @@ export class ProphylacticDataSource extends DataSource<any> {
   get filter(): string { return this._filterChange.value; }
   set filter(filter: string) { this._filterChange.next(filter); }
 
- constructor(private _peopleDatabase: PeopleDatabase) {
+ constructor(public _peopleDatabase: PeopleDatabase) {
     super();
   }
   

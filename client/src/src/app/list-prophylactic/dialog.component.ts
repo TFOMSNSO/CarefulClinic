@@ -69,18 +69,36 @@ export class DialogComponent{
  dinfo : string = environment.dinfo ;
  tinfo : string = environment.tinfo;
  linksmo : string = environment.linksmo;
+ _survey: string = environment.survey;
+_linksmo_2: string = environment.linksmo_2;
+_linksmo_1: string = environment.linksmo_1;
+_linksmo_4: string = environment.linksmo_4;
+_statsurvey1: string = environment.statsurvey1;
+_statsurvey2: string = environment.statsurvey2;
+_statsurvey3: string = environment.statsurvey3;
+_statsurvey4: string = environment.statsurvey4;
+_statsurvey5: string = environment.statsurvey5;
+_statsurvey6: string = environment.statsurvey6;
+_statsurvey7: string = environment.statsurvey7;
+_statsurvey8: string = environment.statsurvey8;
+_statsurvey9: string = environment.statsurvey9;
+_statsurvey10: string = environment.statsurvey10;
+_statsurvey_result: string = environment.statsurvey_result;
+_statsurvey_date: string = environment.statsurvey_date;
+
  
  
  
  
- 
- private data_ger;
+ private data_survey = [];
+ private data_ger = [];
  private data_plan_informir;
  data_informir = [];
  
   @Input() show:boolean = true;
   flag:boolean = true;
   flag_informed:boolean = true;
+  flag_survey:boolean = true;
   /*@HostListener('document:click')
   onClick(){
     this.show=!this.show;
@@ -91,7 +109,7 @@ export class DialogComponent{
   }
 
   animationDone($event) {
-    console.log('End');
+    //console.log('End');
   }
  
  constructor(public dialogRef: MdDialogRef<DialogComponent>,@Inject(MD_DIALOG_DATA) public data: any,private personSearchIsurService: PeopleDatabase) {
@@ -100,11 +118,27 @@ export class DialogComponent{
  
  check($event : any): void {
  	//console.log($event, null, 0);
+ 	console.log('show '+this.show);
+ 	if($event.index === 3){
  	
+	 	let data_cust ={
+	 	  surname: this.data.personSurname,
+	 	  firstname:this.data.personKindfirstname,
+	 	  lastname:this.data.personKindlastname,
+	 	  bithday:this.data.personBirthday
+	 	}
+	 	
+	 	this.personSearchIsurService.searchPersonSurveyr(data_cust)
+	 	.then(result =>{
+	 	  this.flag_survey = false;
+	 	  this.data_survey=result;
+	 	});
+ 	}
  	// tab 'Данные ГЭР' have the index equal 1
- 	if($event.index === 1 && this.flag){
+ 	if($event.index === 1){
  	
- 	    this.flag =false;
+ 	
+ 	    
 	 	let data_cust ={
 	 	  surname: this.data.personSurname,
 	 	  firstname:this.data.personKindfirstname,
@@ -113,14 +147,8 @@ export class DialogComponent{
 	 	}
 	 	this.personSearchIsurService.searchPersonGer(data_cust)
 	 	.then(result =>{
-	 	 // this.show = 'out';
-	 	 this.show=!this.show;
+	 	 this.show= false;
 	 	  this.data_ger=result;
-	 	  
-	 	  /*for (var index in this.data_ger) {
-	 	  
-	 	  	this.data_informir[index].nStage=== 0 ?  this.data_informir[index].nStage = environment.no_inform :
-	 	  }*/
 	 	});
  	}
  	

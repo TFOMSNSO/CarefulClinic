@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyDatePickerModule } from 'mydatepicker';
+
 import {
   MdButtonModule,
   MdButtonToggleModule,
@@ -37,6 +38,8 @@ import {
   MdTooltipModule,
 } from '@angular/material';
 
+
+import { HomeComponent } from './home/home.component';
 import {CdkTableModule} from '@angular/cdk';
 import 'hammerjs';
 import { AppComponent } from './app.component';
@@ -55,6 +58,15 @@ import { ContentElementDialog } from './z_dialog/dialog3-demo';
 import { IFrameDialog } from './z_dialog/dialog4-demo';
 import {ListProphylacticHeaderComponent} from './list-prophylactic/list-prophylactic.header.component';
 import { SadeaveSearchComponent } from './list-prophylactic/sidenave.search.component';
+import { SidenavExportExcelComponent } from './list-prophylactic/sidenav_export_excel/sidenav.export.excel.component';
+import { SadeaveSearchKeysComponent } from './list-prophylactic/sidenav_search_keys/sidenave.search.keys.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { LoginComponent } from './login/login.component';
+import { AuthenticationService, UserService} from './_services/index';
+// used to create fake backend
+import { fakeBackendProvider } from './_helpers/index';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { BaseRequestOptions } from '@angular/http';
 
 
 
@@ -67,9 +79,13 @@ import { AppRoutingModule }     from './app.routing.module';
 import { SidenaveSearchService } from './list-prophylactic/sidenave-search.service';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
+  	HomeComponent,
+    LoginComponent,
     HelloComponent,
     QuestionsComponent,
     HeaderComponent,
@@ -82,7 +98,8 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     ,IFrameDialog
     ,ListProphylacticHeaderComponent
     ,SadeaveSearchComponent
-    
+    ,SadeaveSearchKeysComponent
+    ,SidenavExportExcelComponent
     
   ],
   imports: [
@@ -125,7 +142,12 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
   CdkTableModule,
   ReactiveFormsModule
   ],
-  providers: [PeopleDatabase, SidenaveSearchService],
+  providers: [PeopleDatabase, SidenaveSearchService,AuthGuard,AuthenticationService,
+  // providers used to create fake backend
+        fakeBackendProvider,
+        MockBackend,
+        BaseRequestOptions,
+        UserService],
   entryComponents: [DialogComponent,JazzDialog,ContentElementDialog,IFrameDialog],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,10 @@ package com.careful.clinic.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,7 +28,8 @@ import java.util.Date;
 })
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
+
 	  /*enp: string;
 	   * 
 	  personSurname: string;
@@ -91,7 +96,7 @@ public class Person implements Serializable {
 	private String personKindlastname;
 
 	@Column(name="PERSON_LINKSMOESTABLISHMENTID")
-	private BigDecimal personLinksmoestablishmentid;
+	private Integer personLinksmoestablishmentid;
 
 	@Column(name="PERSON_NUMDOC")
 	@JsonIgnore
@@ -148,6 +153,7 @@ public class Person implements Serializable {
 	
 	@OneToOne
 	@JoinColumn(name="PERSON_ADDRESSID")
+	@NotFound(action = NotFoundAction.IGNORE)
 	private Personadd personadd;
 
 	public Person() {
@@ -258,11 +264,11 @@ public class Person implements Serializable {
 		this.personKindlastname = personKindlastname;
 	}
 
-	public BigDecimal getPersonLinksmoestablishmentid() {
+	public Integer getPersonLinksmoestablishmentid() {
 		return this.personLinksmoestablishmentid;
 	}
 
-	public void setPersonLinksmoestablishmentid(BigDecimal personLinksmoestablishmentid) {
+	public void setPersonLinksmoestablishmentid(Integer personLinksmoestablishmentid) {
 		this.personLinksmoestablishmentid = personLinksmoestablishmentid;
 	}
 
@@ -371,11 +377,12 @@ public class Person implements Serializable {
 	}
 
 	public Personadd getPersonadd() {
+		
 		return this.personadd;
 	}
 
 	public void setPersonadd(Personadd personadd) {
 		this.personadd = personadd;
 	}
-
+	
 }

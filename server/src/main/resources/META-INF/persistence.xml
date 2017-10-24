@@ -37,11 +37,14 @@
    		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/ds/OfomsDream2</jta-data-source>
         <class>com.careful.clinic.model.PmI</class>
+        <class>com.careful.clinic.model.PmA</class>
       	<class>com.careful.clinic.model.PmMo2017</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
+            <!-- <property name="hibernate.connection.username" value="ofoms"/>
+    		<property name="hibernate.connection.password" value="12345"/> -->
             <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/> -->
             <!-- <property name="hibernate.jdbc.driver" value="oracle.jdbc.OracleDriver"/> -->
             <!--  <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" /> -->
@@ -53,6 +56,19 @@
         <jta-data-source>java:/ds/DeveloperDame</jta-data-source>
         <class>com.careful.clinic.model.Person</class>
       	<class>com.careful.clinic.model.Personadd</class>
+        <properties>
+            <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+            <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/> -->
+            <!-- <property name="hibernate.jdbc.driver" value="oracle.jdbc.OracleDriver"/> -->
+            <!--  <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" /> -->
+        </properties>
+    </persistence-unit>
+    
+    <persistence-unit name="NONXASDAME">
+   		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:jboss/datasources/NONXADAMEDS</jta-data-source>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
             <property name="hibernate.show_sql" value="true" />

@@ -60,7 +60,6 @@ export class SadeaveSearchComponent   implements OnInit{
 	
  open(){
  	//this.variable_sidenave.nativeElement.open();
- 	console.log(this.variable_sidenave.open);
  	this.variable_sidenave.toggle(true);
  }
  
