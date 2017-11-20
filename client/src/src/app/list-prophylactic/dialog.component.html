@@ -78,7 +78,8 @@
 		  <td>
 		    <md-list-item>
 			    <md-input-container>
-			      <input mdInput value="{{data.personLinksmoestablishmentid}}" placeholder="{{linksmo}}">
+			    
+			      <input mdInput value="{{data.personLinksmoestablishmentid === 1 ?  _linksmo_1  : data.personLinksmoestablishmentid  === 2 ?  _linksmo_2  : data.personLinksmoestablishmentid  === 4 ?  _linksmo_4  : _otkreplen}}" placeholder="{{linksmo}}">
 			    </md-input-container>
 		    </md-list-item>
 	    </td>
@@ -283,7 +284,7 @@
 		    <td>
 			    <md-list-item>
 				    <md-input-container>
-				      <input mdInput value="{{data[6] == 2 ? _linksmo_2 : data[6] == 1 ? _linksmo_1 : data[6] == 4 ? _linksmo_4 :'' }}" placeholder="smo">
+				      <input mdInput value="{{data[6] == 2 ? _linksmo_2 : data[6] == 1 ? _linksmo_1 : data[6] == 4 ? _linksmo_4 : data[6]}}" placeholder="smo">
 				    </md-input-container>
 			    </md-list-item>
 		    </td>
@@ -302,11 +303,45 @@
 			    </md-list-item>
 		    </td>
 	    </tr>
+	    <tr>
+	    	<td colspan="3">
+	    		<textarea rows="10" cols="45">{{data[5]}}</textarea>
+	    	</td>
+	    </tr>
   </table>
   </div>
   <ng-template #other_content_survey>
-  	<div *ngIf="flag_survey; else date_not_found"><h1><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></h1></div>
-  	<ng-template #date_not_found><md-error><h3>{{data_not_found}}</h3></md-error></ng-template>
+  	<div *ngIf="flag_survey; else date_not_found;"><h1><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></h1></div>
+  	<ng-template #date_not_found>
+  		<md-error><h3>{{data_not_found}}</h3></md-error>
+  		<md-card>
+		<form [formGroup]="myFormsurvey" novalidate (ngSubmit)="add_survey(myFormsurvey);">
+  			<md-card-content>
+  				<md-input-container style="width: 70%; font-size: 25px;">
+  					<input mdInput placeholder="{{_titlesurvey}}" value="{{_maintitlesurvey}}" disabled>
+  				</md-input-container><br/>
+  				<md-select  style="width: 40%;"  class='full-width required' placeholder="{{_statsurvey_result}}"  formControlName="result_survey">
+		   				<md-option *ngFor="let data of resultsurvey" [value]="data.id">{{ data.name }}</md-option>
+		   	  		</md-select><br>.
+  					<br/>
+	   				 <my-date-picker  [placeholder]="_statsurvey_date"  name="datesur" [options]="myDatePickerOptions" formControlName="datesur"></my-date-picker>
+	   				 <span *ngIf="!myFormsurvey.controls.datesur.valid" class="help-block text-danger">
+	   				 	<md-error>{{field_is_required}}</md-error>
+	   				 </span> 
+	   				 <textarea rows="10" cols="45"  formControlName="prim"></textarea>
+  			</md-card-content>
+  			<md-card-actions id='lastblocksearch'>
+  				<button type='submit' md-raised-button color='primary'[disabled]="!myFormsurvey.valid">Ok</button>
+  				<button type='button' md-raised-button color='primary' (click)="resetForm()">reset</button>
+  	 		</md-card-actions>
+		</form>
+		</md-card>
+  	<br>
+  	{{myFormsurvey.value | json}}	
+  		
+  		
+  		
+  	</ng-template>
   </ng-template>
   </md-tab>
 </md-tab-group>

@@ -1,0 +1,23 @@
+<md-sidenav #sidenav_upload_data  class="nav_header">
+ 			<md-toolbar color="primary" class="mat-elevation-z10">
+	      		<md-icon>folder</md-icon>
+	      		<md-icon style="right: 2%; position: absolute; cursor: pointer;" md-list-icon (click)="sidenav_upload_data.close()">close</md-icon>
+	    	</md-toolbar>
+    		<md-progress-bar  *ngIf="progress_bar_upload"  mode="query" color="warn" ></md-progress-bar>
+    <br><br>
+    <div class="dropzone" appDnd (filesChangeEmiter)="onFilesChange($event)" (filesInvalidEmiter)="onFileInvalids($event)" [allowed_extensions]="['xlsx']" >
+  <div class="text-wrapper">
+    <div class="centered">{{ _drop }}</div>
+  </div>
+</div>
+
+<div class="centered">{{_pull}}<hr></div>
+			<md-nav-list>
+			      <a md-list-item *ngFor="let row of listUploadedFiles"  (click)="downloadExcel(row.namefile)">
+			        <md-icon md-list-icon>tab</md-icon>
+			        <span md-line>{{row.namefile}}</span>
+			        <span md-line class="demo-secondary-text"> Description </span>
+			      </a>
+    		</md-nav-list>    
+  			 
+</md-sidenav>

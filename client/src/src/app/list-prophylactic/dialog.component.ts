@@ -12,6 +12,9 @@ import 'rxjs/add/observable/fromEvent';
 import { PeopleDatabase } from './people-database';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import {environment} from '../../environments/environment';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import {IMyDpOptions} from 'mydatepicker';
+import { Resultsurvey} from '../model/list.mo';
 
 @Component({
   selector: 'app-list-prophylactic',
@@ -85,15 +88,19 @@ _statsurvey9: string = environment.statsurvey9;
 _statsurvey10: string = environment.statsurvey10;
 _statsurvey_result: string = environment.statsurvey_result;
 _statsurvey_date: string = environment.statsurvey_date;
+_titlesurvey: string = environment.titlesurvey;
+_maintitlesurvey: string = environment.maintitlesurvey;
+_otkreplen: string = environment.otkreplen;
+
 
  
  
- 
- 
- private data_survey = [];
- private data_ger = [];
- private data_plan_informir;
- data_informir = [];
+ public resultsurvey: any = Resultsurvey;
+ public myFormsurvey: FormGroup;
+ public data_survey = [];
+ public data_ger = [];
+ public data_plan_informir;
+ public data_informir = [];
  
   @Input() show:boolean = true;
   flag:boolean = true;
@@ -112,13 +119,12 @@ _statsurvey_date: string = environment.statsurvey_date;
     //console.log('End');
   }
  
- constructor(public dialogRef: MdDialogRef<DialogComponent>,@Inject(MD_DIALOG_DATA) public data: any,private personSearchIsurService: PeopleDatabase) {
+ constructor(public dialogRef: MdDialogRef<DialogComponent>,@Inject(MD_DIALOG_DATA) public data: any,private personSearchIsurService: PeopleDatabase,private formBuilder: FormBuilder,) {
  //console.log('ddddd '+JSON.stringify(data));
  }
  
  check($event : any): void {
- 	//console.log($event, null, 0);
- 	console.log('show '+this.show);
+ 
  	if($event.index === 3){
  	
 	 	let data_cust ={
@@ -132,6 +138,8 @@ _statsurvey_date: string = environment.statsurvey_date;
 	 	.then(result =>{
 	 	  this.flag_survey = false;
 	 	  this.data_survey=result;
+	 	  
+	 	  this.data_survey.length === 0 ? this.initform() : '';
 	 	});
  	}
  	// tab 'Данные ГЭР' have the index equal 1
@@ -196,5 +204,39 @@ _statsurvey_date: string = environment.statsurvey_date;
  	
  }
   
-   
+  
+  add_survey(form: any){
+	  // убираем null
+	  for(let k in form.value) form.value[k]=== null ?form.value[k]='':form.value[k];
+	  let str = "('','"+this.data.personSurname.toUpperCase( )+"','"+this.data.personKindfirstname.toUpperCase( )+"','"+this.data.personKindlastname+"','"+this.data.personBirthday+"','"+form.value.datesur.formatted+"','"+form.value.result_survey+"','"+form.value.prim+"','"+this.data.personLinksmoestablishmentid+"', SYSDATE, SYSDATE)";
+			 	  
+	  this.personSearchIsurService.addResultSurvey(str)
+		 	.then(result =>{
+		 		this.flag_survey= true;
+		 		 setTimeout(() => this.data_survey = [[this.data.personSurname,this.data.personKindfirstname,this.data.personKindlastname,form.value.datesur.jsdate,form.value.result_survey,'',this.data.personLinksmoestablishmentid]] 
+		 		 , 3000);
+				 	 
+		 	});
+	  
+	  //form.value.datesur != null ? (form.value.datesur.formatted  != undefined ? form.value.datesur = form.value.datesur.formatted : form.value.datesur = ''): form.value.datesur = '';
+  }
+  
+  resetForm() {
+  	  this.initform(); 
+  }
+
+initform() {
+	    this.myFormsurvey =  this.formBuilder.group({
+	      result_survey: ['', Validators.required],
+	      datesur: ['', Validators.required],
+	      prim: ['']
+	      
+	    });
+  }   
+  
+   myDatePickerOptions: IMyDpOptions = {
+        // other options...
+        dateFormat: 'dd.mm.yyyy'
+        
+    }
 }

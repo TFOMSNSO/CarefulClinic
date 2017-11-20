@@ -1,6 +1,4 @@
 import { Component,ElementRef,ViewChild,Output, EventEmitter} from '@angular/core';
-//import { SidenaveSearchService } from './sidenave-search.service';
-//import { PeopleDatabase } from './people-database';
 import { FormGroup, FormArray, FormBuilder, Validators,ValidationErrors, ValidatorFn } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
@@ -22,9 +20,9 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	
 	 
 	public listmo: any =  ListMo;
-	private pm_resalts: any =  PmResalt;
+	public pm_resalts: any =  PmResalt;
 	public myForm: FormGroup;
-	 private currentUser: User;
+	 public currentUser: User;
 	 _searchKEYS: string = environment.searchKEYS;
 	 _age: string = environment.age;
 	_sexmans: string = environment.sexmans;
@@ -52,13 +50,31 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	_exportExcel: string = environment.exportExcel;
 	reset: string = environment.reset;
 	cancel: string = environment.cancel;
+	_survey: string = environment.survey;
+	_nonrespond: string = environment.nonrespond;
+	_respond: string = environment.respond;
+	_survey_stat: string = environment.survey_stat;
+	field_is_required: string = environment.field_is_required;
+	_linksmo_2: string = environment.linksmo_2;
+	_linksmo_1: string = environment.linksmo_1;
+	_linksmo_4: string = environment.linksmo_4;
+	_kv1: string = environment.kv1;
+	_kv2: string = environment.kv2;
+	_kv3: string = environment.kv3;
+	_kv4: string = environment.kv4;
+	_plandisp: string = environment.plandisp;
+	_infoI: string = environment.infoI;
+	_infoII: string = environment.infoII;
+	_infoIII: string = environment.infoIII;
+	
+	
 	
 	
 	
 	 
 	 
 	
-	
+	@Output() progress_bar_emit: EventEmitter<any> = new EventEmitter<any>();
 	@ViewChild('sidenavSearchKeys') variable_sidenave: any;
 	constructor(private formBuilder: FormBuilder, private personSearchIsurService: PeopleDatabase){}
 	
@@ -82,6 +98,7 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	      firstdatenullstate: [''],
 	      seconddatenullstate: [''],
 	      firststate: [false],
+	      no_firststate: [false],
 	      firsttel: [''],
 	      firstsms: [''],
 	      firstemail: [''],
@@ -92,6 +109,7 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	      firstdatefirststate: [''],
 	      seconddatefirststate: [''],
 	      secondstate: [''],
+	      no_secondstate: [false],
 	      secondtel: [''],
 	      secondsms: [''],
 	      secondemail: [''],
@@ -102,6 +120,7 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	      firstdatesecondstate: [''],
 	      seconddatesecondstate: [''],
 	      thridstate: [''],
+	      no_thridstate: [false],
 	      thridtel: [''],
 	      thridsms: [''],
 	      thridemail: [''],
@@ -121,7 +140,12 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	      isTelefon:[''],
 	      exportExcel:[false],
 	      currentUser:[this.currentUser['role'][0].id],
-	      count_notes:['', Validators.required]
+	      count_notes:['', [Validators.required, Validators.min(1),Validators.max(6000)]],
+	      survey_stat:[''],
+	      simaz:[false],
+	      vtb:[false],
+	      ingos:[false],
+	      plan_disp:[0]
 	    });
   }
   
@@ -194,15 +218,19 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	 form.value.start_date_etap1_dsp != null ? (form.value.start_date_etap1_dsp.formatted != undefined ? form.value.start_date_etap1_dsp = form.value.start_date_etap1_dsp.formatted : form.value.start_date_etap1_dsp = ''): form.value.start_date_etap1_dsp = '';
 	 form.value.end_date_etap1_dsp != null ? (form.value.end_date_etap1_dsp.formatted != undefined ? form.value.end_date_etap1_dsp = form.value.end_date_etap1_dsp.formatted : form.value.end_date_etap1_dsp = ''): form.value.end_date_etap1_dsp = '';
 	 
-	console.log(form.value); 
+	//console.log(form.value); 
+	this.progress_bar_emit.emit({note: 'true', result:''});
  	 this.personSearchIsurService.searchPersonKeys(form.value)
+ 	 .then(res => {
+ 	 	this.progress_bar_emit.emit({note :'false', result: res, search_keys: 'true'});
+ 	 });
+ 	 let r=[];
+ 	 //
  }
   
 
  open(){
  	//this.variable_sidenave.nativeElement.open();
- 	console.log(this.variable_sidenave.open);
- 	console.log("dfsfsdf");
  	this.variable_sidenave.toggle(true);
  }
 

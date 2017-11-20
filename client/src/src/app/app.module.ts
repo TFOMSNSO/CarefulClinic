@@ -60,6 +60,8 @@ import {ListProphylacticHeaderComponent} from './list-prophylactic/list-prophyla
 import { SadeaveSearchComponent } from './list-prophylactic/sidenave.search.component';
 import { SidenavExportExcelComponent } from './list-prophylactic/sidenav_export_excel/sidenav.export.excel.component';
 import { SadeaveSearchKeysComponent } from './list-prophylactic/sidenav_search_keys/sidenave.search.keys.component';
+import { SidenavUploadDataComponent } from './list-prophylactic/sidenav_uploaddata/sidenav.upload.data.component';
+import { DndDirective } from './list-prophylactic/sidenav_uploaddata/dnd.directive'; 
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService, UserService} from './_services/index';
@@ -100,7 +102,8 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     ,SadeaveSearchComponent
     ,SadeaveSearchKeysComponent
     ,SidenavExportExcelComponent
-    
+    ,SidenavUploadDataComponent
+    ,DndDirective
   ],
   imports: [
   	MyDatePickerModule,

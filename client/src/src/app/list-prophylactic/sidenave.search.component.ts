@@ -64,13 +64,13 @@ export class SadeaveSearchComponent   implements OnInit{
  }
  
  searchPerson(form: any): void{
+ 	// включаем спинер
  	this.progress_bar_emit.emit({note: 'true', result:''});
+ 	
  	form.value.bithday = form.value.bithday.formatted; 
   	//this.sidenaveSearchService.searchPersonGer(form.value);
   	this.personSearchIsurService.searchPersonInsur(form.value)
   	.then(result =>{
-  	//console.log('cxcx '+result);
-  	//result === 0 ? alert('ЗЛ отсутвует'):''
   		this.progress_bar_emit.emit({note :'false', result: result});
   	})
  }

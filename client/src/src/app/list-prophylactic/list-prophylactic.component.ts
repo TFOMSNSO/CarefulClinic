@@ -67,6 +67,7 @@ export class ListProphylacticComponent implements OnInit {
 	_exportExcel: string = environment.exportExcel;
 	_cleartable: string = environment.cleartable;
 	_downloadtask: string = environment.downloadtask;
+	_uploadfile: string = environment.uploadfile;
    t_years: string = environment.t_years;
   lists_insur: string = environment.lists_insur;
   surname: string = environment.surname;
@@ -92,17 +93,37 @@ export class ListProphylacticComponent implements OnInit {
 	}
 	
 	handleProgressUpdated($event):void{
+	//  off progress bar
 	   this.progress_bar = JSON.parse($event.note);
+	   
+	   if($event.search_keys){	this.action_add_person = '\u0417\u0430\u0441\u0442\u0440\u0430\u0445\u043E\u0432\u0430\u043D\u043D\u044B\u0435 \u043B\u0438\u0446\u0430 \u043D\u0430\u0439\u0434\u0435\u043D\u044B \u0432 \u0431\u0430\u0437\u0435 \u0420\u0421 \u0415\u0420\u0417';	}
 	   
 	   // false - флаг закрытия прогресс бара; 0/1 - результат поиска в РС ЕРЗ 
 	   if($event.note === 'false' && $event.result !== 0){
 			   this.snackBar.open(this.action_add_person,this.add_table, {
-		    		 duration: 3000,
+		    		 duration: 5000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 0){
 			   this.snackBar.open(this.bad_action_add_person,undefined, {
-		    		 duration: 4000,
+		    		 duration: 6000,
+		   		 });
+    	 }
+    	 if($event.note === 'false' && $event.result === -1){
+			   this.snackBar.open('Call the admin web site','Error on server side', {
+		    		 duration: 6000,
+		   		 });
+    	 }
+    	 if($event.note === 'false' && $event.result === 200){
+    	 		let tmp = $event.status;
+			   this.snackBar.open(tmp, '', {
+		    		 duration: 6000,
+		   		 });
+    	 }
+    	 if($event.note === 'false' && $event.result === 404){
+    	 		let tmp = $event.status;
+			   this.snackBar.open('', tmp, {
+		    		 duration: 6000,
 		   		 });
     	 }
 	}
@@ -158,7 +179,6 @@ export class ListProphylacticComponent implements OnInit {
   }
 
 get():void{
-	console.log(JSON.stringify(this.dataSource._peopleDatabase.data));
 	this._peopleDatabase.exportToExcel(this.dataSource._peopleDatabase.data);
 }
 

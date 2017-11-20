@@ -14,6 +14,7 @@ public class SearchKeysModel {
 	private String firstdatenullstate;
 	private String seconddatenullstate;
 	private String firststate;
+	private boolean no_firststate;
 	private String firsttel;
 	private String firstsms;
 	private String firstemail;
@@ -24,6 +25,7 @@ public class SearchKeysModel {
 	private String firstdatefirststate;
 	private String seconddatefirststate;
 	private String secondstate;
+	private boolean no_secondstate;
 	private String secondtel;
 	private String secondsms;
 	private String secondemail;
@@ -34,6 +36,7 @@ public class SearchKeysModel {
 	private String firstdatesecondstate;
 	private String seconddatesecondstate;
 	private String thridstate;
+	private boolean no_thridstate;
 	private String thridtel;
 	private String thridsms;
 	private String thridemail;
@@ -50,6 +53,11 @@ public class SearchKeysModel {
 	private String count_notes;
 	private boolean exportExcel;
 	private Integer currentUser;
+	private String survey_stat;
+	private boolean simaz;
+	private boolean vtb;
+	private boolean ingos;
+	private Integer plan_disp;
 	
 	public String getMansAge() {
 		return mansAge;
@@ -400,6 +408,14 @@ public class SearchKeysModel {
 		builder.append(exportExcel);
 		builder.append(", currentUser=");
 		builder.append(currentUser);
+		builder.append(", survey_stat=");
+		builder.append(survey_stat);
+		builder.append(", simaz=");
+		builder.append(simaz);
+		builder.append(", vtb=");
+		builder.append(vtb);
+		builder.append(", ingos=");
+		builder.append(ingos);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -438,6 +454,54 @@ public class SearchKeysModel {
 	}
 	public void setCurrentUser(Integer currentUser) {
 		this.currentUser = currentUser;
+	}
+	public String getSurvey_stat() {
+		return survey_stat;
+	}
+	public void setSurvey_stat(String survey_stat) {
+		this.survey_stat = survey_stat;
+	}
+	public boolean isSimaz() {
+		return simaz;
+	}
+	public void setSimaz(boolean simaz) {
+		this.simaz = simaz;
+	}
+	public boolean isVtb() {
+		return vtb;
+	}
+	public void setVtb(boolean vtb) {
+		this.vtb = vtb;
+	}
+	public boolean isIngos() {
+		return ingos;
+	}
+	public void setIngos(boolean ingos) {
+		this.ingos = ingos;
+	}
+	public boolean isNo_firststate() {
+		return no_firststate;
+	}
+	public void setNo_firststate(boolean no_firststate) {
+		this.no_firststate = no_firststate;
+	}
+	public boolean isNo_secondstate() {
+		return no_secondstate;
+	}
+	public void setNo_secondstate(boolean no_secondstate) {
+		this.no_secondstate = no_secondstate;
+	}
+	public boolean isNo_thridstate() {
+		return no_thridstate;
+	}
+	public void setNo_thridstate(boolean no_thridstate) {
+		this.no_thridstate = no_thridstate;
+	}
+	public Integer getPlan_disp() {
+		return plan_disp;
+	}
+	public void setPlan_disp(Integer plan_disp) {
+		this.plan_disp = plan_disp;
 	}
 	
 

@@ -60,15 +60,16 @@ export class PeopleDatabase {
   }
   
   private handleError(error: any): Promise<any> {
-  console.error('An error occurred', error); // for demo purposes only
-  return Promise.reject(error.message || error);
+ 	console.log(error); // for demo purposes only
+  	return Promise.reject(error.message || error);
+  //return new Promise((resolve, reject) =>{}).then(res=> 0);
 }
   
-  downloadExcel(data: string,data2: number){
+  downloadExcel(data: string,data2: number,place: string){
  const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
     const options = new RequestOptions({headers: headers});
     options.responseType = ResponseContentType.Blob;
-    this.http.get(`${this.serverUrl}/download/${data2}/${data}`, options)
+    this.http.get(`${this.serverUrl}/download/${place}/${data2}/${data}`, options)
       .subscribe((response) => {
                 var blob = new Blob([response.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
                 var filename = data;
@@ -76,38 +77,64 @@ export class PeopleDatabase {
         })
 }
   
-  
+  /* Загрузка сформированных файлов
+  */
   listFiles(data : number): Promise<ListExcelFiles[]> {
   let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.get(`${this.serverUrl}/listExcelFiles/${data}`,{headers: headers})
                .toPromise()
-               .then(response => response.json() as ListExcelFiles[])
+               .then(response => response.json() as ListExcelFiles[]);
   }
   
+  /* Загрузка файлов на закачку
+  */
+  listFiles2(data : number): Promise<ListExcelFiles[]> {
+  let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.get(`${this.serverUrl}/listUpload/${data}`,{headers: headers})
+               .toPromise()
+               .then(response => response.json() as ListExcelFiles[]);
+  }
+  
+  upload(fileList : Array<File>): Promise<any>{
+  	 if(fileList.length > 0) {
+  	 	this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  	 	let us = this.currentUser['role'][0].id+'';
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('uploadFile', file, encodeURIComponent(file.name));
+        let headers = new Headers();
+        /** No need to include Content-Type in Angular 4 */
+        //headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+        headers.append('Authorization', us);
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.serverUrl + '/upload', formData, options)
+        .toPromise()
+        .then(res =>res);
+           /* .map(res => res.json())
+            .catch(error => Observable.throw(error))
+            .subscribe(
+                data => console.log('success'),
+                error => console.log(error)
+            )*/
+    }
+  }
   
   searchPersonKeys(data: any): Promise<any>{
   	let headers = new Headers({'Content-Type': 'application/json'});
-  	console.log(JSON.stringify(data));
   	return this.http
 	  .post(this.serverUrl + '/search_person_keys', JSON.stringify(data), {headers: headers})
 	  .toPromise()
 	  .then(res =>{
-	  let tmp_data =  res.json();
-	  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-	  for(let indexmas in tmp_data){
-	  
-	  if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== Number(tmp_data[indexmas].personLinksmoestablishmentid) ) continue;
-	   
-	  tmp_data[indexmas].personLinksmoestablishmentid === '1' ?  tmp_data[indexmas].personLinksmoestablishmentid = environment.linksmo_1  :
-	  tmp_data[indexmas].personLinksmoestablishmentid === '2' ?  tmp_data[indexmas].personLinksmoestablishmentid = environment.linksmo_2  :
-	  tmp_data[indexmas].personLinksmoestablishmentid === '4' ?  tmp_data[indexmas].personLinksmoestablishmentid = environment.linksmo_4  : environment.otkreplen;
-	  
-	  tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
-	  //tmp_data.length != 0  ? this.addPerson_t(tmp_data[0]) : tmp_data.length
-	  	this.addPerson_t(tmp_data[indexmas]); 
-	  }
+		  let tmp_data =  res.json();
+		  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+			  for(let indexmas in tmp_data){
+				  if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== Number(tmp_data[indexmas].personLinksmoestablishmentid) ) continue;
+				  tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
+				  this.addPerson_t(tmp_data[indexmas]); 
+			  }
+			   tmp_data.length;
 	  })
-  	//
   	.catch(this.handleError);
   }
   
@@ -123,13 +150,11 @@ export class PeopleDatabase {
 	  
 	  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 	  if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0; 
-	  console.log(tmp_data[0].personLinksmoestablishmentid+"\n"+environment.linksmo_2);
-	  tmp_data[0].personLinksmoestablishmentid === 1 ?  tmp_data[0].personLinksmoestablishmentid = environment.linksmo_1  :
-	  tmp_data[0].personLinksmoestablishmentid === 2 ?  tmp_data[0].personLinksmoestablishmentid = environment.linksmo_2  :
-	  tmp_data[0].personLinksmoestablishmentid === 4 ?  tmp_data[0].personLinksmoestablishmentid = environment.linksmo_4  : environment.otkreplen
-	  
+	  if(tmp_data.length === 0) return tmp_data.length;
+			  
 	  tmp_data[0].currentUser = this.currentUser['role'][0].id;
 	 
+	 // ставляю пустою структуру гэра если ее нет
 	  if(!("respGerl" in tmp_data[0])){
 	   tmp_data[0].respGerl=[{ 
 	   start_date_etap1:'',
@@ -149,7 +174,8 @@ export class PeopleDatabase {
 	  tmp_data.length != 0  ? this.addPerson_t(tmp_data[0]) : tmp_data.length
 	  
 	  })
-	  .catch(this.handleError);
+	  .catch(function(){return -1;
+	  });
   }
   
   exportToExcel(per_data: any): Promise<any[]> {
@@ -185,9 +211,20 @@ export class PeopleDatabase {
 	  .then(res => res.json())
 	  
   }
+  addResultSurvey(per_data: any): Promise<any> {
+		let headers = new Headers({'Content-Type': 'application/json'});
+	return this.http
+	  .post(this.serverUrl + '/insert_pm_a', JSON.stringify(per_data), {headers: headers})
+	  .toPromise()
+	  .then(res => {
+	  console.log(JSON.stringify(res));
+	  res;
+	  })
+	  
+  }
+  
   searchPersonGer(per_data: any): Promise<any> {
 	let headers = new Headers({'Content-Type': 'application/json'});
-	
 	return this.http
 	  .post(this.serverUrl + '/search_ger', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()

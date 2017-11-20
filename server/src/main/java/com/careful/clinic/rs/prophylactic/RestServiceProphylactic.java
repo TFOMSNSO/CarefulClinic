@@ -1,13 +1,21 @@
 package com.careful.clinic.rs.prophylactic;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -18,14 +26,22 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.jboss.resteasy.plugins.providers.multipart.InputPart;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import org.xml.sax.SAXException;
 
 import com.careful.clinic.dao.prophylactic.ProphylacticDAO;
+import com.careful.clinic.dao.prophylactic.ProphylacticDAOBean;
+import com.careful.clinic.dao.prophylactic.XA_Dream2Dao;
+import com.careful.clinic.guid.RandomGUID;
 import com.careful.clinic.model.PersonModel;
 import com.careful.clinic.model.SearchKeysModel;
 import com.careful.clinic.model.WrapRespSerarchKeys;
@@ -36,6 +52,119 @@ public class RestServiceProphylactic {
 	
 	@EJB
 	ProphylacticDAO prophylacticDAO;
+	@EJB
+	XA_Dream2Dao xa_Dream2Dao;
+	@EJB
+	private RandomGUID randomGuid;
+	
+	public byte[] getBytesFromInputStream(InputStream is) throws IOException
+	{
+	    try (ByteArrayOutputStream os = new ByteArrayOutputStream();)
+	    {
+	        byte[] buffer = new byte[0xFFFF];
+
+	        for (int len; (len = is.read(buffer)) != -1;)
+	            os.write(buffer, 0, len);
+
+	        os.flush();
+
+	        return os.toByteArray();
+	    }
+	}
+	
+	/**
+	 * Производим загрузку файла на сервер в зависимости от типа пользователя
+	 * @param headers	
+	 * @param input входящие данные 
+	 * @return информацию о статусе выполнененой загрузки
+	 * @throws IOException 
+	 */
+	@POST
+	@Path("/upload") 
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response uploadFile(@Context HttpHeaders headers, MultipartFormDataInput input) throws IOException {
+		String directoryServer = System.getProperty("jboss.home.dir");
+		String fileName = "";
+		String UPLOADED_FILE_PATH = "";
+		
+		List<String> authHeaders = headers.getRequestHeader(HttpHeaders.AUTHORIZATION);
+		if(Integer.valueOf(authHeaders.get(0)) == 777) UPLOADED_FILE_PATH = "\\content\\upload\\777\\process\\";
+		if(Integer.valueOf(authHeaders.get(0)) == 1)	UPLOADED_FILE_PATH = "\\content\\upload\\1\\process\\";
+		if(Integer.valueOf(authHeaders.get(0)) == 2)	UPLOADED_FILE_PATH = "\\content\\upload\\2\\process\\";
+		if(Integer.valueOf(authHeaders.get(0)) == 4)	UPLOADED_FILE_PATH = "\\content\\upload\\4\\process\\";
+
+		Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+		List<InputPart> inputParts = uploadForm.get("uploadFile");
+		Response.ResponseBuilder builder = null;
+		
+		try {
+			for (InputPart inputPart : inputParts) {
+						MultivaluedMap<String, String> header = inputPart.getHeaders();
+						fileName = getFileName(header);
+						System.out.println("fileName_Test "+fileName);
+						//convert the uploaded file to inputstream
+						InputStream inputStream = inputPart.getBody(InputStream.class,null);
+						byte [] bytes = getBytesFromInputStream(inputStream);
+	
+						//constructs upload file path
+						fileName = directoryServer + UPLOADED_FILE_PATH + fileName;
+						writeFile(bytes,fileName);
+	
+			}
+			
+			/*Блок загрузки в базу
+			 * Парсим и загружаем в базу отработанный файл 
+			 * */
+			
+			List<String> listOfQueryies = prophylacticDAO.processingExcelFile(fileName);
+			if(listOfQueryies == null) throw new Exception("Ошибка в шаблоне. Не удается определить шаблон.");
+			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies)){
+				String TRANSVER_UPLOADED_FILE_PATH = "";
+				if(Integer.valueOf(authHeaders.get(0)) == 777) TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\777\\processed\\";
+				if(Integer.valueOf(authHeaders.get(0)) == 1)	TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\1\\processed\\";
+				if(Integer.valueOf(authHeaders.get(0)) == 2)	TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\2\\processed\\";
+				if(Integer.valueOf(authHeaders.get(0)) == 4)	TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\4\\processed\\";
+				
+				String toName = directoryServer + TRANSVER_UPLOADED_FILE_PATH + randomGuid.valueAfterMD5+".xlsx";
+				File from_file = new File(fileName);
+				File to_file = new File(toName);
+				Files.copy(from_file.toPath(), to_file.toPath());
+				from_file.delete();
+				String txt_file = from_file.getPath().replaceAll(".xlsx", ".txt");
+				Files.deleteIfExists(Paths.get(txt_file));
+			}
+			
+			/*
+			 * */
+			
+			 String info =  new String("Файл успешно загружен");
+			 builder = Response.status(Response.Status.OK);
+		     builder.entity( info );
+		     return builder.build();
+		     
+		} catch (IOException e) {
+			java.nio.file.Path f = Paths.get(fileName.replaceAll(".xlsx", ".txt"));
+			Files.deleteIfExists(f);
+			java.nio.file.Path out = Files.createFile(Paths.get(fileName.replaceAll(".xlsx", ".txt")));
+	    	  Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
+			  e.printStackTrace();
+			  builder = Response.status(Response.Status.OK);
+			     builder.entity("Произошла ошибка загрузки файла");
+			  return builder.build();
+		  }
+		catch (Exception e) {
+			 java.nio.file.Path f = Paths.get(fileName.replaceAll(".xlsx", ".txt"));
+			  Files.deleteIfExists(f);
+			  java.nio.file.Path out = Files.createFile(Paths.get(fileName.replaceAll(".xlsx", ".txt")));
+	    	  Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
+	    	  e.printStackTrace();
+			  builder = Response.status(Response.Status.OK);
+			     builder.entity(e.getMessage());
+			  return builder.build();
+		}
+	}
+	
 	
 	
 	/**
@@ -56,8 +185,24 @@ public class RestServiceProphylactic {
 		List<?> df = (List<?>) prophylacticDAO.getInfoProphylactic(personmodel);
 		
 		return df;
-
 	}
+	
+	@POST
+	@Path("/insert_pm_a")
+	@Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response insert_pm_a(String sql) {
+	try{	
+		new Throwable();
+		Response.ResponseBuilder response = Response.ok();
+		xa_Dream2Dao.pasteResultPm_a(sql);	        
+		return response.build();
+	   } catch (Throwable e) {
+	        e.printStackTrace();
+	        return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+	    }
+	}
+	
 	
 	
 	/**
@@ -130,7 +275,7 @@ public class RestServiceProphylactic {
     @Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> searchG(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
 		
-		List<?> df = (List<?>) prophylacticDAO.getInfoG(personmodel);
+		List<?> df = (List<?>) xa_Dream2Dao.getInfoG(personmodel);
 		
 		return df;
 
@@ -151,7 +296,7 @@ public class RestServiceProphylactic {
     @Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> searchInform(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
 		
-		return prophylacticDAO.getInfoInform(personmodel);
+		return xa_Dream2Dao.getInfoInform(personmodel);
 	}
 	
 	@POST
@@ -160,7 +305,7 @@ public class RestServiceProphylactic {
     @Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> surveyInform(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
 		
-		return prophylacticDAO.getSurveyInform(personmodel);
+		return xa_Dream2Dao.getSurveyInform(personmodel);
 	}
 	
 	
@@ -170,7 +315,7 @@ public class RestServiceProphylactic {
     @Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> searchPlanInform(@PathParam("adressid") String adressid) throws ParserConfigurationException, SAXException, IOException, ParseException {
 		
-		List<?> df = (List<?>) prophylacticDAO.getInfoPlanInform(Integer.valueOf(adressid));
+		List<?> df = (List<?>) xa_Dream2Dao.getInfoPlanInform(Integer.valueOf(adressid));
 		
 		return df;
 
@@ -199,19 +344,38 @@ public Collection<?> listExcelFiles(@PathParam("id") Integer id) throws ParserCo
 }
 
 @GET
-@Path("/download/{id}/{namefile}")
+@Path("/listUpload/{id}")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public Collection<?> listUploadedFiles(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+	
+	List<?> df = (List<?>) prophylacticDAO.getListUploadedFiles(id);
+	
+	return df;
+}
+
+@GET
+@Path("/download/{place}/{id}/{namefile}")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-public Response getdownloadFile(@PathParam("id") Integer id, @PathParam("namefile") String namefile) {
+public Response getdownloadFile(@PathParam("place") String place, @PathParam("id") Integer id, @PathParam("namefile") String namefile) {
 	
 	String directoryServer = System.getProperty("jboss.home.dir");
 	String directoryDestination = "";
-	if(id == 777) directoryDestination = "\\content\\donwload\\777";
-	if(id == 1)	directoryDestination = "\\content\\donwload\\1";
-	if(id == 2)	directoryDestination = "\\content\\donwload\\2";
-	if(id == 4)	directoryDestination = "\\content\\donwload\\4";
+	if(place.equals("download")){
+		if(id == 777) directoryDestination = "\\content\\donwload\\777";
+		if(id == 1)	directoryDestination = "\\content\\donwload\\1";
+		if(id == 2)	directoryDestination = "\\content\\donwload\\2";
+		if(id == 4)	directoryDestination = "\\content\\donwload\\4";	
+	}
+	if(place.equals("upload")){
+		if(id == 777) directoryDestination = "\\content\\upload\\777\\process";
+		if(id == 1)	directoryDestination = "\\content\\upload\\1\\process";
+		if(id == 2)	directoryDestination = "\\content\\upload\\2\\process";
+		if(id == 4)	directoryDestination = "\\content\\upload\\4\\process";
+	}
 	
-	directoryDestination = directoryServer+directoryDestination+File.separator+namefile+".xlsx";
+	directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
 	
     File file = new File(directoryDestination);
     try {
@@ -228,5 +392,46 @@ public Response getdownloadFile(@PathParam("id") Integer id, @PathParam("namefil
     }
 }
 
+/**
+ * header sample
+ * {
+ * 	Content-Type=[image/png],
+ * 	Content-Disposition=[form-data; name="file"; filename="filename.extension"]
+ * }
+ * @throws IOException 
+ **/
+//get uploaded filename, is there a easy way in RESTEasy?
+private String getFileName(MultivaluedMap<String, String> header) throws IOException {
+
+	String[] contentDisposition = header.getFirst("Content-Disposition").split(";");
+
+	for (String filename : contentDisposition) {
+		if ((filename.trim().startsWith("filename"))) {
+
+			String[] name = filename.split("=");
+
+			String finalFileName = URLDecoder.decode(name[1].trim().replaceAll("\"", ""), "UTF-8");
+			return finalFileName;
+		}
+	}
+	return "unknown";
+}
+
+//save to somewhere
+	private void writeFile(byte[] content, String filename) throws IOException {
+
+		File file = new File(filename);
+
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+
+		FileOutputStream fop = new FileOutputStream(file);
+
+		fop.write(content);
+		fop.flush();
+		fop.close();
+
+	}
 
 }

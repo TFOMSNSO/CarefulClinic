@@ -53,8 +53,29 @@
     		</div>
     		<!-- <md-divider></md-divider> -->
     		<hr>
+    		<div >
+	    		<h4 class="example-h2">{{_survey}}</h4>
+			   	  <section class="example-section">
+				   	  		<md-select   class='full-width required' placeholder="{{_survey_stat}}"  formControlName="survey_stat">
+				   				<md-option [value]="1">{{_nonrespond}}</md-option>
+				   				<md-option [value]="2">{{_respond}}</md-option>
+				   	  		</md-select>
+			   	  </section>
+	   	  </div>
+	   	  	   	  <hr>
     		<div>
-    		
+	   	  <h4 class="example-h2">{{_plandisp}}</h4>
+	   	   <section class="example-section">
+				   	  		<md-select   class='full-width required' placeholder="{{_statedisp}}"  formControlName="plan_disp">
+				   				<md-option [value]="1">{{_kv1}}</md-option>
+				   				<md-option [value]="2">{{_kv2}}</md-option>
+				   				<md-option [value]="3">{{_kv3}}</md-option>
+				   				<md-option [value]="4">{{_kv4}}</md-option>
+				   	  		</md-select>
+	   	  </section>
+	   	  </div>
+	   	  <hr>
+    		<div>
 	   	  <h4 class="example-h2">{{_inform}}</h4>
 	   	  <!-- <section class="example-section">
       			<md-checkbox class="example-margin"  formControlName="nullstate" >0 state</md-checkbox>
@@ -62,8 +83,11 @@
       			<my-date-picker  style="width: 130px; margin-right: 10px;" [placeholder]="firstdate"  name="firstdatenullstate"  [options]="myDatePickerOptions"  formControlName="firstdatenullstate"  *ngIf="myForm.value.nullstate"></my-date-picker>
 				<my-date-picker  style="width: 130px; margin-right: 10px;" [placeholder]="seconddate"  name="seconddatenullstate"  [options]="myDatePickerOptions"  formControlName="seconddatenullstate"  *ngIf="myForm.value.nullstate"></my-date-picker>
     		</section> -->
-    		<md-checkbox class="example-margin"  formControlName="firststate" >{{_I}}</md-checkbox>
-	   	  <section class="example-section" *ngIf="myForm.value.firststate">
+    		<section class="example-section" >
+    		<!-- <md-checkbox class="example-margin"  formControlName="firststate"  *ngIf="!( myForm.value.no_secondstate || myForm.value.no_thridstate || myForm.value.no_firststate)">{{_I}}</md-checkbox> -->
+    		<md-checkbox class="example-margin"  formControlName="no_firststate"  *ngIf="!(myForm.value.no_secondstate ||myForm.value.firststate || myForm.value.no_thridstate  || myForm.value.thridstate  || myForm.value.secondstate)">{{_infoI}}</md-checkbox> 
+    		</section>
+	   	  <!-- <section class="example-section"  *ngIf="myForm.value.firststate" >
       			<md-checkbox class="example-margin"  formControlName="firstsms"  *ngIf="myForm.value.firststate">{{_sms}}</md-checkbox>
       			<md-checkbox class="example-margin"  formControlName="firsttel"  *ngIf="myForm.value.firststate">{{_telsearchkeys}}</md-checkbox>
       			<md-checkbox class="example-margin"  formControlName="firstemail"  *ngIf="myForm.value.firststate">{{_email}}</md-checkbox>
@@ -78,11 +102,14 @@
     		<section class="example-section" *ngIf="myForm.value.firststate">
     						<my-date-picker  style="width: 130px; margin-right: 10px;" [placeholder]="firstdate"  name="firstdatefirststate"  [options]="myDatePickerOptions"  formControlName="firstdatefirststate"  *ngIf="myForm.value.firststate"></my-date-picker>
 							<my-date-picker  style="width: 130px; margin-right: 10px;" [placeholder]="seconddate"  name="seconddatefirststate"  [options]="myDatePickerOptions"  formControlName="seconddatefirststate"  *ngIf="myForm.value.firststate"></my-date-picker>
-    		</section>
+    		</section> -->
     		<hr *ngIf="myForm.value.firststate">
     		<br>
-    		<md-checkbox class="example-margin"  formControlName="secondstate" >{{_II}}</md-checkbox>
-    		<section class="example-section" *ngIf="myForm.value.secondstate">
+    		<section class="example-section" >
+    		<!-- <md-checkbox class="example-margin"  formControlName="secondstate"  *ngIf="! (myForm.value.no_secondstate || myForm.value.no_firststate  || myForm.value.no_thridstate)">{{_II}}</md-checkbox> -->
+    		<md-checkbox class="example-margin"  formControlName="no_secondstate"  *ngIf="! (myForm.value.firststate || myForm.value.secondstate || myForm.value.no_firststate  || myForm.value.no_thridstate || myForm.value.thridstate)">{{_infoII}}</md-checkbox>
+    		</section>
+    		<!-- <section class="example-section" *ngIf="myForm.value.secondstate">
       			<md-checkbox class="example-margin"  formControlName="secondsms"  *ngIf="myForm.value.secondstate">{{_sms}}</md-checkbox>
       			<md-checkbox class="example-margin"  formControlName="secondtel"  *ngIf="myForm.value.secondstate">{{_telsearchkeys}}</md-checkbox>
       			<md-checkbox class="example-margin"  formControlName="secondemail"  *ngIf="myForm.value.secondstate">{{_email}}</md-checkbox>
@@ -97,11 +124,14 @@
       		<section class="example-section" *ngIf="myForm.value.secondstate">
 				<my-date-picker style="width: 130px; margin-right: 10px;" [placeholder]="firstdate"  name="firstdatesecondstate"  [options]="myDatePickerOptions"  formControlName="firstdatesecondstate"  *ngIf="myForm.value.secondstate" placeholder="{{_ex}}"></my-date-picker>
 				<my-date-picker style="width: 130px; margin-right: 10px;" [placeholder]="seconddate"  name="seconddatefirststate"  [options]="myDatePickerOptions"  formControlName="seconddatesecondstate"  *ngIf="myForm.value.secondstate" placeholder="{{_through}}"></my-date-picker>
-    		</section>
+    		</section> -->
     		<hr *ngIf="myForm.value.secondstate">
     		<br>
-    		<md-checkbox class="example-margin"  formControlName="thridstate" >{{_III}}</md-checkbox>
-    		<section class="example-section"  *ngIf="myForm.value.thridstate">
+    		<section class="example-section" >
+    		<!-- <md-checkbox class="example-margin"  formControlName="thridstate" *ngIf="! (myForm.value.no_secondstate ||myForm.value.no_thridstate || myForm.value.no_firststate)">{{_infoIII}}</md-checkbox> -->
+    		<md-checkbox class="example-margin"  formControlName="no_thridstate" *ngIf="! (myForm.value.no_secondstate ||myForm.value.firststate || myForm.value.thridstate || myForm.value.no_firststate  || myForm.value.secondstate)">{{_III}}</md-checkbox>
+    		</section>
+    		<!-- <section class="example-section"  *ngIf="myForm.value.thridstate">
       			<md-checkbox class="example-margin"  formControlName="thridsms"  *ngIf="myForm.value.thridstate">{{_sms}}</md-checkbox>
       			<md-checkbox class="example-margin"  formControlName="thridtel"  *ngIf="myForm.value.thridstate">{{_telsearchkeys}}</md-checkbox>
       			<md-checkbox class="example-margin"  formControlName="thridemail"  *ngIf="myForm.value.thridstate">{{_email}}</md-checkbox>
@@ -116,7 +146,7 @@
       		<section class="example-section" *ngIf="myForm.value.thridstate">
 				<my-date-picker style="width: 130px; margin-right: 10px;" [placeholder]="firstdate"  name="firstdatethridstate"  [options]="myDatePickerOptions"  formControlName="firstdatethridstate"  *ngIf="myForm.value.thridstate" placeholder="{{_ex}}"></my-date-picker>
 				<my-date-picker style="width: 130px; margin-right: 10px;" [placeholder]="seconddate"  name="seconddatethridstate"  [options]="myDatePickerOptions"  formControlName="seconddatethridstate"  *ngIf="myForm.value.thridstate" placeholder="{{_through}}"></my-date-picker>
-    		</section>
+    		</section> -->
     		</div>
     		<hr>
     		<div  formGroupName="ger" >
@@ -125,17 +155,23 @@
 				   	  		<md-select   class='full-width required' placeholder="{{_statedisp}}"  formControlName="pm_result">
 				   				<md-option *ngFor="let rs of pm_resalts" [value]="rs.id">{{ rs.name }}</md-option>
 				   	  		</md-select>
-				   	  		<my-date-picker style="width: 130px; margin-right: 10px; margin-left: 10px;" [placeholder]="firstdate"  name="start_date_etap1_dsp"  [options]="myDatePickerOptions"  formControlName="start_date_etap1_dsp"  *ngIf="myForm.value.ger.pm_result === 1 || myForm.value.ger.pm_result === 2 || myForm.value.ger.pm_result === 3 || myForm.value.ger.pm_result === 5"></my-date-picker>
-				   	  		<my-date-picker style="width: 130px; margin-right: 10px;" [placeholder]="seconddate"  name="end_date_etap1_dsp"  [options]="myDatePickerOptions"  formControlName="end_date_etap1_dsp"  *ngIf="myForm.value.ger.pm_result === 2 || myForm.value.ger.pm_result === 5"></my-date-picker>
+				   	  	<!-- 	<my-date-picker style="width: 130px; margin-right: 10px; margin-left: 10px;" [placeholder]="firstdate"  name="start_date_etap1_dsp"  [options]="myDatePickerOptions"  formControlName="start_date_etap1_dsp"  *ngIf="myForm.value.ger.pm_result === 1 || myForm.value.ger.pm_result === 2 || myForm.value.ger.pm_result === 3 || myForm.value.ger.pm_result === 5"></my-date-picker>
+				   	  		<my-date-picker style="width: 130px; margin-right: 10px;" [placeholder]="seconddate"  name="end_date_etap1_dsp"  [options]="myDatePickerOptions"  formControlName="end_date_etap1_dsp"  *ngIf="myForm.value.ger.pm_result === 2 || myForm.value.ger.pm_result === 5"></my-date-picker> -->
 			   	  </section>
 	   	  </div>
 	   	  <hr>
+	   	  		<section class="example-section"  *ngIf="currentUser['role'][0].id === 777">
+      				<md-checkbox class="example-margin"  formControlName='simaz' >{{_linksmo_1}}</md-checkbox>
+      				<md-checkbox class="example-margin"  formControlName='vtb' >{{_linksmo_2}}</md-checkbox>
+      				<md-checkbox class="example-margin"  formControlName='ingos' >{{_linksmo_4}}</md-checkbox>
+      			</section>
   				<section class="example-section">
       				<md-checkbox class="example-margin"  formControlName='exportExcel' >{{_exportExcel}}</md-checkbox>
       			</section>
       			<section class="example-section">
       				<md-input-container class="example-margin">
 			        	<input  mdInput type="number" placeholder="{{_causenotes}}"  formControlName="count_notes" >
+			        	<md-error>{{field_is_required}}</md-error>
 				    </md-input-container >
       			</section>
   			</md-card-content>

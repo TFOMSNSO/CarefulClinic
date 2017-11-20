@@ -33,7 +33,7 @@
          <property name="hibernate.connection.charSet" value="UTF-8"/>
       </properties>
    </persistence-unit>
-   <persistence-unit name="OracleDream2DS">
+   <persistence-unit name="OracleDream2DS"  transaction-type="JTA">
    		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/ds/OfomsDream2</jta-data-source>
         <class>com.careful.clinic.model.PmI</class>
@@ -51,7 +51,7 @@
         </properties>
     </persistence-unit>
     
-    <persistence-unit name="OracleDSDeveloper">
+    <persistence-unit name="OracleDSDeveloper"  transaction-type="JTA">
    		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/ds/DeveloperDame</jta-data-source>
         <class>com.careful.clinic.model.Person</class>
@@ -66,7 +66,7 @@
         </properties>
     </persistence-unit>
     
-    <persistence-unit name="NONXASDAME">
+    <persistence-unit name="NONXASDAME"  transaction-type="JTA">
    		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:jboss/datasources/NONXADAMEDS</jta-data-source>
         <properties>
@@ -78,5 +78,4 @@
             <!--  <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" /> -->
         </properties>
     </persistence-unit>
-    
 </persistence>

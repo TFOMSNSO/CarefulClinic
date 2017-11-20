@@ -17,7 +17,7 @@ public class WrapRespSerarchKeys implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public WrapRespSerarchKeys(String surname, String firstname, String lastname, String bithday, String personLinksmoestablishmentid, String personEstablishmentambul, String tele2 , String teledom, String telework,Integer currentUser) {
+	public WrapRespSerarchKeys(String surname, String firstname, String lastname, String bithday, Integer personLinksmoestablishmentid, String personEstablishmentambul, String tele2 , String teledom, String telework,Integer currentUser) {
 		this.personSurname = surname;
 		this.personKindfirstname = firstname;
 		this.personKindlastname = lastname;
@@ -31,16 +31,46 @@ public class WrapRespSerarchKeys implements Serializable{
 	private String personKindfirstname;
 	private String personKindlastname;
 	private String personBirthday;
-	private String personLinksmoestablishmentid;
+	private Integer personLinksmoestablishmentid;
 	private String personEstablishmentambul;
 	private WrapRespSerarchKeysForPersonadd personadd;
 	private String years;
 	private Integer currentUser;
+	@JsonIgnore
+	private String count_pmIstages;
+	@JsonIgnore
+	private String pma_d_info;
+	@JsonIgnore
+	private String pma_type_info;
+	@JsonIgnore
+	private String pma_smo;
+	
+	@JsonIgnore
+	public String  getTele2(){
+		return personadd.getTele2();
+	}
+	@JsonIgnore
+	public String  getTeleWork(){
+		return personadd.getTelework();
+	}
+	@JsonIgnore
+	public String  getTeleDom(){
+		return personadd.getTeledom();
+	}
 	
 	//@JsonProperty("respGerl")
 	//@JsonIgnore
 	protected List<ResponseGer> respGerl = new ArrayList<ResponseGer>();
+	@JsonIgnore
+	protected List<ResponsePmMo17> respPlan = new ArrayList<ResponsePmMo17>();
 	
+	
+	public List<ResponsePmMo17> getRespPlan() {
+		return respPlan;
+	}
+	public void setRespPlan(ResponsePmMo17 respPlan) {
+		this.respPlan.add(respPlan);
+	}
 	
 	public List<ResponseGer> getRespGerl() {
 		return respGerl;
@@ -54,10 +84,10 @@ public class WrapRespSerarchKeys implements Serializable{
 	}
 
 	
-	public String getPersonLinksmoestablishmentid() {
+	public Integer getPersonLinksmoestablishmentid() {
 		return personLinksmoestablishmentid;
 	}
-	public void setPersonLinksmoestablishmentid(String personLinksmoestablishmentid) {
+	public void setPersonLinksmoestablishmentid(Integer personLinksmoestablishmentid) {
 		this.personLinksmoestablishmentid = personLinksmoestablishmentid;
 	}
 	public String getPersonEstablishmentambul() {
@@ -135,10 +165,41 @@ public class WrapRespSerarchKeys implements Serializable{
 		builder.append("]");
 		return builder.toString();
 	}
+	public String getCount_pmIstages() {
+		return count_pmIstages;
+	}
+	public void setCount_pmIstages(String count_pmIstages1,String count_pmIstages2,String count_pmIstages3) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(count_pmIstages1);
+		sb.append("; ");
+		sb.append(count_pmIstages2);
+		sb.append("; ");
+		sb.append(count_pmIstages3);
+		this.count_pmIstages = sb.toString();
+	}
+	public String getPma_d_info() {
+		return pma_d_info;
+	}
+	public void setPma_d_info(String pma_d_info) {
+		this.pma_d_info = pma_d_info;
+	}
+	public String getPma_type_info() {
+		return pma_type_info;
+	}
+	public void setPma_type_info(String pma_type_info) {
+		this.pma_type_info = pma_type_info;
+	}
+	public String getPma_smo() {
+		return pma_smo;
+	}
+	public void setPma_smo(String pma_smo) {
+		this.pma_smo = pma_smo;
+	}
+	
 	
 }
 
-class WrapRespSerarchKeysForPersonadd  implements Serializable{
+ class WrapRespSerarchKeysForPersonadd  implements Serializable{
 	
 	  /**
 	 * 
