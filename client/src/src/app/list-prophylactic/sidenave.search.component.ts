@@ -30,9 +30,9 @@ export class SadeaveSearchComponent   implements OnInit{
 	@ViewChild('sidenav') variable_sidenave: any;
 	@Output() progress_bar_emit: EventEmitter<any> = new EventEmitter<any>();
 	
-	constructor(private sidenaveSearchService: SidenaveSearchService,
-					private formBuilder: FormBuilder,
-					private personSearchIsurService: PeopleDatabase){}
+	constructor(private sidenaveSearchService: SidenaveSearchService,private formBuilder: FormBuilder,private personSearchIsurService: PeopleDatabase){
+			 
+	}
 					
 			
 	
@@ -43,6 +43,8 @@ export class SadeaveSearchComponent   implements OnInit{
 	      lastname: ['', Validators.required],
 	      bithday: ['', Validators.required]
 	    });
+	    
+	    
   }
   
   myDatePickerOptions: IMyDpOptions = {
@@ -79,5 +81,4 @@ export class SadeaveSearchComponent   implements OnInit{
   	  this.myForm.reset(); 
   	  
   }
-
 }

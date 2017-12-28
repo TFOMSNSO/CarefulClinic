@@ -140,7 +140,7 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	      isTelefon:[''],
 	      exportExcel:[false],
 	      currentUser:[this.currentUser['role'][0].id],
-	      count_notes:['', [Validators.required, Validators.min(1),Validators.max(6000)]],
+	      count_notes:['', [Validators.required, Validators.min(1),Validators.max(5000000)]],
 	      survey_stat:[''],
 	      simaz:[false],
 	      vtb:[false],
@@ -185,6 +185,8 @@ export class SadeaveSearchKeysComponent   implements OnInit{
 	
 	ngOnInit() {
 	    this.createForm();
+	    
+	    
   }
   
     myDatePickerOptions: IMyDpOptions = {
@@ -232,6 +234,12 @@ export class SadeaveSearchKeysComponent   implements OnInit{
  open(){
  	//this.variable_sidenave.nativeElement.open();
  	this.variable_sidenave.toggle(true);
+ 	
+ 	this.myForm.valueChanges.subscribe(data => {
+			      //console.log('Form changes', data)
+			      if(data.count_notes > 5000) data.exportExcel=true;
+			      console.log('Form changes', data.count_notes+' - '+data.exportExcel); 
+	    })
  }
 
 }

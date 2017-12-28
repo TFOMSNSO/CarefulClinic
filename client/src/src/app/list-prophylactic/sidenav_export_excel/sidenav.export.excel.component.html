@@ -6,12 +6,18 @@
 	    	</md-toolbar>
 <!-- 		</md-card-title> -->
   			<md-nav-list>
-			      <a md-list-item *ngFor="let row of listExcelFiles"  (click)="downloadExcel(row.namefile)">
+  			<div *ngIf="listExcelFiles.length > 0; else other_content" >
+			      <a md-list-item *ngFor="let row of listExcelFiles;"  (click)="downloadExcel(row.namefile)">
 			        <md-icon md-list-icon>tab</md-icon>
 			        <span md-line>{{row.namefile}}</span>
 			        <span md-line class="demo-secondary-text"> Description </span>
 			      </a>
-    </md-nav-list>
+			  </div>
+			  <ng-template #other_content>
+		      	<div *ngIf="flag; else date_note"><h1><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></h1></div>
+	  			<ng-template #date_note><md-error><h3>{{data_not_found}}</h3></md-error></ng-template>
+  			 </ng-template>
+   			 </md-nav-list>
     <br><br>
   			 
   			 

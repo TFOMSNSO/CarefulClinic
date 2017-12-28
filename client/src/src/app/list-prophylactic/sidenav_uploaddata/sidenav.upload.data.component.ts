@@ -25,9 +25,11 @@ export class SidenavUploadDataComponent   implements OnInit{
 	public fileList : any = [];
   	public invalidFiles : any = [];
   	public listUploadedFiles: ListExcelFiles[] = [];
+  	public flag: boolean = true;
   	
   	_pull: string = environment.pull;
   	_drop: string = environment.drop;
+  	data_not_found = environment.data_not_found;
   	
 	constructor(private personSearchIsurService: PeopleDatabase){}
 	
@@ -64,9 +66,11 @@ ngOnInit():void {
   
   
   private getListNameUploadedFiles(data : number): void{
+  		this.flag = true;
 	 	 this.personSearchIsurService.listFiles2(data)
 	 	 .then(res => {
 	 	 this.listUploadedFiles = res;
+	 	 this.flag = false;
 	 	 });
 }
   

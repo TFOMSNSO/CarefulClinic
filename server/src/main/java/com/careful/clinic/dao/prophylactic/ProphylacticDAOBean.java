@@ -53,11 +53,14 @@ import com.careful.clinic.model.WrapPmI;
 import com.careful.clinic.model.WrapRespSerarchKeys;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -95,6 +98,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	 * @throws Exception 
 	 * 			
 	 */
+	@TransactionAttribute(TransactionAttributeType.NEVER)
 	public Collection<?> getInfoInsurkeys(SearchKeysModel personmodel) throws Exception{
 		
 		  		StringBuilder sb = new StringBuilder();
@@ -354,12 +358,24 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	    Map<PersonModel,ResponseGer> map = new HashMap<PersonModel,ResponseGer>();
 	    List<WrapRespSerarchKeys> result = new ArrayList<WrapRespSerarchKeys>();
 	    ResponsePmMo17 responsePmMo17  = null;
+	    WrapRespSerarchKeys wrsk = null;
+	    String tele2="",telework="",teledom="",f="";
+	    StringBuilder sb1 = new StringBuilder();
+	    List<ResponseGer> tmp = null;
 	    //if(!personmodel.getPm_result().equals("")){
-	    	WrapRespSerarchKeys wrsk = null;
+	    	
 	    	for(int i=0; i<ls.size()-1;i++){
 	    		Object[] obj = ls.get(i);
-	    		String f =  obj[3].toString().substring(8,10)+"."+obj[3].toString().substring(5, 7)+"."+obj[3].toString().substring(0, 4);
-	    		String tele2="",telework="",teledom="";
+	    		
+	    		sb1.append(obj[3].toString().substring(8,10));
+	    		sb1.append(".");
+	    		sb1.append(obj[3].toString().substring(5, 7));
+	    		sb1.append(".");
+	    		sb1.append(obj[3].toString().substring(0, 4));
+	    		
+	    		f =  sb1.toString();
+	    		sb1.delete(0,sb1.length());
+	    		
 	    		if(obj[6] != null)   tele2 = obj[6].toString() ;
 	    		if(obj[7] != null)   telework = obj[7].toString();
 	    		if(obj[8] != null)  teledom =  obj[8].toString();
@@ -377,12 +393,11 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	    			wrsk.setPma_smo(obj[19] != null ?  obj[19].toString() : "");
 	    		//}
 	    			
-	    		
 		    	if(map.containsKey(p)){
 		    		wrsk.updateRespGerl(map.get(p));
 		    	}else{
 		    		if(!personmodel.getPm_result().equals("")){
-		    			List<ResponseGer> tmp =(List<ResponseGer>) xa_Dream2Dao.getInfoG(p);
+		    			 tmp =(List<ResponseGer>) xa_Dream2Dao.getInfoG(p);
 			    		// не прошел диспасеризацию (без привязке ко времени)
 		    		//	System.out.println(wrsk.getPersonSurname()+" - "+tmp.get(0).getPm_result());
 			    		if(personmodel.getPm_result().equals("0") && (tmp.get(0).getPm_result().equals("0") || tmp.get(0).getPm_result().equals("нет данных")) ){
@@ -409,7 +424,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 			    		}
 			    		
 		    		}else{
-		    			List<ResponseGer> tmp =(List<ResponseGer>) xa_Dream2Dao.getInfoG(p);
+		    			 tmp =(List<ResponseGer>) xa_Dream2Dao.getInfoG(p);
 		    			//List<ResponseGer> tmp = new ArrayList<ResponseGer>(1);
 		    			//tmp.add(new ResponseGer());
 		    			map.put(p, tmp.get(0));
@@ -419,13 +434,31 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		    	
 		    	result.add(wrsk);
 	    	}
+	    	System.out.println("> 5000?? "+personmodel.isExportExcel()+" - "+result.size());
+	    	
 	    	
 	    	if(personmodel.isExportExcel()){
-	    		SimpleDateFormat time_formatter = new SimpleDateFormat("yyyy-MM-dd_HH_mm");
+	    		SimpleDateFormat time_formatter = new SimpleDateFormat("yyyy-MM-dd_HH_mm_ss");
 	    		String current_time_str = time_formatter.format(System.currentTimeMillis());
+	    		int shag = 65_000, end = result.size();
+	    		Float koef = (float) end/shag;
 	    		
-	    		writeListToFile("org_" + personmodel.getCurrentUser()+"_"+current_time_str+".xlsx",result,sb.toString());
+	    		for(int i = 0;; i = i+65_000){
+	    			if(i > end && Integer.valueOf(koef.toString().split("\\.")[1]) > 0){ // koef - наличие дробной части говорит о использовании не 65_000 сктрок в экселе. (то есть используем по end )
+						writeListToFile("org_" + personmodel.getCurrentUser()+"_"+current_time_str+".xlsx",result.subList(i-65000, end),sb.toString());
+						break;
+					}
+	    			if((i+65000) <= end) writeListToFile("org_" + personmodel.getCurrentUser()+"_"+current_time_str+".xlsx",result.subList(i, i+65_000),sb.toString());
+	    			
+	    			 if(i > end) break; // если текущая итерация цикла больше строки окончания экселя
+	    		}
+	    		
+	    				
+	    				
+	    		
 	    	}
+	    	
+	    	if(result.size() > 5000) { System.out.println("> 5000 return "+result.size()); return result.subList(0, 5001);}
 	    	
 	      return result;
 	}
@@ -491,22 +524,19 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	
 	public  void writeListToFile(String fileName, List<WrapRespSerarchKeys> wrapRespSerarchKeys, String querytext) throws Exception{
 		
-		Workbook workbook = null;
+		SXSSFWorkbook workbook = null;
 		
 		if(fileName.endsWith("xlsx")){
-			workbook = new XSSFWorkbook();
-		}else if(fileName.endsWith("xls")){
-			workbook = new HSSFWorkbook();
+			workbook = new SXSSFWorkbook(-1);
 		}else{
 			throw new Exception("invalid file name, should be xls or xlsx");
 		}
 		
-		Sheet sheet = workbook.createSheet("Данные");
+		 SXSSFSheet  sheet = (SXSSFSheet) workbook.createSheet("Данные");
 		
-		Sheet sheet_query = workbook.createSheet("Запрос");
+		 SXSSFSheet  sheet_query = (SXSSFSheet)  workbook.createSheet("Запрос");
 		Row row_query = sheet_query.createRow(0);
-		Cell cell_query = row_query.createCell(0);
-		cell_query.setCellValue(querytext);
+		row_query.createCell(0).setCellValue(querytext);
 		
 		
 		{
@@ -562,57 +592,42 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		}
 		Iterator<WrapRespSerarchKeys> iterator = wrapRespSerarchKeys.iterator();
 		int rowIndex = 1;
+		WrapRespSerarchKeys Keys = null;
+		Row row = null;
 		while(iterator.hasNext()){
-			WrapRespSerarchKeys Keys = iterator.next();
-			Row row = sheet.createRow(rowIndex++);
-			Cell cell0 = row.createCell(0);
-			cell0.setCellValue(Keys.getPersonSurname());
-			Cell cell1 = row.createCell(1);
-			cell1.setCellValue(Keys.getPersonKindfirstname());
-			Cell cell2 = row.createCell(2);
-			cell2.setCellValue(Keys.getPersonKindlastname());
-			Cell cell3 = row.createCell(3);
-			cell3.setCellValue(Keys.getPersonBirthday());
-			Cell cell4 = row.createCell(4);
-			cell4.setCellValue(Keys.getYears());
-			Cell cell5 = row.createCell(5);
-			cell5.setCellValue(Keys.getTele2()+"; "+Keys.getTeleDom() +"; "+Keys.getTeleWork());
-			Cell cell6 = row.createCell(6);
-			cell6.setCellValue(Keys.getRespGerl().get(0).getTel());
-			Cell cell7 = row.createCell(7);
-			cell7.setCellValue(Keys.getRespGerl().get(0).getAdress());
-			Cell cell8 = row.createCell(8);
-			cell8.setCellValue("адрес рс");
-			Cell cell9 = row.createCell(9);
-			cell9.setCellValue(Keys.getPersonEstablishmentambul());
+			Keys = iterator.next();
+			row = sheet.createRow(rowIndex++);
+			row.createCell(0).setCellValue(Keys.getPersonSurname());
+			row.createCell(1).setCellValue(Keys.getPersonKindfirstname());
+			row.createCell(2).setCellValue(Keys.getPersonKindlastname());
+			row.createCell(3).setCellValue(Keys.getPersonBirthday());
+			row.createCell(4).setCellValue(Keys.getYears());
+			row.createCell(5).setCellValue(Keys.getTele2()+"; "+Keys.getTeleDom() +"; "+Keys.getTeleWork());
+			row.createCell(6).setCellValue(Keys.getRespGerl().get(0).getTel());
+			row.createCell(7).setCellValue(Keys.getRespGerl().get(0).getAdress());
+			row.createCell(8).setCellValue("адрес рс");
+			row.createCell(9).setCellValue(Keys.getPersonEstablishmentambul());
 			
-			Cell cell11 = row.createCell(11);
-			cell11.setCellValue(Keys.getRespGerl().get(0).getPm_result());
-			Cell cell12 = row.createCell(12);
-			cell12.setCellValue(Keys.getRespGerl().get(0).getTel());
-			Cell cell13 = row.createCell(13);
-			cell13.setCellValue(Keys.getRespGerl().get(0).getAdress());
-			Cell cell14 = row.createCell(14);
-			cell14.setCellValue(Keys.getPersonLinksmoestablishmentid());
+			row.createCell(11).setCellValue(Keys.getRespGerl().get(0).getPm_result());
+			row.createCell(12).setCellValue(Keys.getRespGerl().get(0).getTel());
+			row.createCell(13).setCellValue(Keys.getRespGerl().get(0).getAdress());
+			row.createCell(14).setCellValue(Keys.getPersonLinksmoestablishmentid());
 			
 			if(Keys.getRespPlan().size() > 0 ){
-				Cell cell15 = row.createCell(15);
-				cell15.setCellValue(Keys.getRespPlan().get(0).getKv());
-				Cell cell16 = row.createCell(16);
-				cell16.setCellValue(Keys.getRespPlan().get(0).getDate_begin());
-				Cell cell17 = row.createCell(17);
-				cell17.setCellValue(Keys.getRespPlan().get(0).getDate_end());
-				Cell cell18 = row.createCell(18);
-				cell18.setCellValue(Keys.getRespPlan().get(0).getGod());
+				row.createCell(15).setCellValue(Keys.getRespPlan().get(0).getKv());
+				row.createCell(16).setCellValue(Keys.getRespPlan().get(0).getDate_begin());
+				row.createCell(17).setCellValue(Keys.getRespPlan().get(0).getDate_end());
+				row.createCell(18).setCellValue(Keys.getRespPlan().get(0).getGod());
 			}
-				Cell cell19 = row.createCell(19);
-				cell19.setCellValue(Keys.getCount_pmIstages());
-				Cell cell20 = row.createCell(20);
-				cell20.setCellValue(Keys.getPma_d_info());
-				Cell cell21 = row.createCell(21);
-				cell21.setCellValue(Keys.getPma_smo());
-				Cell cell22 = row.createCell(22);
-				cell22.setCellValue(Keys.getPma_type_info());
+				row.createCell(19).setCellValue(Keys.getCount_pmIstages());
+				row.createCell(20).setCellValue(Keys.getPma_d_info());
+				row.createCell(21).setCellValue(Keys.getPma_smo());
+				row.createCell(22).setCellValue(Keys.getPma_type_info());
+				
+				// manually control how rows are flushed to disk 
+		           if(rowIndex % 100 == 0) {
+		                ((SXSSFSheet)sheet).flushRows(100); // retain 100 last rows and flush all others
+		           }
 		}
 		
 		//lets write the excel data to file now
@@ -629,6 +644,10 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		FileOutputStream fos = new FileOutputStream(filepath);
 		workbook.write(fos);
 		fos.close();
+		
+		// dispose of temporary files backing this workbook on disk
+		workbook.dispose();
+        
 		System.out.println(fileName + " written successfully");
 	}
 	
@@ -673,17 +692,20 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 
 		
 		public List<String> processingExcelFile(String fileName) throws Exception{
-			Workbook workbook = new XSSFWorkbook(new FileInputStream(fileName));
+			
+			OPCPackage pkg = OPCPackage.open(new File(fileName));
+			XSSFWorkbook workbook = new XSSFWorkbook(pkg);
 			
 			DataFormatter formatter = new DataFormatter();
-			Sheet sheet = workbook.getSheetAt(0);
+			Sheet sheet =  workbook.getSheetAt(0);
+			if(sheet.getPhysicalNumberOfRows() > 50_000) throw new Exception("Превышено допустимое количество строк в загружаемом файле. Не более 50 000 строк");
 			Row row = sheet.getRow(0);
 			SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 			SimpleDateFormat df2 = new SimpleDateFormat("dd.MM.yyyy");
 			List<String> list = null;
 			
 			if(row.getLastCellNum() == 9){
-				StringBuilder sb = null;
+				StringBuilder sb = new StringBuilder();
 				list = new ArrayList<String>(sheet.getPhysicalNumberOfRows());
 				
 				for(int j=1; j< sheet.getPhysicalNumberOfRows(); j++){
@@ -697,7 +719,6 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					  formatter.formatCellValue(row.getCell(6)).equals("")  ||
 					  formatter.formatCellValue(row.getCell(8)).equals("")
 							){throw new Exception("Ошибка в шаблоне загрузки информирования. Отсутствуют обязательных поля. Строка "+(j+1));}
-					sb = new StringBuilder();
 					sb.append("insert into pm_i p values('',");
 					for(int i=0; i<row.getLastCellNum(); i++){
 						sb.append("'");
@@ -725,14 +746,18 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					sb.append("");
 					sb.append("trunc(sysdate),sysdate)");
 					list.add(sb.toString());
+					sb.delete(0, sb.length());
+					
+					
 				}
+				pkg.close();
 				return list;
 				//System.out.println(list);
 				
 			}
 			
 			if(row.getLastCellNum() == 8){
-				StringBuilder sb = null;
+				StringBuilder sb = new StringBuilder();
 				list = new ArrayList<String>(sheet.getPhysicalNumberOfRows());
 				
 				for(int j=1; j< sheet.getPhysicalNumberOfRows(); j++){
@@ -745,7 +770,6 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 							  formatter.formatCellValue(row.getCell(5)).equals("")  ||
 							  formatter.formatCellValue(row.getCell(7)).equals("")  
 									){throw new Exception("Ошибка в шаблоне загрузки анкетирования. Отсутствуют обязательных поля. Строка "+(j+1));}
-					sb = new StringBuilder();
 					sb.append("insert into pm_a p values('',");
 					for(int i=0; i<row.getLastCellNum(); i++){
 						sb.append("'");
@@ -769,10 +793,15 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					}
 					sb.append("trunc(sysdate),sysdate)");
 					list.add(sb.toString());
+					sb.delete(0, sb.length());
+					
+				
 				}
+				pkg.close();
 				return list;
 				//System.out.println(list);
 			}
+					pkg.close();
 					return null;
 		}
 		

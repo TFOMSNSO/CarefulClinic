@@ -166,17 +166,17 @@
       				<md-checkbox class="example-margin"  formControlName='ingos' >{{_linksmo_4}}</md-checkbox>
       			</section>
   				<section class="example-section">
-      				<md-checkbox class="example-margin"  formControlName='exportExcel' >{{_exportExcel}}</md-checkbox>
+      				<md-checkbox class="example-margin"  formControlName='exportExcel'  >{{_exportExcel}}</md-checkbox>
       			</section>
       			<section class="example-section">
       				<md-input-container class="example-margin">
-			        	<input  mdInput type="number" placeholder="{{_causenotes}}"  formControlName="count_notes" >
+			        	<input  mdInput type="number"   placeholder="{{_causenotes}}"  formControlName="count_notes" >
 			        	<md-error>{{field_is_required}}</md-error>
 				    </md-input-container >
       			</section>
   			</md-card-content>
 	   	  	<br>
-  			{{ myForm.value | json }}
+  			<!-- {{ myForm.value | json }} -->
   		
   			<md-card-actions id='lastblocksearch'>
   				<button type='submit' md-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>

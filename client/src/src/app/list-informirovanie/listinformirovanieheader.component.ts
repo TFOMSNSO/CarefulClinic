@@ -3,9 +3,9 @@ import { trigger,style,transition,animate,keyframes,query,stagger, state } from 
 import {environment} from '../../environments/environment';
 
 @Component({
-    selector:'app-header',
-    templateUrl: './header.component.html',
-  	styleUrls: ['./header.component.scss'],
+    selector:'app-informirovanie',
+    templateUrl: './listinformirovanieheader.component.html',
+  	styleUrls: ['./listinformirovanieheader.component.scss'],
   	  animations: [
 	trigger('flyInOut', [
             state('in', style({ opacity: 1, transform: 'translateX(0)' })),
@@ -26,8 +26,19 @@ import {environment} from '../../environments/environment';
     
     ]
 })
-export class HeaderComponent{
-   list_insur_menu: string = environment.list_insur_menu;
+export class ListInformirovanieHeader{
+	step = 0;
+
+  setStep(index: number) {
+    this.step = index;}
+
+  nextStep() {
+    this.step++;}
+
+  prevStep() {
+    this.step--;}
+
+   /*list_insur_menu: string = environment.list_insur_menu;
    exit_app: string = environment.exit_app;
-   list_inform_header: string  = environment.list_inform_header;
+   list_inform_header: string  = list_inform_header;*/
 }
