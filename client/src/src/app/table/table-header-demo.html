@@ -3,20 +3,20 @@
 </div>
 
 <div class="actions">
-  <md-input-container floatPlaceholder="never">
-  	<input mdInput #filter placeholder="Filter users">
-  </md-input-container>
-  <button md-icon-button [mdMenuTriggerFor]="menu">
-    <md-icon>more_vert</md-icon>
+  <mat-input-container floatPlaceholder="never">
+  	<input matInput #filter placeholder="Filter users">
+  </mat-input-container>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
   </button>
-  <md-menu #menu="mdMenu">
-    <button md-menu-item (click)="shiftColumns.next()">
-      <md-icon>subdirectory_arrow_left</md-icon>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="shiftColumns.next()">
+      <mat-icon>subdirectory_arrow_left</mat-icon>
       Shift Columns Left
     </button>
-    <button md-menu-item (click)="toggleColorColumn.next()">
-      <md-icon>color_lens</md-icon>
+    <button mat-menu-item (click)="toggleColorColumn.next()">
+      <mat-icon>color_lens</mat-icon>
       Toggle Color Column
     </button>
-  </md-menu>
+  </mat-menu>
 </div>

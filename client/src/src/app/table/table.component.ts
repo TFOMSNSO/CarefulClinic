@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {PeopleDatabase, UserData} from './people-database';
 import {PersonDataSource} from './person-data-source';
-import {MdPaginator} from '@angular/material';
-import {MdSort} from '@angular/material';
+import {MatPaginator} from '@angular/material';
+import {MatSort} from '@angular/material';
 
 export type UserProperties = 'userId' | 'userName' | 'progress' | 'color' | undefined;
 
@@ -21,9 +21,9 @@ export class TableComponent{
   changeReferences = false;
   highlights = new Set<string>();
 
-  @ViewChild(MdPaginator) _paginator: MdPaginator;
+  @ViewChild(MatPaginator) _paginator: MatPaginator;
 
-  @ViewChild(MdSort) sort: MdSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(public _peopleDatabase: PeopleDatabase) { }
 

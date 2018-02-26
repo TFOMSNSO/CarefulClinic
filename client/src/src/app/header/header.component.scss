@@ -1,0 +1,57 @@
+mat-toolbar{
+ height:100px;
+box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+background: #9ebfab;
+
+
+
+}
+
+a>img
+{
+	//position: absolute;
+//    height: 77px;
+//    right: 3%;
+    //top: 14px;
+}
+
+
+
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+
+p a{
+  color: rgba(0,0,0,.6);
+}
+.mask a{
+  position: absolute;
+  right: 2%;
+  top: 15%;
+  display: block;
+  width: 343px;
+  height: 77px;
+  text-align:center;
+  //margin: 50px auto;
+ // background: ;
+  -webkit-filter: drop-shadow(1px 1px 2px rgba(0,0,0,.8));
+}
+.mask a{
+  background-position: -568px 0;
+  
+}
+/* .mask a:hover, спрятал тк состорался прокинуть на скрипт при клике*/
+.mask a:focus{
+  background-position: 10px 0;
+  /*change speed to see in slow motion*/
+  transition: all 4s;
+}
+.mask a::after{
+  content:'';
+  position: absolute;
+  pointer-events: none;
+  top:0; left:0; right:0; bottom: 0;
+  background: radial-gradient(0 0,circle farthest-side, rgba(208,212,110,0) 90%,rgba(208,212,110,.8) 98%,rgba(208,212,110,0) 100%) no-repeat;
+  background: radial-gradient(circle farthest-side at 0 0, rgba(255,255,255,0) 90%,rgba(255,255,255,.8) 98%,rgba(255,255,255,0) 100%) no-repeat;
+  background-position: inherit; 
+  -webkit-mask: url('./logo_small.png') center;
+  mask: url('#mask-firefox');
+}

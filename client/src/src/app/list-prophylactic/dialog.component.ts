@@ -1,6 +1,6 @@
 import {Component,OnInit, Inject, TemplateRef,HostListener,Input} from '@angular/core';
 import {DOCUMENT} from '@angular/platform-browser';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
@@ -91,6 +91,7 @@ _statsurvey_date: string = environment.statsurvey_date;
 _titlesurvey: string = environment.titlesurvey;
 _maintitlesurvey: string = environment.maintitlesurvey;
 _otkreplen: string = environment.otkreplen;
+_year_disp: string = environment.year_disp;
 
 
  
@@ -101,6 +102,9 @@ _otkreplen: string = environment.otkreplen;
  public data_ger = [];
  public data_plan_informir;
  public data_informir = [];
+ public selected=2017;
+ public currentIndexPage = 0;
+ public disableSelect: boolean = false;
  
   @Input() show:boolean = true;
   flag:boolean = true;
@@ -119,11 +123,66 @@ _otkreplen: string = environment.otkreplen;
     //console.log('End');
   }
  
- constructor(public dialogRef: MdDialogRef<DialogComponent>,@Inject(MD_DIALOG_DATA) public data: any,private personSearchIsurService: PeopleDatabase,private formBuilder: FormBuilder,) {
+ constructor(public dialogRef: MatDialogRef<DialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private personSearchIsurService: PeopleDatabase,private formBuilder: FormBuilder,) {
  //console.log('ddddd '+JSON.stringify(data));
  }
  
+ filterChanged(selectedValue: any){
+   //console.log('value is ',selectedValue.value);
+   //console.log('value is2 ',this.currentIndexPage);
+   
+		// ГЭР
+		if(this.currentIndexPage === 1){
+		   this.show= true;
+		   this.disableSelect = true;
+		   let data_cust ={
+				  surname: this.data.personSurname,
+				  firstname:this.data.personKindfirstname,
+				  lastname:this.data.personKindlastname,
+				  bithday:this.data.personBirthday,
+				  year:	selectedValue.value
+				}
+				this.personSearchIsurService.searchPersonGer(data_cust)
+				.then(result =>{
+						this.show= false;
+						this.data_ger=result;
+						this.disableSelect = false;
+						
+				});
+		   
+		   
+
+		}
+		// информирование
+		if(this.currentIndexPage === 2){
+		
+			this.disableSelect = true;	
+			this.flag_informed = true;
+			
+			let data_cust ={
+		 	  surname: this.data.personSurname,
+		 	  firstname: this.data.personKindfirstname,
+		 	  lastname: this.data.personKindlastname,
+		 	  bithday: this.data.personBirthday,
+			  year:	selectedValue.value
+		 	}
+			
+			// обращение к серверу
+			this.personSearchIsurService.searchPersonInformir(data_cust)
+			.then(result =>{
+				this.disableSelect = false;
+				this.data_informir = result;
+	 			this.flag_informed = false;
+			});
+			
+				
+		}
+   }
+ 
  check($event : any): void {
+ 
+ 
+    this.currentIndexPage = $event.index;
  
  	if($event.index === 3){
  	
@@ -145,29 +204,34 @@ _otkreplen: string = environment.otkreplen;
  	// tab 'Данные ГЭР' have the index equal 1
  	if($event.index === 1){
  	
- 	
- 	    
+		this.disableSelect = true;
+ 	    this.show= true;
+		
 	 	let data_cust ={
 	 	  surname: this.data.personSurname,
 	 	  firstname:this.data.personKindfirstname,
 	 	  lastname:this.data.personKindlastname,
-	 	  bithday:this.data.personBirthday
+	 	  bithday:this.data.personBirthday,
+		  year:this.selected
 	 	}
 	 	this.personSearchIsurService.searchPersonGer(data_cust)
 	 	.then(result =>{
+		 this.disableSelect = false;
 	 	 this.show= false;
 	 	  this.data_ger=result;
 	 	});
  	}
- 	
+ 	// Информирование
  	if($event.index === 2){
- 	
+		this.disableSelect = true;
 	 	let data_cust ={
 		 	  surname: this.data.personSurname,
 		 	  firstname:this.data.personKindfirstname,
 		 	  lastname:this.data.personKindlastname,
-		 	  bithday:this.data.personBirthday
+		 	  bithday:this.data.personBirthday,
+			  year:	this.selected
 		 	}
+		
 		 	
 		this.personSearchIsurService.searchPersonInformir(data_cust)
 	 	.then(result =>{
@@ -178,6 +242,7 @@ _otkreplen: string = environment.otkreplen;
 	 			
 	 			this.data_informir = result;
 	 			this.flag_informed = false;
+				this.disableSelect = false;
 	 			
 	 			for (var index in this.data_informir) {
 	 				   this.data_informir[index].nStage=== 0 ?  this.data_informir[index].nStage = environment.no_inform :

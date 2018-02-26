@@ -1,306 +1,319 @@
-<md-toolbar color="primary">
-	    <span>{{title}}</span><br>
-	    <md-dialog-actions>
- 			<button md-raised-button color="accent" md-dialog-close="Option 1">{{ close_card}}</button>
-		</md-dialog-actions> 
-</md-toolbar>
-<md-tab-group color="primary" (selectChange)="check($event)">
+<!--TODO: добавить возможность выбора года опроса (аналогично как выбор года диспансеризации) -->
+<mat-toolbar color="primary">
+		<div style="align-self: flex-end; padding-top:10px;">{{data.personSurname}} {{data.personKindfirstname}} {{data.personKindlastname}}</div>
+		<span style="align-self: flex-end; font-size: 12px;">{{_year_disp}}
+			<mat-form-field style="width: 70px;">
+			  <mat-select [(value)]=selected (change)="filterChanged($event)" [disabled]=disableSelect>
+				<mat-option value="2018">2018</mat-option>
+				<mat-option value="2017">2017</mat-option>
+				<mat-option value="2016">2016</mat-option>
+			  </mat-select>
+			</mat-form-field>
+		</span>
+	    <span style="flex-grow: 1; font-size: 25px;">{{title}}</span>
+		<mat-dialog-actions style="flex-grow: 0;">
+ 			<button mat-raised-button color="accent" mat-dialog-close="Option 1">{{ close_card}}</button>
+		</mat-dialog-actions> 
+		
+</mat-toolbar>
 
-  <md-tab id="tab1" label="{{tab1}}">
+<mat-tab-group color="primary" (selectChange)="check($event)">
+
+  <mat-tab id="tab1" label="{{tab1}}">
   
-  <md-card>
-  <md-card-content> 
+  <mat-card>
+  <mat-card-content> 
 	  <table cellspacing="0">
 	  <tr>
 	    <td>
-		     <md-list-item>
-	    	  	<!-- <img md-list-avatar src="app/list-prophylactic/icon/ic_account_box_black_48dp_1x.png" alt="Desc 1"> -->
-				<md-input-container>
-		      		<input mdInput placeholder="{{surname}}" value="{{data.personSurname}}">
-		    	</md-input-container>
-		    </md-list-item>
+		     <mat-list-item>
+	    	  	<!-- <img mat-list-avatar src="app/list-prophylactic/icon/ic_account_box_black_48dp_1x.png" alt="Desc 1"> -->
+				<mat-input-container>
+		      		<input matInput placeholder="{{surname}}" value="{{data.personSurname}}">
+		    	</mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data.personKindfirstname}}" placeholder="{{firstname}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data.personKindfirstname}}" placeholder="{{firstname}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data.personKindlastname}}" placeholder="{{lastname}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data.personKindlastname}}" placeholder="{{lastname}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    </tr>
 	    <tr>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data.years}}" placeholder="{{t_years}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data.years}}" placeholder="{{t_years}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data.personBirthday}}" placeholder="{{bithday}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data.personBirthday}}" placeholder="{{bithday}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    </tr>
 	    <tr *ngIf="data.personadd">
 	  	 <td  *ngIf="data.personadd.tele2">
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data.personadd.tele2}}" placeholder="{{telefon}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data.personadd.tele2}}" placeholder="{{telefon}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td  *ngIf="data.personadd.teledom">
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data.personadd.teledom}}" placeholder="{{telefon}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data.personadd.teledom}}" placeholder="{{telefon}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td  *ngIf="data.personadd.telework">
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data.personadd.telework}}" placeholder="{{telefon}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data.personadd.telework}}" placeholder="{{telefon}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	  </tr>
 	  <tr>
 		  <td>
-		    <md-list-item>
-			    <md-input-container>
+		    <mat-list-item>
+			    <mat-input-container>
 			    
-			      <input mdInput value="{{data.personLinksmoestablishmentid === 1 ?  _linksmo_1  : data.personLinksmoestablishmentid  === 2 ?  _linksmo_2  : data.personLinksmoestablishmentid  === 4 ?  _linksmo_4  : _otkreplen}}" placeholder="{{linksmo}}">
-			    </md-input-container>
-		    </md-list-item>
+			      <input matInput value="{{data.personLinksmoestablishmentid === 1 ?  _linksmo_1  : data.personLinksmoestablishmentid  === 2 ?  _linksmo_2  : data.personLinksmoestablishmentid  === 4 ?  _linksmo_4  : _otkreplen}}" placeholder="{{linksmo}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	 </tr>
 	  <tr>
 		  <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="540{{data.personEstablishmentambul}}" placeholder="{{PM_HOSPITAL_RESULT}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="540{{data.personEstablishmentambul}}" placeholder="{{PM_HOSPITAL_RESULT}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	 </tr>
 	  </table>
-	  </md-card-content>
-  </md-card>
+	  </mat-card-content>
+  </mat-card>
   
 	  
-  </md-tab>
-  <md-tab  label="{{tab2}}"><div [@toggle]="show" 
+  </mat-tab>
+  <mat-tab  label="{{tab2}}"><div [@toggle]="show" style="overflow: hidden;"
         (@toggle.start)="animationStarted($event)"
         (@toggle.done)="animationDone($event)"
-     *ngIf="show" ><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></div>
+     *ngIf="show" ><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></div>
      
      	<div [@toggle]="!show" *ngIf="!show">
      <table cellspacing="0">
 	  <tr>
 	    <td>
-		     <md-list-item>
-				<md-input-container>
-		      		<input mdInput placeholder="{{start_date_etap1}}" value="{{data_ger.start_date_etap1}}">
-		    	</md-input-container>
-		    </md-list-item>
+		     <mat-list-item>
+				<mat-input-container>
+		      		<input matInput placeholder="{{start_date_etap1}}" value="{{data_ger.start_date_etap1}}">
+		    	</mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.end_date_etap1}}" placeholder="{{end_date_etap1}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.end_date_etap1}}" placeholder="{{end_date_etap1}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    </tr>
 	    <tr>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.start_date_etap2}}" placeholder="{{start_date_etap2}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.start_date_etap2}}" placeholder="{{start_date_etap2}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.end_date_etap2}}" placeholder="{{end_date_etap2}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.end_date_etap2}}" placeholder="{{end_date_etap2}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	 </tr>
 	 <tr>
 	 	<td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.ref_id_person}}" placeholder="{{ref_id_person}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.ref_id_person}}" placeholder="{{ref_id_person}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.pm_god}}" placeholder="{{pm_god}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.pm_god}}" placeholder="{{pm_god}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.pm_kvartal}}" placeholder="{{pm_kvartal}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.pm_kvartal}}" placeholder="{{pm_kvartal}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	 </tr>
 	 <tr>
 	 	<td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.tel}}" placeholder="{{tel}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.tel}}" placeholder="{{tel}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	 	</td>
 	 	<td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.pm_result}}" placeholder="{{pm_result}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.pm_result}}" placeholder="{{pm_result}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	 	</td>
 	 	<td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_ger.pm_HOSPITAL_RESULT}}" placeholder="{{PM_HOSPITAL_RESULT}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_ger.pm_HOSPITAL_RESULT}}" placeholder="{{PM_HOSPITAL_RESULT}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	 	</td>
 	 </tr>
 	    </table>
 	    
-		    <md-list-item>
-			    <md-input-container class="full-width">
-			      <textarea mdInput placeholder="{{adress}}">{{data_ger.adress}}</textarea>
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item class="full-width">
+			    
+			      <textarea  placeholder="{{adress}}">{{data_ger.adress}}</textarea>
+			    
+		    </mat-list-item>
      </div>
-     </md-tab>
-  <md-tab  label="{{tab3}}">
+     </mat-tab>
+  <mat-tab  label="{{tab3}}">
   <div *ngIf="data_informir.length > 0; else other_content" >
   <table>
     <tr>
 	    <td>
-		     <md-list-item>
-				<md-input-container>
-		      		<input mdInput placeholder="{{surname}}" value="{{data_informir[0].fam}}">
-		    	</md-input-container>
-		    </md-list-item>
+		     <mat-list-item>
+				<mat-input-container>
+		      		<input matInput placeholder="{{surname}}" value="{{data_informir[0].fam}}">
+		    	</mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_informir[0].im}}" placeholder="{{firstname}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_informir[0].im}}" placeholder="{{firstname}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_informir[0].ot}}" placeholder="{{lastname}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_informir[0].ot}}" placeholder="{{lastname}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    </tr>
   </table>
   <table cellspacing="0" *ngFor="let data of data_informir">
 	    <tr>
 		    <td>
-			    <md-list-item>
-				    <md-input-container>
-				      <input mdInput value="{{data.nStage}}" placeholder="{{nstage}}">
-				    </md-input-container>
-			    </md-list-item>
+			    <mat-list-item>
+				    <mat-input-container>
+				      <input matInput value="{{data.nStage}}" placeholder="{{nstage}}">
+				    </mat-input-container>
+			    </mat-list-item>
 		    </td>
 		    <td>
-			    <md-list-item>
-				    <md-input-container>
-				      <input mdInput value="{{data.tInfo}}" placeholder="{{tinfo}}">
-				    </md-input-container>
-			    </md-list-item>
+			    <mat-list-item>
+				    <mat-input-container>
+				      <input matInput value="{{data.tInfo}}" placeholder="{{tinfo}}">
+				    </mat-input-container>
+			    </mat-list-item>
 		    </td>
     	    <td>
-			    <md-list-item>
-				    <md-input-container>
-				      <input mdInput value="{{data.dInfo}}" placeholder="{{dinfo}}">
-				    </md-input-container>
-			    </md-list-item>
+			    <mat-list-item>
+				    <mat-input-container>
+				      <input matInput value="{{data.dInfo}}" placeholder="{{dinfo}}">
+				    </mat-input-container>
+			    </mat-list-item>
 		    </td>
 	    </tr>
   </table>
   </div>
 	  <ng-template #other_content>
-	  	<div *ngIf="flag_informed; else date_note"><h1><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></h1></div>
-	  	<ng-template #date_note><md-error><h3>{{data_not_found}}</h3></md-error></ng-template>
+	  	<div *ngIf="flag_informed; else date_note"><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div>
+	  	<ng-template #date_note><mat-error><h3>{{data_not_found}}</h3></mat-error></ng-template>
 	  </ng-template>
-  </md-tab>
-  <md-tab  label="{{_survey}}">
+  </mat-tab>
+  <mat-tab  label="{{_survey}}">
   <div *ngIf="data_survey.length > 0; else other_content_survey" >
   <!-- {{data_survey | json}} -->
   <table style="margin-top: 20px;">
     <tr>
 	    <td>
-		     <md-list-item>
-				<md-input-container>
-		      		<input mdInput placeholder="{{surname}}" value="{{data_survey[0][0]}}">
-		    	</md-input-container>
-		    </md-list-item>
+		     <mat-list-item>
+				<mat-input-container>
+		      		<input matInput placeholder="{{surname}}" value="{{data_survey[0][0]}}">
+		    	</mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_survey[0][1]}}" placeholder="{{firstname}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_survey[0][1]}}" placeholder="{{firstname}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    <td>
-		    <md-list-item>
-			    <md-input-container>
-			      <input mdInput value="{{data_survey[0][2]}}" placeholder="{{lastname}}">
-			    </md-input-container>
-		    </md-list-item>
+		    <mat-list-item>
+			    <mat-input-container>
+			      <input matInput value="{{data_survey[0][2]}}" placeholder="{{lastname}}">
+			    </mat-input-container>
+		    </mat-list-item>
 	    </td>
 	    </tr>
   </table>
   <table cellspacing="0" *ngFor="let data of data_survey">
 	    <tr>
 		    <td>
-			    <md-list-item>
-				    <md-input-container>
-				      <input mdInput value="{{data[6] == 2 ? _linksmo_2 : data[6] == 1 ? _linksmo_1 : data[6] == 4 ? _linksmo_4 : data[6]}}" placeholder="smo">
-				    </md-input-container>
-			    </md-list-item>
+			    <mat-list-item>
+				    <mat-input-container>
+				      <input matInput value="{{data[6] == 2 ? _linksmo_2 : data[6] == 1 ? _linksmo_1 : data[6] == 4 ? _linksmo_4 : data[6]}}" placeholder="smo">
+				    </mat-input-container>
+			    </mat-list-item>
 		    </td>
 		    <td>
-			    <md-list-item>
-				    <md-input-container>
-				      <input mdInput value="{{data[4] == 1 ? _statsurvey1 : data[4] == 2 ? _statsurvey2 : data[4] == 3 ? _statsurvey3 : data[4] == 4 ? _statsurvey4 : data[4] == 5 ? _statsurvey5 : data[4] == 6 ? _statsurvey6 : data[4] == 7 ? _statsurvey7 : data[4] == 8 ? _statsurvey8 : data[4] == 9 ? _statsurvey9 : data[4] == 10 ? _statsurvey10 : ''  }}" placeholder="{{_statsurvey_result}}">
-				    </md-input-container>
-			    </md-list-item>
+			    <mat-list-item>
+				    <mat-input-container>
+				      <input matInput value="{{data[4] == 1 ? _statsurvey1 : data[4] == 2 ? _statsurvey2 : data[4] == 3 ? _statsurvey3 : data[4] == 4 ? _statsurvey4 : data[4] == 5 ? _statsurvey5 : data[4] == 6 ? _statsurvey6 : data[4] == 7 ? _statsurvey7 : data[4] == 8 ? _statsurvey8 : data[4] == 9 ? _statsurvey9 : data[4] == 10 ? _statsurvey10 : ''  }}" placeholder="{{_statsurvey_result}}">
+				    </mat-input-container>
+			    </mat-list-item>
 		    </td>
     	    <td>
-			    <md-list-item>
-				    <md-input-container>
-				      <input mdInput value="{{data[3] | date: 'dd.MM.yyyy' }}" placeholder="{{_statsurvey_date}}">
-				    </md-input-container>
-			    </md-list-item>
+			    <mat-list-item>
+				    <mat-input-container>
+				      <input matInput value="{{data[3] | date: 'dd.MM.yyyy' }}" placeholder="{{_statsurvey_date}}">
+				    </mat-input-container>
+			    </mat-list-item>
 		    </td>
 	    </tr>
 	    <tr>
@@ -311,31 +324,31 @@
   </table>
   </div>
   <ng-template #other_content_survey>
-  	<div *ngIf="flag_survey; else date_not_found;"><h1><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></h1></div>
+  	<div *ngIf="flag_survey; else date_not_found;"><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div>
   	<ng-template #date_not_found>
-  		<md-error><h3>{{data_not_found}}</h3></md-error>
-  		<md-card>
+  		<mat-error><h3>{{data_not_found}}</h3></mat-error>
+  		<mat-card>
 		<form [formGroup]="myFormsurvey" novalidate (ngSubmit)="add_survey(myFormsurvey);">
-  			<md-card-content>
-  				<md-input-container style="width: 70%; font-size: 25px;">
-  					<input mdInput placeholder="{{_titlesurvey}}" value="{{_maintitlesurvey}}" disabled>
-  				</md-input-container><br/>
-  				<md-select  style="width: 40%;"  class='full-width required' placeholder="{{_statsurvey_result}}"  formControlName="result_survey">
-		   				<md-option *ngFor="let data of resultsurvey" [value]="data.id">{{ data.name }}</md-option>
-		   	  		</md-select><br>.
+  			<mat-card-content>
+  				<mat-input-container style="width: 70%; font-size: 25px;">
+  					<input matInput placeholder="{{_titlesurvey}}" value="{{_maintitlesurvey}}" disabled>
+  				</mat-input-container><br/>
+  				<mat-select  style="width: 40%;"  class='full-width required' placeholder="{{_statsurvey_result}}"  formControlName="result_survey">
+		   				<mat-option *ngFor="let data of resultsurvey" [value]="data.id">{{ data.name }}</mat-option>
+		   	  		</mat-select><br>.
   					<br/>
 	   				 <my-date-picker  [placeholder]="_statsurvey_date"  name="datesur" [options]="myDatePickerOptions" formControlName="datesur"></my-date-picker>
 	   				 <span *ngIf="!myFormsurvey.controls.datesur.valid" class="help-block text-danger">
-	   				 	<md-error>{{field_is_required}}</md-error>
+	   				 	<mat-error>{{field_is_required}}</mat-error>
 	   				 </span> 
 	   				 <textarea rows="10" cols="45"  formControlName="prim"></textarea>
-  			</md-card-content>
-  			<md-card-actions id='lastblocksearch'>
-  				<button type='submit' md-raised-button color='primary'[disabled]="!myFormsurvey.valid">Ok</button>
-  				<button type='button' md-raised-button color='primary' (click)="resetForm()">reset</button>
-  	 		</md-card-actions>
+  			</mat-card-content>
+  			<mat-card-actions id='lastblocksearch'>
+  				<button type='submit' mat-raised-button color='primary'[disabled]="!myFormsurvey.valid">Ok</button>
+  				<button type='button' mat-raised-button color='primary' (click)="resetForm()">reset</button>
+  	 		</mat-card-actions>
 		</form>
-		</md-card>
+		</mat-card>
   	<br>
   	{{myFormsurvey.value | json}}	
   		
@@ -343,11 +356,11 @@
   		
   	</ng-template>
   </ng-template>
-  </md-tab>
-</md-tab-group>
+  </mat-tab>
+</mat-tab-group>
 
 
 
-<!-- <div style="margin-left: 20px;" md-dialog-actions> -->
+<!-- <div style="margin-left: 20px;" mat-dialog-actions> -->
 
 <!-- </div> -->

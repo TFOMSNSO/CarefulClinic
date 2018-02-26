@@ -63,12 +63,14 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		String queryStr = "SELECT NEW com.careful.clinic.model.WrapPmI(c.fam, c.im, c.ot, c.dr, c.nStage, c.dInfo, c.tInfo, c.smo) FROM PmI c WHERE c.fam = :fam "
 												     + "and c.im =:im and"
 												     + " c.ot =:ot and "
+												     +" c.dInfo between '01.01."+personmodel.getYear()+"' and '31.12."+personmodel.getYear()+"' and "
 												     + "c.dr =:dr order by c.dInfo desc";
 												     
 			  TypedQuery <WrapPmI> query = em_dream2.createQuery(queryStr, WrapPmI.class)
 					  .setParameter("fam", personmodel.getSurname().toUpperCase())
 						.setParameter("im", personmodel.getFirstname().toUpperCase())
 						.setParameter("ot", personmodel.getLastname().toUpperCase())
+						//.setParameter("year_start", personmodel.getYear())
 						.setParameter("dr", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
 			  
 			  List<?> results = query.getResultList();
@@ -111,11 +113,13 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
         storedProcedure.registerStoredProcedureParameter("firstname",String.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("lastname",String.class, ParameterMode.IN);
         storedProcedure.registerStoredProcedureParameter("datebythday",String.class, ParameterMode.IN);
+        storedProcedure.registerStoredProcedureParameter("year",Integer.class, ParameterMode.IN);
         
         storedProcedure.setParameter("surname", personmodel.getSurname());
         storedProcedure.setParameter("firstname", personmodel.getFirstname());
         storedProcedure.setParameter("lastname", personmodel.getLastname());
         storedProcedure.setParameter("datebythday", personmodel.getBithday());
+        storedProcedure.setParameter("year", personmodel.getYear());
 
         storedProcedure.execute();
 

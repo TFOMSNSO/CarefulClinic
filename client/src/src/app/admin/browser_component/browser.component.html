@@ -1,0 +1,10 @@
+<mat-list>
+
+  <h3 mat-subheader>Directory</h3>
+  
+  <mat-list-item style="    position: relative; float: left; height: 120px;" *ngFor="let folder of listFilesInformingBrowser" (click)="getListNameFiles(folder.fullpathfile); send(folder.fullpathfile+'!'+folder.namefile);">
+    <mat-icon mat-list-icon class="my-icon" >folder</mat-icon>
+    <h4 mat-line>{{folder.namefile}}</h4>
+  </mat-list-item>
+  
+</mat-list>

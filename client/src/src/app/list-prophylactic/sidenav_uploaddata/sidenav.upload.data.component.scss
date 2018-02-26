@@ -1,9 +1,9 @@
-md-sidenav{
+mat-sidenav{
  overflow:hidden;
  border-radius: 5px;
 }
 
-md-sidenav.nav_header{
+mat-sidenav.nav_header{
     -webkit-transition: all 1s ease-in;
     transition: all 1s ease-in;
     overflow: auto;
@@ -43,11 +43,11 @@ md-sidenav.nav_header{
   margin: 10px;
 }
 
-/deep/ md-sidenav.mat-sidenav {
+/deep/ mat-sidenav.mat-sidenav {
     transform: translate3d(-110%,0,0); 
 }
 
-/deep/ md-sidenav.mat-sidenav.mat-sidenav-opened, /deep/ md-sidenav.mat-sidenav.mat-sidenav-opening {
+/deep/ mat-sidenav.mat-sidenav.mat-sidenav-opened, /deep/ mat-sidenav.mat-sidenav.mat-sidenav-opening {
 	   //transform: translate3d(0,35%,0);
 	   height:600px;
 }

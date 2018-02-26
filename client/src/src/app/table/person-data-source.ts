@@ -1,24 +1,24 @@
-import {MdPaginator, MdSort} from '@angular/material';
-import {DataSource} from '@angular/cdk';
+import {MatPaginator, MatSort,MatTableDataSource} from '@angular/material';
+//import {DataSource} from '@angular/cdk';
 import {Observable} from 'rxjs/Observable';
 import {PeopleDatabase, UserData} from './people-database';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 
-export class PersonDataSource extends DataSource<any> {
+export class PersonDataSource {
 
   constructor(private _peopleDatabase: PeopleDatabase,
-              private _paginator: MdPaginator,
-              private _sort: MdSort) {
-    super();
+              private _paginator: MatPaginator,
+              private _sort: MatSort) {
+    
   }
   
    
 
-  connect(): Observable<UserData[]> {
+  /*connect(): Observable<UserData[]> {
     const displayDataChanges = [
       this._paginator.page,
-      this._sort.mdSortChange,
+      this._sort.matSortChange,
       this._peopleDatabase.dataChange
     ];
     return Observable.merge(...displayDataChanges).map(() => {
@@ -28,14 +28,14 @@ export class PersonDataSource extends DataSource<any> {
       const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
       return data.splice(startIndex, this._paginator.pageSize);
     });
-  }
+  }*/
 
   disconnect() {
     // No-op
   }
 
   /** Returns a sorted copy of the database data. */
-  getSortedData(): UserData[] {
+  /*getSortedData(): UserData[] {
     const data = this._peopleDatabase.data.slice();
     if (!this._sort.active || this._sort.direction == '') { return data; }
 
@@ -56,4 +56,7 @@ export class PersonDataSource extends DataSource<any> {
       return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
     });
   }
+  */
+  
+  
 }

@@ -113,6 +113,8 @@ public class RestServiceProphylactic {
 	
 			}
 			
+			
+			
 			/*Блок загрузки в базу
 			 * Парсим и загружаем в базу отработанный файл 
 			 * */
@@ -120,19 +122,26 @@ public class RestServiceProphylactic {
 			List<String> listOfQueryies = prophylacticDAO.processingExcelFile(fileName);
 			if(listOfQueryies == null) throw new Exception("Ошибка в шаблоне. Не удается определить шаблон.");
 			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies)){
-				String TRANSVER_UPLOADED_FILE_PATH = "";
-				if(Integer.valueOf(authHeaders.get(0)) == 777) TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\777\\processed\\";
-				if(Integer.valueOf(authHeaders.get(0)) == 1)	TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\1\\processed\\";
-				if(Integer.valueOf(authHeaders.get(0)) == 2)	TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\2\\processed\\";
-				if(Integer.valueOf(authHeaders.get(0)) == 4)	TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\4\\processed\\";
 				
-				String toName = directoryServer + TRANSVER_UPLOADED_FILE_PATH + randomGuid.valueAfterMD5+".xlsx";
+				String TRANSVER_UPLOADED_FILE_PATH = getPathTo(authHeaders.get(0)); 
+				String tmp_val = randomGuid.valueAfterMD5;
+				String toName = directoryServer + TRANSVER_UPLOADED_FILE_PATH + tmp_val+".xlsx";
 				File from_file = new File(fileName);
 				File to_file = new File(toName);
+				
 				Files.copy(from_file.toPath(), to_file.toPath());
+				// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
 				from_file.delete();
-				String txt_file = from_file.getPath().replaceAll(".xlsx", ".txt");
-				Files.deleteIfExists(Paths.get(txt_file));
+				
+
+				toName = directoryServer + TRANSVER_UPLOADED_FILE_PATH + tmp_val+".txt";
+				 java.nio.file.Path f = Paths.get(toName);
+				  Files.deleteIfExists(f);
+				  java.nio.file.Path out = Files.createFile(f);
+		    	  Files.write(Paths.get(out.toUri()), new String("Файл "+tmp_val+".xlsx успешно загружен.").getBytes(), StandardOpenOption.APPEND);
+				
+				
+
 			}
 			
 			/*
@@ -144,9 +153,18 @@ public class RestServiceProphylactic {
 		     return builder.build();
 		     
 		} catch (IOException e) {
-			java.nio.file.Path f = Paths.get(fileName.replaceAll(".xlsx", ".txt"));
+			
+			String tmp_val = randomGuid.valueAfterMD5;
+			String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+".xlsx";
+			File from_file = new File(fileName);
+			File to_file = new File(toName);
+			Files.copy(from_file.toPath(), to_file.toPath());
+			// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
+			Files.delete(from_file.toPath());
+			
+			java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
 			Files.deleteIfExists(f);
-			java.nio.file.Path out = Files.createFile(Paths.get(fileName.replaceAll(".xlsx", ".txt")));
+			java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
 	    	  Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
 			  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
@@ -154,9 +172,18 @@ public class RestServiceProphylactic {
 			  return builder.build();
 		  }
 		catch (Exception e) {
-			 java.nio.file.Path f = Paths.get(fileName.replaceAll(".xlsx", ".txt"));
+			
+			String tmp_val = randomGuid.valueAfterMD5;
+			String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+".xlsx";
+			File from_file = new File(fileName);
+			File to_file = new File(toName);
+			Files.copy(from_file.toPath(), to_file.toPath());
+			// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
+			Files.delete(from_file.toPath());
+			
+			 java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
 			  Files.deleteIfExists(f);
-			  java.nio.file.Path out = Files.createFile(Paths.get(fileName.replaceAll(".xlsx", ".txt")));
+			  java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
 	    	  Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
 	    	  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
@@ -165,6 +192,16 @@ public class RestServiceProphylactic {
 		}
 	}
 	
+	private String getPathTo (String v){
+		 String TRANSVER_UPLOADED_FILE_PATH ="";
+		 
+		if(Integer.valueOf(v) == 777) return  TRANSVER_UPLOADED_FILE_PATH  = "\\content\\upload\\777\\process\\";
+		if(Integer.valueOf(v) == 1)	return TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\1\\process\\";
+		if(Integer.valueOf(v) == 2)	return TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\2\\process\\";
+		if(Integer.valueOf(v) == 4)	return TRANSVER_UPLOADED_FILE_PATH = "\\content\\upload\\4\\process\\";
+		
+		return TRANSVER_UPLOADED_FILE_PATH;
+	}
 	
 	
 	/**

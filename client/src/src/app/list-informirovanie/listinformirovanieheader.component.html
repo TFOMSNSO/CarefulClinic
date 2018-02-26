@@ -1,95 +1,136 @@
-<md-card [@flyInOut]="'in'">
-	<md-sidenav-container class="example-container">
+<mat-card [@flyInOut]="'in'">
+	
+	<mat-sidenav-container class="example-container">
 	  
-		<md-list>
-			<md-card-title>{{lists_insur}}</md-card-title>
-			<md-card-header>
+		<mat-list>
+			<mat-card-title></mat-card-title>
+			<mat-card-header>
 				 
-				 <!-- <md-menu #menu_tab="mdMenu" >
-				  <button md-menu-item >{{_searchFIOD}}</button>
-				</md-menu> -->
+				 <!-- <mat-menu #menu_tab="matMenu" >
+				  <button mat-menu-item >{{_searchFIOD}}</button>
+				</mat-menu> -->
 				
-				<!-- <button id="btn_header" md-icon-button [mdMenuTriggerFor]="menu_tab">
-				   <md-icon>more_vert</md-icon>
+				<!-- <button id="btn_header" mat-icon-button [matMenuTriggerFor]="menu_tab">
+				   <mat-icon>more_vert</mat-icon>
 				</button> -->
 				 
-				 <!-- <button id="btn_header"  (click)="var_sidenav.open()" md-fab><md-icon>add</md-icon></button> -->
-			</md-card-header>
-		</md-list>
-	</md-sidenav-container>	
+				 <!-- <button id="btn_header"  (click)="var_sidenav.open()" mat-fab><mat-icon>add</mat-icon></button> -->
+			</mat-card-header>
+		</mat-list>
+	</mat-sidenav-container>	
 	
-	<!-- <md-card-content @questionsAnim> -->
-	<md-card-content>
-					<md-accordion class="example-headers-align">
-  <md-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
-    <md-expansion-panel-header>
-      <md-panel-title>
-        Personal data
-      </md-panel-title>
-      <md-panel-description>
-        Type your name and age
-        <md-icon>account_circle</md-icon>
-      </md-panel-description>
-    </md-expansion-panel-header>
+	<mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar> 
+	<!-- <mat-card-content @questionsAnim> -->
+	<mat-card-content>
+		<mat-accordion>
+		  <mat-expansion-panel (opened)="setTrue(1,true)" (closed)="setTrue(1,false)" (click)="init_informirovanie()">
+			<mat-expansion-panel-header>
+			  <mat-panel-title>
+				{{_report_inform}}
+			  </mat-panel-title>
+			  <mat-panel-description>
+			  <div *ngIf='panelOpenState1'>
+				 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+			  </div>
+			  <div *ngIf='!panelOpenState1'>
+				 {{_report_inform_note}}
+			  </div>
+				
+			  </mat-panel-description>
+			</mat-expansion-panel-header>
 
-    <md-form-field>
-      <input mdInput placeholder="First name">
-    </md-form-field>
-
-    <md-form-field>
-      <input mdInput type="number" min="1" placeholder="Age">
-    </md-form-field>
-
-    <md-action-row>
-      <button md-button color="primary" (click)="nextStep()">Next</button>
-    </md-action-row>
-  </md-expansion-panel>
-
-  <md-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
-    <md-expansion-panel-header>
-      <md-panel-title>
-        Destination
-      </md-panel-title>
-      <md-panel-description>
-        Type the country name
-        <md-icon>map</md-icon>
-      </md-panel-description>
-    </md-expansion-panel-header>
-
-    <md-form-field>
-      <input mdInput placeholder="Country">
-    </md-form-field>
-
-    <md-action-row>
-      <button md-button color="warn" (click)="prevStep()">Previous</button>
-      <button md-button color="primary" (click)="nextStep()">Next</button>
-    </md-action-row>
-  </md-expansion-panel>
-
-  <md-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
-    <md-expansion-panel-header>
-      <md-panel-title>
-        Day of the trip
-      </md-panel-title>
-      <md-panel-description>
-        Inform the date you wish to travel
-        <md-icon>date_range</md-icon>
-      </md-panel-description>
-    </md-expansion-panel-header>
-
-    <md-form-field>
-      <input mdInput placeholder="Date" [mdDatepicker]="picker" (focus)="picker.open()" readonly>
-    </md-form-field>
-    <md-datepicker #picker></md-datepicker>
-
-    <md-action-row>
-      <button md-button color="warn" (click)="prevStep()">Previous</button>
-      <button md-button color="primary" (click)="nextStep()">End</button>
-    </md-action-row>
-  </md-expansion-panel>
-
-</md-accordion>
+			
+			  <span matTooltip="{{_report_inform_all}}">{{_report_inform_all}}</span>
+			  <!--<button mat-raised-button>{{_report_inform_btn_download}}</button>-->
+			  
+			
+			  <mat-list (click)="downloadFile()">
+				  <h3 mat-subheader>{{_reestr_file}}</h3>
+				  <mat-list-item>
+				<mat-icon mat-list-icon>note</mat-icon>
+					<h4 mat-line>{{_reestr_inform_all_year_download_file}}.dbf</h4>
+					<p mat-line>{{_reestr_download}}</p>
+				</mat-list-item>
+			  </mat-list>
+			
+			  
+			  <hr>
+			  <span matTooltip="{{_report_inform_plane}}">{{_report_inform_plane}}</span>
+			  <br>
+			  
+<!--			  <mat-form-field>
+				    <mat-select placeholder={{_report_inform_select_kv}} [(ngModel)]="report_inform_plane_select" name="kvs">
+					    <mat-option *ngFor="let kv of kvs" [value]="kv.value">
+							{{kv.viewValue}}
+						</mat-option>
+					</mat-select>
+			 </mat-form-field>
+			 <button *ngIf=report_inform_plane_select mat-raised-button>{{_report_inform_btn_download}}</button>
+-->			 
+			<mat-list *ngFor="let row of listonKvartal; let i = index" (click)="downloadFile_informKvartals(row.namefile)">
+				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
+				  <mat-list-item>
+				<mat-icon mat-list-icon>note</mat-icon>
+					<h4 mat-line>{{row.namefile}}</h4>
+					<p mat-line>{{_reestr_download}}</p>
+				</mat-list-item>
+			</mat-list>
+			  
+		</mat-expansion-panel>
 		
-		
-	</md-card-content>
-</md-card>
+		  <mat-expansion-panel (opened)="setTrue(2,false)"
+							   (closed)="setTrue(2,false)">
+			<mat-expansion-panel-header>
+			  <mat-panel-title>
+				{{_report_reinform}}
+			  </mat-panel-title>
+			  <mat-panel-description>
+			  
+			  <div *ngIf='panelOpenState2'>
+				 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+			  </div>
+			  <div *ngIf='!panelOpenState2'>
+				 {{_report_inform_note}}
+			  </div>
+			  
+			</mat-panel-description>
+			</mat-expansion-panel-header>
+			<p>I'm visible because I am open</p>
+		  </mat-expansion-panel>
+		  
+		  <mat-expansion-panel (opened)="setTrue(3,true)"
+							   (closed)="setTrue(3,false)"
+							   (click)="init()">
+							   
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					{{_report_inform_about_second_level}}
+				</mat-panel-title>
+				  
+				<mat-panel-description>
+				  <div *ngIf='panelOpenState3'>
+					 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+				  </div>
+				  <div *ngIf='!panelOpenState3'>
+					 {{_report_inform_note}}
+				  </div>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+			
+			
+			 <mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_2(row.namefile)">
+				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
+				  <mat-list-item>
+				<mat-icon mat-list-icon>note</mat-icon>
+					<h4 mat-line>{{row.namefile}}</h4>
+					<p mat-line>{{_reestr_download}}</p>
+				</mat-list-item>
+			</mat-list>
+			
+			
+			
+			
+		  </mat-expansion-panel>
+		</mat-accordion>
+	</mat-card-content>
+</mat-card>

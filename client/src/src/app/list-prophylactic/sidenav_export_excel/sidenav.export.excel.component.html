@@ -1,24 +1,24 @@
-<md-sidenav #sidenav_export_excel  class="nav_header">
-<!-- 		<md-card-title> -->
-			<md-toolbar color="primary" class="mat-elevation-z10">
-	      		<md-icon>folder</md-icon>
-	      		<md-icon style="right: 2%; position: absolute; cursor: pointer;" md-list-icon (click)="sidenav_export_excel.close()">close</md-icon>
-	    	</md-toolbar>
-<!-- 		</md-card-title> -->
-  			<md-nav-list>
+<mat-sidenav #sidenav_export_excel  class="nav_header">
+<!-- 		<mat-card-title> -->
+			<mat-toolbar color="primary" class="mat-elevation-z10">
+	      		<mat-icon>folder</mat-icon>
+	      		<mat-icon style="right: 2%; position: absolute; cursor: pointer;" mat-list-icon (click)="sidenav_export_excel.close()">close</mat-icon>
+	    	</mat-toolbar>
+<!-- 		</mat-card-title> -->
+  			<mat-nav-list>
   			<div *ngIf="listExcelFiles.length > 0; else other_content" >
-			      <a md-list-item *ngFor="let row of listExcelFiles;"  (click)="downloadExcel(row.namefile)">
-			        <md-icon md-list-icon>tab</md-icon>
-			        <span md-line>{{row.namefile}}</span>
-			        <span md-line class="demo-secondary-text"> Description </span>
+			      <a mat-list-item *ngFor="let row of listExcelFiles;"  (click)="downloadExcel(row.namefile)">
+			        <mat-icon mat-list-icon>tab</mat-icon>
+			        <span mat-line>{{row.namefile}}</span>
+			        <span mat-line class="demo-secondary-text"> Description </span>
 			      </a>
 			  </div>
 			  <ng-template #other_content>
-		      	<div *ngIf="flag; else date_note"><h1><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></h1></div>
-	  			<ng-template #date_note><md-error><h3>{{data_not_found}}</h3></md-error></ng-template>
+		      	<div *ngIf="flag; else date_note"><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div>
+	  			<ng-template #date_note><mat-error><h3>{{data_not_found}}</h3></mat-error></ng-template>
   			 </ng-template>
-   			 </md-nav-list>
+   			 </mat-nav-list>
     <br><br>
   			 
   			 
-</md-sidenav>
+</mat-sidenav>

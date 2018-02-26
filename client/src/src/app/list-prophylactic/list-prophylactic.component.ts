@@ -1,18 +1,18 @@
 import { Component, OnInit, Inject, ViewChild, TemplateRef,ElementRef } from '@angular/core';
 import {PeopleDatabase, UserData} from './people-database';
 import {ProphylacticDataSource} from './data-source';
-import {MdPaginator} from '@angular/material';
-import {MdSort} from '@angular/material';
+import {MatPaginator} from '@angular/material';
+import {MatSort} from '@angular/material';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import { DialogComponent } from './dialog.component';
 import {DOCUMENT} from '@angular/platform-browser';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import {environment} from '../../environments/environment';
 
 
@@ -83,9 +83,9 @@ export class ListProphylacticComponent implements OnInit {
   displayedColumns: UserProperties[] = [];
   
   constructor(public _peopleDatabase: PeopleDatabase,
-  				  public dialog: MdDialog,
-  				  public snackBar: MdSnackBar) { }
-  dialogRef: MdDialogRef<DialogComponent> | null;
+  				  public dialog: MatDialog,
+  				  public snackBar: MatSnackBar) { }
+  dialogRef: MatDialogRef<DialogComponent> | null;
   
   
 	getNotify(note:string): void{

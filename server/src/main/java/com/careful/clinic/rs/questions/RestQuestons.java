@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.careful.clinic.dao.questions.QuestionsDAO;
 import com.careful.clinic.model.QuestionResult;
-import com.careful.clinic.model.TestModel;
 import com.careful.clinic.model.questions.Questions;
 import com.careful.clinic.model.questions.TypeOfResponse;
 

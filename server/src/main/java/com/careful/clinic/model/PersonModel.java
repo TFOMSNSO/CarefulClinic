@@ -2,11 +2,12 @@ package com.careful.clinic.model;
 
 public class PersonModel {
 	
-	public PersonModel(String surname, String firstname, String lastname, String bithday) {
+	public PersonModel(String surname, String firstname, String lastname, String bithday, Integer year_disp) {
 		this.surname = surname;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.bithday = bithday;
+		this.year= year_disp;
 	}
 	public PersonModel() {
 		
@@ -15,6 +16,7 @@ public class PersonModel {
 	private String firstname;
 	private String lastname;
 	private String bithday;
+	private Integer year;
 	
 	public String getSurname() {
 		return surname;
@@ -85,6 +87,13 @@ public class PersonModel {
 			return false;
 		return true;
 	}
+	public Integer getYear() {
+		return year;
+	}
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+	
 	
 	
 }

@@ -1,0 +1,10 @@
+<mat-list>
+
+  <h3 mat-subheader>Folders</h3>
+  
+  <mat-list-item *ngFor="let folder of listFiles" (click)="send(folder.fullpathfile)">
+    <mat-icon class="my-icon-menu-admin" mat-list-icon >folder</mat-icon>
+    <h4 mat-line>{{folder.namefile}}</h4>
+  </mat-list-item>
+  
+</mat-list>

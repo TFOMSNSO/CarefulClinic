@@ -5,7 +5,11 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {
+  document.title = environment.main_title;
   enableProdMode();
+}else{
+  document.title = environment.main_title;
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.log(err));

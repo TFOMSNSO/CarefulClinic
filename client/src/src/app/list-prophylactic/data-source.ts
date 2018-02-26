@@ -1,5 +1,5 @@
-import {MdPaginator, MdSort} from '@angular/material';
-import {DataSource} from '@angular/cdk';
+import {MatPaginator, MatSort} from '@angular/material';
+import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import {PeopleDatabase, UserData} from './people-database';
@@ -36,4 +36,4 @@ export class ProphylacticDataSource extends DataSource<any> {
     // No-op
   }
   
-}
+} 

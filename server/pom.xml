@@ -175,11 +175,32 @@
 		</dependency>
 		
 		<dependency>
-   <groupId>dom4j</groupId>
-   <artifactId>dom4j</artifactId>
-   <version>1.6.1</version>
-   <scope>provided</scope>
-</dependency>
+		   <groupId>dom4j</groupId>
+		   <artifactId>dom4j</artifactId>
+		   <version>1.6.1</version>
+		   <scope>provided</scope>
+		</dependency>
+		
+		<!-- jasper report -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		    <version>5.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+		<dependency>
+		    <groupId>com.lowagie</groupId>
+		    <artifactId>itext</artifactId>
+		    <version>2.1.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/tomcat/jasper-compiler-jdt -->
+		<dependency>
+		    <groupId>tomcat</groupId>
+		    <artifactId>jasper-compiler-jdt</artifactId>
+		    <version>5.5.15</version>
+		</dependency>
+		
+		
         
    </dependencies>
     

@@ -30,4 +30,11 @@ export class HeaderComponent{
    list_insur_menu: string = environment.list_insur_menu;
    exit_app: string = environment.exit_app;
    list_inform_header: string  = environment.list_inform_header;
+   _menu_main_page:string  = environment.menu_main_page;
+   _menu_report_page:string  = environment.menu_report_page;
+   _menu_admin:string  = environment.menu_admin;
+   _menu_admin_inform_allyear:string  = environment.menu_admin_inform_allyear;
+ 
+
+    public LOGO = require("./logo_small.png");
 }

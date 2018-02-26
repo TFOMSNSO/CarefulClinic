@@ -1,0 +1,35 @@
+<mat-card [@flyInOut]="'in'">
+	<mat-sidenav-container class="example-container">
+	  
+		<mat-list>
+			<mat-card-title>{{_admin_inform_mainsubmodul_title}}</mat-card-title>
+			<mat-card-header>
+				 
+				 <!-- <mat-menu #menu_tab="matMenu" >
+				  <button mat-menu-item >{{_searchFIOD}}</button>
+				</mat-menu> -->
+				
+				<!-- <button id="btn_header" mat-icon-button [matMenuTriggerFor]="menu_tab">
+				   <mat-icon>more_vert</mat-icon>
+				</button> -->
+				 
+				 <!-- <button id="btn_header"  (click)="var_sidenav.open()" mat-fab><mat-icon>add</mat-icon></button> -->
+			</mat-card-header>
+		</mat-list>
+	</mat-sidenav-container>	
+	<!-- <mat-card-content @questionsAnim> -->
+	<mat-card-content>
+	
+	<div>
+		<!-- bread crumb -->
+		<breadcrumb></breadcrumb>
+		<div style="float:left; border-right: 4px solid lightgrey; height: 700px;">
+			<!-- menu -->
+			<admin-menu-inform></admin-menu-inform>  
+		</div>
+		<div>
+			<router-outlet></router-outlet>  
+		</div>
+	</div>
+	</mat-card-content>
+</mat-card>

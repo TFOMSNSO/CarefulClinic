@@ -1,4 +1,4 @@
-md-dialog-content{
+mat-dialog-content{
 	min-height:400px;
 }
 
@@ -10,7 +10,7 @@ table tr{
   width: 100%;
 }
 
-div #md-tab-label-0-0{
+div #mat-tab-label-0-0{
 	float:left;
     width:33.3%;
     //height: 20px;
@@ -44,6 +44,9 @@ div #md-tab-label-0-0{
  /deep/.mat-toolbar{
  	height:30%;
  	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	
+	flex-direction: column;
+    align-items: baseline;
  }
  
  
@@ -63,14 +66,22 @@ div #md-tab-label-0-0{
     right: 10%;
  }
  
- /deep/ md-dialog-actions{
- 	position: relative;
-    bottom: -103px;
+ /deep/ mat-dialog-actions{
+ 	//position: relative;
+    //bottom: -65px;
     z-index: 100000;
-    right: 85px;
+    //right: 85px;
  }
  
- /deep/ md-error{
+ /deep/ mat-error{
  	text-align: center;
  	margin-top: 50px;
+}
+
+/deep/.mat-select-value{
+	color: white;
+}
+
+/deep/.mat-raised-button{
+	margin: auto;
 }

@@ -1,0 +1,24 @@
+mat-grid-tile {
+  background: lightblue;
+}
+
+#container {
+    width: 100%;
+    margin: 10em auto;
+    padding: 0;
+    background:#fff;
+}
+
+.items {
+    max-width:100%;
+    height:500px;
+    background:#ECECEC;
+}
+
+#left, #right { 
+    margin: 30px;
+}
+
+.items>img{
+max-width: none;
+}

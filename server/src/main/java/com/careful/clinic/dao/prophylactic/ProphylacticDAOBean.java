@@ -382,7 +382,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	    		
 	    		wrsk = new WrapRespSerarchKeys(obj[0].toString(), obj[1].toString(), obj[2].toString(), f,Integer.valueOf(obj[4].toString()),obj[5].toString(), tele2,telework,teledom,personmodel.getCurrentUser());
 	    		
-	    		p = new PersonModel(obj[0].toString(),obj[1].toString(),obj[2].toString(),f);
+	    		p = new PersonModel(obj[0].toString(),obj[1].toString(),obj[2].toString(),f,2018);
 	    		
 	    		//if(personmodel.getPlan_disp() > 0 && personmodel.getCurrentUser() == 777){
 	    			responsePmMo17 = new ResponsePmMo17(obj[9] != null ? obj[9].toString() : "", obj[10] != null ? obj[10].toString() : "",obj[11] != null ?  obj[11].toString() : "" ,obj[12] != null ?  obj[12].toString() : "",obj[13] != null ?  obj[13].toString() : "");
@@ -695,13 +695,15 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 			
 			OPCPackage pkg = OPCPackage.open(new File(fileName));
 			XSSFWorkbook workbook = new XSSFWorkbook(pkg);
+		
 			
 			DataFormatter formatter = new DataFormatter();
 			Sheet sheet =  workbook.getSheetAt(0);
-			if(sheet.getPhysicalNumberOfRows() > 50_000) throw new Exception("Превышено допустимое количество строк в загружаемом файле. Не более 50 000 строк");
+			if(sheet.getPhysicalNumberOfRows() > 50_000){ pkg.close(); throw new Exception("Превышено допустимое количество строк в загружаемом файле. Не более 50 000 строк");}
 			Row row = sheet.getRow(0);
 			SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 			SimpleDateFormat df2 = new SimpleDateFormat("dd.MM.yyyy");
+			SimpleDateFormat df3 = new SimpleDateFormat("dd.MM.yyyy");
 			List<String> list = null;
 			
 			if(row.getLastCellNum() == 9){
@@ -710,7 +712,22 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 				
 				for(int j=1; j< sheet.getPhysicalNumberOfRows(); j++){
 					row = sheet.getRow(j);
-					if(row.getLastCellNum() != 9){throw new Exception("Ошибка в шаблоне загрузки информирования. Неправильная структура шаблона. Строка "+(j+1));}
+					
+					
+					// has been  row.getLastCellNum() != 9
+					if( (row.getCell(9) != null && !row.getCell(9).toString().trim().equals("")) && row.getLastCellNum() > 9){ pkg.close(); throw new Exception("Ошибка в шаблоне загрузки информирования. Неправильная структура шаблона. Одна из возможных причин наличие невидимых символов в пустых ячейках. Строка "+(j+1));}
+					
+					if(formatter.formatCellValue(row.getCell(0)).equals("") &&
+							  formatter.formatCellValue(row.getCell(1)).equals("")  &&
+							  formatter.formatCellValue(row.getCell(3)).equals("")  &&
+							  formatter.formatCellValue(row.getCell(4)).equals("")  &&
+							  formatter.formatCellValue(row.getCell(5)).equals("")  &&
+							  formatter.formatCellValue(row.getCell(6)).equals("")  &&
+							  formatter.formatCellValue(row.getCell(8)).equals("")){
+						
+						break;
+					}
+					
 					if(formatter.formatCellValue(row.getCell(0)).equals("") ||
 					  formatter.formatCellValue(row.getCell(1)).equals("")  ||
 					  formatter.formatCellValue(row.getCell(3)).equals("")  ||
@@ -718,9 +735,9 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					  formatter.formatCellValue(row.getCell(5)).equals("")  ||
 					  formatter.formatCellValue(row.getCell(6)).equals("")  ||
 					  formatter.formatCellValue(row.getCell(8)).equals("")
-							){throw new Exception("Ошибка в шаблоне загрузки информирования. Отсутствуют обязательных поля. Строка "+(j+1));}
+							){ pkg.close(); throw new Exception("Ошибка в шаблоне загрузки информирования. Отсутствуют обязательных поля. Строка "+(j+1));}
 					sb.append("insert into pm_i p values('',");
-					for(int i=0; i<row.getLastCellNum(); i++){
+					for(int i=0; i<row.getLastCellNum() && i < 9; i++){
 						sb.append("'");
 						{
 							try{
@@ -728,14 +745,20 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 								row.getCell(8).getNumericCellValue();
 								row.getCell(6).getNumericCellValue();
 							}catch (Exception e) {
+								pkg.close();
 								throw new Exception("Ошибка в шаблоне информирования. Поле этап или id страхования или тип информирования не прошло проверку. Строка "+(j+1));
 							}
 						}
-						if(row.getCell(4).getNumericCellValue() <1 || row.getCell(4).getNumericCellValue() >3)	throw new Exception("Ошибка в шаблоне информирования. Поле этап информирования не прошло проверку. Строка "+(j+1));
-						if(row.getCell(8).getNumericCellValue() <1 || row.getCell(8).getNumericCellValue() >4)	throw new Exception("Ошибка в шаблоне информирования. Поле id страховой не прошло проверку. Строка "+(j+1));
-						if(row.getCell(6).getNumericCellValue() <1 || row.getCell(6).getNumericCellValue() >10)  throw new Exception("Ошибка в шаблоне информирования. Поле тип информирования не прошло проверку. Строка "+(j+1));
+						if(row.getCell(4).getNumericCellValue() <1 || row.getCell(4).getNumericCellValue() >3){ pkg.close();	throw new Exception("Ошибка в шаблоне информирования. Поле этап информирования не прошло проверку. Строка "+(j+1));}
+						if(row.getCell(8).getNumericCellValue() <1 || row.getCell(8).getNumericCellValue() >4){ pkg.close();	throw new Exception("Ошибка в шаблоне информирования. Поле id страховой не прошло проверку. Строка "+(j+1));}
+						if(row.getCell(6).getNumericCellValue() <1 || row.getCell(6).getNumericCellValue() >10){ pkg.close();  throw new Exception("Ошибка в шаблоне информирования. Поле тип информирования не прошло проверку. Строка "+(j+1));}
 						if(i == 3 || i == 5){
-							sb.append(df2.format(df.parse(row.getCell(i).toString())));
+							try{
+								sb.append(df2.format(df.parse(row.getCell(i).toString())));
+							}catch ( java.text.ParseException e) {
+								sb.append(df2.format(df3.parse(row.getCell(i).toString())));
+							}
+							
 						}else{
 							sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase());}
 						sb.append("'");
@@ -745,31 +768,33 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					}
 					sb.append("");
 					sb.append("trunc(sysdate),sysdate)");
+					
 					list.add(sb.toString());
 					sb.delete(0, sb.length());
 					
 					
 				}
+				
 				pkg.close();
 				return list;
-				//System.out.println(list);
+
 				
 			}
 			
-			if(row.getLastCellNum() == 8){
+			else if(row.getLastCellNum() == 8){
 				StringBuilder sb = new StringBuilder();
 				list = new ArrayList<String>(sheet.getPhysicalNumberOfRows());
 				
 				for(int j=1; j< sheet.getPhysicalNumberOfRows(); j++){
 					row = sheet.getRow(j);
-					if(row.getLastCellNum() != 8){throw new Exception("Ошибка в шаблоне загрузки анкетирования. Неправильная структура шаблона. Строка "+(j+1));}
+					if(row.getLastCellNum() != 8){ pkg.close(); throw new Exception("Ошибка в шаблоне загрузки анкетирования. Неправильная структура шаблона. Строка "+(j+1));}
 					if(formatter.formatCellValue(row.getCell(0)).equals("") ||
 							  formatter.formatCellValue(row.getCell(1)).equals("")  ||
 							  formatter.formatCellValue(row.getCell(3)).equals("")  ||
 							  formatter.formatCellValue(row.getCell(4)).equals("")  ||
 							  formatter.formatCellValue(row.getCell(5)).equals("")  ||
 							  formatter.formatCellValue(row.getCell(7)).equals("")  
-									){throw new Exception("Ошибка в шаблоне загрузки анкетирования. Отсутствуют обязательных поля. Строка "+(j+1));}
+									){ pkg.close(); throw new Exception("Ошибка в шаблоне загрузки анкетирования. Отсутствуют обязательных поля. Строка "+(j+1));}
 					sb.append("insert into pm_a p values('',");
 					for(int i=0; i<row.getLastCellNum(); i++){
 						sb.append("'");
@@ -778,11 +803,12 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 								row.getCell(7).getNumericCellValue();
 								row.getCell(5).getNumericCellValue();
 							}catch (Exception e) {
+								pkg.close();
 								throw new Exception("Ошибка в шаблоне загрузки анкетирования. Поле id страховой или id ответа не прошло проверку. Строка "+(j+1));
 							}
 						}
-						if(row.getCell(7).getNumericCellValue() <1 || row.getCell(7).getNumericCellValue() >4)	throw new Exception("Ошибка в шаблоне загрузки анкетирования. Поле id страховой не прошло проверку. Строка "+(j+1));
-						if(row.getCell(5).getNumericCellValue() <1 || row.getCell(5).getNumericCellValue() >10)throw new Exception("Ошибка в шаблоне загрузки анкетирования. Поле id ответа не прошло проверку. Строка "+(j+1));
+						if(row.getCell(7).getNumericCellValue() <1 || row.getCell(7).getNumericCellValue() >4){ pkg.close();	throw new Exception("Ошибка в шаблоне загрузки анкетирования. Поле id страховой не прошло проверку. Строка "+(j+1));}
+						if(row.getCell(5).getNumericCellValue() <1 || row.getCell(5).getNumericCellValue() >10){ pkg.close(); throw new Exception("Ошибка в шаблоне загрузки анкетирования. Поле id ответа не прошло проверку. Строка "+(j+1));}
 						if(i == 3 || i == 4){
 							sb.append(df2.format(df.parse(row.getCell(i).toString())));
 						}else{
@@ -800,6 +826,10 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 				pkg.close();
 				return list;
 				//System.out.println(list);
+			}
+			else if(true){
+				pkg.close();
+				throw new Exception("Ошибка в шаблоне загрузки. Не удается определить принадлежность загружаемого формата данных. Проверьте невидимые символы в пустых ячеках (выделите столбцы или строки с пустыми ячейками и удалите через контекстное меню) ");
 			}
 					pkg.close();
 					return null;

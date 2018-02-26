@@ -1,9 +1,9 @@
-<md-sidenav #sidenav_upload_data  class="nav_header">
- 			<md-toolbar color="primary" class="mat-elevation-z10">
-	      		<md-icon>folder</md-icon>
-	      		<md-icon style="right: 2%; position: absolute; cursor: pointer;" md-list-icon (click)="sidenav_upload_data.close()">close</md-icon>
-	    	</md-toolbar>
-    		<md-progress-bar  *ngIf="progress_bar_upload"  mode="query" color="warn" ></md-progress-bar>
+<mat-sidenav #sidenav_upload_data  class="nav_header">
+ 			<mat-toolbar color="primary" class="mat-elevation-z10">
+	      		<mat-icon>folder</mat-icon>
+	      		<mat-icon style="right: 2%; position: absolute; cursor: pointer;" mat-list-icon (click)="sidenav_upload_data.close()">close</mat-icon>
+	    	</mat-toolbar>
+    		<mat-progress-bar  *ngIf="progress_bar_upload"  mode="query" color="warn" ></mat-progress-bar>
     <br><br>
     <div class="dropzone" appDnd (filesChangeEmiter)="onFilesChange($event)" (filesInvalidEmiter)="onFileInvalids($event)" [allowed_extensions]="['xlsx']" >
   <div class="text-wrapper">
@@ -12,18 +12,18 @@
 </div>
 
 <div class="centered">{{_pull}}<hr></div>
-			<md-nav-list>
+			<mat-nav-list>
 			<div *ngIf="listUploadedFiles.length > 0 ; else other_content" >
-			      <a md-list-item *ngFor="let row of listUploadedFiles"  (click)="downloadExcel(row.namefile)">
-			        <md-icon md-list-icon>tab</md-icon>
-			        <span md-line>{{row.namefile}}</span>
-			        <span md-line class="demo-secondary-text"> Description </span>
+			      <a mat-list-item *ngFor="let row of listUploadedFiles"  (click)="downloadExcel(row.namefile)">
+			        <mat-icon mat-list-icon>tab</mat-icon>
+			        <span mat-line>{{row.namefile}}</span>
+			        <span mat-line class="demo-secondary-text"> Description </span>
 			      </a>
 		      </div>
 		      <ng-template #other_content>
-		      	<div *ngIf="flag; else date_note"><h1><md-spinner style="margin:auto; margin-top:50px;"></md-spinner></h1></div>
-	  			<ng-template #date_note><md-error><h3>{{data_not_found}}</h3></md-error></ng-template>
+		      	<div *ngIf="flag; else date_note"><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div>
+	  			<ng-template #date_note><mat-error><h3>{{data_not_found}}</h3></mat-error></ng-template>
   			 </ng-template>
-    		</md-nav-list>    
+    		</mat-nav-list>    
   			 
-</md-sidenav>
+</mat-sidenav>
