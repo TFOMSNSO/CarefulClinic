@@ -34,6 +34,9 @@ export class HeaderComponent{
    _menu_report_page:string  = environment.menu_report_page;
    _menu_admin:string  = environment.menu_admin;
    _menu_admin_inform_allyear:string  = environment.menu_admin_inform_allyear;
+   _sp3_menu: string = environment.sp3_menu;
+   _sp3_menu_expertisa: string = environment.sp3_menu_expertisa;
+   
  
 
     public LOGO = require("./logo_small.png");

@@ -527,7 +527,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["с группой здоровья 3а и не соответствующим данной группе здоровья МКБ"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["с группой здоровья 3а и 3б"]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

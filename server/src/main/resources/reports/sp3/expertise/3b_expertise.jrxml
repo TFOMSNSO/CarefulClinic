@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="first_template" pageWidth="1691" pageHeight="2000000" orientation="Landscape" columnWidth="1651" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b72c2c80-9324-4359-a0b4-1feff9ba2ede">
 	<property name="ireport.zoom" value="1.7715610000000044"/>
-	<property name="ireport.x" value="1706"/>
+	<property name="ireport.x" value="1139"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Default" isDefault="true" pdfFontName="./font/ARIAL.TTF" pdfEncoding="Cp1251"/>
 	<parameter name="DATE" class="java.util.Date"/>
@@ -172,7 +172,7 @@
 				<textFieldExpression><![CDATA["Дата счета"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1193" y="38" width="130" height="46" uuid="a30ffb75-e527-4674-b0ab-017413933513"/>
+				<reportElement x="1193" y="38" width="160" height="46" uuid="a30ffb75-e527-4674-b0ab-017413933513"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -185,7 +185,7 @@
 				<textFieldExpression><![CDATA["Группа здоровья по результатам диспансеризации"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1323" y="38" width="70" height="46" uuid="3743a0d3-9aff-4b9d-9471-4e0f8d0e0305"/>
+				<reportElement x="1353" y="38" width="70" height="46" uuid="3743a0d3-9aff-4b9d-9471-4e0f8d0e0305"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -380,7 +380,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1193" y="84" width="130" height="13" uuid="d4db47ec-3619-44e5-bec2-8e9f4f758313"/>
+				<reportElement x="1193" y="84" width="160" height="13" uuid="d4db47ec-3619-44e5-bec2-8e9f4f758313"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -394,7 +394,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1323" y="84" width="70" height="13" uuid="674b3597-6407-4a74-bfeb-4818bbccb698"/>
+				<reportElement x="1353" y="84" width="70" height="13" uuid="674b3597-6407-4a74-bfeb-4818bbccb698"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -462,7 +462,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1393" y="38" width="70" height="46" uuid="ab772c2d-7e9c-4b8c-872b-239c5933064a"/>
+				<reportElement x="1423" y="38" width="70" height="46" uuid="ab772c2d-7e9c-4b8c-872b-239c5933064a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -475,7 +475,7 @@
 				<textFieldExpression><![CDATA["ID"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1393" y="84" width="70" height="13" uuid="a4dbae0c-1a45-4aa6-b622-e0f2c87235cb"/>
+				<reportElement x="1423" y="84" width="70" height="13" uuid="a4dbae0c-1a45-4aa6-b622-e0f2c87235cb"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -527,7 +527,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["с группой здоровья 3а и не соответствующим данной группе здоровья МКБ"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["с группой здоровья 3Б и не соответствующим данной группе здоровья МКБ"]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
@@ -686,7 +686,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1193" y="0" width="130" height="20" uuid="4c35bc6b-2e71-492f-aecb-37d3fdd5a2f1"/>
+				<reportElement x="1193" y="0" width="160" height="20" uuid="4c35bc6b-2e71-492f-aecb-37d3fdd5a2f1"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -694,10 +694,10 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[( $F{rezobr}.equals("20") ? ("3а, направлен на 2 этап") : ("3а") )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{rezobr}.equals("21") ? ("3б, направлен на 2 этап") : ($F{rezobr}.equals("23") ? ("3б") : ($F{rezobr}.equals("14")? ("1, направлен на 2 этап"):("1") )) )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1323" y="0" width="70" height="20" uuid="46aae17f-6deb-45d0-bb1f-252257cbb5bd"/>
+				<reportElement x="1353" y="0" width="70" height="20" uuid="46aae17f-6deb-45d0-bb1f-252257cbb5bd"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -732,7 +732,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1393" y="0" width="70" height="20" uuid="ff833ad9-7d64-4862-861d-b3f6fa97d132"/>
+				<reportElement x="1423" y="0" width="70" height="20" uuid="ff833ad9-7d64-4862-861d-b3f6fa97d132"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>

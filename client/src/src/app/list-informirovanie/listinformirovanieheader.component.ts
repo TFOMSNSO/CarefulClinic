@@ -42,6 +42,7 @@ export class ListInformirovanieHeader{
 	 public panelOpenState1 : boolean = false;
 	 public panelOpenState2 : boolean = false;
 	 public panelOpenState3 : boolean = false;
+	 public panelOpenState4 : boolean = false;
 	 
 	  kvs = [
 				{value: '1', viewValue: '1-\u0439 \u043A\u0432\u0430\u0440\u0442\u0430\u043B'},
@@ -66,6 +67,8 @@ export class ListInformirovanieHeader{
    _reestr_file: string = environment.reestr_file;
    _reestr_download: string = environment.reestr_download;
    _report_inform_about_second_level: string = environment.report_inform_about_second_level;
+   _profmedosmtr: string = environment.profmedosmtr;
+   
    
    
    
@@ -77,9 +80,19 @@ export class ListInformirovanieHeader{
 	 this.getListNameFiles(this.currentUser['role'][0].id);
   }
   
+  init_1():void{
+	 this.getListNameFiles_1(this.currentUser['role'][0].id);
+  }
+  
 	/*  информирование о втором этапе */
    getListNameFiles(data : number): void{
     	 this.listInformirovanieHeaderService.listFiles(data)
+	 	 .then(res => {this.listExcelFiles = res});
+	}
+	
+	/*  Профилактические мед.осмотры */
+   getListNameFiles_1(data : number): void{
+    	 this.listInformirovanieHeaderService.listFiles_1(data)
 	 	 .then(res => {this.listExcelFiles = res});
 	}
 	
@@ -94,7 +107,7 @@ export class ListInformirovanieHeader{
 	}
     
 	setTrue(vl : number, vl2 : boolean){
-		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : ''
+		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : vl == 4 ? this.panelOpenState4= vl2 :''
 	}
    
     downloadFile():void{
@@ -111,10 +124,10 @@ export class ListInformirovanieHeader{
 	});
    }
    
-    downloadFile_2(data: string):void{
+    downloadFile_2(data: string,data2: string):void{
 	this.progress_bar = true;
 	
-	this.listInformirovanieHeaderService.downloadFile_2(data,this.currentUser['role'][0].id,'inform_about_second_stage')
+	this.listInformirovanieHeaderService.downloadFile_2(data,this.currentUser['role'][0].id,data2)
 	.then(result =>{
 			let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 			FileSaver.saveAs(blob, data);

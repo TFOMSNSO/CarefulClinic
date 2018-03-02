@@ -4,12 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Wrap3aExpertise {
+public class Wrap3a_b_Expertise {
 
-	public Wrap3aExpertise(String fio, Date dr, Long smoid, String serpolis, String numpolis, String lpu,
+	public Wrap3a_b_Expertise(String fio, Date dr, Long smoid, String serpolis, String numpolis, String lpu,
 			String ambkarta, Date dat_beg, Date dat_end, Long lpu_prik, Long s1, Long account, Date ac_date,
-			String rezobr, String f_mkb_usl){
+			String rezobr, String f_mkb_usl, String tel, Long id){
 		super();
+		this.tel = tel;
+		this.id = id;
 		this.fio = fio;
 		this.dr = dr;
 		this.smoid = smoid;
@@ -26,12 +28,13 @@ public class Wrap3aExpertise {
 		this.rezobr = rezobr;
 		this.f_mkb_usl = f_mkb_usl;
 	}
-	public Wrap3aExpertise() {
+	public Wrap3a_b_Expertise() {
 		
 	}
 	
 	private String fio;
 	private Date dr;
+	private String tel;
 	private Long smoid;
 	private String serpolis;
 	private String numpolis;
@@ -45,6 +48,7 @@ public class Wrap3aExpertise {
 	private Date ac_date;
 	private String rezobr;
 	private String f_mkb_usl;
+	private Long id;
 	
 	public String getFio() {
 		return fio;
@@ -135,6 +139,18 @@ public class Wrap3aExpertise {
 	}
 	public void setF_mkb_usl(String f_mkb_usl) {
 		this.f_mkb_usl = f_mkb_usl;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

@@ -54,6 +54,17 @@ public class RestServiceinform {
 	}
 	
 	@GET
+	@Path("/listFilesProfMedOsmotri/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> listFilesProfMedOsmotri(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+		
+		List<?> df = (List<?>) informDAO.getListInformMedOsmotri(id);
+		
+		return df;
+	}
+	
+	@GET
 	@Path("/listFilesInformKvartals/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -112,7 +123,6 @@ public class RestServiceinform {
 	    }
 	}
 	
-	
 	@GET
 	@Path("/listFilesSecondStageInform/{place}/{id}/{namefile}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -123,12 +133,12 @@ public class RestServiceinform {
 		
 		String directoryServer = System.getProperty("jboss.home.dir");
 		String directoryDestination = "";
-		if(place.equals("inform_about_second_stage")){
-			if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year+"\\inform_about_second_stage\\777";
-			if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\inform_about_second_stage\\1";
-			if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\inform_about_second_stage\\2";
-			if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\inform_about_second_stage\\4";	
-		}
+		
+			if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year+"\\"+ place +"\\777";
+			if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\"+ place +"\\1";
+			if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\"+ place +"\\2";
+			if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\"+ place +"\\4";	
+		
 		
 		
 		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;

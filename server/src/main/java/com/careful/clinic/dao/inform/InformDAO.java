@@ -1,6 +1,7 @@
 package com.careful.clinic.dao.inform;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Local;
 
@@ -14,5 +15,7 @@ public interface InformDAO {
 	 * @param id
 	 * @return
 	 */
-	Collection<?> getListInformKvartal(Integer id); 
+	Collection<?> getListInformKvartal(Integer id);
+
+	public List<?> getListInformMedOsmotri(Integer id); 
 }

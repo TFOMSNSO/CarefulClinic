@@ -63,4 +63,28 @@ public class InformDAOBean implements InformDAO {
 		
 	}
 
+	@Override
+	public List<?> getListInformMedOsmotri(Integer id) {
+		int current_year = Calendar.getInstance().get(Calendar.YEAR);
+
+		String directoryServer = System.getProperty("jboss.home.dir");
+		String directoryDestination = "";
+		if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year +"\\ProfMedOsmotri\\777";
+		if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\ProfMedOsmotri\\1";
+		if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\ProfMedOsmotri\\2";
+		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\ProfMedOsmotri\\4";
+		
+		directoryDestination = directoryServer+directoryDestination;
+		
+		File path = new File(directoryDestination);
+		String ob[] = path.list();
+		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
+		for(int i=0;i < ob.length;i++){
+			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
+			
+		}
+		
+		return ls;
+	}
+
 }

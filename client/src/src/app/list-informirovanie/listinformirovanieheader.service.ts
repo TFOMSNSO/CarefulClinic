@@ -41,6 +41,14 @@ export class ListInformirovanieHeaderService{
                .then(response => response.json() as ListExcelFiles[]);
   }
   
+  listFiles_1(data : number): Promise<ListExcelFiles[]> {
+  let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.get(`${this.serverUrl}/listFilesProfMedOsmotri/${data}`,{headers: headers})
+               .toPromise()
+               .then(response => response.json() as ListExcelFiles[]);
+  }
+  
+  
   /* Загрузка сформированных файлов. Информирование поквартальное */
   
   listFilesKvartals(data : number): Promise<ListExcelFiles[]> {

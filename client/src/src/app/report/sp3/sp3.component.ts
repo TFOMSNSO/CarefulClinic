@@ -29,7 +29,7 @@ import {Router} from "@angular/router";
 })
 export class Sp3Component implements OnInit{
 	 
-   _admin_inform_mainsubmodul_title: string = environment.admin_inform_mainsubmodul_title;
+   _title_sp3_exptise: string = environment.title_sp3_exptise;
    /*exit_app: string = environment.exit_app;
    list_inform_header: string  = list_inform_header;*/
    
