@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -18,6 +19,7 @@ import javax.persistence.Query;
 
 import org.hibernate.transform.Transformers;
 
+import com.careful.clinic.model.ExpertiseRateMo;
 import com.careful.clinic.model.ListExcelFiles;
 import com.careful.clinic.model.PersonModel;
 import com.careful.clinic.model.Wrap3a_b_Expertise;
@@ -36,12 +38,11 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	
 	
 	
-	 private SimpleDateFormat sdf = null;
 	 
 	 @Override
 	 public List<Wrap3a_b_Expertise> getResalt3b_expertise(String date1,String date2,String user, int firrstResult) {
 		 String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
-		 String sb = "select "
+		 String sb = "select distinct"
 					+ " p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR, f_mkb_usl_z(p.id) as f_mkb_usl, f_person_telephone_v2@dome_dev(p.fam, p.im, p.ot, p.dr) as tel, p.id"
 					+ " from demand d, pat p, pat_usl pu where "
 					+ "d.id_demand = p.demand_id"
@@ -50,7 +51,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 					+ " and "
 					+ " p.caretype = 30 "
 					+" and "
-					+ "  p.REZOBR in (21, 23, 14, 15)"
+					+ "  p.REZOBR in (21, 23, 14,15)"
 					+ " and "
 					+ " d.period between ' "+date1+" ' and ' "+date2+" '"
 					+ "  and "
@@ -58,9 +59,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 					+ g
 					+" and "
 					+"("
-					+"(pu.ds between 'I20' and 'I25.99')"
-					+" or "
-					+"(pu.ds between 'I60' and 'I69.99')" 
+					+"(substr(pu.ds,0,1) = 'I')"  
 					+" or "
 					+"(substr(pu.ds,0,1) = 'C')" 
 					+" or "
@@ -112,7 +111,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 		
 		//TODO полных лет
 		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
-		String sb = "select "
+		String sb = "select distinct"
 				+ " p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR, f_mkb_usl(p.id) as f_mkb_usl, f_person_telephone_v2@dome_dev(p.fam, p.im, p.ot, p.dr) as tel, p.id"
 				+ " from demand d, pat p, pat_usl pu where "
 				+ "d.id_demand = p.demand_id"
@@ -121,7 +120,8 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+ " and "
 				+ " p.caretype = 30 "
 				+" and "
-				+ "  p.REZOBR in (20, 22)"
+				//+ "  p.REZOBR in (20, 22)"
+				+ "  p.REZOBR in (22)"
 				+ " and "
 				+ " d.period between ' "+date1+" ' and ' "+date2+" '"
 				+ "  and "
@@ -129,9 +129,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+ g
 				+" and "
 				+"("
-				+"(pu.ds not between 'I20' and 'I25.99')"
-				+"and"
-				+"(pu.ds not between 'I60' and 'I69.99')" 
+				+"(substr(pu.ds,0,1) <> 'I')"
 				+"and"
 				+"(substr(pu.ds,0,1) <> 'C')" 
 				+"and"
@@ -190,11 +188,12 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 		directoryDestination = directoryServer+directoryDestination;
 		//TODO создать компонент utils в ejb и сделать метод сортировки по дата изменения файла 
 		File path = new File(directoryDestination);
-		String ob[] = path.list();
+		File[] files = path.listFiles();
+		Arrays.sort(files, (a, b) -> Long.compare(b.lastModified(), a.lastModified()));
+		
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
-		for(int i=0;i < ob.length;i++){
-			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
-			
+		for(int i=0;i < files.length;i++){
+			ls.add(new ListExcelFiles(files[i].getName(),directoryDestination+File.separator+files[i].getName()));
 		}
 		
 		return ls;
@@ -204,7 +203,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	public List<?> getResalt3a3b_expertise(String date1,String date2,String user, int firrstResult) {
 		//TODO полных лет
 		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
-		String sb = "select "
+		String sb = "select distinct"
 				+ " p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR, f_mkb_usl(p.id) as f_mkb_usl, f_person_telephone_v2@dome_dev(p.fam, p.im, p.ot, p.dr) as tel, p.id"
 				+ " from demand d, pat p, pat_usl pu where "
 				+ "d.id_demand = p.demand_id"
@@ -213,7 +212,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+ " and "
 				+ " p.caretype = 30 "
 				+" and "
-				+ "  p.REZOBR in (20, 21, 22, 23) "
+				+ "  p.REZOBR in (22, 23) "
 				+ " and "
 				+ " (p.nazr <> 5 and p.nazr <> 7)  and p.pr_d_n <> 1"
 				+ " and "
@@ -256,6 +255,197 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	});
 		
 		res=null;
+	    return ls;
+	}
+
+	@Override
+	public List<ExpertiseRateMo> getResalt3b_expertiseRateMo(String date1, String date2, String user) {
+		
+		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
+		String sb = "select "
+				+" tmp1.lp as code_mo , "
+				+" tmp.name as name_mo, "
+				+" tmp1.total, "
+				+" tmp1.total_1, "
+				+" tmp1.total_2, "
+				+" tmp1.total_4 " 
+				+" from "
+				 +" (  select  z_tmp.lpu as lp,  count(*) total,  count ( case when z_tmp.smoid = 1 then 1 end ) total_1,  count ( case when z_tmp.smoid = 2 then 1 end ) total_2,  count ( case when z_tmp.smoid = 4 then 1 end ) total_4  from "
+				      +" ( "
+				        +" select "
+				        +" distinct p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR " 
+				         +" from "
+				         +" demand d, pat p, pat_usl pu " 
+				               +" where "
+				               +" d.id_demand = p.demand_id and "
+				               +" pu.id = p.id  and "
+				               +" p.caretype = 30 "
+				               + g
+				               + "  and  p.REZOBR in (21, 23, 14,15) and "
+				               +"("
+								+"(substr(pu.ds,0,1) = 'I')"  
+								+" or "
+								+"(substr(pu.ds,0,1) = 'C')" 
+								+" or "
+								+"(pu.ds between 'E10' and 'E13.99')" 
+								+" or "
+								+"(pu.ds between 'J44' and 'J47.99')" 
+								 +")"
+								+" and "
+				               + " d.period between ' "+date1+" ' and ' "+date2+" '"
+				               + " and  p.dat_end >= '01.01.2018' "
+				       +" )     z_tmp "
+				    +" group  by z_tmp.lpu  order  by 2 desc "  
+				 +" ) tmp1,  "
+				 +" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl";
+		// TODO сделать выбор базы на сайте
+		Query q = non_mur_collect2018.createNativeQuery(sb);
+		
+		List<Object[]> res = q.getResultList();
+		// for processed data
+		List<ExpertiseRateMo> ls = new ArrayList<ExpertiseRateMo>(res.size());
+		
+		res.stream().forEach((record) -> {
+			
+			String _0 = (String) record[0];
+			String _1 = (String) record[1];
+			Long _2 = ((BigDecimal) record[2]).longValue();
+			Long _3 = ((BigDecimal) record[3]).longValue();
+			Long _4 = ((BigDecimal) record[4]).longValue();
+			Long _5 = ((BigDecimal) record[5]).longValue();
+		
+			ls.add(new ExpertiseRateMo(_0, _1, _2, _3,_4,_5));
+		
+	});
+		
+		res=null;
+		
+	    return ls;
+
+	}
+	
+	@Override
+	public List<ExpertiseRateMo> getResalt3a3b_expertiseRateMo(String date1, String date2, String user) {
+		
+		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
+		String sb = "select "
+				+" tmp1.lp as code_mo , "
+				+" tmp.name as name_mo, "
+				+" tmp1.total, "
+				+" tmp1.total_1, "
+				+" tmp1.total_2, "
+				+" tmp1.total_4 " 
+				+" from "
+				 +" (  select  z_tmp.lpu as lp,  count(*) total,  count ( case when z_tmp.smoid = 1 then 1 end ) total_1,  count ( case when z_tmp.smoid = 2 then 1 end ) total_2,  count ( case when z_tmp.smoid = 4 then 1 end ) total_4  from "
+				      +" ( "
+				        +" select "
+				        +" distinct p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR " 
+				         +" from "
+				         +" demand d, pat p, pat_usl pu " 
+				               +" where "
+				               +" d.id_demand = p.demand_id and "
+				               +" pu.id = p.id  and "
+				               +" p.caretype = 30 "
+				               + g
+				               + "  and  p.REZOBR in (22, 23) and "
+				               + " (p.nazr <> 5 and p.nazr <> 7)  and p.pr_d_n <> 1 "
+								+" and "
+				               + " d.period between ' "+date1+" ' and ' "+date2+" '"
+				               + " and  p.dat_end >= '01.01.2018' "
+				       +" )     z_tmp "
+				    +" group  by z_tmp.lpu  order  by 2 desc "  
+				 +" ) tmp1,  "
+				 +" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl";
+		// TODO сделать выбор базы на сайте
+		Query q = non_mur_collect2018.createNativeQuery(sb);
+		
+		List<Object[]> res = q.getResultList();
+		// for processed data
+		List<ExpertiseRateMo> ls = new ArrayList<ExpertiseRateMo>(res.size());
+		
+		res.stream().forEach((record) -> {
+			
+			String _0 = (String) record[0];
+			String _1 = (String) record[1];
+			Long _2 = ((BigDecimal) record[2]).longValue();
+			Long _3 = ((BigDecimal) record[3]).longValue();
+			Long _4 = ((BigDecimal) record[4]).longValue();
+			Long _5 = ((BigDecimal) record[5]).longValue();
+		
+			ls.add(new ExpertiseRateMo(_0, _1, _2, _3,_4,_5));
+		
+	});
+		
+		res=null;
+		
+	    return ls;
+
+		
+	}
+	
+	@Override
+	public List<ExpertiseRateMo> getResalt3a_expertiseRateMo(String date1, String date2, String user) {
+		
+		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
+		String sb = "select "
++" tmp1.lp as code_mo , "
++" tmp.name as name_mo, "
++" tmp1.total, "
++" tmp1.total_1, "
++" tmp1.total_2, "
++" tmp1.total_4 " 
++" from "
+ +" (  select  z_tmp.lpu as lp,  count(*) total,  count ( case when z_tmp.smoid = 1 then 1 end ) total_1,  count ( case when z_tmp.smoid = 2 then 1 end ) total_2,  count ( case when z_tmp.smoid = 4 then 1 end ) total_4  from "
+      +" ( "
+        +" select "
+        +" distinct p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR " 
+         +" from "
++"             demand d, pat p, pat_usl pu " 
+               +" where "
+               +" d.id_demand = p.demand_id and "
+               +" pu.id = p.id  and "
+               +" p.caretype = 30 "
+               + g
+               + "  and   p.REZOBR in (20, 22) and "
+               +"("
+				+"(substr(pu.ds,0,1) <> 'I')"
+				+"and"
+				+"(substr(pu.ds,0,1) <> 'C')" 
+				+"and"
+				+"(pu.ds not between 'E10' and 'E13.99')" 
+				+"and"
+				+"(pu.ds not between 'J44' and 'J47.99')" 
+				 +")"
+				+" and "
+               + " d.period between ' "+date1+" ' and ' "+date2+" '"
+               + " and  p.dat_end >= '01.01.2018' "
+       +" )     z_tmp "
+    +" group  by z_tmp.lpu  order  by 2 desc "  
+ +" ) tmp1,  "
+ +" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl"; 
+		
+		// TODO сделать выбор базы на сайте
+		Query q = non_mur_collect2018.createNativeQuery(sb);
+		
+		List<Object[]> res = q.getResultList();
+		// for processed data
+		List<ExpertiseRateMo> ls = new ArrayList<ExpertiseRateMo>(res.size());
+		
+		res.stream().forEach((record) -> {
+			
+			String _0 = (String) record[0];
+			String _1 = (String) record[1];
+			Long _2 = ((BigDecimal) record[2]).longValue();
+			Long _3 = ((BigDecimal) record[3]).longValue();
+			Long _4 = ((BigDecimal) record[4]).longValue();
+			Long _5 = ((BigDecimal) record[5]).longValue();
+		
+			ls.add(new ExpertiseRateMo(_0, _1, _2, _3,_4,_5));
+		
+	});
+		
+		res=null;
+		
 	    return ls;
 	}
 

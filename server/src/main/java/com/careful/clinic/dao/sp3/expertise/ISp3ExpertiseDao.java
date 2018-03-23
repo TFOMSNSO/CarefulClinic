@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import com.careful.clinic.model.ExpertiseRateMo;
 import com.careful.clinic.model.Wrap3a_b_Expertise;
 
 @Local
@@ -17,6 +18,12 @@ public interface ISp3ExpertiseDao {
 	List<?> getResalt3b_expertise(String date1, String date2, String user, int iter);
 
 	List<?> getResalt3a3b_expertise(String date1, String date2, String user, int iter);
+
+	List<ExpertiseRateMo> getResalt3a_expertiseRateMo(String date1, String date2, String user);
+
+	List<ExpertiseRateMo> getResalt3a3b_expertiseRateMo(String date1, String date2, String user);
+
+	List<ExpertiseRateMo> getResalt3b_expertiseRateMo(String date1, String date2, String user);
 
 	
 }

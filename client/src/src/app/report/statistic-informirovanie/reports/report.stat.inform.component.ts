@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import { User } from '../../../model/user';
-import { ExpertiseService } from './expertise.service';
+import { ReportStatExpertiseService } from './report.stat.inform.service';
 //import { ListExcelFiles } from '.../../model/list.files.excel';
 import * as FileSaver from 'file-saver';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
@@ -13,10 +13,10 @@ import {environment} from '../../../../environments/environment';
 
 
 @Component({
-    selector:'app-expertise',
-    templateUrl: './expertise.component.html',
-  	styleUrls: ['./expertise.component.scss'],
-	providers: [ExpertiseService],
+    selector:'modul-report-stat-inform',
+    templateUrl: './report.stat.inform.component.html',
+  	styleUrls: ['./report.stat.inform.component.scss'],
+	providers: [ReportStatExpertiseService],
 	animations: [
 	trigger('flyInOut', [
             state('in', style({ opacity: 1, transform: 'translateX(0)' })),
@@ -37,7 +37,7 @@ import {environment} from '../../../../environments/environment';
     
     ]
 })
-export class ExpertiseComponent implements OnInit{
+export class ReportStatisticsInformirovanieComponent implements OnInit{
 
 	 panelOpenState: boolean = false;
 	 report_inform_plane_select: string;
@@ -50,7 +50,7 @@ export class ExpertiseComponent implements OnInit{
 	 public panelOpenState3 : boolean = false;
 	 public myForm: FormGroup;
 	 
-	 _3a_expertise: string = environment.expertise_field1;
+	 _report_stat_inform: string = environment.report_stat_inform;
 	 _3b_expertise: string = environment.expertise_field2;
 	 _3a_3b_other: string = environment.a3_3b_other;
 	 _report_inform_note: string = environment.report_inform_note; 
@@ -71,7 +71,7 @@ export class ExpertiseComponent implements OnInit{
 	      date2: ['', Validators.required]
 		});
 		
-		this.init_Expertise();
+		//this.init_Expertise();
 	}
 	
 	myDatePickerOptions: IMyDpOptions = {
@@ -81,7 +81,7 @@ export class ExpertiseComponent implements OnInit{
     };
    
    
-   constructor(private expertiseService: ExpertiseService,private formBuilder: FormBuilder) { 
+   constructor(private reportService: ReportStatExpertiseService,private formBuilder: FormBuilder) { 
 		this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
    }
    
@@ -99,7 +99,7 @@ export class ExpertiseComponent implements OnInit{
 	
 	downloadFile_expertiseReport(form: any){
 		this.progress_bar = true;
-		this.expertiseService.downloadFile_expertise(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
+		this.reportService.downloadFile_expertise(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
@@ -110,7 +110,7 @@ export class ExpertiseComponent implements OnInit{
 	
 	downloadFile_expertiseReport_3b(form: any){
 		this.progress_bar = true;
-		this.expertiseService.downloadFile_expertise3b(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
+		this.reportService.downloadFile_expertise3b(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
@@ -120,7 +120,7 @@ export class ExpertiseComponent implements OnInit{
 	
 	downloadFile_expertiseReport_3a3b(form: any){
 		this.progress_bar = true;
-		this.expertiseService.downloadFile_expertise3a3b(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
+		this.reportService.downloadFile_expertise3a3b(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
@@ -139,7 +139,7 @@ export class ExpertiseComponent implements OnInit{
 	}
 	
 	getListNameFilesExpertise(data : number): void{
-    	 this.expertiseService.listFilesExpertise(data)
+    	 this.reportService.listFilesExpertise(data)
 	 	 .then(res => {this.filesExpertise = res});
 	}
 	
@@ -147,7 +147,7 @@ export class ExpertiseComponent implements OnInit{
 	downloadFile(data: string):void{
 	this.progress_bar = true;
 	
-	this.expertiseService.downloadFile(data,this.currentUser['role'][0].id)
+	this.reportService.downloadFile(data,this.currentUser['role'][0].id)
 	.then(result =>{
 			let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 			FileSaver.saveAs(blob, data);

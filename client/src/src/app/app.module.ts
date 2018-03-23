@@ -41,7 +41,7 @@ import { AuthenticationService, UserService} from './_services/index';
 import { fakeBackendProvider } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
-import { ListInformirovanieHeader} from './list-informirovanie/listinformirovanieheader.component';
+import { ListInformirovanieHeader} from './report/list-informirovanie/listinformirovanieheader.component';
 
 
 

@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Http, Headers, RequestOptions, ResponseContentType } from '@angular/http';
-import {environment} from '../../environments/environment';
-import { ListExcelFiles } from '../model/list.files.excel';
+import {environment} from '../../../environments/environment';
+import { ListExcelFiles } from '../../model/list.files.excel';
 
 
 @Injectable()

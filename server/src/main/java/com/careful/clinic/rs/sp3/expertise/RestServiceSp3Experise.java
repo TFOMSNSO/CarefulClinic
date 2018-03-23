@@ -27,6 +27,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import com.careful.clinic.dao.sp3.expertise.ISp3ExpertiseDao;
+import com.careful.clinic.model.ExpertiseRateMo;
 import com.careful.clinic.model.ListExcelFiles;
 import com.careful.clinic.model.Wrap3a_b_Expertise;
 import com.careful.clinic.report.sp3.expertise.Sp3ExpertiseReport;
@@ -58,7 +59,7 @@ public class RestServiceSp3Experise {
 	//@Consumes("application/x-www-form-urlencoded")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response listFilesBrowser(String x)  {
+	public Response report_3a(String x)  {
 		
 		Response.ResponseBuilder builder = null;
 		String m[] = x.split("\":\"");
@@ -71,14 +72,21 @@ public class RestServiceSp3Experise {
 			int iter = 0;
 			// порядковый номер файла
 			int i =1;
+			String [] mm = {"reports/sp3/expertise/3a_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3А_список_экспертиза_"};
 			while(true){
 				ls = (List<Wrap3a_b_Expertise>) sp3ExpertiseDAO.getResalt3a_expertise(date1, date2, user, iter);
-				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReport3aExpertise(ls, "_"+i, user, date1, date2);
+				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
 				
 				i++;
 				iter = iter + 60_000;
 			}
+			
+			List<ExpertiseRateMo> ls_ =  (List<ExpertiseRateMo>) sp3ExpertiseDAO.getResalt3a_expertiseRateMo(date1, date2, user);
+			String [] c ={"reports/sp3/expertise/3a_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А_экспертиза_рейтингМО_"};
+			// выполняем формирование отчета
+			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
+			
 			
 			builder = Response.status(Response.Status.OK);
 		     builder.entity("Отчет успещно сформирован");
@@ -131,7 +139,7 @@ public class RestServiceSp3Experise {
 	//@Consumes("application/x-www-form-urlencoded")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response listFiles_Browser3a3b(String x)  {
+	public Response report_3a3b(String x)  {
 		
 		Response.ResponseBuilder builder = null;
 		String m[] = x.split("\":\"");
@@ -144,14 +152,20 @@ public class RestServiceSp3Experise {
 			int iter = 0;
 			// порядковый номер файла
 			int i =1;
+			String [] mm = {"reports/sp3/expertise/3a3b_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3А3Б_список_экспертиза_"};
 			while(true){
 				ls = (List<Wrap3a_b_Expertise>) sp3ExpertiseDAO.getResalt3a3b_expertise(date1, date2, user, iter);
-				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReport3a3bExpertise(ls, "_"+i, user, date1, date2);
+				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
 				
 				i++;
 				iter = iter + 60_000;
 			}
+			
+			List<ExpertiseRateMo> ls_ =  (List<ExpertiseRateMo>) sp3ExpertiseDAO.getResalt3a3b_expertiseRateMo(date1, date2, user);
+			String [] c ={"reports/sp3/expertise/3a3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А3Б_экспертиза_рейтингМО_"};
+			// выполняем формирование отчета
+			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
 			
 			builder = Response.status(Response.Status.OK);
 		     builder.entity("Отчет успещно сформирован");
@@ -171,7 +185,7 @@ public class RestServiceSp3Experise {
 	//@Consumes("application/x-www-form-urlencoded")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response listFiles_Browser(String x)  {
+	public Response report_3b(String x)  {
 		
 		Response.ResponseBuilder builder = null;
 		String m[] = x.split("\":\"");
@@ -184,14 +198,20 @@ public class RestServiceSp3Experise {
 			int iter = 0;
 			// порядковый номер файла
 			int i =1;
+			String [] mm = {"reports/sp3/expertise/3b_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3Б_список_экспертиза_"};
 			while(true){
 				ls = (List<Wrap3a_b_Expertise>) sp3ExpertiseDAO.getResalt3b_expertise(date1, date2, user, iter);
-				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReport3bExpertise(ls, "_"+i, user, date1, date2);
+				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
 				
 				i++;
 				iter = iter + 60_000;
 			}
+			
+			List<ExpertiseRateMo> ls_ =  (List<ExpertiseRateMo>) sp3ExpertiseDAO.getResalt3b_expertiseRateMo(date1, date2, user);
+			String [] c ={"reports/sp3/expertise/3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3Б_экспертиза_рейтингМО_"};
+			// выполняем формирование отчета
+			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2, c);
 			
 			builder = Response.status(Response.Status.OK);
 		     builder.entity("Отчет успещно сформирован");

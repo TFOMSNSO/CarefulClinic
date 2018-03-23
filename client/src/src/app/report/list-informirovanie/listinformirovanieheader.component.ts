@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
-import {environment} from '../../environments/environment';
-import { User } from '../model/user';
+import {environment} from '../../../environments/environment';
+import { User } from '../../model/user';
 import {ListInformirovanieHeaderService} from './listinformirovanieheader.service';
-import { ListExcelFiles } from '../model/list.files.excel';
+import { ListExcelFiles } from '../../model/list.files.excel';
 import * as FileSaver from 'file-saver';
 
 

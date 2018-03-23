@@ -29,6 +29,7 @@
   </mat-menu>
   
   <mat-menu #invertebrates="matMenu">
+	<button mat-menu-item [routerLink]="['/statistics-inform/reports']">{{statistics_inform_header}}</button>
 	<button mat-menu-item [routerLink]="['/list_header_inform']">{{list_inform_header}}</button>
 	<button mat-menu-item  [matMenuTriggerFor]="menu_sp3">{{ _sp3_menu }}</button>
   </mat-menu>

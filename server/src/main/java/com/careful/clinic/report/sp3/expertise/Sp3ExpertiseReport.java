@@ -15,6 +15,7 @@ import javax.ejb.Stateless;
 import javax.servlet.ServletContext;
 
 import com.careful.clinic.model.DataBean;
+import com.careful.clinic.model.ExpertiseRateMo;
 import com.careful.clinic.model.Wrap3a_b_Expertise;
 
 import net.sf.jasperreports.engine.JRException;
@@ -37,6 +38,44 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 public class Sp3ExpertiseReport {
 	
 	
+	/**
+	 *  Формирование отчета рейтинга поликлиник на основе групп рейтинга здоровья
+	 *  Отчет сохраняется на файловой системе.
+	 * @param ls - коллекция с рейтингом поликлиник
+	 * @param user - идификатор для определения пути хранения файлов на файловой системе
+	 * @param str1 - дата начала забора информации
+	 * @param str2 - дата окончания забора информации
+	 * @throws JRException
+	 */
+	// TODO Реализовать то что делает массив cons с помощью ООП (фабрика или enum или ....)
+	public void executeJasperReportRateMoExpertise(List<ExpertiseRateMo> ls, String user, String str1, String str2, String [] cons) throws JRException{
+		   String directoryServer = System.getProperty("jboss.home.dir");
+	     
+	        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(ls);
+	        Map<String, Object> parameters = new HashMap<String, Object>(); 
+	        parameters.put("DATE", new Date()); 
+	        parameters.put("date_start", str1);
+	        parameters.put("date_end", str2);
+	        
+
+	        String path = Thread.currentThread().getContextClassLoader().getResource(cons[0]).getPath();
+	        File f = new File(path);
+	        
+	        JasperDesign jasperDesign = JRXmlLoader.load(f);
+			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,beanColDataSource);
+			
+			JRXlsxExporter exporter = new JRXlsxExporter();
+	        exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+	       // TODO: сделать логирование выгрузки
+	     // специфичная логика
+	        exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  directoryServer+cons[1]+LocalDate.now().toString()+"_" + LocalTime.now().toString().substring(0, 8).replaceAll(":", "-")+".xlsx");
+	        exporter.exportReport();
+			
+			System.out.println("Done expertise_rateMO "+ cons[0]);
+	        
+	        
+	}
 	
 	 /**
 	  * TODO 
@@ -46,7 +85,7 @@ public class Sp3ExpertiseReport {
 	 * @param ob
 	 * @throws JRException 
 	 */
-	public void executeJasperReport3aExpertise(List<Wrap3a_b_Expertise> ls, String prefix, String user, String str1, String str2) throws JRException{
+	public void executeJasperReportExpertise(List<Wrap3a_b_Expertise> ls, String prefix, String user, String str1, String str2, String [] mm) throws JRException{
 		    String directoryServer = System.getProperty("jboss.home.dir");
 	     
 	        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(ls);
@@ -55,7 +94,7 @@ public class Sp3ExpertiseReport {
 	        parameters.put("date_start", str1);
 	        parameters.put("date_end", str2);
 
-	        String path = Thread.currentThread().getContextClassLoader().getResource("reports/sp3/expertise/3a_expertise.jrxml").getPath();
+	        String path = Thread.currentThread().getContextClassLoader().getResource(mm[0]).getPath();
 	        File f = new File(path);
 			
 			JasperDesign jasperDesign = JRXmlLoader.load(f);
@@ -66,68 +105,12 @@ public class Sp3ExpertiseReport {
 			JRXlsxExporter exporter = new JRXlsxExporter();
 	        exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
 	       // TODO: сделать логирование выгружки
-	        exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  directoryServer+"\\content\\report\\sp3\\expert\\"+user+"\\3a_expertise_"+LocalDate.now().toString()+"_" + LocalTime.now().toString().substring(0, 8).replaceAll(":", "-")+prefix+".xlsx");
+	        exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  directoryServer+mm[1]+LocalDate.now().toString()+"_" + LocalTime.now().toString().substring(0, 8).replaceAll(":", "-")+prefix+".xlsx");
 	        exporter.exportReport();
 			
 			System.out.println("Done!");
 
 	 }
-
-	public void executeJasperReport3bExpertise(List<Wrap3a_b_Expertise> ls, String prefix, String user, String str1, String str2) throws JRException {
-		
-		 	String directoryServer = System.getProperty("jboss.home.dir");
-	     
-	        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(ls);
-	        Map<String, Object> parameters = new HashMap<String, Object>(); 
-	        parameters.put("DATE", new Date()); 
-	        parameters.put("date_start", str1);
-	        parameters.put("date_end", str2);
-
-	        String path = Thread.currentThread().getContextClassLoader().getResource("reports/sp3/expertise/3b_expertise.jrxml").getPath();
-	        File f = new File(path);
-			
-			JasperDesign jasperDesign = JRXmlLoader.load(f);
-			//jasperDesign.setPageHeight(200_000); // устанавливаем высоту в зависимости от количества
-			JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,beanColDataSource);
-			
-			JRXlsxExporter exporter = new JRXlsxExporter();
-	        exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
-	       // TODO: сделать логирование выгружки
-	        exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  directoryServer+"\\content\\report\\sp3\\expert\\"+user+"\\3b_expertise_"+LocalDate.now().toString()+"_" + LocalTime.now().toString().substring(0, 8).replaceAll(":", "-")+prefix+".xlsx");
-	        exporter.exportReport();
-			
-			System.out.println("Done!");
-		
-	}
-
-	public void executeJasperReport3a3bExpertise(List<Wrap3a_b_Expertise> ls, String prefix, String user, String str1, String str2) throws JRException {
-
-		String directoryServer = System.getProperty("jboss.home.dir");
-	     
-        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(ls);
-        Map<String, Object> parameters = new HashMap<String, Object>(); 
-        parameters.put("DATE", new Date()); 
-        parameters.put("date_start", str1);
-        parameters.put("date_end", str2);
-
-        String path = Thread.currentThread().getContextClassLoader().getResource("reports/sp3/expertise/3a3b_expertise.jrxml").getPath();
-        File f = new File(path);
-		
-		JasperDesign jasperDesign = JRXmlLoader.load(f);
-		//jasperDesign.setPageHeight(200_000); // устанавливаем высоту в зависимости от количества
-		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,beanColDataSource);
-		
-		JRXlsxExporter exporter = new JRXlsxExporter();
-        exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
-       // TODO: сделать логирование выгружки
-        exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  directoryServer+"\\content\\report\\sp3\\expert\\"+user+"\\3a3b_expertise_"+LocalDate.now().toString()+"_" + LocalTime.now().toString().substring(0, 8).replaceAll(":", "-")+prefix+".xlsx");
-        exporter.exportReport();
-		
-		System.out.println("Done!");
-		
-	}
 
 	
 }
