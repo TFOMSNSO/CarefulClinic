@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="first_template" pageWidth="1691" pageHeight="2000000" orientation="Landscape" columnWidth="1651" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b72c2c80-9324-4359-a0b4-1feff9ba2ede">
 	<property name="ireport.zoom" value="1.7715610000000044"/>
-	<property name="ireport.x" value="1139"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Default" isDefault="true" pdfFontName="./font/ARIAL.TTF" pdfEncoding="Cp1251"/>
 	<parameter name="DATE" class="java.util.Date"/>
@@ -708,18 +708,6 @@
 				<textFieldExpression><![CDATA[$F{f_mkb_usl}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="283" y="0" width="70" height="20" uuid="571b6a54-6ca6-44fe-bbea-a9fa8ac1e2a4"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
-				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
-			</textField>
-			<textField>
 				<reportElement x="353" y="0" width="70" height="20" uuid="e5624497-828f-4fc3-8f1c-dd53766c40d8"/>
 				<box>
 					<topPen lineWidth="0.5"/>
@@ -741,6 +729,17 @@
 				</box>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="0" width="70" height="20" uuid="571b6a54-6ca6-44fe-bbea-a9fa8ac1e2a4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[Integer.valueOf(String.valueOf(new SimpleDateFormat("dd-MM-yyyy").format(new Date())).substring(6,10))-Integer.valueOf(String.valueOf(new SimpleDateFormat("dd-MM-yyyy").format($F{dr})).substring(6,10))]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

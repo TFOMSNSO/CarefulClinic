@@ -13,6 +13,18 @@
 	<field name="total_1" class="java.lang.Long"/>
 	<field name="total_2" class="java.lang.Long"/>
 	<field name="total_4" class="java.lang.Long"/>
+	<variable name="allSum" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="smo01" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_1}]]></variableExpression>
+	</variable>
+	<variable name="smo02" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_2}]]></variableExpression>
+	</variable>
+	<variable name="smo04" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_4}]]></variableExpression>
+	</variable>
 	<columnHeader>
 		<band height="97">
 			<textField>
@@ -169,7 +181,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="11" isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Динамика случаев госпитализации, по которым установленная группа здоровья 3б не соответствует выставленному диагнозу в разрезе медицинских организаций с "+ $P{date_start}+" по "+$P{date_start}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Динамика случаев госпитализации, по которым установленная группа здоровья 3б не соответствует выставленному диагнозу в разрезе медицинских организаций с "+ $P{date_start}+" по "+$P{date_end}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="754" y="0" width="130" height="38" uuid="eb16ce83-eea5-4eca-b6a2-c14149019045"/>
@@ -277,4 +289,80 @@
 			</textField>
 		</band>
 	</detail>
+	<summary>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="394" height="20" uuid="6e0a6e4a-2394-4765-b975-870c5de96ebc"/>
+				<box>
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Итого "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="0" width="70" height="20" uuid="d9b9cc96-0d5c-4009-a7d1-bd715fe9da44"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="464" y="0" width="140" height="20" uuid="89029ab7-77cc-45d4-b584-9c022fbdf628"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{smo01}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="0" width="70" height="20" uuid="401ad98c-f731-4388-87d7-9755161410d2"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{allSum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="604" y="0" width="140" height="20" uuid="9cd6bded-dab3-4089-bd46-29bda0b0cb85"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{smo02}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="744" y="0" width="140" height="20" uuid="b3ba333c-0b0e-4b66-b510-b7db2133df13"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{smo04}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>
