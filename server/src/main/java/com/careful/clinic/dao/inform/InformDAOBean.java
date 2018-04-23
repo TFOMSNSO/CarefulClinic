@@ -13,6 +13,8 @@ import com.careful.clinic.model.ListExcelFiles;
 @Stateless
 public class InformDAOBean implements InformDAO {
 
+// TODO: variable 'current year' is hard code. Replace them.	
+	
 	@Override
 	public Collection<?> getListInformSecondStage(Integer id) {
 		int current_year = Calendar.getInstance().get(Calendar.YEAR);
@@ -62,6 +64,58 @@ public class InformDAOBean implements InformDAO {
 		return ls;
 		
 	}
+	
+	@Override
+	public Collection<?> getListInformKvartalActual(Integer id) {
+		int current_year = Calendar.getInstance().get(Calendar.YEAR);
+
+		String directoryServer = System.getProperty("jboss.home.dir");
+		String directoryDestination = "";
+		if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_actual\\777";
+		if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_actual\\1";
+		if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_actual\\2";
+		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_actual\\4";
+		
+		directoryDestination = directoryServer+directoryDestination;
+		
+		File path = new File(directoryDestination);
+		String ob[] = path.list();
+		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
+		for(int i=0;i < ob.length;i++){
+			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
+			
+		}
+		
+		return ls;
+		
+	}
+
+	
+	@Override
+	public Collection<?> getListInformReinform(Integer id) {
+		int current_year = Calendar.getInstance().get(Calendar.YEAR);
+
+		String directoryServer = System.getProperty("jboss.home.dir");
+		String directoryDestination = "";
+		if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year +"\\reinform\\777";
+		if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\reinform\\1";
+		if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\reinform\\2";
+		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\reinform\\4";
+		
+		directoryDestination = directoryServer+directoryDestination;
+		
+		File path = new File(directoryDestination);
+		String ob[] = path.list();
+		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
+		for(int i=0;i < ob.length;i++){
+			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
+			
+		}
+		
+		return ls;
+		
+	}
+	
 
 	@Override
 	public List<?> getListInformMedOsmotri(Integer id) {

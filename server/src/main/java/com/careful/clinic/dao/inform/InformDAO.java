@@ -8,6 +8,8 @@ import javax.ejb.Local;
 @Local
 public interface InformDAO {
 	
+//TODO: Refactor a methods with share logic  	
+	
 	public Collection<?>  getListInformSecondStage(Integer id);
 
 	/**
@@ -17,5 +19,18 @@ public interface InformDAO {
 	 */
 	Collection<?> getListInformKvartal(Integer id);
 
-	public List<?> getListInformMedOsmotri(Integer id); 
+	public List<?> getListInformMedOsmotri(Integer id);
+
+	/**
+	 * Метод формирует список (названия) файлом из определенной директории файлового хранения 
+	 * @param id
+	 * @return
+	 */
+	Collection<?> getListInformReinform(Integer id);
+
+	/**
+	 * @param id
+	 * @return Список имен файлов которые являются актульным планом информирования за определеееый квартал
+	 */
+	Collection<?> getListInformKvartalActual(Integer id); 
 }

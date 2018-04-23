@@ -76,6 +76,28 @@ public class RestServiceinform {
 	}
 	
 	@GET
+	@Path("/listFilesInformKvartalsActual/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> listFilesInformKvartalsActual(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+		
+		List<?> df = (List<?>) informDAO.getListInformKvartalActual(id);
+		
+		return df;
+	}
+	
+	@GET
+	@Path("/listFilesreinform/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> listFilesInformReinform(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+		
+		List<?> df = (List<?>) informDAO.getListInformReinform(id);
+		
+		return df;
+	}
+	
+	@GET
 	@Path("/download/{place}/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/x-rar-compressed")
@@ -123,6 +145,7 @@ public class RestServiceinform {
 	    }
 	}
 	
+// TODO  refactor  methods with 	/listFilesSecondStageInform. Shared logic
 	@GET
 	@Path("/listFilesSecondStageInform/{place}/{id}/{namefile}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -157,7 +180,78 @@ public class RestServiceinform {
 	        return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 	    }
 	}
+	
+	@GET
+	@Path("/listFilesActualInform/{place}/{id}/{namefile}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/vnd.ms-excel")
+	public Response getdownloadFileActualInform(@PathParam("place") String place, @PathParam("id") Integer id, @PathParam("namefile") String namefile) {
+		
+		int current_year = Calendar.getInstance().get(Calendar.YEAR);
+		
+		String directoryServer = System.getProperty("jboss.home.dir");
+		String directoryDestination = "";
+		
+			if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year+"\\"+ place +"\\777";
+			if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\"+ place +"\\1";
+			if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\"+ place +"\\2";
+			if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\"+ place +"\\4";	
+		
+		
+		
+		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+		
+	    File file = new File(directoryDestination);
+	    try {
+	        String contentType = Files.probeContentType(file.toPath());
+	        
+	        Response.ResponseBuilder response = Response.ok(file);
+	        response.header("Content-Disposition", "attachment; filename="+file.getName());
+	        response.header("Content-Type", contentType);
+	        response.header("Content-Length", file.length());
+	        return response.build();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+	    }
+	}
+	
 
+	@GET
+	@Path("/listFilesInformReinfrom/{place}/{id}/{namefile}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/x-rar-compressed")
+	public Response listFilesInformReiform(@PathParam("place") String place, @PathParam("id") Integer id, @PathParam("namefile") String namefile) {
+		
+		int current_year = Calendar.getInstance().get(Calendar.YEAR);
+		
+		String directoryServer = System.getProperty("jboss.home.dir");
+		String directoryDestination = "";
+		
+			if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year+"\\reinform\\777";
+			if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\reinform\\1";
+			if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\reinform\\2";
+			if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\reinform\\4";	
+		
+		
+		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+		
+	    File file = new File(directoryDestination);
+	    try {
+	        String contentType = Files.probeContentType(file.toPath());
+	        
+	        Response.ResponseBuilder response = Response.ok(file);
+	        response.header("Content-Disposition", "attachment; filename="+file.getName());
+	        response.header("Content-Type", contentType);
+	        response.header("Content-Length", file.length());
+	        return response.build();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+	    }
+	}
+	
+	
 	
 	@GET
 	@Path("/listFilesInformKvartals/{place}/{id}/{namefile}")

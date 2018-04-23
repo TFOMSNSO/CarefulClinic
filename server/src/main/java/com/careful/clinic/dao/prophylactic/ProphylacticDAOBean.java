@@ -51,6 +51,8 @@ import com.careful.clinic.model.ResponsePmMo17;
 import com.careful.clinic.model.SearchKeysModel;
 import com.careful.clinic.model.WrapPmI;
 import com.careful.clinic.model.WrapRespSerarchKeys;
+import com.careful.clinic.upload.interfase.IDataUploadType;
+import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -69,6 +71,9 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 
 	@EJB
 	public XA_Dream2Dao xa_Dream2Dao;
+	// TODO Сделать фабрику как синглетон. 
+	@EJB
+	public UploadDataFactory  uploadFactory; 
 	
 	@PersistenceContext(unitName="OracleDSDeveloper")
     private EntityManager em_developer;
@@ -690,15 +695,18 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		return ls;
 	}
 
-		
 		public List<String> processingExcelFile(String fileName) throws Exception{
+			
+			// TODO   Поместить 'под паттерн' загрузку информирования и анкетирования. В фабричном методе подумать на правильной реализацией DI вместо new  
+			 IDataUploadType data = uploadFactory.getInstansUploadData(fileName);
+			 if(data == null){ 
 			
 			OPCPackage pkg = OPCPackage.open(new File(fileName));
 			XSSFWorkbook workbook = new XSSFWorkbook(pkg);
-		
 			
 			DataFormatter formatter = new DataFormatter();
 			Sheet sheet =  workbook.getSheetAt(0);
+			
 			if(sheet.getPhysicalNumberOfRows() > 50_000){ pkg.close(); throw new Exception("Превышено допустимое количество строк в загружаемом файле. Не более 50 000 строк");}
 			Row row = sheet.getRow(0);
 			SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
@@ -715,7 +723,9 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					
 					
 					// has been  row.getLastCellNum() != 9
-					if( (row.getCell(9) != null && !row.getCell(9).toString().trim().equals("")) && row.getLastCellNum() > 9){ pkg.close(); throw new Exception("Ошибка в шаблоне загрузки информирования. Неправильная структура шаблона. Одна из возможных причин наличие невидимых символов в пустых ячейках. Строка "+(j+1));}
+					if( (row.getCell(9) != null && !row.getCell(9).toString().trim().equals("")) && row.getLastCellNum() > 9){
+						pkg.close(); 
+						throw new Exception("Ошибка в шаблоне загрузки информирования. Неправильная структура шаблона. Одна из возможных причин наличие невидимых символов в пустых ячейках. Строка "+(j+1));}
 					
 					if(formatter.formatCellValue(row.getCell(0)).equals("") &&
 							  formatter.formatCellValue(row.getCell(1)).equals("")  &&
@@ -735,7 +745,8 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					  formatter.formatCellValue(row.getCell(5)).equals("")  ||
 					  formatter.formatCellValue(row.getCell(6)).equals("")  ||
 					  formatter.formatCellValue(row.getCell(8)).equals("")
-							){ pkg.close(); throw new Exception("Ошибка в шаблоне загрузки информирования. Отсутствуют обязательных поля. Строка "+(j+1));}
+							){
+						pkg.close(); throw new Exception("Ошибка в шаблоне загрузки информирования. Отсутствуют обязательных поля. Строка "+(j+1));}
 					sb.append("insert into pm_i p values('',");
 					for(int i=0; i<row.getLastCellNum() && i < 9; i++){
 						sb.append("'");
@@ -760,7 +771,8 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 							}
 							
 						}else{
-							sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase());}
+							sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase());
+						}
 						sb.append("'");
 						//if(i != row.getLastCellNum()-1) 
 						sb.append(",");
@@ -831,8 +843,18 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 				pkg.close();
 				throw new Exception("Ошибка в шаблоне загрузки. Не удается определить принадлежность загружаемого формата данных. Проверьте невидимые символы в пустых ячеках (выделите столбцы или строки с пустыми ячейками и удалите через контекстное меню) ");
 			}
-					pkg.close();
-					return null;
+			
+			pkg.close();
+			return null;
+			
+			}//////////
+			 else{
+				 return data.orderingParsingProcess();
+				 //Thread.sleep(999999999); return null;
+			}
+					
+					
+					
 		}
 		
 		

@@ -57,17 +57,21 @@
 			  <hr>
 			  <span matTooltip="{{_report_inform_plane}}">{{_report_inform_plane}}</span>
 			  <br>
-			  
-<!--			  <mat-form-field>
-				    <mat-select placeholder={{_report_inform_select_kv}} [(ngModel)]="report_inform_plane_select" name="kvs">
-					    <mat-option *ngFor="let kv of kvs" [value]="kv.value">
-							{{kv.viewValue}}
-						</mat-option>
-					</mat-select>
-			 </mat-form-field>
-			 <button *ngIf=report_inform_plane_select mat-raised-button>{{_report_inform_btn_download}}</button>
--->			 
+		 
 			<mat-list *ngFor="let row of listonKvartal; let i = index" (click)="downloadFile_informKvartals(row.namefile)">
+				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
+				  <mat-list-item>
+				<mat-icon mat-list-icon>note</mat-icon>
+					<h4 mat-line>{{row.namefile}}</h4>
+					<p mat-line>{{_reestr_download}}</p>
+				</mat-list-item>
+			</mat-list>
+			
+			<hr>
+			<span matTooltip="{{_report_inform_plane}}">{{_report_inform_plane_actual}}</span>
+			<br>
+			
+			<mat-list *ngFor="let row of listonKvartalActual; let i = index" (click)="downloadFile_informKvartalsActual(row.namefile,'inform_actual')">
 				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
 				  <mat-list-item>
 				<mat-icon mat-list-icon>note</mat-icon>
@@ -78,25 +82,33 @@
 			  
 		</mat-expansion-panel>
 		
-		  <mat-expansion-panel (opened)="setTrue(2,false)"
-							   (closed)="setTrue(2,false)">
+		<mat-expansion-panel (opened)="setTrue(2,false)"
+							   (closed)="setTrue(2,false)"
+							   (click)="init_reinform()">
 			<mat-expansion-panel-header>
 			  <mat-panel-title>
 				{{_report_reinform}}
 			  </mat-panel-title>
 			  <mat-panel-description>
-			  
-			  <div *ngIf='panelOpenState2'>
-				 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
-			  </div>
-			  <div *ngIf='!panelOpenState2'>
-				 {{_report_inform_note}}
-			  </div>
-			  
-			</mat-panel-description>
+				  <div *ngIf='panelOpenState2'>
+					 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+				  </div>
+				  <div *ngIf='!panelOpenState2'>
+					 {{_report_inform_note}}
+				  </div>
+			  </mat-panel-description>
 			</mat-expansion-panel-header>
-			<p>I'm visible because I am open</p>
-		  </mat-expansion-panel>
+			
+			<mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_informReinform(row.namefile, 'reinform')">
+				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
+				  <mat-list-item>
+				<mat-icon mat-list-icon>note</mat-icon>
+					<h4 mat-line>{{row.namefile}}</h4>
+					<p mat-line>{{_reestr_download}}</p>
+				</mat-list-item>
+			</mat-list>
+
+		</mat-expansion-panel>
 		  
 		  <mat-expansion-panel (opened)="setTrue(3,true)"
 							   (closed)="setTrue(3,false)"

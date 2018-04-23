@@ -58,6 +58,36 @@ export class ListInformirovanieHeaderService{
                .then(response => response.json() as ListExcelFiles[]);
   }
   
+  /* Загрузка сформированных файлов. Актуальный план информирования за оперделенный квартал */
+  
+  downKvartalsActual(data: string,data2: number,place: string):Promise<any>{
+	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
+		const options = new RequestOptions({headers: headers});
+		options.responseType = ResponseContentType.Blob;
+		 return this.http.get(`${this.serverUrl}/listFilesActualInform/${place}/${data2}/${data}`, options)
+		  .toPromise()
+			.then(response =>response);
+	}
+  
+  
+  /* Загрузка сформированных файлов. Повтороное информирование */
+  
+  listFilesReinform(data : number): Promise<ListExcelFiles[]> {
+  let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.get(`${this.serverUrl}/listFilesreinform/${data}`,{headers: headers})
+               .toPromise()
+               .then(response => response.json() as ListExcelFiles[]);
+  }
+  
+  /* Загрузка сформированных файлов. Повтороное информирование */
+  
+  listFilesKvartalsActual(data : number): Promise<ListExcelFiles[]> {
+  let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.get(`${this.serverUrl}/listFilesInformKvartalsActual/${data}`,{headers: headers})
+               .toPromise()
+               .then(response => response.json() as ListExcelFiles[]);
+  }
+  
   
 
 	/*
@@ -81,6 +111,20 @@ export class ListInformirovanieHeaderService{
 		const options = new RequestOptions({headers: headers});
 		options.responseType = ResponseContentType.Blob;
 		 return this.http.get(`${this.serverUrl}/listFilesInformKvartals/${place}/${data2}/${data}`, options)
+		  .toPromise()
+			.then(response =>response);
+	}
+	
+	
+	/*
+		Метод предназначен для загрузки файла по полному пути.
+		Повтороное информирование
+	*/  
+	downloadFile_reinform(data: string,data2: number,place: string):Promise<any>{
+	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
+		const options = new RequestOptions({headers: headers});
+		options.responseType = ResponseContentType.Blob;
+		 return this.http.get(`${this.serverUrl}/listFilesInformReinfrom/${place}/${data2}/${data}`, options)
 		  .toPromise()
 			.then(response =>response);
 	}

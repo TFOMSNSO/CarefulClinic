@@ -142,7 +142,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	 */
 	public boolean insertDataFromExcel(List<String> listOfQueryies) throws Exception{
 		Query q = null;
-		
+		// метод работает в цикле. т.е. в одной транзакции. Если fail все insert'ы откатываются (rollback)
 		for(String str : listOfQueryies){
 			q = em_dream2.createNativeQuery(str);
 			q.executeUpdate();
@@ -150,6 +150,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		
 		return true;
 	}
+	
 	
 	/**
 	 * Метол парсит xml строку (ответ) ГЭР'а о диспансеризации

@@ -38,6 +38,7 @@ export class ListInformirovanieHeader{
 	 private currentUser: User;
 	 public listExcelFiles: ListExcelFiles[] = [];
 	 public listonKvartal: ListExcelFiles[] = [];
+	 public listonKvartalActual: ListExcelFiles[] = [];
 	 public progress_bar: boolean = false;
 	 public panelOpenState1 : boolean = false;
 	 public panelOpenState2 : boolean = false;
@@ -68,6 +69,7 @@ export class ListInformirovanieHeader{
    _reestr_download: string = environment.reestr_download;
    _report_inform_about_second_level: string = environment.report_inform_about_second_level;
    _profmedosmtr: string = environment.profmedosmtr;
+   _report_inform_plane_actual = environment.report_inform_plane_actual;
    
    
    
@@ -98,6 +100,7 @@ export class ListInformirovanieHeader{
 	
 	init_informirovanie():void{
 		this.getListNameFilesInformirovanie(this.currentUser['role'][0].id);
+		this.getListNameFilesInformirovanieActual(this.currentUser['role'][0].id);
 	}
 	
 	/* поквартальное информирование */
@@ -105,6 +108,24 @@ export class ListInformirovanieHeader{
     	 this.listInformirovanieHeaderService.listFilesKvartals(data)
 	 	 .then(res => {this.listonKvartal = res});
 	}
+	/* Актуальный план информирования за определенный квартал */
+	getListNameFilesInformirovanieActual(data : number): void{
+    	 this.listInformirovanieHeaderService.listFilesKvartalsActual(data)
+	 	 .then(res => {this.listonKvartalActual = res});
+	}
+	
+	init_reinform():void{
+		this.getListNameFilesReinform(this.currentUser['role'][0].id);
+	}
+	
+	/* повторное информирование */
+	getListNameFilesReinform(data : number): void{
+    	 this.listInformirovanieHeaderService.listFilesReinform(data)
+	 	 .then(res => {this.listExcelFiles = res});
+	}
+	
+	
+	
     
 	setTrue(vl : number, vl2 : boolean){
 		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : vl == 4 ? this.panelOpenState4= vl2 :''
@@ -123,6 +144,8 @@ export class ListInformirovanieHeader{
 		this.progress_bar = false;
 	});
    }
+   
+   /**/
    
     downloadFile_2(data: string,data2: string):void{
 	this.progress_bar = true;
@@ -153,9 +176,37 @@ export class ListInformirovanieHeader{
 			this.progress_bar = false;
 			console.log('e '+e);
 		});
+	}
 	
+	downloadFile_informKvartalsActual(data: string,data2: string):void{
+			this.progress_bar = true;
+		
+		this.listInformirovanieHeaderService.downKvartalsActual(data,this.currentUser['role'][0].id,data2)
+		.then(result =>{
+				let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+				FileSaver.saveAs(blob, data);
+				this.progress_bar = false;
+		})
+		.catch(e =>{
+			this.progress_bar = false;
+			console.log('e '+e);
+		});
+	}
 	
-   }
+	downloadFile_informReinform(data: string):void{
+		this.progress_bar = true;
+		
+		this.listInformirovanieHeaderService.downloadFile_reinform(data,this.currentUser['role'][0].id,'reinform')
+		.then(result =>{
+				let blob = new Blob([result.blob()], {type: 'application/x-rar-compressed'});
+				FileSaver.saveAs(blob, data);
+				this.progress_bar = false;
+		})
+		.catch(e =>{
+			this.progress_bar = false;
+			console.log('e '+e);
+		});
+	}
    
    
    
