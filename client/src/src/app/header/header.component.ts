@@ -31,6 +31,7 @@ export class HeaderComponent{
    exit_app: string = environment.exit_app;
    list_inform_header: string  = environment.list_inform_header;
    statistics_inform_header: string  = environment.statistics_inform_header;
+   statistics_assent_header: string  = environment.statistics_assent_header;
    
    _menu_main_page:string  = environment.menu_main_page;
    _menu_report_page:string  = environment.menu_report_page;

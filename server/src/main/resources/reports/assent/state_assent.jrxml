@@ -1,0 +1,1330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="first_template" pageWidth="936" pageHeight="2000000" orientation="Landscape" columnWidth="896" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b72c2c80-9324-4359-a0b4-1feff9ba2ede">
+	<property name="ireport.zoom" value="1.3310000000000033"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="364"/>
+	<style name="Default" isDefault="true" pdfFontName="./font/ARIAL.TTF" pdfEncoding="Cp1251"/>
+	<parameter name="DATE" class="java.util.Date"/>
+	<parameter name="date_start" class="java.lang.String"/>
+	<parameter name="date_end" class="java.lang.String"/>
+	<parameter name="user" class="java.lang.String"/>
+	<parameter name="today" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[new SimpleDateFormat("dd.MM.yyyy").format(new Date().getTime())]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[with
+                assent as (select * from pm_assent t where t.d_assent between $P{date_start} and $P{date_end} and $P{user} like '%'||t.smo||'%'),
+      r1c1 as (select count(*) c from assent a where a.smo = 1),
+      r1c2 as (select count(*) c from assent a where a.smo = 2),
+      r1c3 as (select count(*) c from assent a where a.smo = 4),
+
+        r2c1 as (select count(*) c from assent a where a.smo = 1 and a.id_assent = 1),
+        r3c1 as (select count(*) c from assent a where a.smo = 1 and a.id_assent = 2),
+        r4c1 as (select count(*) c from assent a where a.smo = 1 and a.id_assent = 3),
+        r5c1 as (select count(*) c from assent a where a.smo = 1 and a.id_assent = 4),
+        r6c1 as (select count(*) c from assent a where a.smo = 1 and a.id_assent = 5),
+        r7c1 as (select count(*) c from assent a where a.smo = 1 and a.id_assent = 6),
+
+        r8c1 as (select count(*) c from assent a where a.smo = 1 and a.id_break_assent > 0),
+        r9c1 as (select count(*) c from assent a where a.smo = 1 and a.id_break_assent = 1),
+        r10c1 as (select count(*) c from assent a where a.smo = 1 and a.id_break_assent = 2),
+
+        r11c1 as (select count(*) c from assent a where a.smo = 1 and ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent > 0),
+        r12c1 as (select count(*) c from assent a where a.smo = 1 and ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 1),
+        r13c1 as (select count(*) c from assent a where a.smo = 1 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 2),
+        r14c1 as (select count(*) c from assent a where a.smo = 1 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 3),
+        r15c1 as (select count(*) c from assent a where a.smo = 1 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 4),
+        r16c1 as (select count(*) c from assent a where a.smo = 1 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 5),
+        r17c1 as (select count(*) c from assent a where a.smo = 1 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 6),
+
+
+
+
+        r2c2 as (select count(*) c from assent a where a.smo = 2 and a.id_assent = 1),
+        r3c2 as (select count(*) c from assent a where a.smo = 2 and a.id_assent = 2),
+        r4c2 as (select count(*) c from assent a where a.smo = 2 and a.id_assent = 3),
+        r5c2 as (select count(*) c from assent a where a.smo = 2 and a.id_assent = 4),
+        r6c2 as (select count(*) c from assent a where a.smo = 2 and a.id_assent = 5),
+        r7c2 as (select count(*) c from assent a where a.smo = 2 and a.id_assent = 6),
+
+        r8c2 as (select count(*) c from assent a where a.smo = 2 and a.id_break_assent > 0),
+        r9c2 as (select count(*) c from assent a where a.smo = 2 and a.id_break_assent = 1),
+        r10c2 as (select count(*) c from assent a where a.smo = 2 and a.id_break_assent = 2),
+
+        r11c2 as (select count(*) c from assent a where a.smo = 2 and ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent > 0),
+        r12c2 as (select count(*) c from assent a where a.smo = 2 and ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 1),
+        r13c2 as (select count(*) c from assent a where a.smo = 2 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 2),
+        r14c2 as (select count(*) c from assent a where a.smo = 2 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 3),
+        r15c2 as (select count(*) c from assent a where a.smo = 2 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 4),
+        r16c2 as (select count(*) c from assent a where a.smo = 2 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 5),
+        r17c2 as (select count(*) c from assent a where a.smo = 2 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 6),
+
+
+
+
+        r2c3 as (select count(*) c from assent a where a.smo = 4 and a.id_assent = 1),
+        r3c3 as (select count(*) c from assent a where a.smo = 4 and a.id_assent = 2),
+        r4c3 as (select count(*) c from assent a where a.smo = 4 and a.id_assent = 3),
+        r5c3 as (select count(*) c from assent a where a.smo = 4 and a.id_assent = 4),
+        r6c3 as (select count(*) c from assent a where a.smo = 4 and a.id_assent = 5),
+        r7c3 as (select count(*) c from assent a where a.smo = 4 and a.id_assent = 6),
+
+        r8c3 as (select count(*) c from assent a where a.smo = 4 and a.id_break_assent > 0),
+        r9c3 as (select count(*) c from assent a where a.smo = 4 and a.id_break_assent = 1),
+        r10c3 as (select count(*) c from assent a where a.smo = 4 and a.id_break_assent = 2),
+
+        r11c3 as (select count(*) c from assent a where a.smo = 4 and ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent > 0),
+        r12c3 as (select count(*) c from assent a where a.smo = 4 and ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 1),
+        r13c3 as (select count(*) c from assent a where a.smo = 4 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 2),
+        r14c3 as (select count(*) c from assent a where a.smo = 4 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 3),
+        r15c3 as (select count(*) c from assent a where a.smo = 4 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 4),
+        r16c3 as (select count(*) c from assent a where a.smo = 4 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 5),
+        r17c3 as (select count(*) c from assent a where a.smo = 4 and  ( a.d_break_assent = '' or a.d_break_assent is null ) and (a.id_break_assent  = 0 or a.id_break_assent is null )  and a.id_assent = 6)
+
+
+      select
+r1c1.c r1c1,
+r1c2.c r1c2,
+r1c3.c r1c3,
+r2c1.c r2c1,
+r3c1.c r3c1,
+r4c1.c r4c1,
+r5c1.c r5c1,
+r6c1.c r6c1,
+r7c1.c r7c1,
+r8c1.c r8c1,
+r9c1.c r9c1,
+r10c1.c r10c1,
+r11c1.c r11c1,
+r12c1.c r12c1,
+r13c1.c r13c1,
+r14c1.c r14c1,
+r15c1.c r15c1,
+r16c1.c r16c1,
+r17c1.c r17c1,
+
+r2c2.c r2c2,
+r3c2.c r3c2,
+r4c2.c r4c2,
+r5c2.c r5c2,
+r6c2.c r6c2,
+r7c2.c r7c2,
+r8c2.c r8c2,
+r9c2.c r9c2,
+r10c2.c r10c2,
+r11c2.c r11c2,
+r12c2.c r12c2,
+r13c2.c r13c2,
+r14c2.c r14c2,
+r15c2.c r15c2,
+r16c2.c r16c2,
+r17c2.c r17c2,
+
+
+r2c3.c r2c3,
+r3c3.c r3c3,
+r4c3.c r4c3,
+r5c3.c r5c3,
+r6c3.c r6c3,
+r7c3.c r7c3,
+r8c3.c r8c3,
+r9c3.c r9c3,
+r10c3.c r10c3,
+r11c3.c r11c3,
+r12c3.c r12c3,
+r13c3.c r13c3,
+r14c3.c r14c3,
+r15c3.c r15c3,
+r16c3.c r16c3,
+r17c3.c r17c3
+
+from
+			r1c1,r1c2,r1c3,
+r2c1,
+r3c1,
+r4c1,
+r5c1,
+r6c1,
+r7c1,
+r8c1,
+r9c1,
+r10c1,
+r11c1,
+r12c1,
+r13c1,
+r14c1,
+r15c1,
+r16c1,
+r17c1,
+
+r2c2,
+r3c2,
+r4c2,
+r5c2,
+r6c2,
+r7c2,
+r8c2,
+r9c2,
+r10c2,
+r11c2,
+r12c2,
+r13c2,
+r14c2,
+r15c2,
+r16c2,
+r17c2,
+
+
+r2c3,
+r3c3,
+r4c3,
+r5c3,
+r6c3,
+r7c3,
+r8c3,
+r9c3,
+r10c3,
+r11c3,
+r12c3,
+r13c3,
+r14c3,
+r15c3,
+r16c3,
+r17c3]]>
+	</queryString>
+	<field name="r1c1" class="java.lang.Integer"/>
+	<field name="r1c2" class="java.lang.Integer"/>
+	<field name="r1c3" class="java.lang.Integer"/>
+	<field name="r2c1" class="java.lang.Integer"/>
+	<field name="r3c1" class="java.lang.Integer"/>
+	<field name="r4c1" class="java.lang.Integer"/>
+	<field name="r5c1" class="java.lang.Integer"/>
+	<field name="r6c1" class="java.lang.Integer"/>
+	<field name="r7c1" class="java.lang.Integer"/>
+	<field name="r8c1" class="java.lang.Integer"/>
+	<field name="r9c1" class="java.lang.Integer"/>
+	<field name="r10c1" class="java.lang.Integer"/>
+	<field name="r11c1" class="java.lang.Integer"/>
+	<field name="r12c1" class="java.lang.Integer"/>
+	<field name="r13c1" class="java.lang.Integer"/>
+	<field name="r14c1" class="java.lang.Integer"/>
+	<field name="r15c1" class="java.lang.Integer"/>
+	<field name="r16c1" class="java.lang.Integer"/>
+	<field name="r17c1" class="java.lang.Integer"/>
+	<field name="r2c2" class="java.lang.Integer"/>
+	<field name="r3c2" class="java.lang.Integer"/>
+	<field name="r4c2" class="java.lang.Integer"/>
+	<field name="r5c2" class="java.lang.Integer"/>
+	<field name="r6c2" class="java.lang.Integer"/>
+	<field name="r7c2" class="java.lang.Integer"/>
+	<field name="r8c2" class="java.lang.Integer"/>
+	<field name="r9c2" class="java.lang.Integer"/>
+	<field name="r10c2" class="java.lang.Integer"/>
+	<field name="r11c2" class="java.lang.Integer"/>
+	<field name="r12c2" class="java.lang.Integer"/>
+	<field name="r13c2" class="java.lang.Integer"/>
+	<field name="r14c2" class="java.lang.Integer"/>
+	<field name="r15c2" class="java.lang.Integer"/>
+	<field name="r16c2" class="java.lang.Integer"/>
+	<field name="r17c2" class="java.lang.Integer"/>
+	<field name="r2c3" class="java.lang.Integer"/>
+	<field name="r3c3" class="java.lang.Integer"/>
+	<field name="r4c3" class="java.lang.Integer"/>
+	<field name="r5c3" class="java.lang.Integer"/>
+	<field name="r6c3" class="java.lang.Integer"/>
+	<field name="r7c3" class="java.lang.Integer"/>
+	<field name="r8c3" class="java.lang.Integer"/>
+	<field name="r9c3" class="java.lang.Integer"/>
+	<field name="r10c3" class="java.lang.Integer"/>
+	<field name="r11c3" class="java.lang.Integer"/>
+	<field name="r12c3" class="java.lang.Integer"/>
+	<field name="r13c3" class="java.lang.Integer"/>
+	<field name="r14c3" class="java.lang.Integer"/>
+	<field name="r15c3" class="java.lang.Integer"/>
+	<field name="r16c3" class="java.lang.Integer"/>
+	<field name="r17c3" class="java.lang.Integer"/>
+	<columnHeader>
+		<band height="713">
+			<textField>
+				<reportElement x="0" y="38" width="292" height="76" uuid="3a2bdc74-39ab-43cc-ae59-e4acb3113e9e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Показатель"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="38" width="140" height="46" uuid="3812d70d-55de-4372-b6ca-9c446c3e963d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Новосибирский филиал ООО ВТБ МС"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="38" width="140" height="46" uuid="bce9804e-7c35-4baa-88fc-70ac00215552"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Филиал ООО «СК «Ингосстрах-М» в г.Новосибирск"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="114" width="292" height="13" uuid="536b69d2-077f-4810-b62f-c0f8176f3df9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="114" width="140" height="13" uuid="92a694b2-3da2-418f-af9e-d96339a8c300"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="712" height="38" uuid="0f57f91e-ac55-4ada-afa6-144d78de6f4b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Информация о количестве информационных согласии, полученных страховой медицинской организацией от застрахованных лиц "+ $P{date_start}+" по "+$P{date_end}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="38" width="140" height="46" uuid="7dc06e86-2933-428b-8a2e-37608b5e9e01"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ООО СМО СИМАЗ_МЕД"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="84" width="140" height="30" uuid="aad652bc-5246-42b6-9eab-dba8cb1b46f7"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ЗЛ"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="127" width="292" height="76" uuid="d9a5989d-01bb-463d-9841-ebfacee2ab61"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. Количество полученных согласий, всего:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="127" width="140" height="76" uuid="8fe09427-b049-4138-bf23-a09343d97d59"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r1c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="127" width="140" height="76" uuid="2abb2f0f-3289-44ec-99d7-349456085242"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r1c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="114" width="140" height="13" uuid="76b474b5-9be1-43b9-96f7-9fe135c36ed3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="84" width="140" height="30" uuid="eee624a8-5073-41e5-bd17-e520de45e053"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ЗЛ"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="127" width="140" height="76" uuid="a97ffc60-fe2f-4f86-8288-532453969c9f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r1c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="114" width="140" height="13" uuid="b3086f44-dc05-4150-b0ae-d4741bf4bc93"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["4"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="84" width="140" height="30" uuid="d63ec13c-4f90-4272-b4c5-54f3f8595a8d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ЗЛ"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="223" width="292" height="20" uuid="0552f0cc-98dd-4cc0-ab3f-adb2fc8976a3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- при оформлении полиса ОМС"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="263" width="292" height="20" uuid="f6240e8f-b8ae-4ecb-a241-40cc126f8243"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- через страхового представителя в МО"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="243" width="292" height="20" uuid="7bb73062-9471-412d-b58f-96aae87d3bcc"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- при посещении врача"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="283" width="292" height="20" uuid="1ca184db-02e3-4cea-9fc0-923ef581ae96"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- при личном обращении в СМО"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="303" width="292" height="20" uuid="6b1d2dd3-7cda-4276-aad1-255d9d5702d0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- через почтовое сообщение"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="223" width="140" height="20" uuid="f566d628-b5e2-4b4d-a815-6458d7fb0d30"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r2c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="223" width="140" height="20" uuid="735aa9b2-7ed1-47b0-bf20-a82222f4ccb9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r2c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="223" width="140" height="20" uuid="66c6dc9a-a82d-4335-96c6-dde9be9133ec"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r2c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="243" width="140" height="20" uuid="d17fccfd-38ca-4aa7-87c2-1fb2aa01f94d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r3c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="243" width="140" height="20" uuid="5dae0f4d-9f17-428d-81ad-4e996738c05e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r3c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="243" width="140" height="20" uuid="9fa3aaae-bdd0-4175-815e-31271f7af744"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r3c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="263" width="140" height="20" uuid="e5c23bce-a83f-4454-a820-db589a353a7e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r4c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="283" width="140" height="20" uuid="3ec8c5cb-9f5c-4af1-8503-4f18a4633b38"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r5c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="263" width="140" height="20" uuid="7b14a78c-f074-45cb-ba89-8fa57625e1a5"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r4c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="263" width="140" height="20" uuid="928435bc-0d06-4227-b9a0-c99edd6c3563"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r4c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="283" width="140" height="20" uuid="b972320a-71fd-4907-9a9a-6096a2c9a812"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r5c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="283" width="140" height="20" uuid="0545c865-3fe8-4d34-812d-545a74981b17"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r5c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="303" width="140" height="20" uuid="c4f31f01-8f53-4a1f-b234-601a0f01a407"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r6c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="303" width="140" height="20" uuid="0c404b8b-af5a-42ff-8599-1f39b6310a0d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r6c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="303" width="140" height="20" uuid="4e63e117-0c29-4eb9-bd0b-0c064dcfc24e"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r6c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="323" width="292" height="18" uuid="fdb9634f-e972-47a2-b5b2-e8f46e86f0c0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- через сайт СМО"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="323" width="140" height="18" uuid="f6ed192b-2fc3-414c-b4b1-073dfc8e0a73"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r7c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="323" width="140" height="18" uuid="b6d1c04a-6e6a-4013-b856-f9e53b2e4455"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r7c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="323" width="140" height="18" uuid="e4520561-f8b0-4877-bc6f-fb8b3788c8c4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r7c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="341" width="292" height="76" uuid="95cac91a-3ca7-4eb4-bc9c-5b13edd213ed"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2. Количество согласий, признанных недействительными, всего:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="341" width="140" height="76" uuid="51ecf06d-2723-482c-ae38-0837f8438854"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r8c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="341" width="140" height="76" uuid="39547248-e563-48ba-bd29-e4f496b63a5b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r8c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="341" width="140" height="76" uuid="684ad19e-4cba-40db-b5c7-97f0e2ae66d8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r8c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="437" width="140" height="20" uuid="d9316ff1-c95d-41d4-b307-1fc16701967a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r9c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="437" width="292" height="20" uuid="38e54579-d660-4bfa-bda2-222a43c887c0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- отозвано страхованным лицом"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="437" width="140" height="20" uuid="15c94635-33af-45c3-854a-0da9e22729fc"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r9c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="437" width="140" height="20" uuid="deaa6765-0156-49c8-b0f7-915e784a7090"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r9c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="203" width="712" height="20" uuid="e6e71406-e86e-4500-afac-98beab32fa7a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["в том числе:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="417" width="712" height="20" uuid="6b57ba25-2c43-41a1-8888-4c17afe2e131"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["в том числе:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="457" width="292" height="36" uuid="d42d9887-13f5-4c95-807a-130477f06a32"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- аннулирование в связи с прекращением страхования в СМО"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="457" width="140" height="36" uuid="4bd1e50e-ef6c-4d6c-bcfa-1820c27dfaf8"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r10c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="457" width="140" height="36" uuid="f1ff562a-de30-43dc-94b1-2900d433ee77"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r10c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="457" width="140" height="36" uuid="ce4bd692-b2f0-4041-851b-f0d9c1719a47"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r10c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="493" width="292" height="76" uuid="df1aa216-1e8e-4807-9d47-65290552a026"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. Количество действующих согласий, всего:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="493" width="140" height="76" uuid="d6cbd4d9-3bec-4e87-9c00-a859fd82872a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r11c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="493" width="140" height="76" uuid="f27d7df4-78c3-4829-a9d0-575676d07f6f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r11c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="493" width="140" height="76" uuid="c3fb5446-6b93-4c73-98f9-0cb71424bb19"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r11c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="569" width="712" height="20" uuid="9fab9b11-8ee3-4d9f-a30c-b2a4cfb6a65b"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["в том числе:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="589" width="140" height="24" uuid="0277b248-8ac6-48f1-ab4f-7cc2f80b8c66"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r12c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="589" width="140" height="24" uuid="a6076935-1dc5-4270-ad8a-8520b481f767"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r12c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="589" width="292" height="24" uuid="3629f09c-f2d8-4bd7-8345-179097e9dd8c"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- при оформлении полиса ОМС"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="589" width="140" height="24" uuid="61a8c2c0-88b8-4554-b01e-4c302defef9d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r12c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="673" width="292" height="20" uuid="9617bc17-ab37-4fa1-a5bf-00b06048f423"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- через почтовое сообщение"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="633" width="292" height="20" uuid="cd5b2bad-147a-47dd-afab-b094f178ff0f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- через страхового представителя в МО"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="653" width="292" height="20" uuid="c1de9eba-fb0a-4f59-9e0e-7ede02b99507"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- при личном обращении в СМО"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="693" width="292" height="18" uuid="7667c137-286d-4bd1-89fd-be57ce9afdd9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- через сайт СМО"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="613" width="292" height="20" uuid="b7890c88-a8e0-4720-b914-9e8b1e5066ce"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["- при посещении врача"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="693" width="140" height="18" uuid="623d4936-fef7-4402-aeb2-6894219ba4d4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r17c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="613" width="140" height="20" uuid="46d94cd8-2526-4c2f-8a4c-dd6d9d58a347"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r13c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="653" width="140" height="20" uuid="59de7401-7ad4-4b2b-b729-90f62da5e6aa"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r15c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="633" width="140" height="20" uuid="6c82a619-7d5f-4e53-b546-14ea41d7c528"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r14c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="673" width="140" height="20" uuid="c1d8e86a-7940-4a64-9be8-d3963180aa1f"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r16c1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="633" width="140" height="20" uuid="50a0bb16-5d8d-4026-a703-a24f6bba88b9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r14c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="673" width="140" height="20" uuid="7a595a60-21f2-4840-9e85-31fce92d8e39"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r16c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="653" width="140" height="20" uuid="a5f135a0-6175-4c81-b903-1c267715a266"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r15c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="693" width="140" height="18" uuid="9c8b3169-4d95-4384-84bc-d5168e4d1acf"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r17c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="613" width="140" height="20" uuid="9a34da14-2b34-471d-b93b-8d20bc259763"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r13c2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="673" width="140" height="20" uuid="3a100a51-ff59-474d-a35e-f5f75e7babe3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r16c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="633" width="140" height="20" uuid="78eaa681-21c9-42ac-88f4-3fa286cf00bc"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r14c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="693" width="140" height="18" uuid="800a9cfb-c81c-4807-aae6-c940cea64a9d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r17c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="613" width="140" height="20" uuid="85dcfa66-b004-4419-a6c1-2900a64c8a89"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r13c3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="572" y="653" width="140" height="20" uuid="a8448a80-f92e-4df2-a471-88780e9a0ac9"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{r15c3}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+</jasperReport>

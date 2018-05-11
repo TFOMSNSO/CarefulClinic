@@ -104,7 +104,7 @@ public class Sp3ExpertiseReport {
 			
 			JRXlsxExporter exporter = new JRXlsxExporter();
 	        exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
-	       // TODO: сделать логирование выгружки
+	       // TODO: сделать логирование выгрузки
 	        exporter.setParameter(JRXlsExporterParameter.OUTPUT_FILE_NAME,  directoryServer+mm[1]+LocalDate.now().toString()+"_" + LocalTime.now().toString().substring(0, 8).replaceAll(":", "-")+prefix+".xlsx");
 	        exporter.exportReport();
 			

@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'admin_cms', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [AuthGuard] },
   { path: 'sp3', loadChildren: 'app/report/sp3/sp3.module#Sp3Module', canActivate: [AuthGuard] },
   { path: 'statistics-inform', loadChildren: 'app/report/statistic-informirovanie/stat.inform.module#StatisticsInformirovanieModule', canActivate: [AuthGuard] },
+  { path: 'statistics-assent', loadChildren: 'app/report/statistic-assent/stat.assent.module#StatisticsAssentModule', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'table', component: TableComponent },
   { path: 'list_prophylactic', component: ListProphylacticComponent, canActivate: [AuthGuard]  },
