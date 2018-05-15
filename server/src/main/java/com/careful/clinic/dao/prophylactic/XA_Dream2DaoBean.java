@@ -2,6 +2,7 @@ package com.careful.clinic.dao.prophylactic;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.sql.SQLSyntaxErrorException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
@@ -23,16 +25,19 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.hibernate.exception.SQLGrammarException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.careful.clinic.exceptions.ParseDataExcelException;
 import com.careful.clinic.model.PersonModel;
 import com.careful.clinic.model.PmMo2017;
 import com.careful.clinic.model.ResponseGer;
 import com.careful.clinic.model.WrapPmI;
+import com.careful.clinic.upload.interfase.IDataUploadType;
 
 @Stateless
 public class XA_Dream2DaoBean implements XA_Dream2Dao{
@@ -140,12 +145,32 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	 * @param listOfQueryies
 	 * 
 	 */
-	public boolean insertDataFromExcel(List<String> listOfQueryies) throws Exception{
+	public boolean insertDataFromExcel(List<String> listOfQueryies,IDataUploadType data ) throws ParseDataExcelException{
+		
 		Query q = null;
-		// метод работает в цикле. т.е. в одной транзакции. Если fail все insert'ы откатываются (rollback)
+		// TODO разграничить логику проверок для каждого 'фасона' загрузок. Условие if(data !=null){ временно пока не переду все под паттерн 
+		
+		if(data !=null){
+		
 		for(String str : listOfQueryies){
-			q = em_dream2.createNativeQuery(str);
-			q.executeUpdate();
+			
+			q = em_dream2.createNativeQuery(data.construct_querySelect(str));
+			List f = q.getResultList();
+			System.out.println("TEST "+ f);
+			// если в базе нет полного дубля  то делаем вставку (т.е. избегаем дублирование записей в базе)
+			if(Integer.valueOf(f.get(0).toString()) == 0 ){
+				q = em_dream2.createNativeQuery(str);
+				q.executeUpdate();
+			}
+			
+		}
+		
+		}else{
+			for(String str : listOfQueryies){
+					q = em_dream2.createNativeQuery(str);
+					q.executeUpdate();
+			}
+			
 		}
 		
 		return true;

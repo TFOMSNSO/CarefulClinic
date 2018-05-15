@@ -11,9 +11,11 @@ import com.careful.clinic.upload.interfase.IDataUploadType;
 public abstract class AbstractDataUploadType implements IDataUploadType {
 
 	OPCPackage pkg;
+	String fileName;
 	
-	public void set(OPCPackage pkg){
+	public void set(OPCPackage pkg, String fileName){
 		this.pkg = pkg;
+		this.fileName = fileName;
 	}
 	
 	 public  List<String> orderingParsingProcess() throws ParseException, IOException{

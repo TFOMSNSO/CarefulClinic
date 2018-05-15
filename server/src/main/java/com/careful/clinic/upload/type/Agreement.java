@@ -20,8 +20,8 @@ public class Agreement extends AbstractDataUploadType{
 	public Agreement (){
 	}
 	
-	public Agreement (OPCPackage pkg){
-		super.set(pkg);
+	public Agreement (OPCPackage pkg, String fileName){
+		super.set(pkg,fileName);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class Agreement extends AbstractDataUploadType{
 						sb.append(df2.format(df3.parse(row.getCell(i).toString())));
 					}
 				}else{
-					sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase());
+					sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase().trim());
 				}
 				sb.append("'");
 				sb.append(",");
@@ -107,6 +107,45 @@ public class Agreement extends AbstractDataUploadType{
 	public void checkSinchronizeData() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getFileName() {
+		return super.fileName;
+	}
+
+	@Override
+	public String construct_querySelect(String str) {
+		
+		StringBuilder  sb = new StringBuilder();
+		String tmp_m[] = null, tmp = null;
+		tmp = str.replace("insert into", "select  count(*) from");
+		sb.append(tmp.substring(0, 34));
+		
+		tmp_m = tmp.substring(29).split(",");
+		sb.append(" where ");
+		sb.append("p.fam=");
+		sb.append(tmp_m[1]);
+		sb.append(" and p.im=");
+		 sb.append(tmp_m[2]);
+		 sb.append(" and p.ot=");
+		 sb.append(tmp_m[3]);
+		 sb.append(" and p.dr=");
+		 sb.append(tmp_m[4]);
+		 sb.append(" and p.d_assent=");
+		 sb.append(tmp_m[5]);
+		 sb.append(" and (p.d_break_assent=");
+		 sb.append(tmp_m[6]);
+		 sb.append("  or p.d_break_assent is null ) ");
+		 sb.append(" and p.id_assent=");
+		 sb.append(tmp_m[7]);
+		 sb.append(" and (p.id_break_assent=");
+		 sb.append(tmp_m[8]);
+		 sb.append(" or p.id_break_assent is null )");
+		 sb.append(" and p.smo=");
+		 sb.append(tmp_m[9]);
+		
+		return sb.toString();
 	}
 
 

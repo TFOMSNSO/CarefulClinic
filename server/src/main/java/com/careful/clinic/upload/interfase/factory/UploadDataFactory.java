@@ -37,10 +37,14 @@ public class UploadDataFactory {
 		
 		
 		if(type.equals("ПОДАЧА СОГЛАСИЯ ЗЛ")){
-			dut = new Agreement(pkg);
+			dut = new Agreement(pkg,fileName);
 		}else if(type.equals("АННУЛИРОВАНИЕ&ОТЗЫВ СОГЛАСИЯ ЗЛ")){
-			dut = new BreakAgreement();
+			dut = new BreakAgreement(pkg,fileName);
+		}else{
+			// временно. До тех пор пока не непеведу все под паттерн фабрика AbstractDataUploadType 
+			pkg.close();
 		}
+		
 		
 		return dut;
 	}
