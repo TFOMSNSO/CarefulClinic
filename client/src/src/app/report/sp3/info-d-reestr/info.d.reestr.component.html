@@ -1,0 +1,61 @@
+<mat-card [@flyInOut]="'in'">
+	
+	<mat-sidenav-container class="example-container">
+	  
+		<mat-list>
+			<mat-card-title>{{_info_d_reestr}}</mat-card-title>
+			<mat-card-header>
+				 
+				 <!-- <mat-menu #menu_tab="matMenu" >
+				  <button mat-menu-item >{{_searchFIOD}}</button>
+				</mat-menu> -->
+				
+				<!-- <button id="btn_header" mat-icon-button [matMenuTriggerFor]="menu_tab">
+				   <mat-icon>more_vert</mat-icon>
+				</button> -->
+				 
+				 <!-- <button id="btn_header"  (click)="var_sidenav.open()" mat-fab><mat-icon>add</mat-icon></button> -->
+			</mat-card-header>
+		</mat-list>
+	</mat-sidenav-container>	
+	
+	<mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar> 
+	<!-- <mat-card-content @questionsAnim> -->
+	<mat-card-content>
+		<mat-accordion>
+		  <mat-expansion-panel (opened)="setTrue(1,true)"
+							   (closed)="setTrue(1,false)"
+							   (click)="init_1()">
+							   
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					{{_info_d_reestr}}
+				</mat-panel-title>
+				  
+				<mat-panel-description>
+				  <div *ngIf='panelOpenState1'>
+					 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+				  </div>
+				  <div *ngIf='!panelOpenState1'>
+					 {{_report_inform_note}}
+				  </div>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+			
+			
+			 <mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_2(row.namefile, 'info_d_reestr')">
+				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
+				  <mat-list-item>
+				<mat-icon mat-list-icon>note</mat-icon>
+					<h4 mat-line>{{row.namefile}}</h4>
+					<p mat-line>{{_reestr_download}}</p>
+				</mat-list-item>
+			</mat-list>
+			
+			
+			
+			
+		  </mat-expansion-panel>
+		</mat-accordion>
+	</mat-card-content>
+</mat-card>

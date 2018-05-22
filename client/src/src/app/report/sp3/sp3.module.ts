@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Sp3Component } from './sp3.component';
 import { ExpertiseComponent } from './expertise/expertise.component';
+import { InfoDReestrComponent } from './info-d-reestr/info.d.reestr.component';
 
 
 import { Sp3RoutingModule } from './sp3-routing.module';
@@ -14,9 +15,10 @@ import { Sp3Service } from './sp3.service';
 
 
 
+
 @NgModule({
   imports: [ CommonModule, FormsModule, Sp3RoutingModule,MaterialModule,MyDatePickerModule,FormsModule,ReactiveFormsModule],
-  declarations: [Sp3Component,ExpertiseComponent],
+  declarations: [Sp3Component,ExpertiseComponent,InfoDReestrComponent],
   providers:    [ Sp3Service]
 })
 export class Sp3Module { }

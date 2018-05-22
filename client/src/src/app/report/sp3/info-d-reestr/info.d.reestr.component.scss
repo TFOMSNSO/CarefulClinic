@@ -1,0 +1,78 @@
+.mat-line{
+	overflow: inherit !important;
+}
+/deep/.mat-list-text{
+	overflow: inherit !important;
+}
+/deep/.mydp{
+ width:25% !important;
+}
+
+/deep/.mat-list-text{
+	font-size: 12px;
+}
+
+.mycustomlist{
+ height:25px !important;
+}
+
+/deep/.mat-list-text:hover{
+  color:red !important;
+}
+
+ mat-card{
+  margin: 25px;
+  min-height:600px;
+  //background: #e6f0f1;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.3), 0 2px 2px 0 rgba(0, 0, 0, 0.42), 0 1px 5px 0 rgba(0, 0, 0, 0.51);
+}
+
+mat-row:hover {
+background-color: aliceblue;
+}
+mat-icon:hover{
+color: orangered;
+}
+
+
+#btn_header{
+    position: absolute;
+    right: 10px;
+}
+
+mat-icon{
+	cursor: pointer;
+}
+
+ /deep/ snack-bar-container {
+	box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 
+					 0 6px 10px 0 rgba(0,0,0,.14),
+					 0 1px 18px 0 rgba(0,0,0,.12);
+    background: #9130e6 !important;
+    border-radius: 5px !important;
+    box-sizing: content-box !important;
+    display: block !important;
+    max-width: 360px !important;
+    min-width: 350px !important;
+    padding: 14px 24px !important;
+    height: 50px !important;
+    text-align: center !important;
+}
+
+/deep/ .mat-expansion-panel{
+ background: #d3d3d33d;
+}
+
+.mat-line{
+	cursor: pointer;
+}
+
+/deep/.mat-list-item-content:hover{
+	//box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+    border-radius: 0%;
+}
+
+.list_files{
+    overflow: auto;
+    height: 400px;
+}

@@ -39,6 +39,7 @@ export class HeaderComponent{
    _menu_admin_inform_allyear:string  = environment.menu_admin_inform_allyear;
    _sp3_menu: string = environment.sp3_menu;
    _sp3_menu_expertisa: string = environment.sp3_menu_expertisa;
+   _sp3_menu_d_reestr: string = environment.sp3_menu_d_reestr;
    
  
 

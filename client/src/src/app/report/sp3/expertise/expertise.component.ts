@@ -59,6 +59,7 @@ export class ExpertiseComponent implements OnInit{
 	 _expertise_field1_1: string = environment.expertise_field1_1;
 	 _field_is_required: string = environment.field_is_required;
 	 _reset: string = environment.reset;
+	 _sp3_menu_expertisa: string = environment.sp3_menu_expertisa;
 	 
 	 
 	

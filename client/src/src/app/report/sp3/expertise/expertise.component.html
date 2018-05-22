@@ -1,5 +1,24 @@
+<mat-card [@flyInOut]="'in'">
+<div>	
 <div>
-<div>
+	<mat-sidenav-container class="example-container">
+	  
+		<mat-list>
+			<mat-card-title>{{_sp3_menu_expertisa}}</mat-card-title>
+			<mat-card-header>
+				 
+				 <!-- <mat-menu #menu_tab="matMenu" >
+				  <button mat-menu-item >{{_searchFIOD}}</button>
+				</mat-menu> -->
+				
+				<!-- <button id="btn_header" mat-icon-button [matMenuTriggerFor]="menu_tab">
+				   <mat-icon>more_vert</mat-icon>
+				</button> -->
+				 
+				 <!-- <button id="btn_header"  (click)="var_sidenav.open()" mat-fab><mat-icon>add</mat-icon></button> -->
+			</mat-card-header>
+		</mat-list>
+	</mat-sidenav-container>	
 <mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar> 
 	<!-- <mat-card-content @questionsAnim> -->
 	<mat-card-content>
@@ -193,3 +212,4 @@
 	  	<div><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div>
 	  </ng-template>
 </div>
+</mat-card>
