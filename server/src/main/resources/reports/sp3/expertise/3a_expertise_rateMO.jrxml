@@ -181,7 +181,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="11" isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Динамика случаев госпитализации, по которым установленная группа здоровья 3а не соответствует выставленному диагнозу в разрезе медицинских организаций с "+ $P{date_start}+" по "+$P{date_end}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Количество случаев диспансеризации, по которым установленная группа здоровья 3а не соответствует выставленному диагнозу в разрезе медицинских организаций с "+ $P{date_start}+" по "+$P{date_end}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="754" y="0" width="130" height="38" uuid="eb16ce83-eea5-4eca-b6a2-c14149019045"/>
