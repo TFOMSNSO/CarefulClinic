@@ -15,8 +15,8 @@ import javax.ejb.Stateless;
 import javax.servlet.ServletContext;
 
 import com.careful.clinic.model.DataBean;
-import com.careful.clinic.model.ExpertiseRateMo;
-import com.careful.clinic.model.Wrap3a_b_Expertise;
+import com.careful.clinic.model.Sp3RateMo;
+import com.careful.clinic.model.WrapSp3;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRTextElement;
@@ -48,7 +48,7 @@ public class Sp3ExpertiseReport {
 	 * @throws JRException
 	 */
 	// TODO Реализовать то что делает массив cons с помощью ООП (фабрика или enum или ....)
-	public void executeJasperReportRateMoExpertise(List<ExpertiseRateMo> ls, String user, String str1, String str2, String [] cons) throws JRException{
+	public void executeJasperReportRateMoExpertise(List<Sp3RateMo> ls, String user, String str1, String str2, String [] cons) throws JRException{
 		   String directoryServer = System.getProperty("jboss.home.dir");
 	     
 	        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(ls);
@@ -85,7 +85,7 @@ public class Sp3ExpertiseReport {
 	 * @param ob
 	 * @throws JRException 
 	 */
-	public void executeJasperReportExpertise(List<Wrap3a_b_Expertise> ls, String prefix, String user, String str1, String str2, String [] mm) throws JRException{
+	public void executeJasperReportExpertise(List<WrapSp3> ls, String prefix, String user, String str1, String str2, String [] mm) throws JRException{
 		    String directoryServer = System.getProperty("jboss.home.dir");
 	     
 	        JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(ls);

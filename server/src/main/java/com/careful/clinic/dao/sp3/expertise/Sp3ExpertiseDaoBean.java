@@ -19,10 +19,10 @@ import javax.persistence.Query;
 
 import org.hibernate.transform.Transformers;
 
-import com.careful.clinic.model.ExpertiseRateMo;
+import com.careful.clinic.model.Sp3RateMo;
 import com.careful.clinic.model.ListExcelFiles;
 import com.careful.clinic.model.PersonModel;
-import com.careful.clinic.model.Wrap3a_b_Expertise;
+import com.careful.clinic.model.WrapSp3;
 
 @Stateless
 public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
@@ -40,7 +40,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	
 	 
 	 @Override
-	 public List<Wrap3a_b_Expertise> getResalt3b_expertise(String date1,String date2,String user, int firrstResult) {
+	 public List<WrapSp3> getResalt3b_expertise(String date1,String date2,String user, int firrstResult) {
 		 
 		 String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
 		 String sb = "select p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR, p.ds1 as f_mkb_usl, f_person_telephone_v2@dome_dev(p.fam, p.im, p.ot, p.dr) as tel, p.id "+ 
@@ -130,7 +130,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 			q.setMaxResults(60_000);
 			List<Object[]> res = q.getResultList();
 			// for processed data
-			List<Wrap3a_b_Expertise> ls = new ArrayList<Wrap3a_b_Expertise>(res.size());
+			List<WrapSp3> ls = new ArrayList<WrapSp3>(res.size());
 			
 			res.stream().forEach((record) -> {
 				
@@ -152,7 +152,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				String _tel = (String) record[15];
 				Long _id = ((BigDecimal)  record[16]).longValue();
 			
-				ls.add(new Wrap3a_b_Expertise(_0, _1, _2, _3,_4,_5, _6,_7,_8,_9,_10,_11,_12,_13,_14, _tel, _id));
+				ls.add(new WrapSp3(_0, _1, _2, _3,_4,_5, _6,_7,_8,_9,_10,_11,_12,_13,_14, _tel, _id));
 			
 		});
 			
@@ -162,7 +162,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	 }
 	
 	 @Override
-	public List<Wrap3a_b_Expertise> getResalt3a_expertise(String date1,String date2,String user, int firrstResult) throws Exception{
+	public List<WrapSp3> getResalt3a_expertise(String date1,String date2,String user, int firrstResult) throws Exception{
 		
 		
 		
@@ -256,7 +256,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 		q.setMaxResults(60_000);
 		List<Object[]> res = q.getResultList();
 		// for processed data
-		List<Wrap3a_b_Expertise> ls = new ArrayList<Wrap3a_b_Expertise>(res.size());
+		List<WrapSp3> ls = new ArrayList<WrapSp3>(res.size());
 		
 		res.stream().forEach((record) -> {
 			
@@ -278,7 +278,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 			String _tel = (String) record[15];
 			Long _id = ((BigDecimal)  record[16]).longValue();
 		
-			ls.add(new Wrap3a_b_Expertise(_0, _1, _2, _3,_4,_5, _6,_7,_8,_9,_10,_11,_12,_13,_14, _tel, _id));
+			ls.add(new WrapSp3(_0, _1, _2, _3,_4,_5, _6,_7,_8,_9,_10,_11,_12,_13,_14, _tel, _id));
 		
 	});
 		
@@ -427,7 +427,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 		q.setMaxResults(60_000);
 		List<Object[]> res = q.getResultList();
 		// for processed data
-		List<Wrap3a_b_Expertise> ls = new ArrayList<Wrap3a_b_Expertise>(res.size());
+		List<WrapSp3> ls = new ArrayList<WrapSp3>(res.size());
 		
 		res.stream().forEach((record) -> {
 			
@@ -449,7 +449,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 			String _tel = (String) record[15];
 			Long _id = ((BigDecimal)  record[16]).longValue();
 		
-			ls.add(new Wrap3a_b_Expertise(_0, _1, _2, _3,_4,_5, _6,_7,_8,_9,_10,_11,_12,_13,_14, _tel, _id));
+			ls.add(new WrapSp3(_0, _1, _2, _3,_4,_5, _6,_7,_8,_9,_10,_11,_12,_13,_14, _tel, _id));
 		
 	});
 		
@@ -458,7 +458,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	}
 
 	@Override
-	public List<ExpertiseRateMo> getResalt3b_expertiseRateMo(String date1, String date2, String user) {
+	public List<Sp3RateMo> getResalt3b_expertiseRateMo(String date1, String date2, String user) {
 		
 		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
 		String sb = "select "
@@ -559,7 +559,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 		
 		List<Object[]> res = q.getResultList();
 		// for processed data
-		List<ExpertiseRateMo> ls = new ArrayList<ExpertiseRateMo>(res.size());
+		List<Sp3RateMo> ls = new ArrayList<Sp3RateMo>(res.size());
 		
 		res.stream().forEach((record) -> {
 			
@@ -570,7 +570,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 			Long _4 = ((BigDecimal) record[4]).longValue();
 			Long _5 = ((BigDecimal) record[5]).longValue();
 		
-			ls.add(new ExpertiseRateMo(_0, _1, _2, _3,_4,_5));
+			ls.add(new Sp3RateMo(_0, _1, _2, _3,_4,_5));
 		
 	});
 		
@@ -581,7 +581,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	}
 	
 	@Override
-	public List<ExpertiseRateMo> getResalt3a3b_expertiseRateMo(String date1, String date2, String user) {
+	public List<Sp3RateMo> getResalt3a3b_expertiseRateMo(String date1, String date2, String user) {
 		
 		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
 		String sb = "select "
@@ -709,7 +709,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 		
 		List<Object[]> res = q.getResultList();
 		// for processed data
-		List<ExpertiseRateMo> ls = new ArrayList<ExpertiseRateMo>(res.size());
+		List<Sp3RateMo> ls = new ArrayList<Sp3RateMo>(res.size());
 		
 		res.stream().forEach((record) -> {
 			
@@ -720,7 +720,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 			Long _4 = ((BigDecimal) record[4]).longValue();
 			Long _5 = ((BigDecimal) record[5]).longValue();
 		
-			ls.add(new ExpertiseRateMo(_0, _1, _2, _3,_4,_5));
+			ls.add(new Sp3RateMo(_0, _1, _2, _3,_4,_5));
 		
 	});
 		
@@ -732,7 +732,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	}
 	
 	@Override
-	public List<ExpertiseRateMo> getResalt3a_expertiseRateMo(String date1, String date2, String user) {
+	public List<Sp3RateMo> getResalt3a_expertiseRateMo(String date1, String date2, String user) {
 		
 		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
 		String sb = "select "
@@ -836,7 +836,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 		
 		List<Object[]> res = q.getResultList();
 		// for processed data
-		List<ExpertiseRateMo> ls = new ArrayList<ExpertiseRateMo>(res.size());
+		List<Sp3RateMo> ls = new ArrayList<Sp3RateMo>(res.size());
 		
 		res.stream().forEach((record) -> {
 			
@@ -847,7 +847,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 			Long _4 = ((BigDecimal) record[4]).longValue();
 			Long _5 = ((BigDecimal) record[5]).longValue();
 		
-			ls.add(new ExpertiseRateMo(_0, _1, _2, _3,_4,_5));
+			ls.add(new Sp3RateMo(_0, _1, _2, _3,_4,_5));
 		
 	});
 		

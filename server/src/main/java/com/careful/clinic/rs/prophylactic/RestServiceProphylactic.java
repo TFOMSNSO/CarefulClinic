@@ -48,6 +48,8 @@ import org.xml.sax.SAXException;
 import com.careful.clinic.dao.prophylactic.ProphylacticDAO;
 import com.careful.clinic.dao.prophylactic.ProphylacticDAOBean;
 import com.careful.clinic.dao.prophylactic.XA_Dream2Dao;
+import com.careful.clinic.exceptions.CheckStructureExcelException;
+import com.careful.clinic.exceptions.CheckTypizineExcelException;
 import com.careful.clinic.exceptions.ParseDataExcelException;
 import com.careful.clinic.guid.RandomGUID;
 import com.careful.clinic.model.PersonModel;
@@ -59,6 +61,8 @@ import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
 
 @javax.ws.rs.Path("/prophylactic")
 public class RestServiceProphylactic {
+	
+	final String directoryServer = System.getProperty("jboss.home.dir");
 	
 	@EJB
 	UploadDataFactory  uploadFactory; 
@@ -90,13 +94,15 @@ public class RestServiceProphylactic {
 	 * @param input входящие данные 
 	 * @return информацию о статусе выполнененой загрузки
 	 * @throws IOException 
+	 * @throws CheckStructureExcelException 
+	 * @throws CheckTypizineExcelException 
 	 */
 	@POST
 	@Path("/upload") 
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response uploadFile(@Context HttpHeaders headers, MultipartFormDataInput input) throws IOException {
-		String directoryServer = System.getProperty("jboss.home.dir");
+	public Response uploadFile(@Context HttpHeaders headers, MultipartFormDataInput input) throws IOException, CheckStructureExcelException, CheckTypizineExcelException {
+		
 		String fileName = "";
 		String UPLOADED_FILE_PATH = "";
 		
@@ -109,7 +115,7 @@ public class RestServiceProphylactic {
 		Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 		List<InputPart> inputParts = uploadForm.get("uploadFile");
 		Response.ResponseBuilder builder = null;
-		String TIME_STAMP = LocalDate.now().toString()+"_" + LocalTime.now().toString().substring(0, 8).replaceAll(":", "-");
+		
 		
 		try {
 			for (InputPart inputPart : inputParts) {
@@ -123,7 +129,6 @@ public class RestServiceProphylactic {
 						//constructs upload file path
 						fileName = directoryServer + UPLOADED_FILE_PATH + fileName;
 						writeFile(bytes,fileName);
-	
 			}
 			
 			
@@ -142,117 +147,88 @@ public class RestServiceProphylactic {
 			if(listOfQueryies == null) throw new ParseDataExcelException("Ошибка в шаблоне. Не удается определить шаблон.");
 			//data.checkOuTroughDB(listOfQueryies)
 			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){
-				
-				String TRANSVER_UPLOADED_FILE_PATH = getPathTo(authHeaders.get(0));
-				String tmp_val = randomGuid.valueAfterMD5;
-				// имя переименованного файла вместо загруженного 
-				String toName = directoryServer + TRANSVER_UPLOADED_FILE_PATH + tmp_val+"_"+TIME_STAMP+".xlsx";
-				
-				File from_file = new File(fileName);
-				File to_file = new File(toName);
-				Files.copy(from_file.toPath(), to_file.toPath());
-				// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
-				from_file.delete();
-				
-				// файл протокола загрузки с таким же именем что файл с данными (разница в .txt)
-				toName = directoryServer + TRANSVER_UPLOADED_FILE_PATH + tmp_val+"_"+TIME_STAMP+".txt";
-				 java.nio.file.Path f = Paths.get(toName);
-				 // предыдущий  файл с таким же именем удаляем
-				 // TODO проверить необходимость тк гуид уникальный. Данная логика досталась от предыдущей реализации 
-				  Files.deleteIfExists(f);
-				  java.nio.file.Path out = Files.createFile(f);
-		    	  Files.write(Paths.get(out.toUri()), new String("Файл "+tmp_val+".xlsx успешно загружен.").getBytes(), StandardOpenOption.APPEND);
-				
-				
-
+				deleteNativeFileFromUser(null, fileName, authHeaders);
 			}
-			
-			/*
-			 * */
-			
 			 String info =  new String("Файл успешно загружен");
 			 builder = Response.status(Response.Status.OK);
 		     builder.entity( info );
 		     return builder.build();
 		     
 		}catch (IOException e) {
-			
-			String tmp_val = randomGuid.valueAfterMD5;
-			String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+TIME_STAMP+".xlsx";
-			File from_file = new File(fileName);
-			File to_file = new File(toName);
-			Files.copy(from_file.toPath(), to_file.toPath());
-			// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
-			from_file.delete();
-			
-			java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
-			Files.deleteIfExists(f);
-			java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
-	    	  Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
+			deleteNativeFileFromUser(e,fileName,authHeaders);
 			  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity("Произошла ошибка загрузки файла. При отсутствии причины ошибки в протоколе необходимо связаться с разработчиком");
 			  return builder.build();
 		  }
 		catch (InvalidFormatException e) {
-			String tmp_val = randomGuid.valueAfterMD5;
-			String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+TIME_STAMP+".xlsx";
-			File from_file = new File(fileName);
-			File to_file = new File(toName);
-			Files.copy(from_file.toPath(), to_file.toPath());
-			// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
-			from_file.delete();
-			
-			java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
-			Files.deleteIfExists(f);
-			java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
-	    	  Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
+			deleteNativeFileFromUser(e,fileName,authHeaders);
 			  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity("Произошла ошибка загрузки файла. При отсутствии причины ошибки в протоколе необходимо связаться с разработчиком");
 			  return builder.build();
 		}
 		catch (ParseException e) {
-			String tmp_val = randomGuid.valueAfterMD5;
-			String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+TIME_STAMP+".xlsx";
-			File from_file = new File(fileName);
-			File to_file = new File(toName);
-			Files.copy(from_file.toPath(), to_file.toPath());
-			// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
-			from_file.delete();
-			
-			java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
-			Files.deleteIfExists(f);
-			java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
-	    	  Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
+			deleteNativeFileFromUser(e,fileName,authHeaders);
 			  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity("Произошла ошибка загрузки файла. При отсутствии причины ошибки в протоколе необходимо связаться с разработчиком");
 			  return builder.build();
 		}
-		catch (ParseDataExcelException e) {
+		catch(CheckTypizineExcelException e){
 			e.printStackTrace();
-			String tmp_val = randomGuid.valueAfterMD5;
-			String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+TIME_STAMP+".xlsx";
-			File from_file = new File(fileName);
-			File to_file = new File(toName);
-			java.nio.file.Path p1 = from_file.toPath();
-			java.nio.file.Path p2 = to_file.toPath();
-			Files.copy(p1, p2);
-		
-			// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
-			from_file.delete();
+			deleteNativeFileFromUser(e,fileName,authHeaders);
 			
-			
-			 java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
-			  Files.deleteIfExists(f);
-			  java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
-	    	  Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
-	    	  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity(e.getMessage());
 			  return builder.build();
 		}
+		catch (ParseDataExcelException e) {
+			e.printStackTrace();
+			deleteNativeFileFromUser(e,fileName,authHeaders);
+			  builder = Response.status(Response.Status.OK);
+			     builder.entity(e.getMessage());
+			  return builder.build();
+		}
+		catch (CheckStructureExcelException e) {
+			e.printStackTrace();
+			deleteNativeFileFromUser(e,fileName,authHeaders);
+		    builder = Response.status(Response.Status.OK);
+		     builder.entity(e.getMessage());
+		   return builder.build();
+		}
+		
+		
+	}
+	
+	/**
+	 * Основная идея метода - это переименование загруженного на файловую систему файла.
+	 * Так как загружаемый user'ом файл может грузиться с одним и тем же именем, что приведет к неразберихе и возможным
+	 * ошибкам, мы удаляем загруженный файл, предварительно скопировав содержимое в новый с уникальным именем (в основе GUID)
+	 *  
+	 * @param e  исключение которое возникло в ходе парсига загруженного экселя или  если успешаня загрузка то Файл "+tmp_val+".xlsx успешно загружен. 
+	 * @param fileName  имя файла
+	 * @param authHeaders  атрибуты которые пришли из запроса
+	 * @throws IOException
+	 */
+	private void  deleteNativeFileFromUser(Throwable e,String fileName, List<String> authHeaders) throws IOException{
+		String tmp_val = randomGuid.valueAfterMD5;
+		if(e == null) e = new Throwable("Файл "+tmp_val+".xlsx успешно загружен.");  
+		String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+getTimeStamp()+".xlsx";
+		
+		File from_file = new File(fileName);
+		File to_file = new File(toName);
+		java.nio.file.Path p1 = from_file.toPath();
+		java.nio.file.Path p2 = to_file.toPath();
+		Files.copy(p1, p2);
+		
+		// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
+		System.out.println("TEST "+from_file.delete());
+		
+		java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
+		  Files.deleteIfExists(f);
+		  java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
+  	      Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
 	}
 	
 	private String getPathTo (String v){
@@ -532,6 +508,10 @@ private String getFileName(MultivaluedMap<String, String> header) throws IOExcep
 		fop.flush();
 		fop.close();
 
+	}
+	
+	private String getTimeStamp(){
+		return  LocalDate.now().toString()+"_" + LocalTime.now().toString().substring(0, 8).replaceAll(":", "-");
 	}
 
 }

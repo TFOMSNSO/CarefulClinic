@@ -1,8 +1,8 @@
 package com.careful.clinic.model;
 
-public class ExpertiseRateMo {
+public class Sp3RateMo {
 	
-	public ExpertiseRateMo(String code_mo, String name_mo, Long total, Long total_1, Long total_2, Long total_4) {
+	public Sp3RateMo(String code_mo, String name_mo, Long total, Long total_1, Long total_2, Long total_4) {
 		super();
 		this.code_mo = code_mo;
 		this.name_mo = name_mo;

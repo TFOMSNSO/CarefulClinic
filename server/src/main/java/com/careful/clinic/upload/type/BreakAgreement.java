@@ -10,7 +10,7 @@ import com.careful.clinic.upload.interfase.IDataUploadType;
 
 public class BreakAgreement extends AbstractDataUploadType{
 
-	public BreakAgreement(OPCPackage pkg, String fileName) {
+	public BreakAgreement(OPCPackage pkg, String fileName) throws IOException {
 		super.set(pkg, fileName);
 	}
 
@@ -27,9 +27,8 @@ public class BreakAgreement extends AbstractDataUploadType{
 	}
 
 	@Override
-	public List<String> constructQuery() throws ParseException, IOException {
+	public void constructQuery() throws ParseException, IOException {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -50,15 +49,7 @@ public class BreakAgreement extends AbstractDataUploadType{
 		return null;
 	}
 
-	@Override
-	public String getFileName() {
-		
-		return super.fileName;
-	}
-
-	
-
-	@Override
+		@Override
 	public String construct_querySelect(String str) {
 		StringBuilder  sb = new StringBuilder();
 		String tmp_m[] = null, tmp = null;

@@ -16,7 +16,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.careful.clinic.upload.interfase.IDataUploadType;
 import com.careful.clinic.upload.type.Agreement;
 import com.careful.clinic.upload.type.BreakAgreement;
+import com.careful.clinic.upload.type.InformD_reestr;
 
+// TODO убрать метод  getInstansUploadData и сдалать его слабосвязанным как  abstract IDataUploadType getInstansUploadData();
 @Stateless
 @LocalBean
 public class UploadDataFactory {
@@ -36,10 +38,12 @@ public class UploadDataFactory {
 		System.out.println("TYPE: " +type);
 		
 		
-		if(type.equals("ПОДАЧА СОГЛАСИЯ ЗЛ")){
+		if(type.trim().equalsIgnoreCase("ПОДАЧА СОГЛАСИЯ ЗЛ")){
 			dut = new Agreement(pkg,fileName);
-		}else if(type.equals("АННУЛИРОВАНИЕ&ОТЗЫВ СОГЛАСИЯ ЗЛ")){
+		}else if(type.trim().equalsIgnoreCase("АННУЛИРОВАНИЕ&ОТЗЫВ СОГЛАСИЯ ЗЛ")){
 			dut = new BreakAgreement(pkg,fileName);
+		}else if(type.trim().equalsIgnoreCase("ИНФОД-УЧЕТ")){
+			dut = new InformD_reestr(pkg,fileName);
 		}else{
 			// временно. До тех пор пока не непеведу все под паттерн фабрика AbstractDataUploadType 
 			pkg.close();

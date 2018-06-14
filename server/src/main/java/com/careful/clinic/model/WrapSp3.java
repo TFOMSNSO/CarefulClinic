@@ -4,9 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Wrap3a_b_Expertise {
+public class WrapSp3 {
 
-	public Wrap3a_b_Expertise(String fio, Date dr, Long smoid, String serpolis, String numpolis, String lpu,
+	public WrapSp3(String fio, Date dr, Long smoid, String serpolis, String numpolis, String lpu,
 			String ambkarta, Date dat_beg, Date dat_end, Long lpu_prik, Long s1, Long account, Date ac_date,
 			String rezobr, String f_mkb_usl, String tel, Long id){
 		super();
@@ -28,7 +28,7 @@ public class Wrap3a_b_Expertise {
 		this.rezobr = rezobr;
 		this.f_mkb_usl = f_mkb_usl;
 	}
-	public Wrap3a_b_Expertise() {
+	public WrapSp3() {
 		
 	}
 	

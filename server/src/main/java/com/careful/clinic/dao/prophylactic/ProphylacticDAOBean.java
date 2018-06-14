@@ -710,6 +710,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 			Sheet sheet =  workbook.getSheetAt(0);
 			
 			if(sheet.getPhysicalNumberOfRows() > 50_000){ pkg.close(); throw new ParseDataExcelException("Превышено допустимое количество строк в загружаемом файле. Не более 50 000 строк");}
+			
 			Row row = sheet.getRow(0);
 			SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 			SimpleDateFormat df2 = new SimpleDateFormat("dd.MM.yyyy");

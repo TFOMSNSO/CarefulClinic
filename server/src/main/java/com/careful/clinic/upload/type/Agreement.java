@@ -20,7 +20,7 @@ public class Agreement extends AbstractDataUploadType{
 	public Agreement (){
 	}
 	
-	public Agreement (OPCPackage pkg, String fileName){
+	public Agreement (OPCPackage pkg, String fileName) throws IOException{
 		super.set(pkg,fileName);
 	}
 
@@ -54,9 +54,9 @@ public class Agreement extends AbstractDataUploadType{
 	}
 
 	@Override
-	public List<String> constructQuery() throws  ParseException, IOException {
+	public void constructQuery() throws  ParseException, IOException {
 		
-		XSSFWorkbook workbook = new XSSFWorkbook(super.pkg);
+		XSSFWorkbook workbook = super.getXSSFWorkbook();
 		Sheet sheet =  workbook.getSheetAt(0);
 		
 		DataFormatter formatter = new DataFormatter();
@@ -65,7 +65,6 @@ public class Agreement extends AbstractDataUploadType{
 		SimpleDateFormat df3 = new SimpleDateFormat("dd.MM.yyyy");
 		
 		StringBuilder sb = new StringBuilder();
-		List<String> list = new ArrayList<String>(sheet.getPhysicalNumberOfRows());
 		Row row = sheet.getRow(0);
 		
 		String cell_SMO = String.valueOf(sheet.getRow(2).getCell(1).getNumericCellValue());
@@ -93,14 +92,12 @@ public class Agreement extends AbstractDataUploadType{
 			sb.append("");
 			sb.append(" '',"+cell_SMO+" ,sysdate)");
 			
-			list.add(sb.toString());
+			super.getListInsertQueries().add(sb.toString());
 			sb.delete(0, sb.length());
 		}
 		
-		super.pkg.close();
+	//	super.closeXSSFWorkbook();
 		
-		
-		return list;
 	}
 
 	@Override
@@ -109,10 +106,6 @@ public class Agreement extends AbstractDataUploadType{
 		
 	}
 
-	@Override
-	public String getFileName() {
-		return super.fileName;
-	}
 
 	@Override
 	public String construct_querySelect(String str) {

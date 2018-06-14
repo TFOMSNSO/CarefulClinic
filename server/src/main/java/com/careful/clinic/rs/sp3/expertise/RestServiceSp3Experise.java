@@ -27,9 +27,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import com.careful.clinic.dao.sp3.expertise.ISp3ExpertiseDao;
-import com.careful.clinic.model.ExpertiseRateMo;
+import com.careful.clinic.model.Sp3RateMo;
 import com.careful.clinic.model.ListExcelFiles;
-import com.careful.clinic.model.Wrap3a_b_Expertise;
+import com.careful.clinic.model.WrapSp3;
 import com.careful.clinic.report.sp3.expertise.Sp3ExpertiseReport;
 
 import net.sf.jasperreports.engine.JRException;
@@ -67,14 +67,14 @@ public class RestServiceSp3Experise {
 		try{
 			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
 			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
-			List<Wrap3a_b_Expertise> ls = null;
+			List<WrapSp3> ls = null;
 			// смещение для запроса
 			int iter = 0;
 			// порядковый номер файла
 			int i =1;
 			String [] mm = {"reports/sp3/expertise/3a_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3А_список_экспертиза_"};
 			while(true){
-				ls = (List<Wrap3a_b_Expertise>) sp3ExpertiseDAO.getResalt3a_expertise(date1, date2, user, iter);
+				ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a_expertise(date1, date2, user, iter);
 				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
 				
@@ -82,7 +82,7 @@ public class RestServiceSp3Experise {
 				iter = iter + 60_000;
 			}
 			
-			List<ExpertiseRateMo> ls_ =  (List<ExpertiseRateMo>) sp3ExpertiseDAO.getResalt3a_expertiseRateMo(date1, date2, user);
+			List<Sp3RateMo> ls_ =  (List<Sp3RateMo>) sp3ExpertiseDAO.getResalt3a_expertiseRateMo(date1, date2, user);
 			String [] c ={"reports/sp3/expertise/3a_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А_экспертиза_рейтингМО_"};
 			// выполняем формирование отчета
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
@@ -147,14 +147,14 @@ public class RestServiceSp3Experise {
 		try{
 			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
 			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
-			List<Wrap3a_b_Expertise> ls = null;
+			List<WrapSp3> ls = null;
 			// смещение для запроса
 			int iter = 0;
 			// порядковый номер файла
 			int i =1;
 			String [] mm = {"reports/sp3/expertise/3a3b_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3А3Б_список_экспертиза_"};
 			while(true){
-				ls = (List<Wrap3a_b_Expertise>) sp3ExpertiseDAO.getResalt3a3b_expertise(date1, date2, user, iter);
+				ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a3b_expertise(date1, date2, user, iter);
 				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
 				
@@ -162,7 +162,7 @@ public class RestServiceSp3Experise {
 				iter = iter + 60_000;
 			}
 			
-			List<ExpertiseRateMo> ls_ =  (List<ExpertiseRateMo>) sp3ExpertiseDAO.getResalt3a3b_expertiseRateMo(date1, date2, user);
+			List<Sp3RateMo> ls_ =  (List<Sp3RateMo>) sp3ExpertiseDAO.getResalt3a3b_expertiseRateMo(date1, date2, user);
 			String [] c ={"reports/sp3/expertise/3a3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А3Б_экспертиза_рейтингМО_"};
 			// выполняем формирование отчета
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
@@ -193,14 +193,14 @@ public class RestServiceSp3Experise {
 		try{
 			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
 			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
-			List<Wrap3a_b_Expertise> ls = null;
+			List<WrapSp3> ls = null;
 			// смещение для запроса
 			int iter = 0;
 			// порядковый номер файла
 			int i =1;
 			String [] mm = {"reports/sp3/expertise/3b_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3Б_список_экспертиза_"};
 			while(true){
-				ls = (List<Wrap3a_b_Expertise>) sp3ExpertiseDAO.getResalt3b_expertise(date1, date2, user, iter);
+				ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3b_expertise(date1, date2, user, iter);
 				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
 				
@@ -208,7 +208,7 @@ public class RestServiceSp3Experise {
 				iter = iter + 60_000;
 			}
 			
-			List<ExpertiseRateMo> ls_ =  (List<ExpertiseRateMo>) sp3ExpertiseDAO.getResalt3b_expertiseRateMo(date1, date2, user);
+			List<Sp3RateMo> ls_ =  (List<Sp3RateMo>) sp3ExpertiseDAO.getResalt3b_expertiseRateMo(date1, date2, user);
 			String [] c ={"reports/sp3/expertise/3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3Б_экспертиза_рейтингМО_"};
 			// выполняем формирование отчета
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2, c);

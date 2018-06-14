@@ -1,4 +1,6 @@
 <mat-card [@flyInOut]="'in'">
+<div>	
+<div>
 	
 	<mat-sidenav-container class="example-container">
 	  
@@ -56,6 +58,79 @@
 			
 			
 		  </mat-expansion-panel>
+		  
+		  <mat-expansion-panel (opened)="setTrue(2,true)" (closed)="setTrue(2,false)">
+			<mat-expansion-panel-header>
+			  <mat-panel-title>
+									{{_info_d_reestr}}
+			  </mat-panel-title>
+			  <mat-panel-description>
+			  
+			  <div *ngIf='panelOpenState2'>
+				 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+			  </div>
+			  <div *ngIf='!panelOpenState2'>
+				 {{_report_inform_note}}
+			  </div>
+			  
+			</mat-panel-description>
+			</mat-expansion-panel-header>
+			
+			
+			<span>{{  _expertise_field1_1 }}</span>
+			<mat-list>
+				    <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_D_reestr_Report(myForm);resetForm();">
+						<mat-list-item>
+							<h4 mat-line>
+							  <my-date-picker   name="date1" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
+							</h4>  
+							<h4 mat-line>
+							<span *ngIf="!myForm.controls.date1.valid" class="help-block text-danger">
+								<mat-error>{{ _field_is_required }}</mat-error>
+							 </span> 
+							 </h4>  
+						</mat-list-item>	  
+						<mat-list-item>
+							<h4 mat-line>
+							  <my-date-picker  name="date2" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
+							 </h4> 
+							<h4 mat-line>
+							  <span *ngIf="!myForm.controls.date2.valid" class="help-block text-danger">
+								<mat-error>{{ _field_is_required }}</mat-error>
+							  </span>
+							</h4> 
+						</mat-list-item>
+						<mat-list-item>	
+							<h4 mat-line>
+							  <button type='submit' mat-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
+							  <button type='button' mat-raised-button color='primary' (click)="resetForm()">{{ _reset }}</button>
+							</h4>  
+						</mat-list-item>	
+					</form>
+				
+				
+				</mat-list>
+			
+			
+			
+			
+		  </mat-expansion-panel>
+		  
 		</mat-accordion>
 	</mat-card-content>
+</div>
+<div class="list_files" *ngIf="allfile.length > 0; else other_content">
+	<mat-list *ngFor="let row of allfile; let i = index" (click)="downloadFile(row.namefile)">
+						  <h3 mat-subheader *ngIf="i==0">{{ _list_resolved }}</h3>
+						  <mat-list-item class="mycustomlist">
+							<mat-icon mat-list-icon>note</mat-icon>
+							<h4 mat-line>{{row.namefile}}</h4>
+							<p mat-line>{{_reestr_download}}</p>
+						</mat-list-item>
+	</mat-list>
+</div>
+	  <ng-template #other_content>
+	  	<div><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div>
+	  </ng-template>
+</div>
 </mat-card>

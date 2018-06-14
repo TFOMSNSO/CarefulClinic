@@ -40,8 +40,7 @@
                             <executable>ng.cmd</executable>
                             <arguments>
                                 <argument>build</argument>
-                                <argument>--target=production</argument>
-                                <argument>--environment=prod</argument>
+                                <argument>--configuration=prod</argument>
                             </arguments>
                         </configuration>
                         <phase>generate-resources</phase>
