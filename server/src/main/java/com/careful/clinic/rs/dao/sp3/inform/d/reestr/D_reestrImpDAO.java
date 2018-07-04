@@ -53,8 +53,9 @@ public class D_reestrImpDAO  implements D_reestr{
 		
 		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
 		// 
-		//String sb = "select  zz.id_assent,zz.person_linksmoestablishmentid,zz.FIO,zz.dr, zz.SMOID,zz.SERPOLIS,zz.NUMPOLIS,LPU,zz.AMBKARTA, zz.DAT_BEG,zz.DAT_END,zz.LPU_PRIK,zz.s1,zz.account,zz.AC_DATE,zz.REZOBR, zz.ds1 as f_mkb_usl, f_person_telephone_v2@dome_dev(zz.fam, zz.im, zz.ot, zz.drr) as tel, zz.id"  
-		String sb = "select  zz.FIO,zz.dr, zz.SMOID,zz.SERPOLIS,zz.NUMPOLIS,LPU,zz.AMBKARTA, zz.DAT_BEG,zz.DAT_END,zz.LPU_PRIK,zz.s1,zz.account,zz.AC_DATE,zz.REZOBR, zz.ds1 as f_mkb_usl, f_person_telephone_v2@dome_dev(zz.fam, zz.im, zz.ot, zz.drr) as tel, zz.id "
+		//String sb = "select  zz.id_assent,zz.person_linksmoestablishmentid,zz.FIO,zz.dr, zz.SMOID,zz.SERPOLIS,zz.NUMPOLIS,LPU,zz.AMBKARTA, zz.DAT_BEG,zz.DAT_END,zz.LPU_PRIK,zz.s1,zz.account,zz.AC_DATE,zz.REZOBR, zz.ds1 as f_mkb_usl, f_person_telephone_v2@dome_dev(zz.fam, zz.im, zz.ot, zz.drr) as tel, zz.id"
+String sb = "select tmp_all.* from ( "		
+		+"select  zz.FIO,zz.dr, zz.SMOID,zz.SERPOLIS,zz.NUMPOLIS,LPU,zz.AMBKARTA, zz.DAT_BEG,zz.DAT_END,zz.LPU_PRIK,zz.s1,zz.account,zz.AC_DATE,zz.REZOBR, zz.ds1 as f_mkb_usl, f_person_telephone_v2@dome_dev(zz.fam, zz.im, zz.ot, zz.drr) as tel, zz.id "
                                                            +"from ( "
 //                                                           +"select n.id_assent,pe.person_linksmoestablishmentid,p.pr_d_n,p.mes,p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR, p.ds1, p.fam, p.im, p.ot, p.dr as drr, p.id"
 															+"select p.mes, p.pr_d_n, p.FIO,p.dr, p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA, p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR, p.ds1, p.fam, p.im, p.ot, p.dr as drr, p.id "
@@ -124,10 +125,12 @@ public class D_reestrImpDAO  implements D_reestr{
                                                            +"and  p.id not in (select ot.id_pred from otkl_id ot where ot.id_pred = p.id) "
                                                            +"and not exists (select 1 from pat pp where pp.caretype = 30  and mes  in (401072,401079,401080)  and pp.fio = p.fio and pp.dr = p.dr) "
                                                            +") zz "
-                                                            +"where zz.mes between '401048' and '401071' and zz.pr_d_n  in (1, 2) and zz.rezobr in (16,22,23) ";
+                                                            +"where zz.mes between '401048' and '401071' and zz.pr_d_n  in (1, 2) and zz.rezobr in (16,22,23) "
 
-//+") tmp_all";
-//+"left join pat p2 on p2.fio = tmp_all.fio and p2.dr = tmp_all.dr and p2.dat_end > tmp_all.dat_end and p2.mes like '6%'";
++") tmp_all "
++ "where not exists "
++ " (select 1 from pat p2 where p2.fio = tmp_all.fio and p2.dr = tmp_all.dr and p2.dat_end > tmp_all.dat_end )";
+
 		
 		// TODO сделать выбор базы на сайте
 		Query q = non_mur_collect2018.createNativeQuery(sb);
