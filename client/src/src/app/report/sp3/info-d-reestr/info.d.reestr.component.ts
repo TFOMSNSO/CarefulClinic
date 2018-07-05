@@ -47,6 +47,8 @@ export class InfoDReestrComponent implements OnInit{
 	 public panelOpenState2 : boolean = false;
 	 public myForm: FormGroup;
 	 
+	 _reset: string = environment.reset;
+	 _info_d_reestr1: string = environment.info_d_reestr1;
 	 _info_d_reestr: string = environment.info_d_reestr;
 	 _report_inform_note_after: string = environment.report_inform_note_after;
 	 _report_inform_note: string = environment.report_inform_note;

@@ -128,6 +128,15 @@ public class RestServiceSp3InformDReestr {
 		
 	}
 	
+	/**
+	 * Формирование списка на информирование чезез форму (<form>.)
+	 * @param id
+	 * @return
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	@GET
 	@Path("/list_files/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)

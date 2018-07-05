@@ -17,6 +17,7 @@ import com.careful.clinic.upload.interfase.IDataUploadType;
 import com.careful.clinic.upload.type.Agreement;
 import com.careful.clinic.upload.type.BreakAgreement;
 import com.careful.clinic.upload.type.InformD_reestr;
+import com.careful.clinic.upload.type.SurveyRenouncementDisp;
 
 // TODO убрать метод  getInstansUploadData и сдалать его слабосвязанным как  abstract IDataUploadType getInstansUploadData();
 @Stateless
@@ -44,6 +45,8 @@ public class UploadDataFactory {
 			dut = new BreakAgreement(pkg,fileName);
 		}else if(type.trim().equalsIgnoreCase("ИНФОД-УЧЕТ")){
 			dut = new InformD_reestr(pkg,fileName);
+		}else if(type.trim().equalsIgnoreCase("ОПРОС ОТКАЗ ДИСПАНСЕРИЗАЦИИ")){
+			dut = new SurveyRenouncementDisp();
 		}else{
 			// временно. До тех пор пока не непеведу все под паттерн фабрика AbstractDataUploadType 
 			pkg.close();
