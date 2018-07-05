@@ -823,7 +823,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 							}
 						}
 						if(row.getCell(7).getNumericCellValue() <1 || row.getCell(7).getNumericCellValue() >4){ pkg.close();	throw new ParseDataExcelException("Ошибка в шаблоне загрузки анкетирования. Поле id страховой не прошло проверку. Строка "+(j+1));}
-						if(row.getCell(5).getNumericCellValue() <1 || row.getCell(5).getNumericCellValue() >10){ pkg.close(); throw new ParseDataExcelException("Ошибка в шаблоне загрузки анкетирования. Поле id ответа не прошло проверку. Строка "+(j+1));}
+						if(row.getCell(5).getNumericCellValue() <1 || row.getCell(5).getNumericCellValue() >20){ pkg.close(); throw new ParseDataExcelException("Ошибка в шаблоне загрузки анкетирования. Поле id ответа не прошло проверку. Строка "+(j+1));}
 						if(i == 3 || i == 4){
 							sb.append(df2.format(df.parse(row.getCell(i).toString())));
 						}else{
