@@ -16,9 +16,8 @@ import com.careful.clinic.exceptions.CheckTypizineExcelException;
 import com.careful.clinic.exceptions.ParseDataExcelException;
 import com.careful.clinic.upload.interfase.IDataUploadType;
 import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
-import com.careful.clinic.upload.type.InformD_reestr;
 
-public class UploadServiceTest {
+public class TestService {
 
 	private static IDataUploadType iDataUploadType;
 	private static UploadDataFactory udf;
@@ -39,7 +38,7 @@ public class UploadServiceTest {
 		System.out.println("This is exceuted after each Test");
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void test_assent() throws ParseException, IOException, InvalidFormatException, ParseDataExcelException, CheckStructureExcelException, CheckTypizineExcelException {
 		String path = Thread.currentThread().getContextClassLoader().getResource("test/test_assent.xlsx").getPath();
@@ -50,7 +49,7 @@ public class UploadServiceTest {
 	}
 	
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void test_d_reestr() throws ParseException, IOException, InvalidFormatException, ParseDataExcelException, CheckStructureExcelException, CheckTypizineExcelException {
 		String path = Thread.currentThread().getContextClassLoader().getResource("test/test_d_reestr.xlsx").getPath();
@@ -60,6 +59,17 @@ public class UploadServiceTest {
 			System.out.println(iDataUploadType.construct_querySelect(str));
 		}
 	}
+	
+	    //@Ignore
+		@Test
+		public void test_RenouncementDisp() throws ParseException, IOException, InvalidFormatException, ParseDataExcelException, CheckStructureExcelException, CheckTypizineExcelException {
+			String path = Thread.currentThread().getContextClassLoader().getResource("test/test_renouncement.xlsx").getPath();
+			iDataUploadType =  udf.getInstansUploadData(path);
+			List<String> insets = iDataUploadType.orderingParsingProcess();
+			for(String str : insets){
+				System.out.println(iDataUploadType.construct_querySelect(str));
+			}
+		}
 
 	@Ignore
 	@Test
@@ -86,7 +96,5 @@ public class UploadServiceTest {
 	@Test
 	public void testSubstraction() {
 	}
-
-
 
 }

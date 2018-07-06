@@ -46,7 +46,7 @@ public class UploadDataFactory {
 		}else if(type.trim().equalsIgnoreCase("ИНФОД-УЧЕТ")){
 			dut = new InformD_reestr(pkg,fileName);
 		}else if(type.trim().equalsIgnoreCase("ОПРОС ОТКАЗ ДИСПАНСЕРИЗАЦИИ")){
-			dut = new SurveyRenouncementDisp();
+			dut = new SurveyRenouncementDisp(pkg,fileName);
 		}else{
 			// временно. До тех пор пока не непеведу все под паттерн фабрика AbstractDataUploadType 
 			pkg.close();

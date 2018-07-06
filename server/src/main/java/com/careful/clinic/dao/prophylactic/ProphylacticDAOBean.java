@@ -795,53 +795,6 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 
 				
 			}
-			
-			else if(row.getLastCellNum() == 8){
-				StringBuilder sb = new StringBuilder();
-				list = new ArrayList<String>(sheet.getPhysicalNumberOfRows());
-				
-				for(int j=1; j< sheet.getPhysicalNumberOfRows(); j++){
-					row = sheet.getRow(j);
-					if(row.getLastCellNum() != 8){ pkg.close(); throw new ParseDataExcelException("Ошибка в шаблоне загрузки анкетирования. Неправильная структура шаблона. Строка "+(j+1));}
-					if(formatter.formatCellValue(row.getCell(0)).equals("") ||
-							  formatter.formatCellValue(row.getCell(1)).equals("")  ||
-							  formatter.formatCellValue(row.getCell(3)).equals("")  ||
-							  formatter.formatCellValue(row.getCell(4)).equals("")  ||
-							  formatter.formatCellValue(row.getCell(5)).equals("")  ||
-							  formatter.formatCellValue(row.getCell(7)).equals("")  
-									){ pkg.close(); throw new ParseDataExcelException("Ошибка в шаблоне загрузки анкетирования. Отсутствуют обязательных поля. Строка "+(j+1));}
-					sb.append("insert into pm_a p        values('',");
-					for(int i=0; i<row.getLastCellNum(); i++){
-						sb.append("'");
-						{
-							try{
-								row.getCell(7).getNumericCellValue();
-								row.getCell(5).getNumericCellValue();
-							}catch (Exception e) {
-								pkg.close();
-								throw new ParseDataExcelException("Ошибка в шаблоне загрузки анкетирования. Поле id страховой или id ответа не прошло проверку. Строка "+(j+1));
-							}
-						}
-						if(row.getCell(7).getNumericCellValue() <1 || row.getCell(7).getNumericCellValue() >4){ pkg.close();	throw new ParseDataExcelException("Ошибка в шаблоне загрузки анкетирования. Поле id страховой не прошло проверку. Строка "+(j+1));}
-						if(row.getCell(5).getNumericCellValue() <1 || row.getCell(5).getNumericCellValue() >20){ pkg.close(); throw new ParseDataExcelException("Ошибка в шаблоне загрузки анкетирования. Поле id ответа не прошло проверку. Строка "+(j+1));}
-						if(i == 3 || i == 4){
-							sb.append(df2.format(df.parse(row.getCell(i).toString())));
-						}else{
-							sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase());}
-						sb.append("'");
-						//if(i != row.getLastCellNum()-1)
-							sb.append(",");
-					}
-					sb.append("trunc(sysdate),sysdate)");
-					list.add(sb.toString());
-					sb.delete(0, sb.length());
-					
-				
-				}
-				pkg.close();
-				return list;
-				//System.out.println(list);
-			}
 			else if(true){
 				pkg.close();
 				throw new ParseDataExcelException("Ошибка в шаблоне загрузки. Не удается определить принадлежность загружаемого формата данных. Проверьте невидимые символы в пустых ячеках (выделите столбцы или строки с пустыми ячейками и удалите через контекстное меню) ");
