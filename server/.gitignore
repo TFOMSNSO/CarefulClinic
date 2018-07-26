@@ -4,3 +4,4 @@
 /.settings/
 *.jasper
 *.xls
+*.~sql

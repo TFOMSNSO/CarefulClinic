@@ -12,16 +12,32 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.spi.FileSystemProvider;
 import java.sql.SQLSyntaxErrorException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.persistence.PersistenceException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -72,6 +88,9 @@ public class RestServiceProphylactic {
 	XA_Dream2Dao xa_Dream2Dao;
 	@EJB
 	private RandomGUID randomGuid;
+	
+	@Resource(name = "java:jboss/mail/ofoms")
+    private Session session;
 	
 	public byte[] getBytesFromInputStream(InputStream is) throws IOException
 	{
@@ -146,9 +165,11 @@ public class RestServiceProphylactic {
 			}
 			if(listOfQueryies == null) throw new ParseDataExcelException("Ошибка в шаблоне. Не удается определить шаблон.");
 			//data.checkOuTroughDB(listOfQueryies)
+			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
 			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){
 				deleteNativeFileFromUser(null, fileName, authHeaders);
 			}
+			
 			 String info =  new String("Файл успешно загружен");
 			 builder = Response.status(Response.Status.OK);
 		     builder.entity( info );
@@ -201,6 +222,57 @@ public class RestServiceProphylactic {
 		
 	}
 	
+	/**
+	 *  Отправка сообщения по почте
+	 * @param valueOf
+	 * @param timeInstance
+	 * @param fileName
+	 */
+	private void send(Integer valueOf, DateFormat timeInstance, String filename) {
+		
+		System.out.println("filename "+filename);
+		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,paa@ofoms.sibnet.ru";
+    	String topic= "ПРОИЗОШЛА ЗАГРУЗКА ДАННЫХ В ЕИР НСО";
+    	//String textMessage = "Test Message Text";
+ 
+        try {
+ 
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("info@eir.tfoms.nso"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses));
+            message.setSubject(topic, "UTF-8");
+           // message.setText(textMessage);
+            BodyPart messageBodyPart = new MimeBodyPart();
+            //messageBodyPart.setText("Это текст на русском яхыке<br> and English lang... ");
+            messageBodyPart.setContent("<p>ЭТО АВТОМАТИЧЕСКАЯ РАССЫЛКА ПРИЛОЖЕНИЯ ЕИР НСО.</p><br>Пользователь "+valueOf+" соверщил загрузку данных в Единое информационное пространство в "+timeInstance.format(new Date())+"<br>Загруженная информация во вложении", "text/html; charset=utf-8");
+            
+         // Create a multipar message
+            Multipart multipart = new MimeMultipart();
+
+            // Set text message part
+            multipart.addBodyPart(messageBodyPart);
+
+            // Part two is attachment
+            messageBodyPart = new MimeBodyPart();
+         //   String filename = "C:/Temp/ghjg.xlsx";
+            DataSource source = new FileDataSource(filename);
+            messageBodyPart.setDataHandler(new DataHandler(source));
+            messageBodyPart.setFileName("file.xlsx");
+            multipart.addBodyPart(messageBodyPart);
+
+            // Send the complete message parts
+            message.setContent(multipart);
+            
+ 
+            Transport.send(message);
+ 
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+		
+		
+	}
+
 	/**
 	 * Основная идея метода - это переименование загруженного на файловую систему файла.
 	 * Так как загружаемый user'ом файл может грузиться с одним и тем же именем, что приведет к неразберихе и возможным

@@ -38,7 +38,6 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 				 this.checkSinchronizeData();
 				 
 			     List<String> ls = this.getListInsertQueries();
-			     System.out.println("LS "+ ls);
 				 return ls;
 		 }finally {
 			closeXSSFWorkbook();

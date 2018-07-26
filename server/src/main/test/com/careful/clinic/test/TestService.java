@@ -70,6 +70,17 @@ public class TestService {
 				System.out.println(iDataUploadType.construct_querySelect(str));
 			}
 		}
+		
+		 @Ignore
+		@Test
+		public void test_ContentmentDisp() throws ParseException, IOException, InvalidFormatException, ParseDataExcelException, CheckStructureExcelException, CheckTypizineExcelException {
+			String path = Thread.currentThread().getContextClassLoader().getResource("test/contentmentDisp_test.xlsx").getPath();
+			iDataUploadType =  udf.getInstansUploadData(path);
+			List<String> insets = iDataUploadType.orderingParsingProcess();
+			for(String str : insets){
+				System.out.println(iDataUploadType.construct_querySelect(str));
+			}
+		}
 
 	@Ignore
 	@Test

@@ -124,10 +124,14 @@ public abstract class AbstractDataPmA extends AbstractDataUploadType{
 		 sb.append(tmp_m[5]);
 		 sb.append(" and p.type_info=");
 		 sb.append(tmp_m[6]);
-		 sb.append(" and p.prim=");
-		 sb.append(tmp_m[7]);
+		 sb.append(" and (");
+		 	sb.append(" p.prim=");
+		 	sb.append(tmp_m[7]);
+		 	sb.append(" or ");
+		 	sb.append(" p.prim is null ");
+		 sb.append(" ) ");	
 		 sb.append(" and p.smo=");
-		 sb.append(tmp_m[9]);
+		 sb.append(tmp_m[8]);
 		
 		return sb.toString();
 	}
