@@ -763,7 +763,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 								throw new ParseDataExcelException("Ошибка в шаблоне информирования. Поле этап или id страхования или тип информирования не прошло проверку. Строка "+(j+1));
 							}
 						}
-						if(row.getCell(4).getNumericCellValue() <1 || row.getCell(4).getNumericCellValue() >4){ pkg.close();	throw new ParseDataExcelException("Ошибка в шаблоне информирования. Поле этап информирования не прошло проверку. Строка "+(j+1));}
+						if((row.getCell(4).getNumericCellValue() <1 || row.getCell(4).getNumericCellValue() >4)&&(row.getCell(4).getNumericCellValue() <6 || row.getCell(4).getNumericCellValue() >7)){ pkg.close();	throw new ParseDataExcelException("Ошибка в шаблоне информирования. Поле этап информирования не прошло проверку. Строка "+(j+1));}
 						if(row.getCell(8).getNumericCellValue() <1 || row.getCell(8).getNumericCellValue() >4){ pkg.close();	throw new ParseDataExcelException("Ошибка в шаблоне информирования. Поле id страховой не прошло проверку. Строка "+(j+1));}
 						if(row.getCell(6).getNumericCellValue() <1 || row.getCell(6).getNumericCellValue() >10){ pkg.close();  throw new ParseDataExcelException("Ошибка в шаблоне информирования. Поле тип информирования не прошло проверку. Строка "+(j+1));}
 						if(i == 3 || i == 5){
