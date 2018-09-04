@@ -101,7 +101,7 @@ public class Assent {
 		System.out.println("Done!2 "+directoryServer);
 		
 		builder = Response.status(Response.Status.OK);
-	     builder.entity("Отчет успещно сформирован");
+	     builder.entity("Отчет успешно сформирован");
 	     return builder.build();
 	     
 		}catch(Exception e){

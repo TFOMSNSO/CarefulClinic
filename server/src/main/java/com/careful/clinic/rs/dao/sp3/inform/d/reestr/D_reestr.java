@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.careful.clinic.model.Sp3RateMo;
-import com.careful.clinic.model.WrapSp3;
+import com.careful.clinic.model.InformDReestr;
 
 @Local
 public interface D_reestr {
@@ -15,7 +15,7 @@ public interface D_reestr {
 
 	List<Sp3RateMo> getResalt_D_reestrRateMo(String date1, String date2, String user);
 
-	List<WrapSp3> getResalt_D_reestrCollect2018(String date1, String date2, String user, int firrstResult);
+	List<InformDReestr> getResalt_D_reestrCollect2018(String date1, String date2, String user, int firrstResult);
 
 
 	List<?> getListFiles(Integer id);

@@ -19,6 +19,6 @@
 ##### Development mode
 1. clone the git project
 2. You can start the server using your favourite IDE. The project uses a standard Maven directory structure. You need to configure the server to deploy the _server.war_ artifact.
-2. from the _PROJECT/client/src_ directory install the npm packages : `npm install`
-3. launch the client with `ng serve`. The client uses the port 4200 (default for Angular CLI) and you can navigate to _http://localhost:4200_
+3. from the _PROJECT/client/src_ directory install the npm packages : `npm install`
+4. launch the client with `ng serve`. The client uses the port 4200 (default for Angular CLI) and you can navigate to _http://localhost:4200_
 

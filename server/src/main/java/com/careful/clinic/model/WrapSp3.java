@@ -7,8 +7,8 @@ import java.util.Date;
 public class WrapSp3 {
 
 	public WrapSp3(String fio, Date dr, Long smoid, String serpolis, String numpolis, String lpu,
-			String ambkarta, Date dat_beg, Date dat_end, Long lpu_prik, Long s1, Long account, Date ac_date,
-			String rezobr, String f_mkb_usl, String tel, Long id){
+				   String ambkarta, Date dat_beg, Date dat_end, Long lpu_prik, Long s1, Long account, Date ac_date,
+				   String rezobr, String mes, String f_mkb_usl, String tel, Long id){
 		super();
 		this.tel = tel;
 		this.id = id;
@@ -26,12 +26,13 @@ public class WrapSp3 {
 		this.account = account;
 		this.ac_date = ac_date;
 		this.rezobr = rezobr;
+		this.mes = mes;
 		this.f_mkb_usl = f_mkb_usl;
 	}
 	public WrapSp3() {
-		
+
 	}
-	
+
 	private String fio;
 	private Date dr;
 	private String tel;
@@ -47,9 +48,10 @@ public class WrapSp3 {
 	private Long account;
 	private Date ac_date;
 	private String rezobr;
+	private String mes;
 	private String f_mkb_usl;
 	private Long id;
-	
+
 	public String getFio() {
 		return fio;
 	}
@@ -134,6 +136,12 @@ public class WrapSp3 {
 	public void setRezobr(String rezobr) {
 		this.rezobr = rezobr;
 	}
+	public String getMes() {
+		return mes;
+	}
+	public void setMes(String mes) {
+		this.mes = mes;
+	}
 	public String getF_mkb_usl() {
 		return f_mkb_usl;
 	}
@@ -152,5 +160,5 @@ public class WrapSp3 {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 }
