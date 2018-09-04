@@ -51,32 +51,32 @@ import net.sf.jasperreports.engine.JRException;
 
 @javax.ws.rs.Path("/sp3/expertise")
 public class RestServiceSp3Experise {
-	
+
 	@EJB
 	ISp3ExpertiseDao sp3ExpertiseDAO;
 	@EJB
 	Sp3ExpertiseReport sp3ExpertiseReport;
-	
-	
-	
+
+
+
 	@GET
 	@Path("/Sp3ReportExpertiseFiles/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> listFilesExpertiseReport(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
-		
+
 		List<?> df = (List<?>) sp3ExpertiseDAO.getListExperiseReport(id);
-		
+
 		return df;
 	}
-	
+
 	@POST
 	@Path("/3a_report")
 	//@Consumes("application/x-www-form-urlencoded")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response report_3a(String x)  {
-		
+
 		Response.ResponseBuilder builder = null;
 		String m[] = x.split("\":\"");
 		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
@@ -93,70 +93,70 @@ public class RestServiceSp3Experise {
 				ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a_expertise(date1, date2, user, iter);
 				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
-				
+
 				i++;
 				iter = iter + 60_000;
 			}
-			
+
 			List<Sp3RateMo> ls_ =  (List<Sp3RateMo>) sp3ExpertiseDAO.getResalt3a_expertiseRateMo(date1, date2, user);
 			String [] c ={"reports/sp3/expertise/3a_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А_экспертиза_рейтингМО_"};
 			// выполняем формирование отчета
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
-			
-			
+
+
 			builder = Response.status(Response.Status.OK);
-		     builder.entity("Отчет успещно сформирован");
-		     //throw new Exception(); 
-		     return builder.build();
+			builder.entity("Отчет успешно сформирован");
+			//throw new Exception();
+			return builder.build();
 		}catch (Exception e) {
 			e.printStackTrace();
 			builder = Response.status(Response.Status.OK);
-		     builder.entity("Произошла ошибка формирования отчета");
-		     return builder.build();
+			builder.entity("Произошла ошибка формирования отчета");
+			return builder.build();
 		}
 	}
-	
-	
+
+
 	@GET
 	@Path("/downloadFile/{id}/{namefile}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/vnd.ms-excel")
 	public Response getdownloadFile(@PathParam("id") Integer id, @PathParam("namefile") String namefile) {
-		
+
 		int current_year = Calendar.getInstance().get(Calendar.YEAR);
-		
+
 		String directoryServer = System.getProperty("jboss.home.dir");
 		String directoryDestination = "";
-			if(id == 777) directoryDestination = "\\content\\report\\sp3\\expert\\777";
-			if(id == 1)	directoryDestination = "\\content\\report\\sp3\\expert\\1";
-			if(id == 2)	directoryDestination = "\\content\\report\\sp3\\expert\\2";
-			if(id == 4)	directoryDestination = "\\content\\report\\sp3\\expert\\4";	
-		
-		
+		if(id == 777) directoryDestination = "\\content\\report\\sp3\\expert\\777";
+		if(id == 1)	directoryDestination = "\\content\\report\\sp3\\expert\\1";
+		if(id == 2)	directoryDestination = "\\content\\report\\sp3\\expert\\2";
+		if(id == 4)	directoryDestination = "\\content\\report\\sp3\\expert\\4";
+
+
 		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
-		
-	    File file = new File(directoryDestination);
-	    try {
-	        String contentType = Files.probeContentType(file.toPath());
-	        
-	        Response.ResponseBuilder response = Response.ok(file);
-	        response.header("Content-Disposition", "attachment; filename="+file.getName());
-	        response.header("Content-Type", contentType);
-	        response.header("Content-Length", file.length());
-	        return response.build();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-	    }
+
+		File file = new File(directoryDestination);
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+
+			Response.ResponseBuilder response = Response.ok(file);
+			response.header("Content-Disposition", "attachment; filename="+file.getName());
+			response.header("Content-Type", contentType);
+			response.header("Content-Length", file.length());
+			return response.build();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
 	}
-	
+
 	@POST
 	@Path("/3a3b_report")
 	//@Consumes("application/x-www-form-urlencoded")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response report_3a3b(String x)  {
-		
+
 		Response.ResponseBuilder builder = null;
 		String m[] = x.split("\":\"");
 		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
@@ -173,36 +173,36 @@ public class RestServiceSp3Experise {
 				ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a3b_expertise(date1, date2, user, iter);
 				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
-				
+
 				i++;
 				iter = iter + 60_000;
 			}
-			
+
 			List<Sp3RateMo> ls_ =  (List<Sp3RateMo>) sp3ExpertiseDAO.getResalt3a3b_expertiseRateMo(date1, date2, user);
 			String [] c ={"reports/sp3/expertise/3a3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А3Б_экспертиза_рейтингМО_"};
 			// выполняем формирование отчета
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
-			
+
 			builder = Response.status(Response.Status.OK);
-		     builder.entity("Отчет успещно сформирован");
-		     //throw new Exception(); 
-		     return builder.build();
+			builder.entity("Отчет успешно сформирован");
+			//throw new Exception();
+			return builder.build();
 		}catch (Exception e) {
 			e.printStackTrace();
 			builder = Response.status(Response.Status.OK);
-		     builder.entity("Произошла ошибка формирования отчета");
-		     return builder.build();
+			builder.entity("Произошла ошибка формирования отчета");
+			return builder.build();
 		}
 	}
-	
-	
+
+
 	@POST
 	@Path("/3b_report")
 	//@Consumes("application/x-www-form-urlencoded")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response report_3b(String x)  {
-		
+
 		Response.ResponseBuilder builder = null;
 		String m[] = x.split("\":\"");
 		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
@@ -219,25 +219,25 @@ public class RestServiceSp3Experise {
 				ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3b_expertise(date1, date2, user, iter);
 				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
-				
+
 				i++;
 				iter = iter + 60_000;
 			}
-			
+
 			List<Sp3RateMo> ls_ =  (List<Sp3RateMo>) sp3ExpertiseDAO.getResalt3b_expertiseRateMo(date1, date2, user);
 			String [] c ={"reports/sp3/expertise/3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3Б_экспертиза_рейтингМО_"};
 			// выполняем формирование отчета
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2, c);
-			
+
 			builder = Response.status(Response.Status.OK);
-		     builder.entity("Отчет успещно сформирован");
-		     //throw new Exception(); 
-		     return builder.build();
+			builder.entity("Отчет успешно сформирован");
+			//throw new Exception();
+			return builder.build();
 		}catch (Exception e) {
 			e.printStackTrace();
 			builder = Response.status(Response.Status.OK);
-		     builder.entity("Произошла ошибка формирования отчета");
-		     return builder.build();
+			builder.entity("Произошла ошибка формирования отчета");
+			return builder.build();
 		}
 	}
 
