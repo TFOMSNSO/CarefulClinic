@@ -158,7 +158,9 @@ public class RestServiceProphylactic {
 			
 			IDataUploadType data = uploadFactory.getInstansUploadData(fileName);
 			List<String> listOfQueryies =  null;
-			if (data != null ) { listOfQueryies =  data.orderingParsingProcess(); }
+			if (data != null ) {
+				listOfQueryies =  data.orderingParsingProcess();
+			}
 			else{
 				// ВРЕМЕННО когда полностью реализуется паттерн фабрика (в первом if)
 				listOfQueryies = prophylacticDAO.processingExcelFile(fileName); 

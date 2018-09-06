@@ -63,7 +63,7 @@ public abstract class AbstractDataPmA extends AbstractDataUploadType{
 		for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
 			row = sheet.getRow(j);
 			
-			sb.append("insert into pm_a p        values(''," );
+			sb.append("insert into pm_a  p       (ID,FAM,IM,OT,DR,D_INFO,TYPE_INFO,PRIM,SMO,DATA,D_INSERT)  values(''," );
 			for(int i=0;  i < 7; i++){
 				sb.append("'");
 
@@ -109,8 +109,12 @@ public abstract class AbstractDataPmA extends AbstractDataUploadType{
 		String tmp_m[] = null, tmp = null;
 		tmp = str.replace("insert into", "select  count(*) from");
 		sb.append(tmp.substring(0, 34));
-		
+
 		tmp_m = tmp.substring(29).split(",");
+		String temp_fam = "FAM";
+		if (tmp_m[1].equals(temp_fam)){
+			tmp_m = tmp.substring(92).split(",");
+		}
 		sb.append(" where ");
 		sb.append("p.fam=");
 		sb.append(tmp_m[1]);
@@ -126,12 +130,22 @@ public abstract class AbstractDataPmA extends AbstractDataUploadType{
 		 sb.append(tmp_m[6]);
 		 sb.append(" and (");
 		 	sb.append(" p.prim=");
-		 	sb.append(tmp_m[7]);
+
+		 	String tmp_m_7 = tmp_m[7];
+		 	int i = 8;
+		 	while (tmp_m[i].length() > 1)
+			{
+				tmp_m_7 = tmp_m_7 +","+ tmp_m[i];
+
+						i++;
+			}
+		 	sb.append(tmp_m_7);
 		 	sb.append(" or ");
 		 	sb.append(" p.prim is null ");
 		 sb.append(" ) ");	
 		 sb.append(" and p.smo=");
-		 sb.append(tmp_m[8]);
+
+			sb.append(tmp_m[i]);
 		
 		return sb.toString();
 	}

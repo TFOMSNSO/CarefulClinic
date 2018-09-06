@@ -702,7 +702,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		public List<String> processingExcelFile(String fileName) throws ParseDataExcelException, InvalidFormatException, IOException, ParseException{
 			
 			// TODO   Поместить 'под паттерн' загрузку информирования и анкетирования. В фабричном методе подумать на правильной реализацией DI вместо new  
-			
+
 			OPCPackage pkg = OPCPackage.open(new File(fileName));
 			XSSFWorkbook workbook = new XSSFWorkbook(pkg);
 			

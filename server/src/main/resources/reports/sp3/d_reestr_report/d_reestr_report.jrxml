@@ -10,24 +10,28 @@
 	<parameter name="date_end" class="java.lang.String"/>
 	<field name="fio" class="java.lang.String"/>
 	<field name="dr" class="java.util.Date"/>
-	<field name="smoid" class="java.lang.Long"/>
-	<field name="serpolis" class="java.lang.String"/>
-	<field name="numpolis" class="java.lang.String"/>
+	<field name="tel" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="smoid" class="java.lang.String"/>
+	<field name="pol" class="java.lang.String"/>
 	<field name="lpu" class="java.lang.String"/>
 	<field name="ambkarta" class="java.lang.String"/>
 	<field name="dat_beg" class="java.util.Date"/>
 	<field name="dat_end" class="java.util.Date"/>
-	<field name="lpu_prik" class="java.lang.Long"/>
-	<field name="s1" class="java.lang.Long"/>
-	<field name="account" class="java.lang.Long"/>
+	<field name="lpu_prik" class="java.lang.String"/>
+	<field name="account" class="java.lang.String"/>
 	<field name="ac_date" class="java.util.Date"/>
 	<field name="rezobr" class="java.lang.String"/>
+	<field name="ds1" class="java.lang.String"/>
+	<field name="prdn" class="java.lang.String"/>
 	<field name="mes" class="java.lang.String"/>
-	<field name="f_mkb_usl" class="java.lang.String"/>
-	<field name="tel" class="java.lang.String"/>
-	<field name="id" class="java.lang.Long"/>
+	<field name="kratnost" class="java.lang.String"/>
+	<field name="last_treatment" class="java.util.Date"/>
+	<field name="plan_inform" class="java.util.Date"/>
+	<field name="date_inform" class="java.util.Date"/>
+	<field name="id_assent" class="java.lang.Long"/>
 	<columnHeader>
-		<band height="102">
+		<band height="97">
 			<textField>
 				<reportElement x="0" y="38" width="213" height="46" uuid="3a2bdc74-39ab-43cc-ae59-e4acb3113e9e"/>
 				<box>
@@ -40,7 +44,7 @@
 				<textFieldExpression><![CDATA["ФИО"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="213" y="38" width="70" height="46" uuid="39b2280b-03cc-4589-a07e-647c58c5787a"/>
+				<reportElement x="213" y="38" width="60" height="46" uuid="39b2280b-03cc-4589-a07e-647c58c5787a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -51,7 +55,7 @@
 				<textFieldExpression><![CDATA["Дата рождения"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="423" y="38" width="70" height="46" uuid="3812d70d-55de-4372-b6ca-9c446c3e963d"/>
+				<reportElement x="393" y="38" width="60" height="46" uuid="3812d70d-55de-4372-b6ca-9c446c3e963d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -62,7 +66,7 @@
 				<textFieldExpression><![CDATA["Адрес ЗЛ"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="493" y="38" width="70" height="46" uuid="bce9804e-7c35-4baa-88fc-70ac00215552"/>
+				<reportElement x="453" y="38" width="60" height="46" uuid="bce9804e-7c35-4baa-88fc-70ac00215552"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -73,7 +77,7 @@
 				<textFieldExpression><![CDATA["СМО"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="563" y="38" width="70" height="46" uuid="d58b7f8f-2cd8-484e-8d02-7bccf2c2cd5d"/>
+				<reportElement x="513" y="38" width="60" height="46" uuid="d58b7f8f-2cd8-484e-8d02-7bccf2c2cd5d"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -84,7 +88,7 @@
 				<textFieldExpression><![CDATA["Серия, номер полиса"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="633" y="38" width="70" height="46" uuid="4e603a92-e0f2-4192-a743-ad39301358ee"/>
+				<reportElement x="573" y="38" width="60" height="46" uuid="4e603a92-e0f2-4192-a743-ad39301358ee"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -95,7 +99,7 @@
 				<textFieldExpression><![CDATA["Код МО"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="703" y="38" width="70" height="46" uuid="37d814a0-050e-44b1-b8c5-b2232fb39bbc"/>
+				<reportElement x="633" y="38" width="60" height="46" uuid="37d814a0-050e-44b1-b8c5-b2232fb39bbc"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -106,7 +110,7 @@
 				<textFieldExpression><![CDATA["Амбулаторная карта"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="773" y="38" width="70" height="46" uuid="f3cdcde7-0b54-4e6c-95cc-eeedb037069a"/>
+				<reportElement x="693" y="38" width="60" height="46" uuid="f3cdcde7-0b54-4e6c-95cc-eeedb037069a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -117,7 +121,7 @@
 				<textFieldExpression><![CDATA["Дата начала лечения"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="843" y="38" width="70" height="46" uuid="edb4fc5f-3213-421b-8f10-453b19a7adda"/>
+				<reportElement x="753" y="38" width="60" height="46" uuid="edb4fc5f-3213-421b-8f10-453b19a7adda"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -130,7 +134,7 @@
 				<textFieldExpression><![CDATA["Дата окончания лечения"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="913" y="38" width="70" height="46" uuid="5044ad08-5ce0-4d9d-ae93-14e21eca28c3"/>
+				<reportElement x="813" y="38" width="60" height="46" uuid="5044ad08-5ce0-4d9d-ae93-14e21eca28c3"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -141,7 +145,7 @@
 				<textFieldExpression><![CDATA["МО прикрепления"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="983" y="38" width="70" height="46" uuid="569068d3-45fe-4980-b22b-cfe159753221"/>
+				<reportElement x="873" y="38" width="60" height="46" uuid="569068d3-45fe-4980-b22b-cfe159753221"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -152,7 +156,7 @@
 				<textFieldExpression><![CDATA["Номер счёта"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1053" y="38" width="70" height="46" uuid="9437ec76-58a6-47ea-b099-ad4cfe0e34ae"/>
+				<reportElement x="933" y="38" width="60" height="46" uuid="9437ec76-58a6-47ea-b099-ad4cfe0e34ae"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -163,7 +167,7 @@
 				<textFieldExpression><![CDATA["Дата счета"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1123" y="38" width="130" height="46" uuid="a30ffb75-e527-4674-b0ab-017413933513"/>
+				<reportElement x="993" y="38" width="130" height="46" uuid="a30ffb75-e527-4674-b0ab-017413933513"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -176,7 +180,7 @@
 				<textFieldExpression><![CDATA["Группа здоровья по результатам диспансеризации"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1253" y="38" width="70" height="46" uuid="3743a0d3-9aff-4b9d-9471-4e0f8d0e0305"/>
+				<reportElement x="1123" y="38" width="60" height="46" uuid="3743a0d3-9aff-4b9d-9471-4e0f8d0e0305"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -203,7 +207,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="213" y="84" width="70" height="13" uuid="92a694b2-3da2-418f-af9e-d96339a8c300"/>
+				<reportElement x="213" y="84" width="60" height="13" uuid="92a694b2-3da2-418f-af9e-d96339a8c300"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -217,7 +221,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="423" y="84" width="70" height="13" uuid="eedc99f7-956d-439e-b1f1-ad8627604836"/>
+				<reportElement x="393" y="84" width="60" height="13" uuid="eedc99f7-956d-439e-b1f1-ad8627604836"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -231,7 +235,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="493" y="84" width="70" height="13" uuid="3a6cb36d-ea25-4b88-911c-62ad79074c77"/>
+				<reportElement x="453" y="84" width="60" height="13" uuid="3a6cb36d-ea25-4b88-911c-62ad79074c77"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -245,7 +249,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="563" y="84" width="70" height="13" uuid="6fc95d54-6e7e-4102-97fa-6eb79d4bcfd2"/>
+				<reportElement x="513" y="84" width="60" height="13" uuid="6fc95d54-6e7e-4102-97fa-6eb79d4bcfd2"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -259,7 +263,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="703" y="84" width="70" height="13" uuid="d132bbaa-f189-4490-925f-4e2b23c08866"/>
+				<reportElement x="633" y="84" width="60" height="13" uuid="d132bbaa-f189-4490-925f-4e2b23c08866"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -273,7 +277,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="633" y="84" width="70" height="13" uuid="4c6a120a-30f2-4cdd-9753-04be3f7ea2f5"/>
+				<reportElement x="573" y="84" width="60" height="13" uuid="4c6a120a-30f2-4cdd-9753-04be3f7ea2f5"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -287,7 +291,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="773" y="84" width="70" height="13" uuid="211130b3-1421-4685-a224-64c82a2f50c1"/>
+				<reportElement x="693" y="84" width="60" height="13" uuid="211130b3-1421-4685-a224-64c82a2f50c1"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -301,7 +305,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="913" y="84" width="70" height="13" uuid="1b26ff62-58c2-4582-915e-3d0ab3bcb5d6"/>
+				<reportElement x="813" y="84" width="60" height="13" uuid="1b26ff62-58c2-4582-915e-3d0ab3bcb5d6"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -315,7 +319,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1053" y="84" width="70" height="13" uuid="d38bd5a7-ef04-4c3b-96d6-9083ddaabf9a"/>
+				<reportElement x="933" y="84" width="60" height="13" uuid="d38bd5a7-ef04-4c3b-96d6-9083ddaabf9a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -329,7 +333,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="843" y="84" width="70" height="13" uuid="e4304d64-99b5-4c45-a5f1-a552c39e7759"/>
+				<reportElement x="753" y="84" width="60" height="13" uuid="e4304d64-99b5-4c45-a5f1-a552c39e7759"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -343,7 +347,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="983" y="84" width="70" height="13" uuid="e33af873-1866-4198-bb53-83afc253e57b"/>
+				<reportElement x="873" y="84" width="60" height="13" uuid="e33af873-1866-4198-bb53-83afc253e57b"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -357,7 +361,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1123" y="84" width="130" height="13" uuid="d4db47ec-3619-44e5-bec2-8e9f4f758313"/>
+				<reportElement x="993" y="84" width="130" height="13" uuid="d4db47ec-3619-44e5-bec2-8e9f4f758313"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -371,7 +375,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1253" y="84" width="70" height="13" uuid="674b3597-6407-4a74-bfeb-4818bbccb698"/>
+				<reportElement x="1123" y="84" width="60" height="13" uuid="674b3597-6407-4a74-bfeb-4818bbccb698"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -385,7 +389,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="283" y="38" width="70" height="46" uuid="fbfca4c5-79b6-477c-a477-dfd0e74a1ada"/>
+				<reportElement x="273" y="38" width="60" height="46" uuid="fbfca4c5-79b6-477c-a477-dfd0e74a1ada"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -398,7 +402,7 @@
 				<textFieldExpression><![CDATA["Полных лет на момент диспансеризации"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="283" y="84" width="70" height="13" uuid="d6153faa-eb67-42d1-a45e-ceef0b13efcc"/>
+				<reportElement x="273" y="84" width="60" height="13" uuid="d6153faa-eb67-42d1-a45e-ceef0b13efcc"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -412,7 +416,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="353" y="38" width="70" height="46" uuid="bcee2312-94d8-48a4-9d42-a78e6db3bbc4"/>
+				<reportElement x="333" y="38" width="60" height="46" uuid="bcee2312-94d8-48a4-9d42-a78e6db3bbc4"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -425,7 +429,7 @@
 				<textFieldExpression><![CDATA["Телефон ЗЛ"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="353" y="84" width="70" height="13" uuid="40104326-e357-482f-85ab-ddba152b1301"/>
+				<reportElement x="333" y="84" width="60" height="13" uuid="40104326-e357-482f-85ab-ddba152b1301"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -439,7 +443,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1620" y="40" width="70" height="46" uuid="ab772c2d-7e9c-4b8c-872b-239c5933064a"/>
+				<reportElement x="1543" y="38" width="60" height="46" uuid="ab772c2d-7e9c-4b8c-872b-239c5933064a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -452,7 +456,7 @@
 				<textFieldExpression><![CDATA["ID"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1463" y="84" width="70" height="13" uuid="a4dbae0c-1a45-4aa6-b622-e0f2c87235cb"/>
+				<reportElement x="1303" y="84" width="60" height="13" uuid="a4dbae0c-1a45-4aa6-b622-e0f2c87235cb"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -507,7 +511,7 @@
 				<textFieldExpression><![CDATA["с группой здоровья 3а и 3б"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1323" y="38" width="70" height="46" uuid="205540a3-573d-4fbb-885f-1085da5f95e2"/>
+				<reportElement x="1183" y="38" width="60" height="46" uuid="205540a3-573d-4fbb-885f-1085da5f95e2"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -520,7 +524,7 @@
 				<textFieldExpression><![CDATA["Признак диспансерного наблюдения"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1323" y="84" width="70" height="13" uuid="20fc3745-0cdc-49b2-a1ce-ce3059390d04"/>
+				<reportElement x="1183" y="84" width="60" height="13" uuid="20fc3745-0cdc-49b2-a1ce-ce3059390d04"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -534,7 +538,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1393" y="38" width="70" height="46" uuid="4df97b4f-fef0-4cd8-89f2-22bb92666944"/>
+				<reportElement x="1243" y="38" width="60" height="46" uuid="4df97b4f-fef0-4cd8-89f2-22bb92666944"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -547,7 +551,7 @@
 				<textFieldExpression><![CDATA["МЭС"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1393" y="84" width="70" height="13" uuid="e5598438-b1fa-447d-8c2a-171cc56489e1"/>
+				<reportElement x="1243" y="84" width="60" height="13" uuid="e5598438-b1fa-447d-8c2a-171cc56489e1"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -561,7 +565,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1463" y="38" width="70" height="46" uuid="5fd49f53-9640-4a9d-b054-1ef385ef5b8c"/>
+				<reportElement x="1303" y="38" width="60" height="46" uuid="5fd49f53-9640-4a9d-b054-1ef385ef5b8c"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -574,7 +578,7 @@
 				<textFieldExpression><![CDATA["Кратность"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1620" y="84" width="70" height="13" uuid="a45fa224-21d7-4b57-b5a6-36e0aa3fabcb"/>
+				<reportElement x="1543" y="84" width="60" height="13" uuid="a45fa224-21d7-4b57-b5a6-36e0aa3fabcb"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -584,15 +588,96 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA["19"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["23"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="1363" y="38" width="60" height="46" uuid="ab5ae744-d4dc-455b-82a2-01f0c920a6e0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Дата последнего посещения"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1363" y="84" width="60" height="13" uuid="a3b7cc36-d9a0-4c5d-a9c8-9370b89f0b79"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["20"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="1423" y="38" width="60" height="46" uuid="59637fd7-c468-406f-80dc-4edba48ea2ca"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Дата планового информирования"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1423" y="84" width="60" height="13" uuid="4322b2fc-c756-4336-ab80-5f71008bf8a3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["21"]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="1483" y="38" width="60" height="46" uuid="b973d461-560d-4f25-8fed-a9855fc032e0"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Дата информирования"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1483" y="84" width="60" height="13" uuid="d107d9d3-4d5d-49dc-a57b-6352ff51bf94"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["22"]]></textFieldExpression>
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="25" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="213" y="0" width="70" height="20" uuid="1adc41ce-7c09-46fe-960a-dff145ad7e50"/>
+				<reportElement x="213" y="0" width="60" height="20" uuid="1adc41ce-7c09-46fe-960a-dff145ad7e50"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -620,7 +705,7 @@
 				<textFieldExpression><![CDATA[$F{fio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="423" y="0" width="70" height="20" uuid="7f824851-c67d-41c9-ba98-6ab57aa00d47"/>
+				<reportElement x="393" y="0" width="60" height="20" uuid="7f824851-c67d-41c9-ba98-6ab57aa00d47"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -631,7 +716,7 @@
 				<textFieldExpression><![CDATA[$F{smoid}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="493" y="0" width="70" height="20" uuid="aea9183b-979a-44af-b7c3-bc75908be9e4"/>
+				<reportElement x="453" y="0" width="60" height="20" uuid="aea9183b-979a-44af-b7c3-bc75908be9e4"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -639,10 +724,10 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{serpolis}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{smoid}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="563" y="0" width="70" height="20" uuid="ceea0e2f-9c98-4586-8e70-4537a17d64d5"/>
+				<reportElement x="513" y="0" width="60" height="20" uuid="ceea0e2f-9c98-4586-8e70-4537a17d64d5"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -650,10 +735,10 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{numpolis}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{pol}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="633" y="0" width="70" height="20" uuid="285636a0-2459-4e84-8257-1f9a74bf1242"/>
+				<reportElement x="573" y="0" width="60" height="20" uuid="285636a0-2459-4e84-8257-1f9a74bf1242"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -664,7 +749,7 @@
 				<textFieldExpression><![CDATA[$F{lpu}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="843" y="0" width="70" height="20" uuid="4331399a-f280-47f0-b141-16a68c9cd0b6"/>
+				<reportElement x="753" y="0" width="60" height="20" uuid="4331399a-f280-47f0-b141-16a68c9cd0b6"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -676,7 +761,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="703" y="0" width="70" height="20" uuid="ef29011a-5bc3-4678-a1b4-2b8b3c4b4451"/>
+				<reportElement x="633" y="0" width="60" height="20" uuid="ef29011a-5bc3-4678-a1b4-2b8b3c4b4451"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -687,7 +772,7 @@
 				<textFieldExpression><![CDATA[$F{ambkarta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="773" y="0" width="70" height="20" uuid="9990727d-da0d-4d84-8146-9a1fa4e2a883"/>
+				<reportElement x="693" y="0" width="60" height="20" uuid="9990727d-da0d-4d84-8146-9a1fa4e2a883"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -699,18 +784,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="983" y="0" width="70" height="20" uuid="4fb65dd8-c844-4973-96b4-3b823544853a"/>
-				<box>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{s1}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="1053" y="0" width="70" height="20" uuid="bac699b9-4394-4d07-bddc-a153e401ff54"/>
+				<reportElement x="873" y="0" width="60" height="20" uuid="4fb65dd8-c844-4973-96b4-3b823544853a"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -721,7 +795,18 @@
 				<textFieldExpression><![CDATA[$F{account}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="913" y="0" width="70" height="20" uuid="8bf6e744-7675-4ae2-8f39-5390b56c5182"/>
+				<reportElement x="933" y="0" width="60" height="20" uuid="bac699b9-4394-4d07-bddc-a153e401ff54"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ac_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="813" y="0" width="60" height="20" uuid="8bf6e744-7675-4ae2-8f39-5390b56c5182"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -732,7 +817,7 @@
 				<textFieldExpression><![CDATA[$F{lpu_prik}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1123" y="0" width="130" height="20" uuid="4c35bc6b-2e71-492f-aecb-37d3fdd5a2f1"/>
+				<reportElement x="993" y="0" width="130" height="20" uuid="4c35bc6b-2e71-492f-aecb-37d3fdd5a2f1"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -743,7 +828,7 @@
 				<textFieldExpression><![CDATA[( $F{rezobr}.equals("22") ? ("3a") : ($F{rezobr}.equals("20") ? ("3a") : ($F{rezobr}.equals("21")? ("3б"):("3б") )) )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1253" y="0" width="70" height="20" uuid="46aae17f-6deb-45d0-bb1f-252257cbb5bd"/>
+				<reportElement x="1123" y="0" width="60" height="20" uuid="46aae17f-6deb-45d0-bb1f-252257cbb5bd"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -751,10 +836,10 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{f_mkb_usl}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ds1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="283" y="0" width="70" height="20" uuid="571b6a54-6ca6-44fe-bbea-a9fa8ac1e2a4"/>
+				<reportElement x="273" y="0" width="60" height="20" uuid="571b6a54-6ca6-44fe-bbea-a9fa8ac1e2a4"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -765,7 +850,7 @@
 				<textFieldExpression><![CDATA[Integer.valueOf(String.valueOf(new SimpleDateFormat("dd-MM-yyyy").format(new Date())).substring(6,10))-Integer.valueOf(String.valueOf(new SimpleDateFormat("dd-MM-yyyy").format($F{dr})).substring(6,10))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="353" y="0" width="70" height="20" uuid="e5624497-828f-4fc3-8f1c-dd53766c40d8"/>
+				<reportElement x="333" y="0" width="60" height="20" uuid="e5624497-828f-4fc3-8f1c-dd53766c40d8"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -777,7 +862,7 @@
 				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 			<textField>
-				<reportElement x="1620" y="0" width="70" height="20" uuid="ff833ad9-7d64-4862-861d-b3f6fa97d132"/>
+				<reportElement x="1543" y="0" width="60" height="20" uuid="ff833ad9-7d64-4862-861d-b3f6fa97d132"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -785,10 +870,21 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{id_assent}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1323" y="0" width="70" height="20" uuid="f2b2db9c-377b-4004-ae31-342efb1ccd92"/>
+				<reportElement x="1183" y="0" width="60" height="20" uuid="f2b2db9c-377b-4004-ae31-342efb1ccd92"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prdn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1243" y="0" width="60" height="20" uuid="f728c7c2-b42a-46a3-bae8-2946da19c68e"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -799,7 +895,7 @@
 				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1393" y="0" width="70" height="20" uuid="f728c7c2-b42a-46a3-bae8-2946da19c68e"/>
+				<reportElement x="1303" y="0" width="60" height="20" uuid="9a8f8b6d-48e7-4815-b228-53879723e1ec"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -807,10 +903,10 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{kratnost}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="1463" y="0" width="70" height="20" uuid="9a8f8b6d-48e7-4815-b228-53879723e1ec"/>
+				<reportElement x="1363" y="0" width="60" height="20" uuid="9ee90137-66a4-4bfe-a93e-8f37023467fa"/>
 				<box>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -818,7 +914,29 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{last_treatment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1423" y="0" width="60" height="20" uuid="b843d42e-1a32-4103-a992-4c0e8245c8eb"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{plan_inform}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1483" y="0" width="60" height="20" uuid="82e4ccda-7b07-49de-a2ec-a9c5f0760083"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{date_inform}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

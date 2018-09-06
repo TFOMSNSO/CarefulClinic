@@ -47,7 +47,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	
 	public void pasteResultPm_a(String sql){
 		sql = sql.replaceAll("\"", "");
-		sql = "insert into  pm_a values"+sql;
+        sql = "insert into  pm_a (ID,FAM,IM,OT,DR,D_INFO,TYPE_INFO,PRIM,SMO,DATA,D_INSERT)  values"+sql;
 		
 		Query q = em_dream2.createNativeQuery(sql);
 		 q.executeUpdate();
@@ -156,9 +156,11 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 			
 			q = em_dream2.createNativeQuery(data.construct_querySelect(str));
 			List f = q.getResultList();
-			System.out.println("TEST "+ f);
+			System.out.println("TEST - "+ f);
+
 			// если в базе нет полного дубля  то делаем вставку (т.е. избегаем дублирование записей в базе)
 			if(Integer.valueOf(f.get(0).toString()) == 0 ){
+				System.out.println(str);
 				q = em_dream2.createNativeQuery(str);
 				q.executeUpdate();
 			}

@@ -54,19 +54,21 @@ public class D_reestrImpDAO  implements D_reestr{
 		String g = user.equals("777")  ?  " " : " and  p.smoid ="+user+ " " ;
 		//
 		//String sb = "select  zz.id_assent,zz.person_linksmoestablishmentid,zz.FIO,zz.dr, zz.SMOID,zz.SERPOLIS,zz.NUMPOLIS,LPU,zz.AMBKARTA, zz.DAT_BEG,zz.DAT_END,zz.LPU_PRIK,zz.s1,zz.account,zz.AC_DATE,zz.REZOBR, zz.ds1 as f_mkb_usl, f_person_telephone_v2@dome_dev(zz.fam, zz.im, zz.ot, zz.drr) as tel, zz.id"
-		String sb = "select rec.fam||' '||rec.im||' '||rec.ot as FIO,  rec.dr, f_person_telephone_v2@dome(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@Dome(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp,per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, rec.rezobr, rec.ds1, rec.p_r_dn, yy.mes, -1*sc.back_propagation_month as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform, ass.id_assent" +
-				"from d_records  rec"+
-				"left join pat@link_collect2018 yy on rec.pat_id=yy.id"+
-				"left join visit_schedule sc on (rec.ds1 between sc.mkb_start and sc.mkb_end)"+
-				"left join (select  pl.fam,pl.im,pl.ot,pl.dr, max(pl.date_plan_info) as plan_inform from plan_pm_i_d_records pl group by pl.fam,pl.im,pl.ot,pl.dr ) pl2  on (pl2.fam=rec.fam) and (pl2.im=rec.im) and (pl2.ot=rec.ot) and (pl2.dr=rec.dr)"+
-				"left join  pm_assent ass on ass.fam=rec.fam and ass.im=rec.im and ass.ot=rec.ot and ass.dr=rec.dr and ass.id_assent is not null"+
-				"left join person@dome per on per.person_surname=rec.fam and per.person_kindfirstname=rec.im and per.person_kindlastname=rec.ot and per.person_birthday=rec.dr"+
-				"left join personadd@dome pa on per.person_addressid = pa.personadd_addressid"+
-				"left join (select pi.fam,pi.im,pi.ot,pi.dr,max(pi.d_info) as date_inform from pm_i pi where pi.n_stage =5 group by pi.fam,pi.im,pi.ot,pi.dr) pii on pii.fam=rec.fam and pii.im=rec.im and pii.ot=rec.ot and pii.dr=rec.dr"+
-				"where"+
-				"(pl2.plan_inform not between pii.date_inform - 45 and pii.date_inform + 45 or pii.date_inform is null)"+
-				"and"+
-				"pl2.plan_inform between '"+date1+"' and '"+date2+"' ";
+		String sb = "select rec.fam||' '||rec.im||' '||rec.ot as FIO,  rec.dr, f_person_telephone_v2@dome(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@Dome(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp,per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, rec.rezobr, rec.ds1, rec.p_r_dn, yy.mes, -1*sc.back_propagation_month as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform, ass.id_assent "+
+				"from "+
+				"d_records  rec "+
+				"left join pat@link_collect2018 yy on rec.pat_id=yy.id "+
+				"left join visit_schedule sc on (rec.ds1 between sc.mkb_start and sc.mkb_end) "+
+				"left join (select  pl.fam,pl.im,pl.ot,pl.dr, max(pl.date_plan_info) as plan_inform from plan_pm_i_d_records pl group by pl.fam,pl.im,pl.ot,pl.dr ) pl2  on (pl2.fam=rec.fam) and (pl2.im=rec.im) and (pl2.ot=rec.ot) and (pl2.dr=rec.dr) "+
+				"left join  pm_assent ass on ass.fam=rec.fam and ass.im=rec.im and ass.ot=rec.ot and ass.dr=rec.dr and ass.id_assent is not null "+
+				"left join person@dome per on per.person_surname=rec.fam and per.person_kindfirstname=rec.im and per.person_kindlastname=rec.ot and per.person_birthday=rec.dr "+
+				"left join personadd@dome pa on per.person_addressid = pa.personadd_addressid "+
+				"left join (select pi.fam,pi.im,pi.ot,pi.dr,max(pi.d_info) as date_inform from pm_i pi where pi.n_stage =5 group by pi.fam,pi.im,pi.ot,pi.dr) pii on pii.fam=rec.fam and pii.im=rec.im and pii.ot=rec.ot and pii.dr=rec.dr "+
+				"where "+
+				"(pl2.plan_inform not between pii.date_inform - 45 and pii.date_inform + 45 or pii.date_inform is null) "+
+				g+
+				" and " +
+				"pl2.plan_inform between ' "+date1+" ' and ' "+date2+" ' ";
 
 
 		// TODO сделать выбор базы на сайте
