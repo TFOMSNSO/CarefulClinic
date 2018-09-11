@@ -10,29 +10,29 @@ public class InformDReestr {
     private Date dr;
     private String tel;
     private String address;
-    private String smoid;
+    private Long smoid;
     private String pol;
     private String lpu;
     private String ambkarta;
     private Date dat_beg;
     private Date dat_end;
-    private String lpu_prik;
-    private String account;
+    private Long lpu_prik;
+    private Long account;
     private Date ac_date;
     private String rezobr;
     private String ds1;
-    private String prdn;
+    private Long prdn;
     private String mes;
-    private String kratnost;
+    private Long kratnost;
     private Date last_treatment;
     private Date plan_inform;
     private Date date_inform;
-    private Long id_assent;
+    //private Long id_assent;  Когда-нибудь понадобится
 
-    public InformDReestr(String fio, Date dr, String tel, String address, String smoid, String pol, String lpu,
-                         String ambkarta, Date dat_beg, Date dat_end, String lpu_prik, String account, Date ac_date, String rezobr,
-                         String ds1, String prdn, String mes, String kratnost, Date last_treatment, Date plan_inform,
-                         Date date_inform, Long id_assent) {
+    public InformDReestr(String fio, Date dr, String tel, String address, Long smoid, String pol, String lpu,
+                         String ambkarta, Date dat_beg, Date dat_end, Long lpu_prik, Long account, Date ac_date, String rezobr,
+                         String ds1, Long prdn, String mes, Long kratnost, Date last_treatment, Date plan_inform,
+                         Date date_inform) {
         super();
         this.fio = fio;
         this.dr = dr;
@@ -55,7 +55,7 @@ public class InformDReestr {
         this.last_treatment = last_treatment;
         this.plan_inform = plan_inform;
         this.date_inform = date_inform;
-        this.id_assent = id_assent;
+        //this.id_assent = id_assent;  Когда-нибудь понадобится
     }
 
     public InformDReestr() {
@@ -86,10 +86,10 @@ public class InformDReestr {
     public void setAddress(String address) {
         this.address = address;
     }
-    public String getSmoid() {
+    public Long getSmoid() {
         return smoid;
     }
-    public void setSmoid(String smoid) {
+    public void setSmoid(Long smoid) {
         this.smoid = smoid;
     }
     public String getPol() {
@@ -122,16 +122,16 @@ public class InformDReestr {
     public void setDat_end(Date dat_end) {
         this.dat_end = dat_end;
     }
-    public String getLpu_prik() {
+    public Long getLpu_prik() {
         return lpu_prik;
     }
-    public void setLpu_prik(String lpu_prik) {
+    public void setLpu_prik(Long lpu_prik) {
         this.lpu_prik = lpu_prik;
     }
-    public String getAccount() {
+    public Long getAccount() {
         return account;
     }
-    public void setAccount(String account) {
+    public void setAccount(Long account) {
         this.account = account;
     }
     public Date getAc_date() {
@@ -152,10 +152,10 @@ public class InformDReestr {
     public void setDs1(String ds1) {
         this.ds1 = ds1;
     }
-    public String getPrdn() {
+    public Long getPrdn() {
         return prdn;
     }
-    public void setPrdn(String prdn) {
+    public void setPrdn(Long prdn) {
         this.prdn = prdn;
     }
     public String getMes() {
@@ -164,10 +164,10 @@ public class InformDReestr {
     public void setMes(String mes) {
         this.mes = mes;
     }
-    public String getKratnost() {
+    public Long getKratnost() {
         return kratnost;
     }
-    public void setKratnost(String kratnost) {
+    public void setKratnost(Long kratnost) {
         this.kratnost = kratnost;
     }
     public Date getLast_treatment() {
@@ -188,12 +188,12 @@ public class InformDReestr {
     public void setDate_inform(Date date_inform) {
         this.date_inform = date_inform;
     }
-    public Long getId_assent() {
+    /*public Long getId_assent() {
         return id_assent;
     }
     public void setId_assent(Long id_assent) {
         this.id_assent = id_assent;
-    }
+    }*/ //Когда-нибудь понадобится
 
 
 }

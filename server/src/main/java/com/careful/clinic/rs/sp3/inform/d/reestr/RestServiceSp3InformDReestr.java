@@ -93,8 +93,9 @@ public class RestServiceSp3InformDReestr {
 		String m[] = x.split("\":\"");
 		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
 		try{
-			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
-			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
+			//System.out.println("date_for_me " +m[1]);
+			String date1 = m[1].substring(0,10); // m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
+			String date2 = m[2].substring(0,10); // m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
 			List<InformDReestr> ls = null;
 			// смещение для запроса
 			int iter = 0;
