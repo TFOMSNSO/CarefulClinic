@@ -43,11 +43,11 @@ import { Resultsurvey} from '../model/list.mo';
   ]
 })
 export class DialogComponent{
- 
- 
+
+
  title:string = environment.title;
  tab1: string = environment.tab1;
- data_not_found: string = environment.data_not_found; 
+ data_not_found: string = environment.data_not_found;
  tab2: string = environment.tab2;
  tab3: string = environment.tab3;
  surname: string = environment.surname;
@@ -86,6 +86,27 @@ _statsurvey7: string = environment.statsurvey7;
 _statsurvey8: string = environment.statsurvey8;
 _statsurvey9: string = environment.statsurvey9;
 _statsurvey10: string = environment.statsurvey10;
+_statsurvey11: string = environment.statsurvey11;
+_statsurvey12: string = environment.statsurvey12;
+_statsurvey13: string = environment.statsurvey13;
+_statsurvey14: string = environment.statsurvey14;
+_statsurvey15: string = environment.statsurvey15;
+_statsurvey16: string = environment.statsurvey16;
+_statsurvey17: string = environment.statsurvey17;
+_statsurvey18: string = environment.statsurvey18;
+_statsurvey19: string = environment.statsurvey19;
+_statsurvey101: string = environment.statsurvey101;
+_statsurvey102: string = environment.statsurvey102;
+_statsurvey103: string = environment.statsurvey103;
+_statsurvey104: string = environment.statsurvey104;
+_statsurvey105: string = environment.statsurvey105;
+_statsurvey106: string = environment.statsurvey106;
+_statsurvey107: string = environment.statsurvey107;
+_statsurvey108: string = environment.statsurvey108;
+_statsurvey109: string = environment.statsurvey109;
+_statsurvey110: string = environment.statsurvey110;
+_statsurvey111: string = environment.statsurvey111;
+_statsurvey20: string = environment.statsurvey20;
 _statsurvey_result: string = environment.statsurvey_result;
 _statsurvey_date: string = environment.statsurvey_date;
 _titlesurvey: string = environment.titlesurvey;
@@ -94,8 +115,8 @@ _otkreplen: string = environment.otkreplen;
 _year_disp: string = environment.year_disp;
 
 
- 
- 
+
+
  public resultsurvey: any = Resultsurvey;
  public myFormsurvey: FormGroup;
  public data_survey = [];
@@ -105,7 +126,7 @@ _year_disp: string = environment.year_disp;
  public selected=2017;
  public currentIndexPage = 0;
  public disableSelect: boolean = false;
- 
+
   @Input() show:boolean = true;
   flag:boolean = true;
   flag_informed:boolean = true;
@@ -122,16 +143,16 @@ _year_disp: string = environment.year_disp;
   animationDone($event) {
     //console.log('End');
   }
- 
+
  constructor(public dialogRef: MatDialogRef<DialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private personSearchIsurService: PeopleDatabase,private formBuilder: FormBuilder,) {
  //console.log('ddddd '+JSON.stringify(data));
  }
- 
+
  filterChanged(selectedValue: any){
    //console.log('value is ',selectedValue.value);
    //console.log('value is2 ',this.currentIndexPage);
-   
-		// ГЭР
+
+		// пїЅпїЅпїЅ
 		if(this.currentIndexPage === 1){
 		   this.show= true;
 		   this.disableSelect = true;
@@ -147,18 +168,18 @@ _year_disp: string = environment.year_disp;
 						this.show= false;
 						this.data_ger=result;
 						this.disableSelect = false;
-						
+
 				});
-		   
-		   
+
+
 
 		}
-		// информирование
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		if(this.currentIndexPage === 2){
-		
-			this.disableSelect = true;	
+
+			this.disableSelect = true;
 			this.flag_informed = true;
-			
+
 			let data_cust ={
 		 	  surname: this.data.personSurname,
 		 	  firstname: this.data.personKindfirstname,
@@ -166,47 +187,47 @@ _year_disp: string = environment.year_disp;
 		 	  bithday: this.data.personBirthday,
 			  year:	selectedValue.value
 		 	}
-			
-			// обращение к серверу
+
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			this.personSearchIsurService.searchPersonInformir(data_cust)
 			.then(result =>{
 				this.disableSelect = false;
 				this.data_informir = result;
 	 			this.flag_informed = false;
 			});
-			
-				
+
+
 		}
    }
- 
+
  check($event : any): void {
- 
- 
+
+
     this.currentIndexPage = $event.index;
- 
+
  	if($event.index === 3){
- 	
+
 	 	let data_cust ={
 	 	  surname: this.data.personSurname,
 	 	  firstname:this.data.personKindfirstname,
 	 	  lastname:this.data.personKindlastname,
 	 	  bithday:this.data.personBirthday
 	 	}
-	 	
+
 	 	this.personSearchIsurService.searchPersonSurveyr(data_cust)
 	 	.then(result =>{
 	 	  this.flag_survey = false;
 	 	  this.data_survey=result;
-	 	  
+
 	 	  this.data_survey.length === 0 ? this.initform() : '';
 	 	});
  	}
- 	// tab 'Данные ГЭР' have the index equal 1
+ 	// tab 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ' have the index equal 1
  	if($event.index === 1){
- 	
+
 		this.disableSelect = true;
  	    this.show= true;
-		
+
 	 	let data_cust ={
 	 	  surname: this.data.personSurname,
 	 	  firstname:this.data.personKindfirstname,
@@ -221,7 +242,7 @@ _year_disp: string = environment.year_disp;
 	 	  this.data_ger=result;
 	 	});
  	}
- 	// Информирование
+ 	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  	if($event.index === 2){
 		this.disableSelect = true;
 	 	let data_cust ={
@@ -231,25 +252,25 @@ _year_disp: string = environment.year_disp;
 		 	  bithday:this.data.personBirthday,
 			  year:	this.selected
 		 	}
-		
-		 	
+
+
 		this.personSearchIsurService.searchPersonInformir(data_cust)
 	 	.then(result =>{
-	 	
+
 	 		this.personSearchIsurService.searchPlanPersonInformir('623375')
-	 		.then(result_2 =>{ 
+	 		.then(result_2 =>{
 	 			this.data_plan_informir = result_2;
-	 			
+
 	 			this.data_informir = result;
 	 			this.flag_informed = false;
 				this.disableSelect = false;
-	 			
+
 	 			for (var index in this.data_informir) {
 	 				   this.data_informir[index].nStage=== 0 ?  this.data_informir[index].nStage = environment.no_inform :
 	 				   this.data_informir[index].nStage === 1 ?  this.data_informir[index].nStage = environment.one_part_inform :
 	 				   this.data_informir[index].nStage === 2 ?  this.data_informir[index].nStage= environment.second_part_inform :
 	 				   this.data_informir[index].nStage === 3 ?  this.data_informir[index].nStage = environment.secondory_inform : '';
-	 				   
+
 	 				   this.data_informir[index].tInfo === 1 ?  this.data_informir[index].tInfo = environment.tinfo_1 :
 	 				   this.data_informir[index].tInfo=== 2 ?  this.data_informir[index].tInfo= environment.tinfo_2 :
 	 				   this.data_informir[index].tInfo === 3 ?  this.data_informir[index].tInfo = environment.tinfo_3 :
@@ -257,37 +278,37 @@ _year_disp: string = environment.year_disp;
 	 				   this.data_informir[index].tInfo === 5 ?  this.data_informir[index].tInfo = environment.tinfo_5 :
 	 				   this.data_informir[index].tInfo === 6 ?  this.data_informir[index].tInfo = environment.tinfo_6 :
 	 				   this.data_informir[index].tinfo === 7 ?  this.data_informir[index].tInfo = environment.tinfo_7 : '';
-  					
+
 				}
-	 			
-	 			
+
+
 	 		});
-	 		
-	 		
-	 	}); 	
+
+
+	 	});
  	}
- 	
+
  }
-  
-  
+
+
   add_survey(form: any){
-	  // убираем null
+	  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ null
 	  for(let k in form.value) form.value[k]=== null ?form.value[k]='':form.value[k];
 	  let str = "('','"+this.data.personSurname.toUpperCase( )+"','"+this.data.personKindfirstname.toUpperCase( )+"','"+this.data.personKindlastname+"','"+this.data.personBirthday+"','"+form.value.datesur.formatted+"','"+form.value.result_survey+"','"+form.value.prim+"','"+this.data.personLinksmoestablishmentid+"', SYSDATE, SYSDATE)";
-			 	  
+
 	  this.personSearchIsurService.addResultSurvey(str)
 		 	.then(result =>{
 		 		this.flag_survey= true;
-		 		 setTimeout(() => this.data_survey = [[this.data.personSurname,this.data.personKindfirstname,this.data.personKindlastname,form.value.datesur.jsdate,form.value.result_survey,'',this.data.personLinksmoestablishmentid]] 
+		 		 setTimeout(() => this.data_survey = [[this.data.personSurname,this.data.personKindfirstname,this.data.personKindlastname,form.value.datesur.jsdate,form.value.result_survey,'',this.data.personLinksmoestablishmentid]]
 		 		 , 3000);
-				 	 
+
 		 	});
-	  
+
 	  //form.value.datesur != null ? (form.value.datesur.formatted  != undefined ? form.value.datesur = form.value.datesur.formatted : form.value.datesur = ''): form.value.datesur = '';
   }
-  
+
   resetForm() {
-  	  this.initform(); 
+  	  this.initform();
   }
 
 initform() {
@@ -295,13 +316,13 @@ initform() {
 	      result_survey: ['', Validators.required],
 	      datesur: ['', Validators.required],
 	      prim: ['']
-	      
+
 	    });
-  }   
-  
+  }
+
    myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy'
-        
+
     }
 }

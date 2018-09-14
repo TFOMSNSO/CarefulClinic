@@ -1,4 +1,4 @@
-<!--TODO: добавить возможность выбора года опроса (аналогично как выбор года диспансеризации) -->
+<!--TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ) -->
 <mat-toolbar color="primary">
 		<div style="align-self: flex-end; padding-top:10px;">{{data.personSurname}} {{data.personKindfirstname}} {{data.personKindlastname}}</div>
 		<span style="align-self: flex-end; font-size: 12px;">{{_year_disp}}
@@ -13,16 +13,16 @@
 	    <span style="flex-grow: 1; font-size: 25px;">{{title}}</span>
 		<mat-dialog-actions style="flex-grow: 0;">
  			<button mat-raised-button color="accent" mat-dialog-close="Option 1">{{ close_card}}</button>
-		</mat-dialog-actions> 
-		
+		</mat-dialog-actions>
+
 </mat-toolbar>
 
 <mat-tab-group color="primary" (selectChange)="check($event)">
 
   <mat-tab id="tab1" label="{{tab1}}">
-  
+
   <mat-card>
-  <mat-card-content> 
+  <mat-card-content>
 	  <table cellspacing="0">
 	  <tr>
 	    <td>
@@ -91,7 +91,7 @@
 		  <td>
 		    <mat-list-item>
 			    <mat-input-container>
-			    
+
 			      <input matInput value="{{data.personLinksmoestablishmentid === 1 ?  _linksmo_1  : data.personLinksmoestablishmentid  === 2 ?  _linksmo_2  : data.personLinksmoestablishmentid  === 4 ?  _linksmo_4  : _otkreplen}}" placeholder="{{linksmo}}">
 			    </mat-input-container>
 		    </mat-list-item>
@@ -109,14 +109,14 @@
 	  </table>
 	  </mat-card-content>
   </mat-card>
-  
-	  
+
+
   </mat-tab>
   <mat-tab  label="{{tab2}}"><div [@toggle]="show" style="overflow: hidden;"
         (@toggle.start)="animationStarted($event)"
         (@toggle.done)="animationDone($event)"
      *ngIf="show" ><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></div>
-     
+
      	<div [@toggle]="!show" *ngIf="!show">
      <table cellspacing="0">
 	  <tr>
@@ -198,11 +198,11 @@
 	 	</td>
 	 </tr>
 	    </table>
-	    
+
 		    <mat-list-item class="full-width">
-			    
+
 			      <textarea  placeholder="{{adress}}">{{data_ger.adress}}</textarea>
-			    
+
 		    </mat-list-item>
      </div>
      </mat-tab>
@@ -304,7 +304,7 @@
 		    <td>
 			    <mat-list-item>
 				    <mat-input-container>
-				      <input matInput value="{{data[4] == 1 ? _statsurvey1 : data[4] == 2 ? _statsurvey2 : data[4] == 3 ? _statsurvey3 : data[4] == 4 ? _statsurvey4 : data[4] == 5 ? _statsurvey5 : data[4] == 6 ? _statsurvey6 : data[4] == 7 ? _statsurvey7 : data[4] == 8 ? _statsurvey8 : data[4] == 9 ? _statsurvey9 : data[4] == 10 ? _statsurvey10 : ''  }}" placeholder="{{_statsurvey_result}}">
+				      <input matInput value="{{data[4] == 1 ? _statsurvey1 : data[4] == 2 ? _statsurvey2 : data[4] == 3 ? _statsurvey3 : data[4] == 4 ? _statsurvey4 : data[4] == 5 ? _statsurvey5 : data[4] == 6 ? _statsurvey6 : data[4] == 7 ? _statsurvey7 : data[4] == 8 ? _statsurvey8 : data[4] == 9 ? _statsurvey9 : data[4] == 10 ? _statsurvey10 : data[4] == 11 ? _statsurvey11 : data[4] == 12 ? _statsurvey12 : data[4] == 13 ? _statsurvey13 : data[4] == 14 ? _statsurvey14 : data[4] == 15 ? _statsurvey15 : data[4] == 16 ? _statsurvey16 : data[4] == 17 ? _statsurvey17 : data[4] == 18 ? _statsurvey18 : data[4] == 19 ? _statsurvey19 : data[4] == 101 ? _statsurvey101 : data[4] == 102 ? _statsurvey102 : data[4] == 103 ? _statsurvey103 : data[4] == 104 ? _statsurvey104 : data[4] == 105 ? _statsurvey105 : data[4] == 106 ? _statsurvey106 : data[4] == 107 ? _statsurvey107 : data[4] == 108 ? _statsurvey108 : data[4] == 109 ? _statsurvey109 : data[4] == 110 ? _statsurvey110 : data[4] == 111 ? _statsurvey111 : data[4] == 20 ? _statsurvey20 : ''  }}" placeholder="{{_statsurvey_result}}">
 				    </mat-input-container>
 			    </mat-list-item>
 		    </td>
@@ -340,7 +340,7 @@
 	   				 <my-date-picker  [placeholder]="_statsurvey_date"  name="datesur" [options]="myDatePickerOptions" formControlName="datesur"></my-date-picker>
 	   				 <span *ngIf="!myFormsurvey.controls.datesur.valid" class="help-block text-danger">
 	   				 	<mat-error>{{field_is_required}}</mat-error>
-	   				 </span> 
+	   				 </span>
 	   				 <textarea rows="10" cols="45"  formControlName="prim"></textarea>
   			</mat-card-content>
   			<mat-card-actions id='lastblocksearch'>
@@ -350,10 +350,10 @@
 		</form>
 		</mat-card>
   	<br>
-  	{{myFormsurvey.value | json}}	
-  		
-  		
-  		
+  	{{myFormsurvey.value | json}}
+
+
+
   	</ng-template>
   </ng-template>
   </mat-tab>
