@@ -113,6 +113,19 @@ _titlesurvey: string = environment.titlesurvey;
 _maintitlesurvey: string = environment.maintitlesurvey;
 _otkreplen: string = environment.otkreplen;
 _year_disp: string = environment.year_disp;
+_error1: string = environment.error1;
+  _error2: string = environment.error2;
+  _error3: string = environment.error3;
+  _error4: string = environment.error4;
+  _error5: string = environment.error5;
+  _error6: string = environment.error6;
+  _error7: string = environment.error7;
+  _error8: string = environment.error8;
+  _error9: string = environment.error9;
+  _error10: string = environment.error10;
+  _error11: string = environment.error11;
+  _error12: string = environment.error12;
+  _resstat: string = environment.resstat;
 
 
 

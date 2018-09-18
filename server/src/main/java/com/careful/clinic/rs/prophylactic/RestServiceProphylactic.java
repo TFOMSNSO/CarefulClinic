@@ -233,7 +233,7 @@ public class RestServiceProphylactic {
 	private void send(Integer valueOf, DateFormat timeInstance, String filename) {
 		
 		System.out.println("filename "+filename);
-		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,paa@ofoms.sibnet.ru";
+		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
     	String topic= "ПРОИЗОШЛА ЗАГРУЗКА ДАННЫХ В ЕИР НСО";
     	//String textMessage = "Test Message Text";
  
@@ -246,7 +246,7 @@ public class RestServiceProphylactic {
            // message.setText(textMessage);
             BodyPart messageBodyPart = new MimeBodyPart();
             //messageBodyPart.setText("Это текст на русском яхыке<br> and English lang... ");
-            messageBodyPart.setContent("<p>ЭТО АВТОМАТИЧЕСКАЯ РАССЫЛКА ПРИЛОЖЕНИЯ ЕИР НСО.</p><br>Пользователь "+valueOf+" соверщил загрузку данных в Единое информационное пространство в "+timeInstance.format(new Date())+"<br>Загруженная информация во вложении", "text/html; charset=utf-8");
+            messageBodyPart.setContent("<p>ЭТО АВТОМАТИЧЕСКАЯ РАССЫЛКА ПРИЛОЖЕНИЯ ЕИР НСО.</p><br>Пользователь "+valueOf+" совершил загрузку данных в Единое информационное пространство в "+timeInstance.format(new Date())+"<br>Загруженная информация во вложении", "text/html; charset=utf-8");
             
          // Create a multipar message
             Multipart multipart = new MimeMultipart();

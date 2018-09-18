@@ -56,7 +56,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	
 	public Collection<?> getSurveyInform(PersonModel personmodel){
 		
-		String sb = "select distinct p.fam, p.im, p.ot, p.d_info, p.type_info, p.prim, p.smo from pm_a p where p.fam='"+personmodel.getSurname()+"' and p.im='"+personmodel.getFirstname()+"' and p.ot='"+personmodel.getLastname()+"' and p.dr='"+personmodel.getBithday()+"' ";
+		String sb = "select distinct p.fam, p.im, p.ot, p.d_info, p.type_info, p.prim, p.smo, p.stat, p.error from pm_a p where p.fam='"+personmodel.getSurname()+"' and p.im='"+personmodel.getFirstname()+"' and p.ot='"+personmodel.getLastname()+"' and p.dr='"+personmodel.getBithday()+"' order by d_info desc, type_info ";
 		Query q = em_dream2.createNativeQuery(sb);
 	    List<Object[]> ls = q.getResultList();
 	    
