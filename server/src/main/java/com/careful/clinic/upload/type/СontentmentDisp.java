@@ -26,7 +26,7 @@ public class СontentmentDisp  extends AbstractDataPmA{
 	public void checkOutTypizine() throws IOException, CheckTypizineExcelException, ParseException {
 
 		
-		System.out.println("Process Typizine - "+this.getClass().getName());
+		System.out.println("Process Typizine (СontentmentDisp) "+this.getClass().getName());
 		
 		DataFormatter formatter = new DataFormatter();
 		XSSFWorkbook workbook = super.getXSSFWorkbook();

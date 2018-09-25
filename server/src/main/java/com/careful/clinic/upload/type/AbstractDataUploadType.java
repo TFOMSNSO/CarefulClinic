@@ -67,7 +67,7 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 		
 		public void  closeXSSFWorkbook() throws IOException{
 			//this.pkg = null;
-			System.out.println("PKG close");
+			System.out.println("PKG close (AbstractDataUploadType)");
 			this.pkg.close();
 		}
 	 

@@ -26,7 +26,7 @@ public class Agreement extends AbstractDataUploadType{
 
 	@Override
 	IDataUploadType getInstansUploadData() {
-		System.out.println("Отдаю инстанс "+this.getClass().getName());
+		System.out.println("Отдаю инстанс (Agreement) "+this.getClass().getName());
 		return this;
 	}
 
@@ -36,6 +36,7 @@ public class Agreement extends AbstractDataUploadType{
 		//if(sheet.getPhysicalNumberOfRows() > 50_000){ pkg.close(); throw new Exception("Превышено допустимое количество строк в загружаемом файле. Не более 50 000 строк");}
 		
 	}
+
 
 	@Override
 	public void checkOutTypizine() {
@@ -48,6 +49,7 @@ public class Agreement extends AbstractDataUploadType{
 		String []mas = null;
 		for(int i=0; i < listquery.size(); i++){
 		mas =	listquery.get(i).split(",");
+			System.out.println("checkSinchronizeData worked (Agreement)");
 			
 		}
 		

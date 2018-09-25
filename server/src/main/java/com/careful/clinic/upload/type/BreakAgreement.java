@@ -79,7 +79,4 @@ public class BreakAgreement extends AbstractDataUploadType{
 		
 		return sb.toString();
 	}
-
-			
-
 }

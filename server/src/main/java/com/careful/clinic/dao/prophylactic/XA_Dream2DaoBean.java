@@ -2,7 +2,6 @@ package com.careful.clinic.dao.prophylactic;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.sql.SQLSyntaxErrorException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
@@ -25,7 +23,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.hibernate.exception.SQLGrammarException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -44,7 +41,12 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 
 	@PersistenceContext(unitName="OracleDream2DS")
     private EntityManager em_dream2;
-	
+	private int countDouble = 0;
+	//private int countRows = 0;
+
+
+
+
 	public void pasteResultPm_a(String sql){
 		sql = sql.replaceAll("\"", "");
         sql = "insert into  pm_a (ID,FAM,IM,OT,DR,D_INFO,TYPE_INFO,PRIM,SMO,DATA,D_INSERT)  values"+sql;
@@ -156,16 +158,43 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 			
 			q = em_dream2.createNativeQuery(data.construct_querySelect(str));
 			List f = q.getResultList();
-			System.out.println("TEST - "+ f);
+			//System.out.println("TEST - "+ f);
 
 			// если в базе нет полного дубля  то делаем вставку (т.е. избегаем дублирование записей в базе)
 			if(Integer.valueOf(f.get(0).toString()) == 0 ){
-				System.out.println(str);
+			//	System.out.println(str);
+				System.out.println("AbstractDataPmI counted rows");
 				q = em_dream2.createNativeQuery(str);
+				//	countRows++;
+
+				//q = em_dream2.createNativeQuery("insert into pm_i p "+str);
+				//q.executeUpdate();
 				q.executeUpdate();
+
+
 			}
+			else if(str.contains("pm_i"))
+            {
+				System.out.println("!!!THIS ROW!!! "+str+" !!!TNIS ROW!!!");
+            	System.out.println("XA_Dream2DaoBean insert double rows");
+
+				q = em_dream2.createNativeQuery(str.replace("pm_i", "error_pm_i"));
+				//q = em_dream2.createNativeQuery("insert into error_pm_i p "+str);
+                q.executeUpdate();
+				countDouble++;
+            }
+            else
+			{
+				q = em_dream2.createNativeQuery(str.replace("pm_a", "error_pm_a"));
+				q.executeUpdate();
+				countDouble++;
+			}
+
 			
 		}
+		System.out.println("count double = "+countDouble);
+
+
 		
 		}else{
 			for(String str : listOfQueryies){
@@ -177,9 +206,20 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		
 		return true;
 	}
-	
-	
-	/**
+
+	@Override
+	public String doubleValue() {
+		String dv = String.valueOf(countDouble);
+		return dv;
+	}
+
+    /*@Override
+    public String rowsValue() {
+        String rv = String.valueOf(countRows);
+        return rv;
+    }*/
+
+    /**
 	 * Метол парсит xml строку (ответ) ГЭР'а о диспансеризации
 	 * 
 	 * @param xml строка в формате xml 
@@ -257,6 +297,4 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		
 		return resp;
 	}
-	
-	
 }

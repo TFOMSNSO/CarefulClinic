@@ -29,7 +29,7 @@ public class InformD_reestr extends AbstractDataPmI {
 	@Override
 	public void checkOutTypizine() throws IOException, CheckTypizineExcelException, ParseException {
 		
-		System.out.println("Process Typizine "+this.getClass().getName());
+		System.out.println("Process Typizine (InformD_reestr) "+this.getClass().getName());
 		
 		DataFormatter formatter = new DataFormatter();
 		XSSFWorkbook workbook = super.getXSSFWorkbook();
@@ -82,11 +82,9 @@ public class InformD_reestr extends AbstractDataPmI {
 
 
 
-	
-
 	@Override
 	IDataUploadType getInstansUploadData() {
-		System.out.println("Отдаю инстанс getInstansUploadData"+this.getClass().getName());
+		System.out.println("Отдаю инстанс getInstansUploadData (InformD_reestr) "+this.getClass().getName());
 		return this;
 	}
 

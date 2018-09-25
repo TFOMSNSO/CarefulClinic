@@ -1,13 +1,11 @@
 package com.careful.clinic.dao.prophylactic;
 
 import java.io.IOException;
-import java.sql.SQLSyntaxErrorException;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
-import javax.persistence.PersistenceException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -27,4 +25,8 @@ public interface XA_Dream2Dao {
 	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException;	
 	public boolean insertDataFromExcel(List<String> listOfQueryies, IDataUploadType data) throws ParseDataExcelException;
 	ResponseGer parseResponse(String xml) throws ParserConfigurationException, SAXException, IOException;
+
+	String doubleValue();
+
+	/*String rowsValue();*/
 }

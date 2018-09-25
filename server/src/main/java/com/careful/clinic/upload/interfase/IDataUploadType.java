@@ -57,5 +57,5 @@ public interface IDataUploadType {
 	 */
 	String construct_querySelect(String str);
 
-	
+
 }

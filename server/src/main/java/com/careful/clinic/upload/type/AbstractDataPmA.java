@@ -22,7 +22,7 @@ public abstract class AbstractDataPmA extends AbstractDataUploadType{
 	@Override
 	public void checkOutStructure() throws IOException, ParseDataExcelException, CheckStructureExcelException {
 		
-		System.out.println("Process structures "+this.getClass().getName());
+		System.out.println("Process structures (AbstractDataPmA) "+this.getClass().getName());
 		XSSFWorkbook workbook = super.getXSSFWorkbook();
 		Sheet sheet =  workbook.getSheetAt(0);
 		Row row = null;
@@ -51,7 +51,7 @@ public abstract class AbstractDataPmA extends AbstractDataUploadType{
 	@Override
 	public void constructQuery() throws ParseException, IOException {
 		
-		System.out.println("Метод constructQuery"+this.getClass().getName());
+		System.out.println("Метод constructQuery (AbstractDataPmA) "+this.getClass().getName());
 		DataFormatter formatter = new DataFormatter();
 		XSSFWorkbook workbook = super.getXSSFWorkbook();
 		Sheet sheet =  workbook.getSheetAt(0);
@@ -168,6 +168,4 @@ public abstract class AbstractDataPmA extends AbstractDataUploadType{
 		
 		return true;
 	}
-
-	
 }

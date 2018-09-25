@@ -26,7 +26,7 @@ public abstract class AbstractDataPmI extends AbstractDataUploadType {
 	@Override
 	public void constructQuery() throws ParseException, IOException {
 		
-		System.out.println("Метод constructQuery"+this.getClass().getName());
+		System.out.println("Метод constructQuery (AbstractDataPmI) "+this.getClass().getName());
 		DataFormatter formatter = new DataFormatter();
 		XSSFWorkbook workbook = super.getXSSFWorkbook();
 		Sheet sheet =  workbook.getSheetAt(0);
@@ -34,10 +34,9 @@ public abstract class AbstractDataPmI extends AbstractDataUploadType {
 		StringBuilder sb = new StringBuilder();
 		
 		String smo_id = String.valueOf((int)sheet.getRow(2).getCell(1).getNumericCellValue());
-		
+
 		for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
 			row = sheet.getRow(j);
-			
 			sb.append("insert into pm_i p        values('',");
 			for(int i=0;  i < 8; i++){
 				sb.append("'");
@@ -66,6 +65,7 @@ public abstract class AbstractDataPmI extends AbstractDataUploadType {
 			
 			boolean bl = isLastRowCustom(formatter,row);
 			if(bl) break;
+			System.out.println("AbstractDataPmI inserted row");
 		}
 		
 		
@@ -98,15 +98,14 @@ public abstract class AbstractDataPmI extends AbstractDataUploadType {
 		 sb.append(tmp_m[7]);
 		 sb.append(" and p.smo=");
 		 sb.append(tmp_m[9]);
-		
+		System.out.println("AbstractDataPmI count rows and search double");
 		return sb.toString();
-	
 	}
-	
+
 		@Override
 		public void checkOutStructure() throws IOException, CheckStructureExcelException {
 			
-			System.out.println("Process structures "+this.getClass().getName());
+			System.out.println("Process structures (AbstractDataPmI) "+this.getClass().getName());
 			XSSFWorkbook workbook = super.getXSSFWorkbook();
 			Sheet sheet =  workbook.getSheetAt(0);
 			Row row = null;

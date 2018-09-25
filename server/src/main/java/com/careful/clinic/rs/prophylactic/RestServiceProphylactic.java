@@ -55,6 +55,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.careful.clinic.dao.prophylactic.XA_Dream2DaoBean;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.hibernate.exception.SQLGrammarException;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
@@ -88,10 +89,12 @@ public class RestServiceProphylactic {
 	XA_Dream2Dao xa_Dream2Dao;
 	@EJB
 	private RandomGUID randomGuid;
-	
-	@Resource(name = "java:jboss/mail/ofoms")
+
+    @Resource(name = "java:jboss/mail/ofoms")
     private Session session;
-	
+
+	private String UPLOADED_FILE_PATH = "";
+
 	public byte[] getBytesFromInputStream(InputStream is) throws IOException
 	{
 	    try (ByteArrayOutputStream os = new ByteArrayOutputStream();)
@@ -123,7 +126,7 @@ public class RestServiceProphylactic {
 	public Response uploadFile(@Context HttpHeaders headers, MultipartFormDataInput input) throws IOException, CheckStructureExcelException, CheckTypizineExcelException {
 		
 		String fileName = "";
-		String UPLOADED_FILE_PATH = "";
+
 		
 		List<String> authHeaders = headers.getRequestHeader(HttpHeaders.AUTHORIZATION);
 		if(Integer.valueOf(authHeaders.get(0)) == 777) UPLOADED_FILE_PATH = "\\content\\upload\\777\\process\\";
@@ -232,7 +235,7 @@ public class RestServiceProphylactic {
 	 */
 	private void send(Integer valueOf, DateFormat timeInstance, String filename) {
 		
-		System.out.println("filename "+filename);
+		System.out.println("filename (RestServiceProphylactic) "+filename);
 		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
     	String topic= "ПРОИЗОШЛА ЗАГРУЗКА ДАННЫХ В ЕИР НСО";
     	//String textMessage = "Test Message Text";
@@ -286,9 +289,11 @@ public class RestServiceProphylactic {
 	 * @throws IOException
 	 */
 	private void  deleteNativeFileFromUser(Throwable e,String fileName, List<String> authHeaders) throws IOException{
+
 		String tmp_val = randomGuid.valueAfterMD5;
-		if(e == null) e = new Throwable("Файл "+tmp_val+".xlsx успешно загружен.");  
-		String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+getTimeStamp()+".xlsx";
+		//if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество принятых записей: "+xa_Dream2Dao.rowsValue()+". Количество не принятых записей: "+xa_Dream2Dao.doubleValue());
+        if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей: "+xa_Dream2Dao.doubleValue());
+        String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+getTimeStamp()+".xlsx";
 		
 		File from_file = new File(fileName);
 		File to_file = new File(toName);
@@ -297,7 +302,7 @@ public class RestServiceProphylactic {
 		Files.copy(p1, p2);
 		
 		// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
-		System.out.println("TEST "+from_file.delete());
+		System.out.println("i deleted file of user and created new file (RestServiceProphylactic) "+from_file.delete());
 		
 		java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
 		  Files.deleteIfExists(f);

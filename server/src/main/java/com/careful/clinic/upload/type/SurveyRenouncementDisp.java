@@ -24,7 +24,7 @@ public class SurveyRenouncementDisp extends AbstractDataPmA {
 	
 	@Override
 	IDataUploadType getInstansUploadData() {
-		System.out.println("Отдаю инстанс getInstansUploadData"+this.getClass().getName());
+		System.out.println("Отдаю инстанс getInstansUploadData (SurveyRenouncementDisp) "+this.getClass().getName());
 		return this;
 	}
 	
@@ -32,7 +32,7 @@ public class SurveyRenouncementDisp extends AbstractDataPmA {
 	public void checkOutTypizine() throws IOException, CheckTypizineExcelException, ParseException {
 
 		
-		System.out.println("Process Typizine "+this.getClass().getName());
+		System.out.println("Process Typizine (SurveyRenouncementDisp) "+this.getClass().getName());
 		
 		DataFormatter formatter = new DataFormatter();
 		XSSFWorkbook workbook = super.getXSSFWorkbook();
@@ -75,6 +75,4 @@ public class SurveyRenouncementDisp extends AbstractDataPmA {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 }
