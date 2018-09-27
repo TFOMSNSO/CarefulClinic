@@ -127,7 +127,6 @@ public class RestServiceProphylactic {
 		
 		String fileName = "";
 
-		
 		List<String> authHeaders = headers.getRequestHeader(HttpHeaders.AUTHORIZATION);
 		if(Integer.valueOf(authHeaders.get(0)) == 777) UPLOADED_FILE_PATH = "\\content\\upload\\777\\process\\";
 		if(Integer.valueOf(authHeaders.get(0)) == 1)	UPLOADED_FILE_PATH = "\\content\\upload\\1\\process\\";
@@ -137,8 +136,7 @@ public class RestServiceProphylactic {
 		Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 		List<InputPart> inputParts = uploadForm.get("uploadFile");
 		Response.ResponseBuilder builder = null;
-		
-		
+
 		try {
 			for (InputPart inputPart : inputParts) {
 						MultivaluedMap<String, String> header = inputPart.getHeaders();
@@ -152,9 +150,7 @@ public class RestServiceProphylactic {
 						fileName = directoryServer + UPLOADED_FILE_PATH + fileName;
 						writeFile(bytes,fileName);
 			}
-			
-			
-			
+
 			/*Блок загрузки в базу
 			 * Парсим и загружаем в базу отработанный файл 
 			 * */
@@ -223,8 +219,6 @@ public class RestServiceProphylactic {
 		     builder.entity(e.getMessage());
 		   return builder.build();
 		}
-		
-		
 	}
 	
 	/**
