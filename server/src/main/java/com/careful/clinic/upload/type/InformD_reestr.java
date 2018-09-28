@@ -3,6 +3,7 @@ package com.careful.clinic.upload.type;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class InformD_reestr extends AbstractDataPmI {
 		Row row = null;
 		StringBuilder strb = new StringBuilder();
 		StringBuilder sb = new StringBuilder();
+		Date date = new Date();
+		Date date2 = new Date(System.currentTimeMillis() - 5184000000l);
 		
 		
 		
@@ -53,10 +56,11 @@ public class InformD_reestr extends AbstractDataPmI {
 			strb = super.processNumericCell(row, new Integer[]{4,6})  ? strb.append("") : strb.append("ERROR Поле 'Этап информирования' или 'Тип информирования' является не числом типа int. Строка "+(j+1)+"\n");
 			strb = row.getCell(4).getNumericCellValue() != 5 ? strb.append("ERROR Несоответствие поля 'Тип запроса' полю 'Этап информирования'. Строка "+ (j+1)+"\n"): strb.append("");
 			strb = row.getCell(6).getNumericCellValue() > 7  ? strb.append("ERROR Неверно указано поле 'Тип информирования' . Строка "+ (j+1)+"\n") : strb.append("");
-			
 			strb = super.checkDataFormat(row, new Integer[]{3,5}) ? strb.append("") : strb.append("ERROR Неверный формат даты. Строка "+ (j+1)+"\n");
-			
-			
+			if(((row.getCell(5).getDateCellValue()).after(date))||((row.getCell(5).getDateCellValue().before(date2))))
+			{
+				strb.append("ERROR В поле 'Дата информирования' некорректная дата. Строка "+ (j+1)+"\n. ");
+			}
 			boolean bl = super.isLastRowCustom(formatter,row);
 			if(bl) break;
 			
