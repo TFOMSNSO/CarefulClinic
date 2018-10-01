@@ -42,6 +42,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	@PersistenceContext(unitName="OracleDream2DS")
     private EntityManager em_dream2;
 	private int countDouble = 0;
+    private ArrayList doubleList = new ArrayList();
 	//private int countRows = 0;
 
 
@@ -151,7 +152,9 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		Query q = null;
 		// TODO разграничить логику проверок для каждого 'фасона' загрузок. Условие if(data !=null){ временно пока не переду все под паттерн
 		if(data !=null){
+			doubleList.clear();
 		for(String str : listOfQueryies){
+
 			q = em_dream2.createNativeQuery(data.construct_querySelect(str));
 			List f = q.getResultList();
 			// если в базе нет полного дубля  то делаем вставку (т.е. избегаем дублирование записей в базе)
@@ -164,15 +167,16 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 			}
 			else if(str.contains("pm_i"))
             {
-            	System.out.println("XA_Dream2DaoBean insert double rows");
+            	/*System.out.println("XA_Dream2DaoBean insert double rows");
 				q = em_dream2.createNativeQuery(str.replace("pm_i", "error_pm_i"));
-                q.executeUpdate();
+                q.executeUpdate();*/
+                doubleList.add(str);
 				countDouble++;
             }
             else if(str.contains("pm_a"))
 			{
-				q = em_dream2.createNativeQuery(str.replace("pm_a", "error_pm_a"));
-				q.executeUpdate();
+				/*q = em_dream2.createNativeQuery(str.replace("pm_a", "error_pm_a"));
+				q.executeUpdate();*/
 				countDouble++;
 			}
 			else
@@ -197,7 +201,15 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		return dv;
 	}
 
-    /*@Override
+    @Override
+    public String doubleStr() {
+        ArrayList doubleListOut = new ArrayList();
+        doubleListOut.add(doubleList);
+
+	    return String.valueOf(doubleListOut);
+    }
+
+	/*@Override
     public String rowsValue() {
         String rv = String.valueOf(countRows);
         return rv;

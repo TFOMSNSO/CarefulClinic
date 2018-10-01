@@ -286,7 +286,7 @@ public class RestServiceProphylactic {
 
 		String tmp_val = randomGuid.valueAfterMD5;
 		//if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество принятых записей: "+xa_Dream2Dao.rowsValue()+". Количество не принятых записей: "+xa_Dream2Dao.doubleValue());
-        if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue());
+        if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into pm_i p        values('',", "\r\n"));
         String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+getTimeStamp()+".xlsx";
 		
 		File from_file = new File(fileName);

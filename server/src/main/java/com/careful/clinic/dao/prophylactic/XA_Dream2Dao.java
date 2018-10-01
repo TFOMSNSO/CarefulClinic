@@ -27,5 +27,7 @@ public interface XA_Dream2Dao {
 	ResponseGer parseResponse(String xml) throws ParserConfigurationException, SAXException, IOException;
 
 	String doubleValue();
-	/*String rowsValue();*/
+
+    String doubleStr();
+    /*String rowsValue();*/
 }
