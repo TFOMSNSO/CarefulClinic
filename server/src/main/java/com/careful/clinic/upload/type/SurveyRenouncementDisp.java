@@ -62,6 +62,9 @@ public class SurveyRenouncementDisp extends AbstractDataPmA {
 			}}catch (IllegalStateException e){
 				strb.append("ERROR Неверный формат ячеек в поле 'Дата опроса'. Строка "+ (j+1)+"\r\n");
             }
+			catch (Exception e){
+				strb.append("ERROR Непредвиденная ошибка. Строка "+ (j+1)+"\r\n");
+			}
 			boolean bl = super.isLastRowCustom(formatter,row);
 			if(bl) break;
 		}

@@ -2,7 +2,7 @@
     <span><mat-icon>medic</mat-icon></span>
     <span class="example-spacer"></span>
     <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon mat-36>menu</mat-icon></button>
-	
+
 	<div class="mask pseudo" style="position: static;"><a href="#"><img [src]="LOGO"  /></a></div>
 	<svg height="0">
 	  <!-- the filter to make the image white -->
@@ -12,12 +12,12 @@
 	  </filter>
 	</svg>
   </mat-toolbar>
-  
-  
+
+
   <mat-menu #appMenu="matMenu">
   	<!-- <a [routerLink]="['/questions']"><button mat-menu-item> Questions </button></a>
   	<a [routerLink]="['/hello']"><button mat-menu-item> Hello </button></a>
-	<a [routerLink]="['/table']"><button mat-menu-item> Table </button></a> 
+	<a [routerLink]="['/table']"><button mat-menu-item> Table </button></a>
 	<button mat-menu-item [routerLink]="['/n_table']">n_table</button>
 	<a [routerLink]="['/']"><button mat-menu-item>Main</button></a>-->
 	<button mat-menu-item [routerLink]="['/']">{{_menu_main_page}}</button>
@@ -27,17 +27,18 @@
 	<button mat-menu-item [routerLink]="['/login']">{{exit_app}}</button>
   	<!-- <a [routerLink]="['/z_dialog']"><button mat-menu-item> Z_dialog </button></a> -->
   </mat-menu>
-  
+
   <mat-menu #invertebrates="matMenu">
 	<button mat-menu-item [routerLink]="['/statistics-inform/reports']">{{statistics_inform_header}}</button>
 	<button mat-menu-item [routerLink]="['/statistics-assent/reports']">{{statistics_assent_header}}</button>
 	<button mat-menu-item [routerLink]="['/list_header_inform']">{{list_inform_header}}</button>
 	<button mat-menu-item  [matMenuTriggerFor]="menu_sp3">{{ _sp3_menu }}</button>
+  <button mat-menu-item [routerLink]="['/telephone_surveys/reports']">{{telephone_surveys}}</button>
   </mat-menu>
   <mat-menu #admin_list_opt="matMenu">
 	<button mat-menu-item [routerLink]="['/admin_cms']">{{_menu_admin_inform_allyear}}</button>
   </mat-menu>
-  
+
   <mat-menu #menu_sp3="matMenu">
 	<button mat-menu-item  [routerLink]="['/sp3/expertise']">{{ _sp3_menu_expertisa }}</button>
 	<button mat-menu-item  [routerLink]="['/sp3/info-d-reestr']">{{ _sp3_menu_d_reestr }}</button>

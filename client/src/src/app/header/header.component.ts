@@ -23,7 +23,7 @@ import {environment} from '../../environments/environment';
                 }))
             ])
     ])
-    
+
     ]
 })
 export class HeaderComponent{
@@ -32,7 +32,8 @@ export class HeaderComponent{
    list_inform_header: string  = environment.list_inform_header;
    statistics_inform_header: string  = environment.statistics_inform_header;
    statistics_assent_header: string  = environment.statistics_assent_header;
-   
+   telephone_surveys: string = environment.telephone_surveys;
+
    _menu_main_page:string  = environment.menu_main_page;
    _menu_report_page:string  = environment.menu_report_page;
    _menu_admin:string  = environment.menu_admin;
@@ -40,8 +41,8 @@ export class HeaderComponent{
    _sp3_menu: string = environment.sp3_menu;
    _sp3_menu_expertisa: string = environment.sp3_menu_expertisa;
    _sp3_menu_d_reestr: string = environment.sp3_menu_d_reestr;
-   
- 
+
+
 
     public LOGO = require("./logo_small.png");
 }
