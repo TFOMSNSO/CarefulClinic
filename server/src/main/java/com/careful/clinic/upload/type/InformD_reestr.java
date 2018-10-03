@@ -57,9 +57,11 @@ public class InformD_reestr extends AbstractDataPmI {
 			strb = row.getCell(4).getNumericCellValue() != 5 ? strb.append("ERROR Несоответствие поля 'Тип запроса' полю 'Этап информирования'. Строка "+ (j+1)+"\n"): strb.append("");
 			strb = row.getCell(6).getNumericCellValue() > 7  ? strb.append("ERROR Неверно указано поле 'Тип информирования' . Строка "+ (j+1)+"\n") : strb.append("");
 			strb = super.checkDataFormat(row, new Integer[]{3,5}) ? strb.append("") : strb.append("ERROR Неверный формат даты. Строка "+ (j+1)+"\n");
-			if(((row.getCell(5).getDateCellValue()).after(date))||((row.getCell(5).getDateCellValue().before(date2))))
+			try{if(((row.getCell(5).getDateCellValue()).after(date))||((row.getCell(5).getDateCellValue().before(date2))))
 			{
 				strb.append("ERROR В поле 'Дата информирования' некорректная дата. Строка "+ (j+1)+"\n. ");
+			}}catch (IllegalStateException e){
+				strb.append("ERROR Неверный формат ячеек в поле 'Дата информирования'. Строка "+ (j+1)+"\r\n");
 			}
 			boolean bl = super.isLastRowCustom(formatter,row);
 			if(bl) break;

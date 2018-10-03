@@ -177,6 +177,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 			{
 				/*q = em_dream2.createNativeQuery(str.replace("pm_a", "error_pm_a"));
 				q.executeUpdate();*/
+				doubleList.add(str);
 				countDouble++;
 			}
 			else

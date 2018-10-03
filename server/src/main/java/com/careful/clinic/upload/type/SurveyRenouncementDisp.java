@@ -44,22 +44,24 @@ public class SurveyRenouncementDisp extends AbstractDataPmA {
 		Date date2 = new Date(System.currentTimeMillis() - 5184000000l);
 
 		// добавить проверку типа смо и даты подачи
-		
-		strb = super.checkDataFormat(sheet.getRow(1),1) ? strb.append("") : strb.append("ERROR Неверный формат даты Поле 'Дата формирования'. "+"\n");
-		strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. "+"\n") : strb.append("");
-		
+
+		strb = super.checkDataFormat(sheet.getRow(1),1) ? strb.append("") : strb.append("ERROR Неверный формат даты Поле 'Дата формирования'. "+"\r\n");
+		strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. "+"\r\n") : strb.append("");
+
 		for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
-			
+
 			row = sheet.getRow(j);
-			//TODO если в эксель и int поле стоит string то вылетает IllegalStateException во время вызова getNumericCellValue()			
-			strb = super.checkRequredFild(formatter,row) ? strb.append("") : strb.append("ERROR Не указано обязательное поле. Строка "+ (j+1)+"\n");
-			strb = super.processNumericCell(row,new Integer[]{5})  ? strb.append("") : strb.append("ERROR Поле 'Результат опроса'  является не числом типа int. Строка "+(j+1)+"\n");
-			strb = row.getCell(5).getNumericCellValue() > 20 ? strb.append("ERROR В поле 'Результат опроса' используются несоответствующие id ответов для анкеты ОТКАЗ ДИСПАНСЕРИЗАЦИИ. Строка "+ (j+1)+"\n"): strb.append("");
-			strb = super.checkDataFormat(row, new Integer[]{3,4}) ? strb.append("") : strb.append("ERROR Неверный формат даты. Строка "+ (j+1)+"\n");
-			if(((row.getCell(4).getDateCellValue()).after(date))||((row.getCell(4).getDateCellValue().before(date2))))
+			//TODO если в эксель и int поле стоит string то вылетает IllegalStateException во время вызова getNumericCellValue()
+			strb = super.checkRequredFild(formatter,row) ? strb.append("") : strb.append("ERROR Не указано обязательное поле. Строка "+ (j+1)+"\r\n");
+			strb = super.processNumericCell(row,new Integer[]{5})  ? strb.append("") : strb.append("ERROR Поле 'Результат опроса'  является не числом типа int. Строка "+(j+1)+"\r\n");
+			strb = row.getCell(5).getNumericCellValue() > 20 ? strb.append("ERROR В поле 'Результат опроса' используются несоответствующие id ответов для анкеты ОТКАЗ ДИСПАНСЕРИЗАЦИИ. Строка "+ (j+1)+"\r\n"): strb.append("");
+			strb = super.checkDataFormat(row, new Integer[]{3,4}) ? strb : strb.append("ERROR Неверный формат даты. Строка "+ (j+1)+"\r\n");
+			try{if(((row.getCell(4).getDateCellValue()).after(date))||((row.getCell(4).getDateCellValue().before(date2))))
 			{
-				strb.append("ERROR В поле 'Дата опроса' некорректная дата. Строка "+ (j+1)+"\n. ");
-			}
+				strb.append("ERROR В поле 'Дата опроса' некорректная дата. Строка "+ (j+1)+"\r\n");
+			}}catch (IllegalStateException e){
+				strb.append("ERROR Неверный формат ячеек в поле 'Дата опроса'. Строка "+ (j+1)+"\r\n");
+            }
 			boolean bl = super.isLastRowCustom(formatter,row);
 			if(bl) break;
 		}

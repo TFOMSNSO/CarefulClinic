@@ -30,5 +30,6 @@ public interface ProphylacticDAO {
 	public Collection<?> getInfoProphylactic(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException;
 	public Collection<?> getListExcelFiles(Integer id);
 
-	
+
+	Integer countStrProphylactic();
 }

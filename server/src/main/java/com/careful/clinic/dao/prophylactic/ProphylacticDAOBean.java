@@ -82,9 +82,8 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
     private EntityManager em_developer;
 	@PersistenceContext(unitName="NONXASDAME")
     private EntityManager EM_NONXASDAME;
-	
-	
-	
+
+	private int count = 0;
 	
 	public Collection<?> getInfoInsur(PersonModel personmodel) throws ParseException{
 		
@@ -786,6 +785,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					
 					list.add(sb.toString());
 					sb.delete(0, sb.length());
+					count++;
 					
 					
 				}
@@ -804,7 +804,12 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 			return null;
 					
 		}
-		
-		
 
+		//TODO разобраться как это работает.
+	@Override
+	public Integer countStrProphylactic() {
+		int csp = count;
+		count = 0;
+		return csp;
+	}
 }
