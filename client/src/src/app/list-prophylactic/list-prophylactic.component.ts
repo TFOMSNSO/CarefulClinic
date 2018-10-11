@@ -98,7 +98,7 @@ export class ListProphylacticComponent implements OnInit {
 	   
 	   if($event.search_keys){	this.action_add_person = '\u0417\u0430\u0441\u0442\u0440\u0430\u0445\u043E\u0432\u0430\u043D\u043D\u044B\u0435 \u043B\u0438\u0446\u0430 \u043D\u0430\u0439\u0434\u0435\u043D\u044B \u0432 \u0431\u0430\u0437\u0435 \u0420\u0421 \u0415\u0420\u0417';	}
 	   
-	   // false - флаг закрытия прогресс бара; 0/1 - результат поиска в РС ЕРЗ 
+	   // false - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ; 0/1 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅ 
 	   if($event.note === 'false' && $event.result !== 0){
 			   this.snackBar.open(this.action_add_person,this.add_table, {
 		    		 duration: 5000,

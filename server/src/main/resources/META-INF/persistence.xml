@@ -38,6 +38,7 @@
         <jta-data-source>java:/ds/OfomsDream2</jta-data-source>
         <class>com.careful.clinic.model.PmI</class>
         <class>com.careful.clinic.model.PmA</class>
+       <class>com.careful.clinic.model.ResultEKMP</class>
       	<class>com.careful.clinic.model.PmMo2017</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->

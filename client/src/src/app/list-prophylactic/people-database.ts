@@ -42,29 +42,29 @@ respGerl:[{
 	tel:string;
 	pm_result:string;
 	pm_HOSPITAL_RESULT:string;
-	}]	  
+	}]
 }
 
 @Injectable()
 export class PeopleDatabase {
-  
+
   dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
 
   get data(): UserData[] { return this.dataChange.value; }
   serverUrl : string = environment.BACKEND_URL + "/rest/prophylactic";
   currentUser: User;
-  
+
   constructor(private http: Http) {
       this.initialize();
-      
+
   }
-  
+
   private handleError(error: any): Promise<any> {
  	console.log(error); // for demo purposes only
   	return Promise.reject(error.message || error);
   //return new Promise((resolve, reject) =>{}).then(res=> 0);
 }
-  
+
   downloadExcel(data: string,data2: number,place: string){
  const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
     const options = new RequestOptions({headers: headers});
@@ -76,8 +76,8 @@ export class PeopleDatabase {
                 FileSaver.saveAs(blob, filename);
         })
 }
-  
-  /* Загрузка сформированных файлов
+
+  /* Р—Р°РіСЂСѓР·РєР° СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… С„Р°Р№Р»РѕРІ
   */
   listFiles(data : number): Promise<ListExcelFiles[]> {
   let headers = new Headers({'Content-Type': 'application/json'});
@@ -85,8 +85,8 @@ export class PeopleDatabase {
                .toPromise()
                .then(response => response.json() as ListExcelFiles[]);
   }
-  
-  /* Загрузка файлов на закачку
+
+  /* Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»РѕРІ РЅР° Р·Р°РєР°С‡РєСѓ
   */
   listFiles2(data : number): Promise<ListExcelFiles[]> {
   let headers = new Headers({'Content-Type': 'application/json'});
@@ -94,7 +94,7 @@ export class PeopleDatabase {
                .toPromise()
                .then(response => response.json() as ListExcelFiles[]);
   }
-  
+
   upload(fileList : Array<File>): Promise<any>{
   	 if(fileList.length > 0) {
   	 	this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -119,7 +119,7 @@ export class PeopleDatabase {
             )*/
     }
   }
-  
+
   searchPersonKeys(data: any): Promise<any>{
   	let headers = new Headers({'Content-Type': 'application/json'});
   	return this.http
@@ -131,32 +131,32 @@ export class PeopleDatabase {
 			  for(let indexmas in tmp_data){
 				  if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== Number(tmp_data[indexmas].personLinksmoestablishmentid) ) continue;
 				  tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
-				  this.addPerson_t(tmp_data[indexmas]); 
+				  this.addPerson_t(tmp_data[indexmas]);
 			  }
 			   tmp_data.length;
 	  })
   	.catch(this.handleError);
   }
-  
+
   searchPersonInsur(per_data: any): Promise<any> {
 	let headers = new Headers({'Content-Type': 'application/json'});
 	return this.http
 	  .post(this.serverUrl + '/search_person_insur', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
-	  // lenght передаем как флаг отсутствия записи в рс ерз
+	  // lenght РїРµСЂРµРґР°РµРј РєР°Рє С„Р»Р°Рі РѕС‚СЃСѓС‚СЃС‚РІРёСЏ Р·Р°РїРёСЃРё РІ СЂСЃ РµСЂР·
 	  .then(res =>{
-	  
+
 	  let tmp_data = res.json();
-	  
+
 	  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-	  if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0; 
+	  if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0;
 	  if(tmp_data.length === 0) return tmp_data.length;
-			  
+
 	  tmp_data[0].currentUser = this.currentUser['role'][0].id;
-	 
-	 // ставляю пустою структуру гэра если ее нет
+
+	 // СЃС‚Р°РІР»СЏСЋ РїСѓСЃС‚РѕСЋ СЃС‚СЂСѓРєС‚СѓСЂСѓ РіСЌСЂР° РµСЃР»Рё РµРµ РЅРµС‚
 	  if(!("respGerl" in tmp_data[0])){
-	   tmp_data[0].respGerl=[{ 
+	   tmp_data[0].respGerl=[{
 	   start_date_etap1:'',
 	    end_date_etap1:'',
 	    start_date_etap2:'',
@@ -170,14 +170,14 @@ export class PeopleDatabase {
 		pm_HOSPITAL_RESULT:''
 	   }];
 	 }
-	  
+
 	  tmp_data.length != 0  ? this.addPerson_t(tmp_data[0]) : tmp_data.length
-	  
+
 	  })
 	  .catch(function(){return -1;
 	  });
   }
-  
+
   exportToExcel(per_data: any): Promise<any[]> {
   	let headers = new Headers({'Content-Type': 'application/json'});
   	return this.http
@@ -185,14 +185,14 @@ export class PeopleDatabase {
 	  .toPromise()
 	  .then(res => res.json())
   }
-  
+
   searchPersonInformir(per_data: any): Promise<any[]> {
 	let headers = new Headers({'Content-Type': 'application/json'});
 	return this.http
 	  .post(this.serverUrl + '/search_informed', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
 	  .then(res => res.json())
-	  
+
   }
     searchPlanPersonInformir(adressid: string): Promise<any[]> {
 	let headers = new Headers({'Content-Type': 'application/json'});
@@ -204,12 +204,12 @@ export class PeopleDatabase {
 
   searchPersonSurveyr(per_data: any): Promise<any> {
   	let headers = new Headers({'Content-Type': 'application/json'});
-  	
+
   	return this.http
 	  .post(this.serverUrl + '/survey_inform', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
 	  .then(res => res.json())
-	  
+
   }
   addResultSurvey(per_data: any): Promise<any> {
 		let headers = new Headers({'Content-Type': 'application/json'});
@@ -220,18 +220,18 @@ export class PeopleDatabase {
 	  console.log(JSON.stringify(res));
 	  res;
 	  })
-	  
+
   }
-  
+
   searchPersonGer(per_data: any): Promise<any> {
 	let headers = new Headers({'Content-Type': 'application/json'});
 	return this.http
 	  .post(this.serverUrl + '/search_ger', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
 	  .then(res => res.json()[0])
-	  
-  } 
-  
+
+  }
+
 
   initialize() {
     LATEST_ID = 0;
@@ -240,7 +240,7 @@ export class PeopleDatabase {
   }
 
 addPerson_t(data: any) {
-   
+
 		let date1 = new Date().getTime();
 		let date2 = new Date((data.personBirthday).replace( /(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1") ).getTime();
 		let  years_count= ((date1 - date2)/31536000000);

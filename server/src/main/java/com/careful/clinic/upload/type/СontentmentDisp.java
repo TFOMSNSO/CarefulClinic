@@ -2,6 +2,7 @@ package com.careful.clinic.upload.type;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -33,6 +34,8 @@ public class СontentmentDisp  extends AbstractDataPmA{
 		Sheet sheet =  workbook.getSheetAt(0);
 		Row row = null;
 		StringBuilder strb = new StringBuilder();
+		Date date = new Date();
+		Date date2 = new Date(System.currentTimeMillis() - 5184000000l);
 		
 		
 		
@@ -49,8 +52,21 @@ public class СontentmentDisp  extends AbstractDataPmA{
 			strb = super.processNumericCell(row,new Integer[]{5})  ? strb.append("") : strb.append("ERROR Поле 'Результат опроса'  является не числом типа int. Строка "+(j+1)+"\r\n");
 			strb = row.getCell(5).getNumericCellValue() > 111 ? strb.append("ERROR В поле 'Результат опроса' используются несоответствующие id ответов для анкеты ОПРОС УДОВЛЕТВОРЕННОСТИ ДИСПАНСЕРИЗАЦИИ. Строка "+ (j+1)+"\r\n"): strb.append("");
 			strb = row.getCell(5).getNumericCellValue() < 101 ? strb.append("ERROR В поле 'Результат опроса' используются несоответствующие id ответов для анкеты ОПРОС УДОВЛЕТВОРЕННОСТИ ДИСПАНСЕРИЗАЦИИ. Строка "+ (j+1)+"\r\n"): strb.append("");
-			
-			strb = super.checkDataFormat(row, new Integer[]{3,4}) ? strb.append("") : strb.append("ERROR Неверный формат даты. Строка "+ (j+1)+"\r\n");
+			try {
+				strb = super.checkDataFormat(row, new Integer[]{3, 4}) ? strb.append("") : strb.append("ERROR Неверный формат даты. Строка " + (j + 1) + "\r\n");
+			}catch (Exception e){
+				strb.append("ERROR Непредвиденная ошибка. Строка "+ (j+1)+"\r\n");
+			}
+
+			try{if(((row.getCell(4).getDateCellValue()).after(date))||((row.getCell(4).getDateCellValue().before(date2))))
+			{
+				strb.append("ERROR В поле 'Дата опроса' некорректная дата. Строка "+ (j+1)+"\r\n");
+			}}catch (IllegalStateException e){
+				strb.append("ERROR Неверный формат ячеек в поле 'Дата опроса'. Строка "+ (j+1)+"\r\n");
+			}
+			catch (Exception e){
+				strb.append("ERROR Непредвиденная ошибка. Строка "+ (j+1)+"\r\n");
+			}
 			
 			
 			boolean bl = super.isLastRowCustom(formatter,row);

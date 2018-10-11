@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import com.careful.clinic.upload.type.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -14,11 +15,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.careful.clinic.upload.interfase.IDataUploadType;
-import com.careful.clinic.upload.type.Agreement;
-import com.careful.clinic.upload.type.BreakAgreement;
-import com.careful.clinic.upload.type.InformD_reestr;
-import com.careful.clinic.upload.type.SurveyRenouncementDisp;
-import com.careful.clinic.upload.type.СontentmentDisp;
 
 // TODO убрать метод  getInstansUploadData и сдалать его слабосвязанным как  abstract IDataUploadType getInstansUploadData();
 @Stateless
@@ -50,8 +46,9 @@ public class UploadDataFactory {
 			dut = new SurveyRenouncementDisp(pkg,fileName);
 		}else if(type.trim().equalsIgnoreCase("ОПРОС УДОВЛЕТВОРЕННОСТИ ДИСПАНСЕРИЗАЦИИ")){
 			dut = new СontentmentDisp(pkg,fileName);
-		}
-		else{
+		} else if(type.trim().equalsIgnoreCase("РЕЗУЛЬТАТЫ ЭКМП")){
+			dut = new ResultEKMPType(pkg,fileName);
+		} else{
 			// временно. До тех пор пока не непеведу все под паттерн фабрика AbstractDataUploadType 
 			pkg.close();
 		}
@@ -59,5 +56,4 @@ public class UploadDataFactory {
 		
 		return dut;
 	}
-
 }

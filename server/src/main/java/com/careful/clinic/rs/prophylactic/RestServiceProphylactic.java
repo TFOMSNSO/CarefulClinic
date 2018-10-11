@@ -55,7 +55,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.careful.clinic.dao.prophylactic.XA_Dream2DaoBean;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.hibernate.exception.SQLGrammarException;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
@@ -87,6 +86,7 @@ public class RestServiceProphylactic {
 	ProphylacticDAO prophylacticDAO;
 	@EJB
 	XA_Dream2Dao xa_Dream2Dao;
+
 	@EJB
 	private RandomGUID randomGuid;
 
@@ -167,10 +167,10 @@ public class RestServiceProphylactic {
 			if(listOfQueryies == null) throw new ParseDataExcelException("Ошибка в шаблоне. Не удается определить шаблон.");
 			//data.checkOuTroughDB(listOfQueryies)
 			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
-			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){
-				deleteNativeFileFromUser(null, fileName, authHeaders);
-			}
-			
+			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){deleteNativeFileFromUser(null, fileName, authHeaders); }
+			//TODO////////////////////////////////////////////////
+			//if(resultEKMPDAO.insertDataFromExcel(listOfQueryies,data)){	deleteNativeFileFromUser(null, fileName, authHeaders); }
+			///////////////////////////////////////////////////
 			 String info =  new String("Файл успешно загружен");
 			 builder = Response.status(Response.Status.OK);
 		     builder.entity( info );
@@ -288,6 +288,7 @@ public class RestServiceProphylactic {
 		//if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество принятых записей: "+xa_Dream2Dao.rowsValue()+". Количество не принятых записей: "+xa_Dream2Dao.doubleValue());
         if((e == null)&&(xa_Dream2Dao.doubleStr().contains("pm_i"))&&(prophylacticDAO.countStrProphylactic()==0)) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into pm_i p        values('',", "\r\n"));
 		if((e == null)&&(xa_Dream2Dao.doubleStr().contains("pm_a"))&&(prophylacticDAO.countStrProphylactic()==0)) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into pm_a  p       (ID,FAM,IM,OT,DR,D_INFO,TYPE_INFO,PRIM,SMO,DATA,D_INSERT)  values('',", "\r\n"));
+		if((e == null)&&(xa_Dream2Dao.doubleStr().contains("RESULT_EKMP"))&&(prophylacticDAO.countStrProphylactic()==0)) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into RESULT_EKMP   values('',", "\r\n"));
 		if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp());
 		String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+getTimeStamp()+".xlsx";
 		

@@ -786,6 +786,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					list.add(sb.toString());
 					sb.delete(0, sb.length());
 					count++;
+					System.out.println("пробежал профилактик дао");
 					
 					
 				}
