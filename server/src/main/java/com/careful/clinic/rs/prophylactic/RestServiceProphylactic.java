@@ -228,8 +228,7 @@ public class RestServiceProphylactic {
 	 * @param fileName
 	 */
 	private void send(Integer valueOf, DateFormat timeInstance, String filename) {
-		
-		System.out.println("filename (RestServiceProphylactic) "+filename);
+
 		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
     	String topic= "ПРОИЗОШЛА ЗАГРУЗКА ДАННЫХ В ЕИР НСО";
     	//String textMessage = "Test Message Text";
@@ -299,7 +298,6 @@ public class RestServiceProphylactic {
 		Files.copy(p1, p2);
 		
 		// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
-		System.out.println("i deleted file of user and created new file (RestServiceProphylactic) "+from_file.delete());
 		
 		java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
 		  Files.deleteIfExists(f);

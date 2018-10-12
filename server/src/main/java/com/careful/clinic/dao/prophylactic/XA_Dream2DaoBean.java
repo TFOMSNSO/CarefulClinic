@@ -90,11 +90,9 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 				.setParameter("dr", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
 
 		List<PmI> ls = query.getResultList();
-		System.out.println("LSSSS "+ls);
 */
 			  
 			  Set s = new HashSet<>(results);
-			  System.out.println("LSSSS "+s);
 		return s;
 		
 	}

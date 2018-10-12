@@ -406,7 +406,6 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		    		if(!personmodel.getPm_result().equals("")){
 		    			 tmp =(List<ResponseGer>) xa_Dream2Dao.getInfoG(p);
 			    		// не прошел диспасеризацию (без привязке ко времени)
-		    		//	System.out.println(wrsk.getPersonSurname()+" - "+tmp.get(0).getPm_result());
 			    		if(personmodel.getPm_result().equals("0") && (tmp.get(0).getPm_result().equals("0") || tmp.get(0).getPm_result().equals("нет данных")) ){
 			    				map.put(p, tmp.get(0));
 					    		wrsk.updateRespGerl(tmp.get(0));
@@ -654,8 +653,6 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		
 		// dispose of temporary files backing this workbook on disk
 		workbook.dispose();
-        
-		System.out.println(fileName + " written successfully");
 	}
 	
 	public Collection<?> getListExcelFiles(Integer id){
@@ -786,9 +783,6 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 					list.add(sb.toString());
 					sb.delete(0, sb.length());
 					count++;
-					System.out.println("пробежал профилактик дао");
-					
-					
 				}
 				
 				pkg.close();
