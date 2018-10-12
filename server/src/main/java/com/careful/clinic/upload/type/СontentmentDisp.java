@@ -67,8 +67,6 @@ public class СontentmentDisp  extends AbstractDataPmA{
 			catch (Exception e){
 				strb.append("ERROR Непредвиденная ошибка. Строка "+ (j+1)+"\r\n");
 			}
-			
-			
 			boolean bl = super.isLastRowCustom(formatter,row);
 			if(bl) break;
 			
