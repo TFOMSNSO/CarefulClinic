@@ -19,6 +19,7 @@ import com.careful.clinic.model.ListExcelFiles;
 import com.careful.clinic.model.Sp3RateMo;
 import com.careful.clinic.model.InformDReestr;
 
+
 import static com.sun.mail.imap.protocol.INTERNALDATE.format;
 
 @Stateless
@@ -52,7 +53,7 @@ public class D_reestrImpDAO  implements D_reestr{
 	}
 
 	@Override
-	public List<InformDReestr> getResalt_D_reestrCollect2018(String date1,String date2,String user, int firrstResult) {
+	public List<InformDReestr> getResalt_D_reestrCollect2018(String date1,String date2,String user, int firrstResult)  {
 		String sb;
 		String g = user.equals("777")  ?  " " : " and  per.person_linksmoestablishmentid =" +user+ " " ;
 		if(g == " ") {
@@ -101,31 +102,34 @@ public class D_reestrImpDAO  implements D_reestr{
 
 		res.stream().forEach((record) -> {
 
-			String _0 = (String) record[0];
-			Date _1 = (Date) record[1];
-			String _tel = (String) record[2];
-			String _3 = (String) record[3];
-			Long _4 = ((BigDecimal) record[4]).longValue();
-			String _5 = (String) record[5];
-			String _6 = (String) record[6];
-			String _7 = (String) record[7];
-			Date _8 = (Date) record[8];
-			Date _9 = (Date) record[9];
-			Long _10 = ((BigDecimal) record[10]).longValue();
-			Long _11 = ((BigDecimal) record[11]).longValue();
-			Date _12 = (Date) record[12];
-			String _13 = (String) record[13];
-			String _14 = (String)  record[14];
-			Long _15 = ((BigDecimal) record[15]).longValue();
-			String _16 = (String) record[16];
-			Long _17 = ((BigDecimal) record[17]).longValue();
-			Date _18 = (Date) record[18];
-			Date _19 = (Date) record[19];
-			Date _20 = (Date) record[20];
-			//Long _21 = ((BigDecimal) record[21]).longValue(); Когда-нибудь понадобится
+			try {
+				String _0 = (String) record[0];
+				Date _1 = (Date) record[1];
+				String _tel = (String) record[2];
+				String _3 = (String) record[3];
+				Long _4 = ((BigDecimal) record[4]).longValue();
+				String _5 = (String) record[5];
+				String _6 = (String) record[6];
+				String _7 = (String) record[7];
+				Date _8 = (Date) record[8];
+				Date _9 = (Date) record[9];
+				Long _10 = ((BigDecimal) record[10]).longValue();
+				Long _11 = ((BigDecimal) record[11]).longValue();
+				Date _12 = (Date) record[12];
+				String _13 = (String) record[13];
+				String _14 = (String) record[14];
+				Long _15 = ((BigDecimal) record[15]).longValue();
+				String _16 = (String) record[16];
+				Long _17 = ((BigDecimal) record[17]).longValue();
+				Date _18 = (Date) record[18];
+				Date _19 = (Date) record[19];
+				Date _20 = (Date) record[20];
+				//Long _21 = ((BigDecimal) record[21]).longValue(); Когда-нибудь понадобится
 
-			ls.add(new InformDReestr(_0, _1, _tel, _3,_4,_5, _6,_7,_8,_9,_10,_11,_12,_13,_14, _15, _16, _17, _18, _19, _20));
+				ls.add(new InformDReestr(_0, _1, _tel, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20));
+			}catch (NullPointerException e){
 
+			}
 		});
 
 		res=null;
