@@ -34,7 +34,7 @@ import {environment} from '../../../../environments/environment';
                 }))
             ])
     ])
-    
+
     ]
 })
 export class ReportStatisticsInformirovanieComponent implements OnInit{
@@ -48,105 +48,107 @@ export class ReportStatisticsInformirovanieComponent implements OnInit{
 	 public panelOpenState1 : boolean = false;
 	 public panelOpenState2 : boolean = false;
 	 public panelOpenState3 : boolean = false;
+   public panelOpenState4 : boolean = false;
+   public panelOpenState5 : boolean = false;
 	 public myForm: FormGroup;
-	 
-	 _report_stat_inform: string = environment.report_stat_inform;
-	 _3b_expertise: string = environment.expertise_field2;
-	 _3a_3b_other: string = environment.a3_3b_other;
-	 _report_inform_note: string = environment.report_inform_note; 
-	 _report_inform_note_after: string = environment.report_inform_note_after;
-	 _list_resolved: string = environment.list_resolved;
-	 _expertise_field1_1: string = environment.expertise_field1_1;
-	 _field_is_required: string = environment.field_is_required;
-	 _reset: string = environment.reset;
-	 
-	 
-	
-   
-  
+
+	 _report_stat_inform: string = environment.report_stat_inform;                   //Сведения об организации информирования застрахованных лиц о возможности прохождения диспансеризации
+	 _3b_expertise: string = environment.expertise_field2;                           //Контроль МКБ в 1 и 3б группах здоровья
+	 _3a_3b_other: string = environment.a3_3b_other;                                 //Контроль 3 группы на назначение лечебно-профилактических мероприятий
+	 _report_inform_note: string = environment.report_inform_note;                   //Выберите тип отчета
+	 _report_inform_note_after: string = environment.report_inform_note_after;       //Выбранный отчет
+	 _list_resolved: string = environment.list_resolved;                             //Сформированные отчеты
+	 _expertise_field1_1: string = environment.expertise_field1_1;                   //Выберите временной период по счетам пролеченных
+	 _field_is_required: string = environment.field_is_required;                     //поле обязательно для заполнения
+	 _reset: string = environment.reset;                                             //сбросить
+
+
+
+
+
 	ngOnInit() {
-	
+
 	    this.myForm =  this.formBuilder.group({
 	      date1: ['', Validators.required],
 	      date2: ['', Validators.required]
 		});
-		
+
 		//this.init_Expertise();
 	}
-	
+
 	myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy'
-        
+
     };
-   
-   
-   constructor(private reportService: ReportStatExpertiseService,private formBuilder: FormBuilder) { 
+
+
+   constructor(private reportService: ReportStatExpertiseService,private formBuilder: FormBuilder) {
 		this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
    }
-   
-   
-  
+
+
+
    getListNameFiles(data : number): void{
     	// this.listInformirovanieHeaderService.listFiles(data)
 	 	// .then(res => {this.listExcelFiles = res});
 	}
-    
+
 	setTrue(vl : number, vl2 : boolean){
-		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : ''
+		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : vl == 4 ? this.panelOpenState4= vl2 : vl == 5 ? this.panelOpenState5= vl2 : ''
 	}
-	
-	
+
+
 	downloadFile_expertiseReport(form: any){
 		this.progress_bar = true;
 		this.reportService.downloadFile_expertise(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
-			
+
 		})
 	}
-	
-	
+
+
 	downloadFile_expertiseReport_3b(form: any){
 		this.progress_bar = true;
 		this.reportService.downloadFile_expertise3b(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
-			
+
 		})
 	}
-	
+
 	downloadFile_expertiseReport_3a3b(form: any){
 		this.progress_bar = true;
 		this.reportService.downloadFile_expertise3a3b(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
-			
+
 		})
 	}
-	
+
 	resetForm() {
-  	  this.myForm.reset(); 
-  	  
+  	  this.myForm.reset();
+
 	}
-	
-	
+
+
 	init_Expertise():void{
 		this.getListNameFilesExpertise(this.currentUser['role'][0].id);
 	}
-	
+
 	getListNameFilesExpertise(data : number): void{
     	 this.reportService.listFilesExpertise(data)
 	 	 .then(res => {this.filesExpertise = res});
 	}
-	
-	
+
+
 	downloadFile(data: string):void{
 	this.progress_bar = true;
-	
+
 	this.reportService.downloadFile(data,this.currentUser['role'][0].id)
 	.then(result =>{
 			let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
@@ -157,7 +159,7 @@ export class ReportStatisticsInformirovanieComponent implements OnInit{
 		this.progress_bar = false;
 		console.log('e '+e);
 	});
-	
+
 	}
- 
+
 }

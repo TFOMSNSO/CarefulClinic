@@ -1,124 +1,125 @@
 <mat-card [@flyInOut]="'in'">
-	
+
 	<mat-sidenav-container class="example-container">
-	  
+
 		<mat-list>
 			<mat-card-title></mat-card-title>
 			<mat-card-header>
-				 
+
 				 <!-- <mat-menu #menu_tab="matMenu" >
 				  <button mat-menu-item >{{_searchFIOD}}</button>
 				</mat-menu> -->
-				
+
 				<!-- <button id="btn_header" mat-icon-button [matMenuTriggerFor]="menu_tab">
 				   <mat-icon>more_vert</mat-icon>
 				</button> -->
-				 
+
 				 <!-- <button id="btn_header"  (click)="var_sidenav.open()" mat-fab><mat-icon>add</mat-icon></button> -->
 			</mat-card-header>
 		</mat-list>
-	</mat-sidenav-container>	
-	
-	<mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar> 
+	</mat-sidenav-container>
+
+	<mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar>
 	<!-- <mat-card-content @questionsAnim> -->
 	<mat-card-content>
 		<mat-accordion>
 		  <mat-expansion-panel (opened)="setTrue(1,true)" (closed)="setTrue(1,false)" (click)="init_informirovanie()">
 			<mat-expansion-panel-header>
 			  <mat-panel-title>
-				{{_report_inform}}
+				{{_report_inform}}<!--Первичное информирование-->
 			  </mat-panel-title>
 			  <mat-panel-description>
 			  <div *ngIf='panelOpenState1'>
-				 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+				 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list><!--Выбранный отчет-->
 			  </div>
 			  <div *ngIf='!panelOpenState1'>
-				 {{_report_inform_note}}
+				 {{_report_inform_note}}<!--Выберите тип отчета-->
 			  </div>
-				
+
 			  </mat-panel-description>
 			</mat-expansion-panel-header>
 
-			
-			  <span matTooltip="{{_report_inform_all}}">{{_report_inform_all}}</span>
+
+			  <span matTooltip="{{_report_inform_all}}">{{_report_inform_all}}</span><!--Подлежащие информированию за текущий год (п.211 правил)-->
 			  <!--<button mat-raised-button>{{_report_inform_btn_download}}</button>-->
-			  
-			
+
+
 			  <mat-list (click)="downloadFile()">
-				  <h3 mat-subheader>{{_reestr_file}}</h3>
+				  <h3 mat-subheader>{{_reestr_file}}</h3><!--Файл-->
 				  <mat-list-item>
 				<mat-icon mat-list-icon>note</mat-icon>
-					<h4 mat-line>{{_reestr_inform_all_year_download_file}}.dbf</h4>
-					<p mat-line>{{_reestr_download}}</p>
+					<h4 mat-line>{{_reestr_inform_all_year_download_file}}.dbf</h4><!--Реестр подлежащих информированию  на текущий год-->
+					<p mat-line>{{_reestr_download}}</p><!--скачать-->
 				</mat-list-item>
 			  </mat-list>
-			
-			  
+
+
 			  <hr>
-			  <span matTooltip="{{_report_inform_plane}}">{{_report_inform_plane}}</span>
+			  <span matTooltip="{{_report_inform_plane}}">{{_report_inform_plane}}</span><!--План информирования за выбранный квартал-->
 			  <br>
-		 
+
 			<mat-list *ngFor="let row of listonKvartal; let i = index" (click)="downloadFile_informKvartals(row.namefile)">
-				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
+				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3><!--Файл-->
 				  <mat-list-item>
 				<mat-icon mat-list-icon>note</mat-icon>
 					<h4 mat-line>{{row.namefile}}</h4>
-					<p mat-line>{{_reestr_download}}</p>
+					<p mat-line>{{_reestr_download}}</p><!--скачать-->
 				</mat-list-item>
 			</mat-list>
-			
+
 			<hr>
-			<span matTooltip="{{_report_inform_plane}}">{{_report_inform_plane_actual}}</span>
+			<span matTooltip="{{_report_inform_plane}}">{{_report_inform_plane_actual}}</span><!--Актуальный план информирования за определенный квартал-->
 			<br>
-			
+
 			<mat-list *ngFor="let row of listonKvartalActual; let i = index" (click)="downloadFile_informKvartalsActual(row.namefile,'inform_actual')">
-				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
+				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3><!--Файл-->
 				  <mat-list-item>
 				<mat-icon mat-list-icon>note</mat-icon>
 					<h4 mat-line>{{row.namefile}}</h4>
-					<p mat-line>{{_reestr_download}}</p>
+					<p mat-line>{{_reestr_download}}</p><!--скачать-->
 				</mat-list-item>
 			</mat-list>
-			  
+
 		</mat-expansion-panel>
-		
-		<mat-expansion-panel (opened)="setTrue(2,false)"
+
+		<mat-expansion-panel (opened)="setTrue(2,true)"
 							   (closed)="setTrue(2,false)"
 							   (click)="init_reinform()">
 			<mat-expansion-panel-header>
 			  <mat-panel-title>
-				{{_report_reinform}}
+				{{_report_reinform}}<!--Повторное информирование-->
 			  </mat-panel-title>
-			  <mat-panel-description>
-				  <div *ngIf='panelOpenState2'>
-					 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
-				  </div>
-				  <div *ngIf='!panelOpenState2'>
-					 {{_report_inform_note}}
-				  </div>
-			  </mat-panel-description>
+        <mat-panel-description>
+          <div *ngIf='panelOpenState2'>
+            <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list><!--Выбранный отчет-->
+          </div>
+          <div *ngIf='!panelOpenState2'>
+            {{_report_inform_note}}<!--Выберите тип отчета-->
+          </div>
+
+        </mat-panel-description>
 			</mat-expansion-panel-header>
-			
+
 			<mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_informReinform(row.namefile, 'reinform')">
-				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
+				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3><!--Файл-->
 				  <mat-list-item>
 				<mat-icon mat-list-icon>note</mat-icon>
 					<h4 mat-line>{{row.namefile}}</h4>
-					<p mat-line>{{_reestr_download}}</p>
+					<p mat-line>{{_reestr_download}}</p><!--скачать-->
 				</mat-list-item>
 			</mat-list>
 
 		</mat-expansion-panel>
-		  
+
 		  <mat-expansion-panel (opened)="setTrue(3,true)"
 							   (closed)="setTrue(3,false)"
 							   (click)="init()">
-							   
+
 			<mat-expansion-panel-header>
 				<mat-panel-title>
 					{{_report_inform_about_second_level}}
 				</mat-panel-title>
-				  
+
 				<mat-panel-description>
 				  <div *ngIf='panelOpenState3'>
 					 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
@@ -128,8 +129,8 @@
 				  </div>
 				</mat-panel-description>
 			</mat-expansion-panel-header>
-			
-			
+
+
 			 <mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_2(row.namefile, 'inform_about_second_stage')">
 				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
 				  <mat-list-item>
@@ -138,20 +139,20 @@
 					<p mat-line>{{_reestr_download}}</p>
 				</mat-list-item>
 			</mat-list>
-			
-			
-			
-			
+
+
+
+
 		  </mat-expansion-panel>
 		  <mat-expansion-panel (opened)="setTrue(4,true)"
 							   (closed)="setTrue(4,false)"
 							   (click)="init_1()">
-							   
+
 			<mat-expansion-panel-header>
 				<mat-panel-title>
 					{{_profmedosmtr}}
 				</mat-panel-title>
-				  
+
 				<mat-panel-description>
 				  <div *ngIf='panelOpenState4'>
 					 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
@@ -161,8 +162,8 @@
 				  </div>
 				</mat-panel-description>
 			</mat-expansion-panel-header>
-			
-			
+
+
 			 <mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_2(row.namefile, 'ProfMedOsmotri')">
 				  <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3>
 				  <mat-list-item>
@@ -171,10 +172,10 @@
 					<p mat-line>{{_reestr_download}}</p>
 				</mat-list-item>
 			</mat-list>
-			
-			
-			
-			
+
+
+
+
 		  </mat-expansion-panel>
 		</mat-accordion>
 	</mat-card-content>

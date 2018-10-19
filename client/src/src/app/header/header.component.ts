@@ -29,7 +29,7 @@ import {environment} from '../../environments/environment';
 export class HeaderComponent{
    list_insur_menu: string = environment.list_insur_menu;
    exit_app: string = environment.exit_app;
-   list_inform_header: string  = environment.list_inform_header;
+   list_inform_header: string  = environment.list_inform_header;//Списки для информирования
    statistics_inform_header: string  = environment.statistics_inform_header;
    statistics_assent_header: string  = environment.statistics_assent_header;
    telephone_surveys: string = environment.telephone_surveys;
