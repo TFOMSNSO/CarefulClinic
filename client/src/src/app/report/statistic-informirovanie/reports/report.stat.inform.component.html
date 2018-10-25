@@ -4,16 +4,17 @@
 	<!-- <mat-card-content @questionsAnim> -->
 	<mat-card-content>
 		<mat-accordion>
-		  <mat-expansion-panel (opened)="setTrue(1,true)" (closed)="setTrue(1,false)">
+      <!--TODO следующий блок на самом деле вызывает SQL запрос экспертизы 3а и выводится она на странице экспертизы-->
+		  <!--<mat-expansion-panel (opened)="setTrue(1,true)" (closed)="setTrue(1,false)">
 			<mat-expansion-panel-header>
 			  <mat-panel-title>
-				<div style="font-size: 13px;">{{_report_stat_inform}}</div><!--Сведения об организации информирования застрахованных лиц о возможности прохождения диспансеризации-->
+				<div style="font-size: 13px;">{{_report_stat_inform}}</div>&lt;!&ndash;Сведения об организации информирования застрахованных лиц о возможности прохождения диспансеризации&ndash;&gt;
 			  </mat-panel-title>
 
 			</mat-expansion-panel-header>
 
-<!--TODO следующий блок на самом деле вызывает SQL запрос экспертизы 3а и выводится она на странице экспертизы-->
-			  <!--<span>{{  _expertise_field1_1 }}</span>&lt;!&ndash;Выберите временной период по счетам пролеченных&ndash;&gt;
+
+			  <span>{{  _expertise_field1_1 }}</span>&lt;!&ndash;Выберите временной период по счетам пролеченных&ndash;&gt;
 			  &lt;!&ndash;<button mat-raised-button>{{_report_inform_btn_download}}</button>&ndash;&gt;
 
 
@@ -48,9 +49,9 @@
 					</form>
 
 
-				</mat-list>-->
+				</mat-list>
 
-		</mat-expansion-panel>
+		</mat-expansion-panel>-->
 
 		  <mat-expansion-panel (opened)="setTrue(2,true)" (closed)="setTrue(2,false)" (click)="init_reinform()">
 				<mat-expansion-panel-header>
