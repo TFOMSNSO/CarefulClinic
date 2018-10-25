@@ -37,7 +37,7 @@ public class ResultEKMPType extends AbstractDataUploadType{
         strb  = sheet.getRow(1).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Дата формирования") ? strb.append("VALID Тэг 'Дата формирования' - корректно \r\n") : strb.append("ERROR Тэг 'Дата формирования' - некорректно \r\n");
         strb  = sheet.getRow(2).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Смо") ? strb.append("VALID Тэг 'Смо'  - корректно.  \r\n") : strb.append("ERROR Тэг 'Смо' - некорректно. \r\n");
 
-        strb  = sheet.getRow(3).getCell(0).getStringCellValue().trim().equalsIgnoreCase("код МО") ? strb.append("VALID Тэг 'код МО' - корректно.  \r\n") : strb.append("ERROR Тэг 'код МО' - некорректно. \r\n");
+        /*strb  = sheet.getRow(3).getCell(0).getStringCellValue().trim().equalsIgnoreCase("код МО") ? strb.append("VALID Тэг 'код МО' - корректно.  \r\n") : strb.append("ERROR Тэг 'код МО' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(1).getStringCellValue().trim().equalsIgnoreCase("Наименование МО") ? strb.append("VALID Тэг 'Наименование МО' - корректно.  \r\n") : strb.append("ERROR Тэг 'Наименование МО' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(2).getStringCellValue().trim().equalsIgnoreCase("Фамилия") ? strb.append("VALID Тэг 'Фамилия' - корректно.  \r\n") : strb.append("ERROR Тэг 'Фамилия' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(3).getStringCellValue().trim().equalsIgnoreCase("Имя") ? strb.append("VALID Тэг 'Имя' - корректно.  \r\n") : strb.append("ERROR Тэг 'Имя' - некорректно. \r\n");
@@ -57,7 +57,7 @@ public class ResultEKMPType extends AbstractDataUploadType{
         strb  = sheet.getRow(3).getCell(16).getStringCellValue().trim().equalsIgnoreCase("Поставлен на Д-учет после индивидуального информирования (1 - да, 2 - нет)") ? strb.append("VALID Тэг 'Поставлен на Д-учет после индивидуального информирования (1 - да, 2 - нет)' - корректно.  \r\n") : strb.append("ERROR Тэг 'Поставлен на Д-учет после индивидуального информирования (1 - да, 2 - нет)' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(17).getStringCellValue().trim().equalsIgnoreCase("Госпитализирован после индивидуального информирования (1 - да, 2 - нет)") ? strb.append("VALID Тэг 'Госпитализирован после индивидуального информирования (1 - да, 2 - нет)' - корректно.  \r\n") : strb.append("ERROR Тэг 'Госпитализирован после индивидуального информирования (1 - да, 2 - нет)' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(18).getStringCellValue().trim().equalsIgnoreCase("примечание") ? strb.append("VALID Тэг 'примечание' - корректно.  \r\n") : strb.append("ERROR Тэг 'примечание' - некорректно. \r\n");
-
+*/
         if(strb.toString().contains("ERROR")) { System.out.println(strb.toString()); throw new CheckStructureExcelException(strb.toString()); }
 
     }
@@ -79,7 +79,7 @@ public class ResultEKMPType extends AbstractDataUploadType{
         for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
 
             row = sheet.getRow(j);
-            strb = super.processNumericCell(row, new Integer[]{0,7,8,9,10,11,12,13,14,15,16,17})  ? strb.append("") : strb.append("ERROR В одном или нескольких столбцах формат ячеек не является числом. Строка "+(j+1)+"\r\n");
+            strb = super.processNumericCell(row, new Integer[]{0,6,7,8,12,13,14,15,16,17})  ? strb.append("") : strb.append("ERROR В одном или нескольких столбцах формат ячеек не является числом. Строка "+(j+1)+"\r\n");
             strb = row.getCell(7).getNumericCellValue() > 1 || row.getCell(7).getNumericCellValue() < 0  ? strb.append("ERROR Неверно значение в поле 'Результат ЭКМП' . Строка "+ (j+1)+"\r\n") : strb.append("");
             try {
             strb = super.checkDataFormat(row, new Integer[]{5}) ? strb.append("") : strb.append("ERROR Неверный формат даты рождения. Строка "+ (j+1)+"\r\n");
@@ -192,6 +192,7 @@ public class ResultEKMPType extends AbstractDataUploadType{
             sb.append(" and code_violation2=");
         }
         sb.append(tmp_m[11]);
+        /////////////////////
         if(tmp_m[12].contains("''")){
             sb.append(" and code_violation3");
             tmp_m[12]=" is null";
@@ -199,8 +200,18 @@ public class ResultEKMPType extends AbstractDataUploadType{
             sb.append(" and code_violation3=");
         }
         sb.append(tmp_m[12]);
-        sb.append(" and cause_violation=");
+        /////////////////////////
+        /*sb.append(" and cause_violation=");
+        sb.append(tmp_m[13]);*/
+        ////////////////////////
+        if(tmp_m[13].contains("''")){
+            sb.append(" and cause_violation");
+            tmp_m[13]=" is null";
+        }else{
+            sb.append(" and cause_violation=");
+        }
         sb.append(tmp_m[13]);
+        //////////////////////////////
         sb.append(" and cause_null_violation=");
         sb.append(tmp_m[14]);
         sb.append(" and individ_accord=");

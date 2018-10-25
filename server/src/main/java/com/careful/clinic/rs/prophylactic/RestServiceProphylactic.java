@@ -55,7 +55,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.lowagie.text.Row;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.hibernate.exception.SQLGrammarException;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -227,22 +232,46 @@ public class RestServiceProphylactic {
 	 * @param timeInstance
 	 * @param fileName
 	 */
-	private void send(Integer valueOf, DateFormat timeInstance, String filename) {
+	private void send(Integer valueOf, DateFormat timeInstance, String filename) throws InvalidFormatException, IOException {
 
 		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
-    	String topic= "ПРОИЗОШЛА ЗАГРУЗКА ДАННЫХ В ЕИР НСО";
+		String addresses2 = "guv@ofoms.sibnet.ru,sja@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
+		String addresses3 = "esa@ofoms.sibnet.ru,kin@ofoms.sibnet.ru";
+				String topic= "ПРОИЗОШЛА ЗАГРУЗКА ДАННЫХ В ЕИР НСО";
+		OPCPackage pkg = OPCPackage.open(new File(filename));
+		XSSFWorkbook workbook = new XSSFWorkbook(pkg);
+
+		DataFormatter formatter = new DataFormatter();
+		Sheet sheet =  workbook.getSheetAt(0);
+		org.apache.poi.ss.usermodel.Row row = sheet.getRow(0);
+		// из загружаемого файла обпределяем тип данных которые грузятся.
+		String  type = row.getCell(1).getStringCellValue().trim().toUpperCase();
     	//String textMessage = "Test Message Text";
  
         try {
  
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("info@eir.tfoms.nso"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses));
+            /*if(xa_Dream2Dao.str.contains("RESULT_EKMP")){
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses2));}
+            if(xa_Dream2Dao.doubleStr().contains("RESULT_EKMP")==false){
+				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses));
+			}*/
+			///////////////////
+			if(type.trim().equalsIgnoreCase("РЕЗУЛЬТАТЫ ЭКМП")){
+				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses2));
+			}else if((type.trim().equalsIgnoreCase("ОПРОС ОТКАЗ ДИСПАНСЕРИЗАЦИИ"))||(type.trim().equalsIgnoreCase("ОПРОС УДОВЛЕТВОРЕННОСТИ ДИСПАНСЕРИЗАЦИИ"))||(type.trim().equalsIgnoreCase("ПОДАЧА СОГЛАСИЯ ЗЛ"))||(type.trim().equalsIgnoreCase("АННУЛИРОВАНИЕ&ОТЗЫВ СОГЛАСИЯ ЗЛ"))){
+				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses3));
+			}
+			else{
+				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses));
+			}
+			///////////////////
             message.setSubject(topic, "UTF-8");
            // message.setText(textMessage);
             BodyPart messageBodyPart = new MimeBodyPart();
             //messageBodyPart.setText("Это текст на русском яхыке<br> and English lang... ");
-            messageBodyPart.setContent("<p>ЭТО АВТОМАТИЧЕСКАЯ РАССЫЛКА ПРИЛОЖЕНИЯ ЕИР НСО.</p><br>Пользователь "+valueOf+" совершил загрузку данных в Единое информационное пространство в "+timeInstance.format(new Date())+"<br>Загруженная информация во вложении", "text/html; charset=utf-8");
+            messageBodyPart.setContent("<p>ЭТО АВТОМАТИЧЕСКАЯ РАССЫЛКА ПРИЛОЖЕНИЯ ЕИР НСО.</p><br>Пользователь "+valueOf+" совершил загрузку '"+type+"' в Единое информационное пространство в "+timeInstance.format(new Date())+"<br>Загруженная информация во вложении", "text/html; charset=utf-8");
             
          // Create a multipar message
             Multipart multipart = new MimeMultipart();

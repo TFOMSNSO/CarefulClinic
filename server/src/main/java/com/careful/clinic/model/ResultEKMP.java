@@ -31,11 +31,11 @@ public class ResultEKMP implements Serializable {
 
     private BigDecimal countViolation;
 
-    private BigDecimal codeViolation1;
+    private String codeViolation1;
 
-    private BigDecimal codeViolation2;
+    private String codeViolation2;
 
-    private BigDecimal codeViolation3;
+    private String codeViolation3;
 
     private BigDecimal causeViolation;
 
@@ -137,27 +137,27 @@ public class ResultEKMP implements Serializable {
         this.countViolation = countViolation;
     }
 
-    public BigDecimal getCodeViolation1() {
+    public String getCodeViolation1() {
         return codeViolation1;
     }
 
-    public void setCodeViolation1(BigDecimal codeViolation1) {
+    public void setCodeViolation1(String codeViolation1) {
         this.codeViolation1 = codeViolation1;
     }
 
-    public BigDecimal getCodeViolation2() {
+    public String getCodeViolation2() {
         return codeViolation2;
     }
 
-    public void setCodeViolation2(BigDecimal codeViolation2) {
+    public void setCodeViolation2(String codeViolation2) {
         this.codeViolation2 = codeViolation2;
     }
 
-    public BigDecimal getCodeViolation3() {
+    public String getCodeViolation3() {
         return codeViolation3;
     }
 
-    public void setCodeViolation3(BigDecimal codeViolation3) {
+    public void setCodeViolation3(String codeViolation3) {
         this.codeViolation3 = codeViolation3;
     }
 
