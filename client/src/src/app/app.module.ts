@@ -5,9 +5,10 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyDatePickerModule } from 'mydatepicker';
 import {MaterialModule} from './material-module';
+import { RouterModule } from '@angular/router';
 
 
-import { TableBasicExample } from './table-basic/table-basic-example'; 
+import { TableBasicExample } from './table-basic/table-basic-example';
 
 import { HomeComponent } from './home/home.component';
 
@@ -33,7 +34,7 @@ import { SadeaveSearchComponent } from './list-prophylactic/sidenave.search.comp
 import { SidenavExportExcelComponent } from './list-prophylactic/sidenav_export_excel/sidenav.export.excel.component';
 import { SadeaveSearchKeysComponent } from './list-prophylactic/sidenav_search_keys/sidenave.search.keys.component';
 import { SidenavUploadDataComponent } from './list-prophylactic/sidenav_uploaddata/sidenav.upload.data.component';
-import { DndDirective } from './list-prophylactic/sidenav_uploaddata/dnd.directive'; 
+import { DndDirective } from './list-prophylactic/sidenav_uploaddata/dnd.directive';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService, UserService} from './_services/index';
@@ -80,7 +81,7 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     ,SidenavUploadDataComponent
     ,DndDirective
     ,ListInformirovanieHeader
-	
+
   ],
   imports: [
   	MyDatePickerModule,
@@ -91,7 +92,9 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     AppRoutingModule,
 	MaterialModule,
 	ReactiveFormsModule,
-	Ng2CarouselamosModule
+	Ng2CarouselamosModule,
+    RouterModule.forRoot([
+        {path: '',                    component: HomeComponent},])
   ],
   providers: [PeopleDatabase, SidenaveSearchService,AuthGuard,AuthenticationService,
   // providers used to create fake backend
