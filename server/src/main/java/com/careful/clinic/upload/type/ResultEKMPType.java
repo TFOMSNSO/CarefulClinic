@@ -37,27 +37,27 @@ public class ResultEKMPType extends AbstractDataUploadType{
         strb  = sheet.getRow(1).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Дата формирования") ? strb.append("VALID Тэг 'Дата формирования' - корректно \r\n") : strb.append("ERROR Тэг 'Дата формирования' - некорректно \r\n");
         strb  = sheet.getRow(2).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Смо") ? strb.append("VALID Тэг 'Смо'  - корректно.  \r\n") : strb.append("ERROR Тэг 'Смо' - некорректно. \r\n");
 
-        strb  = sheet.getRow(3).getCell(0).getStringCellValue().trim().equalsIgnoreCase("код МО") ? strb.append("VALID Тэг 'код МО' - корректно.  \r\n") : strb.append("ERROR Тэг 'код МО' - некорректно. \r\n");
+        /*strb  = sheet.getRow(3).getCell(0).getStringCellValue().trim().equalsIgnoreCase("код МО") ? strb.append("VALID Тэг 'код МО' - корректно.  \r\n") : strb.append("ERROR Тэг 'код МО' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(1).getStringCellValue().trim().equalsIgnoreCase("Наименование МО") ? strb.append("VALID Тэг 'Наименование МО' - корректно.  \r\n") : strb.append("ERROR Тэг 'Наименование МО' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(2).getStringCellValue().trim().equalsIgnoreCase("Фамилия") ? strb.append("VALID Тэг 'Фамилия' - корректно.  \r\n") : strb.append("ERROR Тэг 'Фамилия' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(3).getStringCellValue().trim().equalsIgnoreCase("Имя") ? strb.append("VALID Тэг 'Имя' - корректно.  \r\n") : strb.append("ERROR Тэг 'Имя' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(4).getStringCellValue().trim().equalsIgnoreCase("Отчество") ? strb.append("VALID Тэг 'Отчество' - корректно.  \r\n") : strb.append("ERROR Тэг 'Отчество' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(5).getStringCellValue().trim().equalsIgnoreCase("Дата рождения") ? strb.append("VALID Тэг 'Дата рождения' - корректно.  \r\n") : strb.append("ERROR Тэг 'Дата рождения' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(6).getStringCellValue().trim().equalsIgnoreCase("Группа здоровья (3а/3б)") ? strb.append("VALID Тэг 'Группа здоровья (3а/3б)' - корректно.  \r\n") : strb.append("ERROR Тэг 'Группа здоровья (3а/3б)' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(7).getStringCellValue().trim().equalsIgnoreCase("Результат ЭКМП") ? strb.append("VALID Тэг 'Результат ЭКМП' - корректно.  \r\n") : strb.append("ERROR Тэг 'Результат ЭКМП' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(6).getStringCellValue().trim().equalsIgnoreCase("Группа здоровья (22 - 3а; 23 - 3б)") ? strb.append("VALID Тэг 'Группа здоровья (22 - 3а; 23 - 3б)' - корректно.  \r\n") : strb.append("ERROR Тэг 'Группа здоровья (22 - 3а; 23 - 3б)' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(7).getStringCellValue().trim().equalsIgnoreCase("Результат ЭКМП  (0 - нарушения не выявлены, 1 - нарушения выявлены)") ? strb.append("VALID Тэг 'Результат ЭКМП  (0 - нарушения не выявлены, 1 - нарушения выявлены)' - корректно.  \r\n") : strb.append("ERROR Тэг 'Результат ЭКМП  (0 - нарушения не выявлены, 1 - нарушения выявлены)' - некорректно. \r\n");
 
-        strb  = sheet.getRow(3).getCell(8).getStringCellValue().trim().equalsIgnoreCase("кол-во нарушений") ? strb.append("VALID Тэг 'кол-во нарушений' - корректно.  \r\n") : strb.append("ERROR Тэг 'кол-во нарушений' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(9).getStringCellValue().trim().equalsIgnoreCase("код нарушения") ? strb.append("VALID Тэг 'код нарушения' - корректно.  \r\n") : strb.append("ERROR Тэг 'код нарушения' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(10).getStringCellValue().trim().equalsIgnoreCase("код нарушения") ? strb.append("VALID Тэг 'код нарушения' - корректно.  \r\n") : strb.append("ERROR Тэг 'код нарушения' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(11).getStringCellValue().trim().equalsIgnoreCase("код нарушения") ? strb.append("VALID Тэг 'код нарушения' - корректно.  \r\n") : strb.append("ERROR Тэг 'код нарушения' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(12).getStringCellValue().trim().equalsIgnoreCase("причина, по которой выставлено нарушение") ? strb.append("VALID Тэг 'причина, по которой выставлено нарушение' - корректно.  \r\n") : strb.append("ERROR Тэг 'причина, по которой выставлено нарушение' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(13).getStringCellValue().trim().equalsIgnoreCase("причина, по которой отсутствует нарушение") ? strb.append("VALID Тэг 'причина, по которой отсутствует нарушение' - корректно.  \r\n") : strb.append("ERROR Тэг 'причина, по которой отсутствует нарушение' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(14).getStringCellValue().trim().equalsIgnoreCase("индивидуальное согласие") ? strb.append("VALID Тэг 'индивидуальное согласие' - корректно.  \r\n") : strb.append("ERROR Тэг 'индивидуальное согласие' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(15).getStringCellValue().trim().equalsIgnoreCase("осуществлялось индивидуальное информирование") ? strb.append("VALID Тэг 'осуществлялось индивидуальное информирование' - корректно.  \r\n") : strb.append("ERROR Тэг 'осуществлялось индивидуальное информирование' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(16).getStringCellValue().trim().equalsIgnoreCase("Поставлен на Д-учет после индивидуального информирования") ? strb.append("VALID Тэг 'Поставлен на Д-учет после индивидуального информирования' - корректно.  \r\n") : strb.append("ERROR Тэг 'Поставлен на Д-учет после индивидуального информирования' - некорректно. \r\n");
-        strb  = sheet.getRow(3).getCell(17).getStringCellValue().trim().equalsIgnoreCase("Госпитализирован после индивидуального информирования") ? strb.append("VALID Тэг 'Госпитализирован после индивидуального информирования' - корректно.  \r\n") : strb.append("ERROR Тэг 'Госпитализирован после индивидуального информирования' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(8).getStringCellValue().trim().equalsIgnoreCase("в случае выявления нарушений: кол-во нарушений") ? strb.append("VALID Тэг 'в случае выявления нарушений: кол-во нарушений' - корректно.  \r\n") : strb.append("ERROR Тэг 'в случае выявления нарушений: кол-во нарушений' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(9).getStringCellValue().trim().equalsIgnoreCase("в случае выявления нарушений: код нарушения") ? strb.append("VALID Тэг 'в случае выявления нарушений: код нарушения' - корректно.  \r\n") : strb.append("ERROR Тэг 'в случае выявления нарушений: код нарушения' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(10).getStringCellValue().trim().equalsIgnoreCase("в случае выявления нарушений: код нарушения") ? strb.append("VALID Тэг 'в случае выявления нарушений: код нарушения' - корректно.  \r\n") : strb.append("ERROR Тэг 'в случае выявления нарушений: код нарушения' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(11).getStringCellValue().trim().equalsIgnoreCase("в случае выявления нарушений: код нарушения") ? strb.append("VALID Тэг 'в случае выявления нарушений: код нарушения' - корректно.  \r\n") : strb.append("ERROR Тэг 'в случае выявления нарушений: код нарушения' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(12).getStringCellValue().trim().equalsIgnoreCase("в случае выявления нарушений: причина, по которой выставлено нарушение") ? strb.append("VALID Тэг 'в случае выявления нарушений: причина, по которой выставлено нарушение' - корректно.  \r\n") : strb.append("ERROR Тэг 'в случае выявления нарушений: причина, по которой выставлено нарушение' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(13).getStringCellValue().trim().equalsIgnoreCase("в случае отсутствия нарушений: причина, по которой отсутствует нарушение") ? strb.append("VALID Тэг 'в случае отсутствия нарушений: причина, по которой отсутствует нарушение' - корректно.  \r\n") : strb.append("ERROR Тэг 'в случае отсутствия нарушений: причина, по которой отсутствует нарушение' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(14).getStringCellValue().trim().equalsIgnoreCase("индивидуальное согласие (1 - дано, нет - 2)") ? strb.append("VALID Тэг 'индивидуальное согласие (1 - дано, нет - 2)' - корректно.  \r\n") : strb.append("ERROR Тэг 'индивидуальное согласие (1 - дано, нет - 2)' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(15).getStringCellValue().trim().equalsIgnoreCase("осуществлялось индивидуальное информирование (1 - да, 2 - нет)") ? strb.append("VALID Тэг 'осуществлялось индивидуальное информирование (1 - да, 2 - нет)' - корректно.  \r\n") : strb.append("ERROR Тэг 'осуществлялось индивидуальное информирование (1 - да, 2 - нет)' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(16).getStringCellValue().trim().equalsIgnoreCase("Поставлен на Д-учет после индивидуального информирования (1 - да, 2 - нет)") ? strb.append("VALID Тэг 'Поставлен на Д-учет после индивидуального информирования (1 - да, 2 - нет)' - корректно.  \r\n") : strb.append("ERROR Тэг 'Поставлен на Д-учет после индивидуального информирования (1 - да, 2 - нет)' - некорректно. \r\n");
+        strb  = sheet.getRow(3).getCell(17).getStringCellValue().trim().equalsIgnoreCase("Госпитализирован после индивидуального информирования (1 - да, 2 - нет)") ? strb.append("VALID Тэг 'Госпитализирован после индивидуального информирования (1 - да, 2 - нет)' - корректно.  \r\n") : strb.append("ERROR Тэг 'Госпитализирован после индивидуального информирования (1 - да, 2 - нет)' - некорректно. \r\n");
         strb  = sheet.getRow(3).getCell(18).getStringCellValue().trim().equalsIgnoreCase("примечание") ? strb.append("VALID Тэг 'примечание' - корректно.  \r\n") : strb.append("ERROR Тэг 'примечание' - некорректно. \r\n");
-
+*/
         if(strb.toString().contains("ERROR")) { System.out.println(strb.toString()); throw new CheckStructureExcelException(strb.toString()); }
 
     }
@@ -79,7 +79,7 @@ public class ResultEKMPType extends AbstractDataUploadType{
         for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
 
             row = sheet.getRow(j);
-            strb = super.processNumericCell(row, new Integer[]{0,7,8,9,10,11,12,13,14,15,16,17})  ? strb.append("") : strb.append("ERROR В одном или нескольких столбцах формат ячеек не является числом. Строка "+(j+1)+"\r\n");
+            strb = super.processNumericCell(row, new Integer[]{0,6,7,8,12,13,14,15,16,17})  ? strb.append("") : strb.append("ERROR В одном или нескольких столбцах формат ячеек не является числом. Строка "+(j+1)+"\r\n");
             strb = row.getCell(7).getNumericCellValue() > 1 || row.getCell(7).getNumericCellValue() < 0  ? strb.append("ERROR Неверно значение в поле 'Результат ЭКМП' . Строка "+ (j+1)+"\r\n") : strb.append("");
             try {
             strb = super.checkDataFormat(row, new Integer[]{5}) ? strb.append("") : strb.append("ERROR Неверный формат даты рождения. Строка "+ (j+1)+"\r\n");
@@ -192,6 +192,7 @@ public class ResultEKMPType extends AbstractDataUploadType{
             sb.append(" and code_violation2=");
         }
         sb.append(tmp_m[11]);
+        /////////////////////
         if(tmp_m[12].contains("''")){
             sb.append(" and code_violation3");
             tmp_m[12]=" is null";
@@ -199,8 +200,18 @@ public class ResultEKMPType extends AbstractDataUploadType{
             sb.append(" and code_violation3=");
         }
         sb.append(tmp_m[12]);
-        sb.append(" and cause_violation=");
+        /////////////////////////
+        /*sb.append(" and cause_violation=");
+        sb.append(tmp_m[13]);*/
+        ////////////////////////
+        if(tmp_m[13].contains("''")){
+            sb.append(" and cause_violation");
+            tmp_m[13]=" is null";
+        }else{
+            sb.append(" and cause_violation=");
+        }
         sb.append(tmp_m[13]);
+        //////////////////////////////
         sb.append(" and cause_null_violation=");
         sb.append(tmp_m[14]);
         sb.append(" and individ_accord=");
