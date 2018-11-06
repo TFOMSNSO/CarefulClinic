@@ -1,90 +1,78 @@
-<div>
-<div>
-<mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar> 
-	<!-- <mat-card-content @questionsAnim> -->
-	<mat-card-content>
-		<mat-accordion>
-		  <mat-expansion-panel (opened)="setTrue(1,true)" (closed)="setTrue(1,false)">
-			<mat-expansion-panel-header>
-			  <mat-panel-title>
-				<div style="font-size: 13px;">{{_report_stat_assent}}</div>
-			  </mat-panel-title>
-			  
-			</mat-expansion-panel-header>
-
-			
-			  <span>{{  _assent_field1_1 }}</span>
-			  <!--<button mat-raised-button>{{_report_inform_btn_download}}</button>-->
-			  
-			
-				<mat-list>
-				    <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_assentReport(myForm);resetForm();">
-						<mat-list-item>
-							<h4 mat-line>
-							  <my-date-picker   name="date1" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
-							</h4>  
-							<h4 mat-line>
+<mat-card [@flyInOut]="'in'">
+  <mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar>
+  <!-- <mat-card-content @questionsAnim> -->
+  <mat-card-content>
+    <mat-accordion>
+      <mat-expansion-panel (opened)="setTrue(1,true)" (closed)="setTrue(1,false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div style="font-size: 13px;">{{_report_stat_assent}}</div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <span>{{  _assent_field1_1 }}</span>
+        <!--<button mat-raised-button>{{_report_inform_btn_download}}</button>-->
+        <mat-list>
+          <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_assentReport(myForm);resetForm();">
+            <mat-list-item>
+              <h4 mat-line>
+                <my-date-picker   name="date1" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
+              </h4>
+              <h4 mat-line>
 							<span *ngIf="!myForm.controls.date1.valid" class="help-block text-danger">
 								<mat-error>{{ _field_is_required }}</mat-error>
-							 </span> 
-							 </h4>  
-						</mat-list-item>	  
-						<mat-list-item>
-							<h4 mat-line>
-							  <my-date-picker  name="date2" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
-							 </h4> 
-							<h4 mat-line>
+							 </span>
+              </h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4 mat-line>
+                <my-date-picker  name="date2" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
+              </h4>
+              <h4 mat-line>
 							  <span *ngIf="!myForm.controls.date2.valid" class="help-block text-danger">
 								<mat-error>{{ _field_is_required }}</mat-error>
 							  </span>
-							</h4> 
-						</mat-list-item>
-						<mat-list-item>	
-							<h4 mat-line>
-							  <button type='submit' mat-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
-							  <button type='button' mat-raised-button color='primary' (click)="resetForm()">{{ _reset }}</button>
-							</h4>  
-						</mat-list-item>	
-					</form>
-				</mat-list>
-				
-		</mat-expansion-panel>
-		
-		  <mat-expansion-panel (opened)="setTrue(2,true)" (closed)="setTrue(2,false)">
-				<mat-expansion-panel-header>
-				  <mat-panel-title>
-					<!--{{_3b_expertise}} -->
-				  </mat-panel-title>
-				</mat-expansion-panel-header>
-			</mat-expansion-panel>
-		  
-		  <mat-expansion-panel (opened)="setTrue(3,true)"
-							   (closed)="setTrue(3,false)">
-							   
-			<mat-expansion-panel-header>
-				<mat-panel-title>
-					<!--{{ _3a_3b_other }}-->
-				</mat-panel-title>
-			</mat-expansion-panel-header>
-			
-		  </mat-expansion-panel>
-		</mat-accordion>
-	</mat-card-content>
-</div>
-<div class="list_files" *ngIf="filesAssent.length > 0; else other_content">
-	<mat-list *ngFor="let row of filesAssent; let i = index" (click)="downloadFile(row.namefile)">
-						  <h3 mat-subheader *ngIf="i==0">{{ _list_resolved }}</h3>
-						  <mat-list-item class="mycustomlist">
-							<mat-icon mat-list-icon>note</mat-icon>
-							<h4 mat-line>{{row.namefile}}</h4>
-							<p mat-line>{{_reestr_download}}</p>
-						</mat-list-item>
-	</mat-list>
-</div>
-	  <ng-template #other_content>
-	  	<!-- <div><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div> -->
-			<div *ngIf="flag; else date_note"><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div>
-	  			<ng-template #date_note><mat-error><h3>{{data_not_found}}</h3></mat-error></ng-template>
-		</ng-template>
+              </h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4 mat-line>
+                <button type='submit' mat-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
+                <button type='button' mat-raised-button color='primary' (click)="resetForm()">{{ _reset }}</button>
+              </h4>
+            </mat-list-item>
+          </form>
+        </mat-list>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="setTrue(2,true)" (closed)="setTrue(2,false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <!--{{_3b_expertise}} -->
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="setTrue(3,true)"
+                           (closed)="setTrue(3,false)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <!--{{ _3a_3b_other }}-->
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+  <div class="list_files" *ngIf="filesAssent.length > 0; else other_content">
+    <mat-list *ngFor="let row of filesAssent; let i = index" (click)="downloadFile(row.namefile)">
+      <h3 mat-subheader *ngIf="i==0">{{ _list_resolved }}</h3>
+      <mat-list-item class="mycustomlist">
+        <mat-icon mat-list-icon>note</mat-icon>
+        <h4 mat-line>{{row.namefile}}</h4>
+        <p mat-line>{{_reestr_download}}</p>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <ng-template #other_content>
+    <!-- <div><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div> -->
+    <div *ngIf="flag; else date_note"><h1><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></h1></div>
+    <ng-template #date_note><mat-error><h3>{{data_not_found}}</h3></mat-error></ng-template>
+  </ng-template>
+</mat-card>
 
-</div>
