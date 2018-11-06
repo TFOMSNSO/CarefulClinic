@@ -16,10 +16,10 @@ public class StatInformDAOBean implements StatInformDAO {
         String directoryServer = System.getProperty("jboss.home.dir");
         String directoryDestination = "";
 
-        if(id == 777) directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\777";
-        if(id == 1)	directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\1";
-        if(id == 2)	directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\2";
-        if(id == 4)	directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\4";
+        if(id == 777) directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\777";
+        if(id == 1)	directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\1";
+        if(id == 2)	directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\2";
+        if(id == 4)	directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\4";
 
         directoryDestination = directoryServer+directoryDestination;
 
@@ -38,10 +38,10 @@ public class StatInformDAOBean implements StatInformDAO {
         String directoryServer = System.getProperty("jboss.home.dir");
         String directoryDestination = "";
 
-        if(id == 777) directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\777";
-        if(id == 1)	directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\1";
-        if(id == 2)	directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\2";
-        if(id == 4)	directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\4";
+        if(id == 777) directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\777";
+        if(id == 1)	directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\1";
+        if(id == 2)	directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\2";
+        if(id == 4)	directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\4";
 
         directoryDestination = directoryServer+directoryDestination;
 
