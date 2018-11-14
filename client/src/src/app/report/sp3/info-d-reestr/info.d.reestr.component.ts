@@ -116,13 +116,13 @@ export class InfoDReestrComponent implements OnInit{
 	
 	
 	
-	/*  Информирование д-учетников*/
+	/*  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 	getListNameFiles_1(data : number): void{
     	 this.infoDReestrService.listFiles_1(data)
 	 	 .then(res => {this.listExcelFiles = res});
 	}
 	
-	/* Скачать файл д учета*/
+	/* пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ*/
 	
 	downloadFile_2(data: string,data2: string):void{
 	this.progress_bar = true;

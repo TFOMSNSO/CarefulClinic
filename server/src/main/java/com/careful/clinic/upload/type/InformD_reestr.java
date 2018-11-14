@@ -24,8 +24,6 @@ public class InformD_reestr extends AbstractDataPmI {
 	public InformD_reestr(OPCPackage pkg, String fileName) throws IOException{
 		super.set(pkg,fileName);
 	}
-	
-	
 
 	@Override
 	public void checkOutTypizine() throws IOException, CheckTypizineExcelException, ParseException {

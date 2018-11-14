@@ -1,45 +1,43 @@
 <mat-toolbar  id="questions" [@flyInOut]="'in'">
-    <span><mat-icon>medic</mat-icon></span>
-    <span class="example-spacer"></span>
-    <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon mat-36>menu</mat-icon></button>
+  <span><mat-icon>medic</mat-icon></span>
+  <span class="example-spacer"></span>
+  <button mat-button [matMenuTriggerFor]="appMenu"><mat-icon mat-36>menu</mat-icon></button>
 
-	<div class="mask pseudo" style="position: static;"><a href="#"><img [src]="LOGO"  /></a></div>
-	<svg height="0">
-	  <!-- the filter to make the image white -->
-	  <filter id="filter">
-		<feFlood flood-color="white" />
-		<feComposite in2="SourceAlpha" operator="in"/>
-	  </filter>
-	</svg>
-  </mat-toolbar>
+  <div class="mask pseudo" style="position: static;"><a href="#"><img [src]="LOGO"  /></a></div>
+  <svg height="0">
+    <!-- the filter to make the image white -->
+    <filter id="filter">
+      <feFlood flood-color="white" />
+      <feComposite in2="SourceAlpha" operator="in"/>
+    </filter>
+  </svg>
+</mat-toolbar>
 
+<!--ГЛАВНОЕ МЕНЮ-->
+<mat-menu #appMenu="matMenu">
+  <button mat-menu-item [routerLink]="['/']">{{_menu_main_page}}</button><!--главная страница-->
+  <button mat-menu-item [matMenuTriggerFor]="invertebrates">{{_menu_report_page}}</button><!--отчеты-->
+  <button mat-menu-item [routerLink]="['/list_prophylactic']">{{list_insur_menu}}</button><!--списки застрахованных-->
+  <button mat-menu-item  [matMenuTriggerFor]="admin_list_opt">{{_menu_admin}}</button><!--Администрирование-->
+  <button mat-menu-item [routerLink]="['/login']">{{exit_app}}</button><!--Выйти из приложения-->
+</mat-menu>
 
-  <mat-menu #appMenu="matMenu">
-  	<!-- <a [routerLink]="['/questions']"><button mat-menu-item> Questions </button></a>
-  	<a [routerLink]="['/hello']"><button mat-menu-item> Hello </button></a>
-	<a [routerLink]="['/table']"><button mat-menu-item> Table </button></a>
-	<button mat-menu-item [routerLink]="['/n_table']">n_table</button>
-	<a [routerLink]="['/']"><button mat-menu-item>Main</button></a>-->
-	<button mat-menu-item [routerLink]="['/']">{{_menu_main_page}}</button>
-	<button mat-menu-item [matMenuTriggerFor]="invertebrates">{{_menu_report_page}}</button>
-	<button mat-menu-item [routerLink]="['/list_prophylactic']">{{list_insur_menu}}</button>
-  	<button mat-menu-item  [matMenuTriggerFor]="admin_list_opt">{{_menu_admin}}</button>
-	<button mat-menu-item [routerLink]="['/login']">{{exit_app}}</button>
-  	<!-- <a [routerLink]="['/z_dialog']"><button mat-menu-item> Z_dialog </button></a> -->
-  </mat-menu>
+<!--ПОДМЕНЮ ОТЧЁТЫ-->
+<mat-menu #invertebrates="matMenu">
+  <button mat-menu-item [routerLink]="['/statistics-inform/reports']">{{statistics_inform_header}}</button><!--Статистика информирования-->
+  <button mat-menu-item [routerLink]="['/statistics-assent/reports']">{{statistics_assent_header}}</button><!--Статистика согласий-->
+  <button mat-menu-item [routerLink]="['/list_header_inform']">{{list_inform_header}}</button><!--Списки для информирования-->
+  <button mat-menu-item  [matMenuTriggerFor]="menu_sp3">{{ _sp3_menu }}</button><!--Страховой представитель 3-->
+  <button mat-menu-item [routerLink]="['/telephone_surveys/reports']">{{telephone_surveys}}</button><!--Телефонные опросы-->
+</mat-menu>
 
-  <mat-menu #invertebrates="matMenu">
-	<button mat-menu-item [routerLink]="['/statistics-inform/reports']">{{statistics_inform_header}}</button>
-	<button mat-menu-item [routerLink]="['/statistics-assent/reports']">{{statistics_assent_header}}</button>
-	<button mat-menu-item [routerLink]="['/list_header_inform']">{{list_inform_header}}</button>
-	<button mat-menu-item  [matMenuTriggerFor]="menu_sp3">{{ _sp3_menu }}</button>
-  <button mat-menu-item [routerLink]="['/telephone_surveys/reports']">{{telephone_surveys}}</button>
-  </mat-menu>
-  <mat-menu #admin_list_opt="matMenu">
-	<button mat-menu-item [routerLink]="['/admin_cms']">{{_menu_admin_inform_allyear}}</button>
-  </mat-menu>
+<!--ПОДМЕНЮ АДМИНИСТРИРОВАНИЕ-->
+<mat-menu #admin_list_opt="matMenu">
+  <button mat-menu-item [routerLink]="['/admin_cms']">{{_menu_admin_inform_allyear}}</button><!--Сформировать информирование за текущий год (п.211 правил)-->
+</mat-menu>
 
-  <mat-menu #menu_sp3="matMenu">
-	<button mat-menu-item  [routerLink]="['/sp3/expertise']">{{ _sp3_menu_expertisa }}</button>
-	<button mat-menu-item  [routerLink]="['/sp3/info-d-reestr']">{{ _sp3_menu_d_reestr }}</button>
-  </mat-menu>
+<!--ПОДМЕНЮ СТРАХОВОЙ ПРЕДСТАВИТЕЛЬ 3-->
+<mat-menu #menu_sp3="matMenu">
+  <button mat-menu-item  [routerLink]="['/sp3/expertise']">{{ _sp3_menu_expertisa }}</button><!--Экспертиза-->
+  <button mat-menu-item  [routerLink]="['/sp3/info-d-reestr']">{{ _sp3_menu_d_reestr }}</button><!--Информирование ЗЛ, стоящих на Д-учете-->
+</mat-menu>

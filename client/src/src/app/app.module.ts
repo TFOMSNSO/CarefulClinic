@@ -6,29 +6,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyDatePickerModule } from 'mydatepicker';
 import {MaterialModule} from './material-module';
 import { RouterModule } from '@angular/router';
-
-
 import { TableBasicExample } from './table-basic/table-basic-example';
-
 import { HomeComponent } from './home/home.component';
-
-//import {CdkTableModule} from '@angular/cdk';
 import 'hammerjs';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { AppComponent } from './app.component';
-//import { HelloComponent } from './hello/hello.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-//import {PeopleDatabase} from './table/people-database';
 import {PeopleDatabase} from './list-prophylactic/people-database';
 import { TableComponent } from './table/table.component';
 import {TableHeaderDemo} from './table/table-header-demo';
 import { ListProphylacticComponent } from './list-prophylactic/list-prophylactic.component';
 import { DialogComponent } from './list-prophylactic/dialog.component';
-//import { DialogDemo } from './z_dialog/dialog-demo';
-//import { JazzDialog } from './z_dialog/dialog2-demo';
-//import { ContentElementDialog } from './z_dialog/dialog3-demo';
-//import { IFrameDialog } from './z_dialog/dialog4-demo';
 import {ListProphylacticHeaderComponent} from './list-prophylactic/list-prophylactic.header.component';
 import { SadeaveSearchComponent } from './list-prophylactic/sidenave.search.component';
 import { SidenavExportExcelComponent } from './list-prophylactic/sidenav_export_excel/sidenav.export.excel.component';
@@ -43,17 +32,11 @@ import { fakeBackendProvider } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 import { ListInformirovanieHeader} from './report/list-informirovanie/listinformirovanieheader.component';
-
-
-
-
-
-
-
 	/*rout module*/
 import { AppRoutingModule }     from './app.routing.module';
 import { SidenaveSearchService } from './list-prophylactic/sidenave-search.service';
-
+//библиотека для ограничения доступа по ролям
+//import { NgxPermissionsModule } from 'ngx-permissions';
 
 
 
@@ -94,7 +77,8 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
 	ReactiveFormsModule,
 	Ng2CarouselamosModule,
     RouterModule.forRoot([
-        {path: '',                    component: HomeComponent},])
+        {path: '',                    component: HomeComponent},])//,
+    //NgxPermissionsModule.forRoot()
   ],
   providers: [PeopleDatabase, SidenaveSearchService,AuthGuard,AuthenticationService,
   // providers used to create fake backend
