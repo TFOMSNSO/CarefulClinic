@@ -41,6 +41,7 @@ export class HeaderComponent{
    _sp3_menu: string = environment.sp3_menu;
    _sp3_menu_expertisa: string = environment.sp3_menu_expertisa;
    _sp3_menu_d_reestr: string = environment.sp3_menu_d_reestr;
+  _uploadfile: string = environment.uploadfile;
 
 
 
