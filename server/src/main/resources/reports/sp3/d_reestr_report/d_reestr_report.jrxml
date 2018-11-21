@@ -441,45 +441,11 @@
 				<textFieldExpression><![CDATA["19"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="387" height="38" uuid="0f57f91e-ac55-4ada-afa6-144d78de6f4b"/>
+				<reportElement x="0" y="0" width="1230" height="38" uuid="0f57f91e-ac55-4ada-afa6-144d78de6f4b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Список ЗЛ, прошедших диспансеризацию за период c "]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="1263" y="0" width="141" height="20" uuid="eb16ce83-eea5-4eca-b6a2-c14149019045"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{DATE}]]></textFieldExpression>
-				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
-			</textField>
-			<textField>
-				<reportElement x="387" y="0" width="74" height="38" uuid="3ffe98f4-c836-41ea-9d0f-319bebe0fabe"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true" isUnderline="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{date_start}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="462" y="0" width="31" height="38" uuid="636cf2ad-0835-4752-b1ec-5c15a0887d9a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true" isUnderline="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["по"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="494" y="0" width="77" height="38" uuid="f371d627-6f5d-4070-b0b0-4bcbbe3e08d8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true" isUnderline="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{date_end}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="580" y="0" width="691" height="38" uuid="60ff7571-70c9-4750-8a64-48db969e9eae"/>
-				<textElement verticalAlignment="Middle">
-					<font isBold="true" isUnderline="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA["с 3 группой здоровья"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Список ЗЛ с 3 группой здоровья, прошедших диспансеризацию и подлежащих информированию по кратности заболевания."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1437" y="38" width="40" height="46" uuid="205540a3-573d-4fbb-885f-1085da5f95e2"/>

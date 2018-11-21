@@ -71,7 +71,8 @@ public class D_reestrImpDAO  implements D_reestr{
 					"(pl2.plan_inform not between pii.date_inform - 60 and pii.date_inform + 60 or pii.date_inform is null) " +
 					g +
 					" and " +
-					" pl2.plan_inform between '" + date1 + "' and '" + date2 + "' ";
+					" pl2.plan_inform between add_months((select   trunc(max(d.d_insert))  from D_RECORDS@link_ofoms d),-1) and  " +
+					" (select   trunc(add_months(max(pl.d_insert),1))  from plan_pm_i_d_records@link_ofoms pl ) ";
 
 		}else
 		{
@@ -89,7 +90,8 @@ public class D_reestrImpDAO  implements D_reestr{
 					"(pl2.plan_inform not between pii.date_inform - 60 and pii.date_inform + 60 or pii.date_inform is null) " +
 					g +
 					" and " +
-					" pl2.plan_inform between '" + date1 + "' and '" + date2 + "' and rec.p_r_dn in (1,2) ";
+					" pl2.plan_inform between add_months((select   trunc(max(d.d_insert))  from D_RECORDS@link_ofoms d),-1) and  " +
+					" (select   trunc(add_months(max(pl.d_insert),1))  from plan_pm_i_d_records@link_ofoms pl ) and rec.p_r_dn in (1,2) ";
 		}
 		// TODO сделать выбор базы на сайте
 		Query q = non_mur_collect2018.createNativeQuery(sb);
