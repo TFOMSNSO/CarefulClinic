@@ -79,12 +79,14 @@ public class ResultEKMPType extends AbstractDataUploadType{
         for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
 
             row = sheet.getRow(j);
-            strb = super.processNumericCell(row, new Integer[]{0,6,7,8,12,13,14,15,16,17})  ? strb.append("") : strb.append("ERROR В одном или нескольких столбцах формат ячеек не является числом. Строка "+(j+1)+"\r\n");
-            strb = row.getCell(7).getNumericCellValue() > 1 || row.getCell(7).getNumericCellValue() < 0  ? strb.append("ERROR Неверно значение в поле 'Результат ЭКМП' . Строка "+ (j+1)+"\r\n") : strb.append("");
             try {
+            strb = (super.processNumericCell(row, new Integer[]{12}) || super.processNumericCell(row, new Integer[]{13}))  ? strb.append("") : strb.append("ERROR В столбце 13 или 14 формат ячеек не является числом. Строка "+(j+1)+"\r\n");
+            strb = super.processNumericCell(row, new Integer[]{0,6,7,8,14,15,16,17})  ? strb.append("") : strb.append("ERROR В одном или нескольких столбцах формат ячеек не является числом. Строка "+(j+1)+"\r\n");
+            strb = row.getCell(7).getNumericCellValue() > 1 || row.getCell(7).getNumericCellValue() < 0  ? strb.append("ERROR Неверно значение в поле 'Результат ЭКМП' . Строка "+ (j+1)+"\r\n") : strb.append("");
+
             strb = super.checkDataFormat(row, new Integer[]{5}) ? strb.append("") : strb.append("ERROR Неверный формат даты рождения. Строка "+ (j+1)+"\r\n");
             }catch (Exception e){
-                strb.append("ERROR Непредвиденная ошибка в поле 'Дата рождения'. Строка "+ (j+1)+"\r\n");
+                strb.append("ERROR Непредвиденная ошибка. Строка "+ (j+1)+"\r\n");
             }
             boolean bl = super.isLastRowCustom(formatter,row);
             if(bl) break;
