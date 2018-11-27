@@ -102,29 +102,29 @@ export class ListProphylacticComponent implements OnInit {
 	   // false - ���� �������� �������� ����; 0/1 - ��������� ������ � �� ���
 	   if($event.note === 'false' && $event.result !== 0){
 			   this.snackBar.open(this.action_add_person,this.add_table, {
-		    		 duration: 15000,
+		    		 duration: 10000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 0){
 			   this.snackBar.open(this.bad_action_add_person,undefined, {
-		    		 duration: 15000,
+		    		 duration: 10000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === -1){
 			   this.snackBar.open('Call the admin web site','Error on server side', {
-		    		 duration: 15000,
+		    		 duration: 10000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 200){
     	 		let tmp = $event.status;
 			   this.snackBar.open(tmp, '', {
-		    		 duration: 15000,
+		    		 duration: 10000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 404){
     	 		let tmp = $event.status;
 			   this.snackBar.open('', tmp, {
-		    		 duration: 15000,
+		    		 duration: 10000,
 		   		 });
     	 }
 	}
