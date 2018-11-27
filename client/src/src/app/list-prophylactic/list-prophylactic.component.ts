@@ -36,11 +36,11 @@ export type UserProperties = 'personSurname' | 'personKindfirstname' | 'personKi
             style({opacity: 0, transform: 'translateY(500px)',  offset: 0.3}),
             style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
           ]))]), {optional: true}),
-        
+
       ])
-      
+
     ]),
-    
+
     trigger('flyInOut', [
             state('in', style({ opacity: 1, transform: 'translateX(0)' })),
             transition('void => *', [
@@ -59,7 +59,7 @@ export type UserProperties = 'personSurname' | 'personKindfirstname' | 'personKi
         ])
 
   ]
-  
+
 })
 export class ListProphylacticComponent implements OnInit {
 	_searchFIOD: string = environment.searchFIOD;
@@ -67,7 +67,7 @@ export class ListProphylacticComponent implements OnInit {
 	_exportExcel: string = environment.exportExcel;
 	_cleartable: string = environment.cleartable;
 	_downloadtask: string = environment.downloadtask;
-	_uploadfile: string = environment.uploadfile;
+	/*_uploadfile: string = environment.uploadfile;*/
    t_years: string = environment.t_years;
   lists_insur: string = environment.lists_insur;
   surname: string = environment.surname;
@@ -77,57 +77,58 @@ export class ListProphylacticComponent implements OnInit {
   action_add_person = environment.action_add_person;
   add_table = environment.add_table;
   bad_action_add_person = environment.bad_action_add_person;
-  
+
   progress_bar: boolean = false;
   dataSource: ProphylacticDataSource | null;
   displayedColumns: UserProperties[] = [];
-  
+
   constructor(public _peopleDatabase: PeopleDatabase,
   				  public dialog: MatDialog,
   				  public snackBar: MatSnackBar) { }
   dialogRef: MatDialogRef<DialogComponent> | null;
-  
-  
+
+
 	getNotify(note:string): void{
 		this.dataSource.filter = note;
 	}
-	
+
+  /*выпадающее окно с информацией о загруженных данных*/
 	handleProgressUpdated($event):void{
 	//  off progress bar
 	   this.progress_bar = JSON.parse($event.note);
-	   
+
 	   if($event.search_keys){	this.action_add_person = '\u0417\u0430\u0441\u0442\u0440\u0430\u0445\u043E\u0432\u0430\u043D\u043D\u044B\u0435 \u043B\u0438\u0446\u0430 \u043D\u0430\u0439\u0434\u0435\u043D\u044B \u0432 \u0431\u0430\u0437\u0435 \u0420\u0421 \u0415\u0420\u0417';	}
-	   
-	   // false - ���� �������� �������� ����; 0/1 - ��������� ������ � �� ��� 
+
+	   // false - ���� �������� �������� ����; 0/1 - ��������� ������ � �� ���
 	   if($event.note === 'false' && $event.result !== 0){
 			   this.snackBar.open(this.action_add_person,this.add_table, {
-		    		 duration: 5000,
+		    		 duration: 15000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 0){
 			   this.snackBar.open(this.bad_action_add_person,undefined, {
-		    		 duration: 6000,
+		    		 duration: 15000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === -1){
 			   this.snackBar.open('Call the admin web site','Error on server side', {
-		    		 duration: 6000,
+		    		 duration: 15000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 200){
     	 		let tmp = $event.status;
 			   this.snackBar.open(tmp, '', {
-		    		 duration: 6000,
+		    		 duration: 15000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 404){
     	 		let tmp = $event.status;
 			   this.snackBar.open('', tmp, {
-		    		 duration: 6000,
+		    		 duration: 15000,
 		   		 });
     	 }
 	}
-  
+
 
   ngOnInit() {
     this.connect();
@@ -137,7 +138,7 @@ export class ListProphylacticComponent implements OnInit {
         .subscribe(() => {
           if (!this.dataSource) { return; }
          this.dataSource.filter = this.filter.nativeElement.value;
-         
+
         });*/
   }
 
@@ -146,9 +147,9 @@ export class ListProphylacticComponent implements OnInit {
     this.dataSource = new ProphylacticDataSource(this._peopleDatabase);
     this._peopleDatabase.initialize();
   }
-  
-  
-  
+
+
+
   //execute dialog
   preview(pr:any):void{
 	let cc = {
@@ -165,17 +166,17 @@ export class ListProphylacticComponent implements OnInit {
 			      right: ''
 			    },
 				data: pr
-	}  
+	}
    this.dialogRef = this.dialog.open(DialogComponent,cc);
    // dialogRef.afterClosed().subscribe(result => {
      // this.selectedOption = result;
     //});
-   
+
    let result = JSON.stringify(pr, function(key, val) {
     if (key !== "edit")
         return val;
 	});
-	
+
   }
 
 get():void{

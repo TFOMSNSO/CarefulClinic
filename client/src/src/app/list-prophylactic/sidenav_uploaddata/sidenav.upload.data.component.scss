@@ -9,7 +9,8 @@ mat-sidenav.nav_header{
     overflow: auto;
 }
 .nav_header{
- width:95%;
+  height:550%;
+  width:95%;
 }
 
  .example-card{
@@ -44,23 +45,23 @@ mat-sidenav.nav_header{
 }
 
 /deep/ mat-sidenav.mat-sidenav {
-    transform: translate3d(-110%,0,0); 
+    transform: translate3d(-110%,0,0);
 }
 
 /deep/ mat-sidenav.mat-sidenav.mat-sidenav-opened, /deep/ mat-sidenav.mat-sidenav.mat-sidenav-opening {
 	   //transform: translate3d(0,35%,0);
 	   height:600px;
 }
- 
+
  .mat-list-icon {
     color: white;
     background: rgba(0, 0, 0, 0.3);
  }
- 
+
  .demo-secondary-text {
   color: rgba(0, 0, 0, 0.54);
 }
- 
+
 
  .dropzone {
  height: 20%;
@@ -105,5 +106,4 @@ mat-sidenav.nav_header{
 }
 
 
- 
- 
+
