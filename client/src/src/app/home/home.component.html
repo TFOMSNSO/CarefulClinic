@@ -21,14 +21,14 @@
 <div id="container" [@flyInOut]="'in'">
       <div
         ng2-carouselamos
-        class="slides-wrapper" 
+        class="slides-wrapper"
         [items]="items"
         [width]="900"
 		[$prev]="prev"
         [$next]="next"
         [$item]="item">
       </div>
-    
+
 
     <ng-template #prev>
       <img src="assets/images/left-arrow.png" id="left" />
@@ -36,7 +36,7 @@
     <ng-template #next>
       <img src="assets/images/right-arrow.png" id="right" />
     </ng-template>
-	
+
     <ng-template #item let-item let-i="index">
 
         <div class="items">
@@ -44,3 +44,4 @@
         </div>
 
     </ng-template>
+</div>

@@ -92,6 +92,7 @@ export class ListProphylacticComponent implements OnInit {
 		this.dataSource.filter = note;
 	}
 
+  /*выпадающее окно с информацией о загруженных данных*/
 	handleProgressUpdated($event):void{
 	//  off progress bar
 	   this.progress_bar = JSON.parse($event.note);
@@ -101,29 +102,29 @@ export class ListProphylacticComponent implements OnInit {
 	   // false - ���� �������� �������� ����; 0/1 - ��������� ������ � �� ���
 	   if($event.note === 'false' && $event.result !== 0){
 			   this.snackBar.open(this.action_add_person,this.add_table, {
-		    		 duration: 5000,
+		    		 duration: 15000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 0){
 			   this.snackBar.open(this.bad_action_add_person,undefined, {
-		    		 duration: 6000,
+		    		 duration: 15000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === -1){
 			   this.snackBar.open('Call the admin web site','Error on server side', {
-		    		 duration: 6000,
+		    		 duration: 15000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 200){
     	 		let tmp = $event.status;
 			   this.snackBar.open(tmp, '', {
-		    		 duration: 6000,
+		    		 duration: 15000,
 		   		 });
     	 }
     	 if($event.note === 'false' && $event.result === 404){
     	 		let tmp = $event.status;
 			   this.snackBar.open('', tmp, {
-		    		 duration: 6000,
+		    		 duration: 15000,
 		   		 });
     	 }
 	}
