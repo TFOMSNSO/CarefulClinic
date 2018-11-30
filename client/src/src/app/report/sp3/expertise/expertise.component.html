@@ -1,25 +1,25 @@
 <mat-card [@flyInOut]="'in'">
-<div>	
+<div>
 <div>
 	<mat-sidenav-container class="example-container">
-	  
+
 		<mat-list>
 			<mat-card-title>{{_sp3_menu_expertisa}}</mat-card-title>
 			<mat-card-header>
-				 
+
 				 <!-- <mat-menu #menu_tab="matMenu" >
 				  <button mat-menu-item >{{_searchFIOD}}</button>
 				</mat-menu> -->
-				
+
 				<!-- <button id="btn_header" mat-icon-button [matMenuTriggerFor]="menu_tab">
 				   <mat-icon>more_vert</mat-icon>
 				</button> -->
-				 
+
 				 <!-- <button id="btn_header"  (click)="var_sidenav.open()" mat-fab><mat-icon>add</mat-icon></button> -->
 			</mat-card-header>
 		</mat-list>
-	</mat-sidenav-container>	
-<mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar> 
+	</mat-sidenav-container>
+<mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar>
 	<!-- <mat-card-content @questionsAnim> -->
 	<mat-card-content>
 		<mat-accordion>
@@ -35,115 +35,115 @@
 			  <div *ngIf='!panelOpenState1'>
 				 {{_report_inform_note}}
 			  </div>
-				
+
 			  </mat-panel-description>
 			</mat-expansion-panel-header>
 
-			
+
 			  <span>{{  _expertise_field1_1 }}</span>
 			  <!--<button mat-raised-button>{{_report_inform_btn_download}}</button>-->
-			  
-			
+
+
 				<mat-list>
 				    <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_expertiseReport(myForm);resetForm();">
 						<mat-list-item>
 							<h4 mat-line>
 							  <my-date-picker   name="date1" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
-							</h4>  
+							</h4>
 							<h4 mat-line>
 							<span *ngIf="!myForm.controls.date1.valid" class="help-block text-danger">
 								<mat-error>{{ _field_is_required }}</mat-error>
-							 </span> 
-							 </h4>  
-						</mat-list-item>	  
+							 </span>
+							 </h4>
+						</mat-list-item>
 						<mat-list-item>
 							<h4 mat-line>
 							  <my-date-picker  name="date2" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
-							 </h4> 
+							 </h4>
 							<h4 mat-line>
 							  <span *ngIf="!myForm.controls.date2.valid" class="help-block text-danger">
 								<mat-error>{{ _field_is_required }}</mat-error>
 							  </span>
-							</h4> 
+							</h4>
 						</mat-list-item>
-						<mat-list-item>	
+						<mat-list-item>
 							<h4 mat-line>
 							  <button type='submit' mat-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
 							  <button type='button' mat-raised-button color='primary' (click)="resetForm()">{{ _reset }}</button>
-							</h4>  
-						</mat-list-item>	
+							</h4>
+						</mat-list-item>
 					</form>
-				
-				
+
+
 				</mat-list>
-				
+
 		</mat-expansion-panel>
-		
+
 		  <mat-expansion-panel (opened)="setTrue(2,true)" (closed)="setTrue(2,false)">
 			<mat-expansion-panel-header>
 			  <mat-panel-title>
 				{{_3b_expertise}}
 			  </mat-panel-title>
 			  <mat-panel-description>
-			  
+
 			  <div *ngIf='panelOpenState2'>
 				 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
 			  </div>
 			  <div *ngIf='!panelOpenState2'>
 				 {{_report_inform_note}}
 			  </div>
-			  
+
 			</mat-panel-description>
 			</mat-expansion-panel-header>
-			
-			
+
+
 			<span>{{  _expertise_field1_1 }}</span>
 			<mat-list>
 				    <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_expertiseReport_3b(myForm);resetForm();">
 						<mat-list-item>
 							<h4 mat-line>
 							  <my-date-picker   name="date1" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
-							</h4>  
+							</h4>
 							<h4 mat-line>
 							<span *ngIf="!myForm.controls.date1.valid" class="help-block text-danger">
 								<mat-error>{{ _field_is_required }}</mat-error>
-							 </span> 
-							 </h4>  
-						</mat-list-item>	  
+							 </span>
+							 </h4>
+						</mat-list-item>
 						<mat-list-item>
 							<h4 mat-line>
 							  <my-date-picker  name="date2" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
-							 </h4> 
+							 </h4>
 							<h4 mat-line>
 							  <span *ngIf="!myForm.controls.date2.valid" class="help-block text-danger">
 								<mat-error>{{ _field_is_required }}</mat-error>
 							  </span>
-							</h4> 
+							</h4>
 						</mat-list-item>
-						<mat-list-item>	
+						<mat-list-item>
 							<h4 mat-line>
 							  <button type='submit' mat-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
 							  <button type='button' mat-raised-button color='primary' (click)="resetForm()">{{ _reset }}</button>
-							</h4>  
-						</mat-list-item>	
+							</h4>
+						</mat-list-item>
 					</form>
-				
-				
+
+
 				</mat-list>
-			
-			
-			
-			
+
+
+
+
 		  </mat-expansion-panel>
-		  
+		  <!--////-->
 		  <mat-expansion-panel (opened)="setTrue(3,true)"
 							   (closed)="setTrue(3,false)">
-							   
+
 			<mat-expansion-panel-header>
 				<mat-panel-title>
 					{{ _3a_3b_other }}
 				</mat-panel-title>
-				  
+
 				<mat-panel-description>
 				  <div *ngIf='panelOpenState3'>
 					 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
@@ -153,41 +153,95 @@
 				  </div>
 				</mat-panel-description>
 			</mat-expansion-panel-header>
-			
+
 			<span>{{  _expertise_field1_1 }}</span>
 			<mat-list>
 				    <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_expertiseReport_3a3b(myForm);resetForm();">
 						<mat-list-item>
 							<h4 mat-line>
 							  <my-date-picker   name="date1" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
-							</h4>  
+							</h4>
 							<h4 mat-line>
 							<span *ngIf="!myForm.controls.date1.valid" class="help-block text-danger">
 								<mat-error>{{ _field_is_required }}</mat-error>
-							 </span> 
-							 </h4>  
-						</mat-list-item>	  
+							 </span>
+							 </h4>
+						</mat-list-item>
 						<mat-list-item>
 							<h4 mat-line>
 							  <my-date-picker  name="date2" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
-							 </h4> 
+							 </h4>
 							<h4 mat-line>
 							  <span *ngIf="!myForm.controls.date2.valid" class="help-block text-danger">
 								<mat-error>{{ _field_is_required }}</mat-error>
 							  </span>
-							</h4> 
+							</h4>
 						</mat-list-item>
-						<mat-list-item>	
+						<mat-list-item>
 							<h4 mat-line>
 							  <button type='submit' mat-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
 							  <button type='button' mat-raised-button color='primary' (click)="resetForm()">{{ _reset }}</button>
-							</h4>  
-						</mat-list-item>	
+							</h4>
+						</mat-list-item>
 					</form>
-				
-				
+
+
 				</mat-list>
 			</mat-expansion-panel>
+      <!--Контроль 3 группы на постановку нв Д-учет-->
+      <mat-expansion-panel (opened)="setTrue(4,true)"
+                           (closed)="setTrue(4,false)">
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ _3a_3b_other_noNazrNoGosp }}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            <div *ngIf='panelOpenState4'>
+              <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+            </div>
+            <div *ngIf='!panelOpenState4'>
+              {{_report_inform_note}}
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <span>{{  _expertise_field1_1 }}</span>
+        <mat-list>
+          <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_expertiseReport_3a3b(myForm);resetForm();">
+            <mat-list-item>
+              <h4 mat-line>
+                <my-date-picker   name="date1" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
+              </h4>
+              <h4 mat-line>
+							<span *ngIf="!myForm.controls.date1.valid" class="help-block text-danger">
+								<mat-error>{{ _field_is_required }}</mat-error>
+							 </span>
+              </h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4 mat-line>
+                <my-date-picker  name="date2" [options]="myDatePickerOptions" formControlName="date2"></my-date-picker>
+              </h4>
+              <h4 mat-line>
+							  <span *ngIf="!myForm.controls.date2.valid" class="help-block text-danger">
+								<mat-error>{{ _field_is_required }}</mat-error>
+							  </span>
+              </h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4 mat-line>
+                <button type='submit' mat-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
+                <button type='button' mat-raised-button color='primary' (click)="resetForm()">{{ _reset }}</button>
+              </h4>
+            </mat-list-item>
+          </form>
+
+
+        </mat-list>
+      </mat-expansion-panel>
+      <!--///-->
 		</mat-accordion>
 	</mat-card-content>
 </div>

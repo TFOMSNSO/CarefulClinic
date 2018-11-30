@@ -195,6 +195,50 @@ public class RestServiceSp3Experise {
 		}
 	}
 
+	@POST
+	@Path("/3a3b_noNazrNoGosp_report")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response report_3a3b_noNazrNoGosp(String x)  {
+
+		Response.ResponseBuilder builder = null;
+		String m[] = x.split("\":\"");
+		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
+		try{
+			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
+			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
+			List<WrapSp3> ls = null;
+			// смещение для запроса
+			int iter = 0;
+			// порядковый номер файла
+			int i =1;
+			String [] mm = {"reports/sp3/expertise/3a3b_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3А3Б_список_экспертиза_"};
+			while(true){
+				ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a3b_expertise_noNazrNoGosp(date1, date2, user, iter);
+				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
+				else break;
+
+				i++;
+				iter = iter + 60_000;
+			}
+
+			List<Sp3RateMo> ls_ =  (List<Sp3RateMo>) sp3ExpertiseDAO.getResalt3a3b_expertiseRateMo_noNazrNoGosp(date1, date2, user);
+			String [] c ={"reports/sp3/expertise/3a3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А3Б_экспертиза_рейтингМО_"};
+			// выполняем формирование отчета
+			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
+
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Отчет успешно сформирован");
+			//throw new Exception();
+			return builder.build();
+		}catch (Exception e) {
+			e.printStackTrace();
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Произошла ошибка формирования отчета");
+			return builder.build();
+		}
+	}
+
 
 	@POST
 	@Path("/3b_report")

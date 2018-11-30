@@ -26,4 +26,7 @@ public interface ISp3ExpertiseDao {
 	List<Sp3RateMo> getResalt3b_expertiseRateMo(String date1, String date2, String user);
 
 
+	List<?> getResalt3a3b_expertise_noNazrNoGosp(String date1, String date2, String user, int iter);
+
+	List<Sp3RateMo> getResalt3a3b_expertiseRateMo_noNazrNoGosp(String date1, String date2, String user);
 }
