@@ -199,24 +199,24 @@
 
           <mat-panel-description>
             <div *ngIf='panelOpenState4'>
-              <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
+              <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list><!--Выбранный отчет-->
             </div>
             <div *ngIf='!panelOpenState4'>
-              {{_report_inform_note}}
+              {{_report_inform_note}}<!--Выберите тип отчета-->
             </div>
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <span>{{  _expertise_field1_1 }}</span>
+        <span>{{  _expertise_field1_1 }}</span><!--Выберите временной период по счетам пролеченных-->
         <mat-list>
-          <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_expertiseReport_3a3b(myForm);resetForm();">
+          <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_expertiseReport_3a3b_noNazrNoGosp(myForm);resetForm();">
             <mat-list-item>
               <h4 mat-line>
                 <my-date-picker   name="date1" [options]="myDatePickerOptions" formControlName="date1"></my-date-picker>
               </h4>
               <h4 mat-line>
 							<span *ngIf="!myForm.controls.date1.valid" class="help-block text-danger">
-								<mat-error>{{ _field_is_required }}</mat-error>
+								<mat-error>{{ _field_is_required }}</mat-error><!--поле обязательно для заполнения-->
 							 </span>
               </h4>
             </mat-list-item>
@@ -226,7 +226,7 @@
               </h4>
               <h4 mat-line>
 							  <span *ngIf="!myForm.controls.date2.valid" class="help-block text-danger">
-								<mat-error>{{ _field_is_required }}</mat-error>
+								<mat-error>{{ _field_is_required }}</mat-error><!--поле обязательно для заполнения-->
 							  </span>
               </h4>
             </mat-list-item>

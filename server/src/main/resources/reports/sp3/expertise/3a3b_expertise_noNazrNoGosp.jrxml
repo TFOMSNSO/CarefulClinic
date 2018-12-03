@@ -521,11 +521,11 @@
 				<textFieldExpression><![CDATA["17"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="0" width="744" height="38" uuid="fe4d3df5-8b15-412d-916e-4e33199cff80"/>
+				<reportElement x="239" y="0" width="744" height="38" uuid="b7dbe6d9-5756-42ea-8938-9837a4fbea39"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="11" isBold="true" isUnderline="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Количество случаев диспансеризации, по которым установлена группа здоровья 3а и 3б и не назначены лечебно-диагностические мероприятия с "+ $P{date_start}+" по "+$P{date_end}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[                     "Количество случаев диспансеризации, по которым установлена группа здоровья 3а и 3б и не поставлен признак Д-учета с"                       + $P{date_start}+" по "+$P{date_end}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

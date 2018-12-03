@@ -131,6 +131,16 @@ export class ExpertiseComponent implements OnInit{
 		})
 	}
 
+  downloadFile_expertiseReport_3a3b_noNazrNoGosp(form: any){
+    this.progress_bar = true;
+    this.expertiseService.downloadFile_expertise3a3b_noNazrNoGosp(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
+      .then(result =>{
+        this.init_Expertise();
+        this.progress_bar = false;
+
+      })
+  }
+
 	resetForm() {
   	  this.myForm.reset();
 
