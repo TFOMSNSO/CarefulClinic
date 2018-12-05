@@ -11,21 +11,21 @@ import { ListExcelFiles } from '../../../model/list.files.excel';
 export class InfoDReestrService{
 
   serverUrl : string = environment.BACKEND_URL + "/rest/sp3/d_reestr";
-  
+
 
   constructor(private http: Http) {  console.log('Start!')}
-  
-  
+
+
 	listFiles_1(data : number): Promise<ListExcelFiles[]> {
 		let headers = new Headers({'Content-Type': 'application/json'});
 		return this.http.get(`${this.serverUrl}/d_reestr/${data}`,{headers: headers})
                .toPromise()
                .then(response => response.json() as ListExcelFiles[]);
-	}	
-	
+	}
+
 	/*
-		�������� ����� � �����
-	*/  
+		�������� ����� � �����
+	*/
 	downloadFile_2(data: string,data2: number,place: string):Promise<any>{
 	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
 		const options = new RequestOptions({headers: headers});
@@ -34,16 +34,16 @@ export class InfoDReestrService{
 		  .toPromise()
 			.then(response =>response);
 	}
-	
-	
+
+
 	downloadFile_d_reestr(date1: string,date2: string,place: number):Promise<any>{
-	
+
 			let obj2 = {
-				date1: date1,
-				date2: date2,
+				date1: date1 = "01.01.2018",//TODO временное решение. back end ожидает дату, но алгоритм изменился 04.12.2018 и дата больше не нужна. пока что... вдруг потом понадобится
+				date2: date2 = "31.12.2018",//TODO временное решение. back end ожидает дату, но алгоритм изменился 04.12.2018 и дата больше не нужна. пока что... вдруг потом понадобится
 				place: place+''
 			}
-			
+
 			let headers = new Headers({'Content-Type': 'application/json'});
 			return this.http
 			  .post(this.serverUrl + '/d_report',JSON.stringify(obj2), {headers: headers})
@@ -51,19 +51,19 @@ export class InfoDReestrService{
 			  .toPromise()
 			  .then(response =>response);
 	}
-	
-	
+
+
 	listFilesD_reestr(data : number): Promise<ListExcelFiles[]> {
 	  let headers = new Headers({'Content-Type': 'application/json'});
 		return this.http.get(`${this.serverUrl}/list_files/${data}`,{headers: headers})
 				   .toPromise()
 				   .then(response => response.json() as ListExcelFiles[]);
 	}
-	
-	
+
+
 	/*
-		����� ������������ ��� �������� ����� �� ������� ����.
-	*/  
+		����� ������������ ��� �������� ����� �� ������� ����.
+	*/
 	downloadFile(data: string,data2: number):Promise<any>{
 	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
 		const options = new RequestOptions({headers: headers});
@@ -72,7 +72,7 @@ export class InfoDReestrService{
 		  .toPromise()
 			.then(response =>response);
 	}
-  
-  
-  
+
+
+
 }
