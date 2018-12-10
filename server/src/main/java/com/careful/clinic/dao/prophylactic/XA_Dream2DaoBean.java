@@ -42,6 +42,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	@PersistenceContext(unitName="OracleDream2DS")
     private EntityManager em_dream2;
 	private int countDouble = 0;
+	private int countStr = 0;
     private ArrayList doubleList = new ArrayList();
 	//private int countRows = 0;
 
@@ -158,26 +159,13 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 			if(Integer.valueOf(f.get(0).toString()) == 0 )
 			{
 				q = em_dream2.createNativeQuery(str);
+				countStr++;
 				q.executeUpdate();
 			}
-			else if(str.contains("pm_i"))
-            {
-                doubleList.add(str);
-				countDouble++;
-            }
-            else if(str.contains("pm_a"))
-			{
-				doubleList.add(str);
-				countDouble++;
-			}
-            else if(str.contains("RESULT_EKMP"))
-            {
-                doubleList.add(str);
-                countDouble++;
-            }
 			else
             {
-                break;
+                doubleList.add(str);
+				countDouble++;
             }
 		}
 		System.out.println("count double = "+countDouble);
@@ -197,6 +185,13 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		return dv;
 	}
 
+	@Override
+	public String doubleValueStr() {
+		String ds = String.valueOf(countStr);
+		countStr = 0;
+		return ds;
+	}
+
     @Override
     public String doubleStr() {
         ArrayList doubleListOut = new ArrayList();
@@ -204,12 +199,6 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 
 	    return String.valueOf(doubleListOut);
     }
-
-	/*@Override
-    public String rowsValue() {
-        String rv = String.valueOf(countRows);
-        return rv;
-    }*/
 
     /**
 	 * Метол парсит xml строку (ответ) ГЭР'а о диспансеризации

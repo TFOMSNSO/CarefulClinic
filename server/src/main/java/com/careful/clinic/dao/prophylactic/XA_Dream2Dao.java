@@ -28,6 +28,8 @@ public interface XA_Dream2Dao {
 
 	String doubleValue();
 
-    String doubleStr();
+	String doubleValueStr();
+
+	String doubleStr();
     /*String rowsValue();*/
 }

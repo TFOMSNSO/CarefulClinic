@@ -48,6 +48,8 @@ public class UploadDataFactory {
 			dut = new СontentmentDisp(pkg,fileName);
 		} else if(type.trim().equalsIgnoreCase("РЕЗУЛЬТАТЫ ЭКМП")){
 			dut = new ResultEKMPType(pkg,fileName);
+		} else if(type.trim().equalsIgnoreCase("Результат информирования о предстоящей диспансеризации")){
+			dut = new InformD_reestr(pkg,fileName);
 		} else{
 			// временно. До тех пор пока не непеведу все под паттерн фабрика AbstractDataUploadType 
 			pkg.close();

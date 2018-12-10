@@ -176,7 +176,7 @@ public class RestServiceProphylactic {
 			//TODO////////////////////////////////////////////////
 			//if(resultEKMPDAO.insertDataFromExcel(listOfQueryies,data)){	deleteNativeFileFromUser(null, fileName, authHeaders); }
 			///////////////////////////////////////////////////
-			 String info =  new String("Файл успешно загружен");
+			 String info =  new String("Файл успешно загружен. Протокол загрузки можно посмотреть в текстовом файле.");
 			 builder = Response.status(Response.Status.OK);
 		     builder.entity( info );
 		     return builder.build();
@@ -313,11 +313,7 @@ public class RestServiceProphylactic {
 	private void  deleteNativeFileFromUser(Throwable e,String fileName, List<String> authHeaders) throws IOException{
 
 		String tmp_val = randomGuid.valueAfterMD5;
-		//if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество принятых записей: "+xa_Dream2Dao.rowsValue()+". Количество не принятых записей: "+xa_Dream2Dao.doubleValue());
-        if((e == null)&&(xa_Dream2Dao.doubleStr().contains("pm_i"))&&(prophylacticDAO.countStrProphylactic()==0)) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into pm_i p        values('',", "\r\n"));
-		if((e == null)&&(xa_Dream2Dao.doubleStr().contains("pm_a"))&&(prophylacticDAO.countStrProphylactic()==0)) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into pm_a  p       (ID,FAM,IM,OT,DR,D_INFO,TYPE_INFO,PRIM,SMO,DATA,D_INSERT)  values('',", "\r\n"));
-		if((e == null)&&(xa_Dream2Dao.doubleStr().contains("RESULT_EKMP"))&&(prophylacticDAO.countStrProphylactic()==0)) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". Количество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into RESULT_EKMP   values('',", "\r\n"));
-		if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp());
+		if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". \r\nКоличество принятых записей: "+xa_Dream2Dao.doubleValueStr()+". \r\nКоличество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into ", "\r\n"));
 		String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+getTimeStamp()+".xlsx";
 		
 		File from_file = new File(fileName);
