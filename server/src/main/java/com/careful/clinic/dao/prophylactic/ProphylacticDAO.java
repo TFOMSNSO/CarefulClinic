@@ -26,7 +26,6 @@ public interface ProphylacticDAO {
 	public Collection<?> exportToExcel(ArrayList<WrapRespSerarchKeys> wrapRespSerarchKeys) throws Exception;	
 	public  void writeListToFile(String fileName, List<WrapRespSerarchKeys> wrapRespSerarchKeys, String querytext) throws Exception;
 	public Collection<?> getListUploadedFiles(Integer id);
-	public List<String> processingExcelFile(String fileName)  throws ParseDataExcelException, InvalidFormatException, IOException, ParseException;		
 	public Collection<?> getInfoProphylactic(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException;
 	public Collection<?> getListExcelFiles(Integer id);
 

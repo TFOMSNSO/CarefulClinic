@@ -165,17 +165,10 @@ public class RestServiceProphylactic {
 			if (data != null ) {
 				listOfQueryies =  data.orderingParsingProcess();
 			}
-			else{
-				// ВРЕМЕННО когда полностью реализуется паттерн фабрика (в первом if)
-				listOfQueryies = prophylacticDAO.processingExcelFile(fileName); 
-			}
 			if(listOfQueryies == null) throw new ParseDataExcelException("Ошибка в шаблоне. Не удается определить шаблон.");
 			//data.checkOuTroughDB(listOfQueryies)
 			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
 			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){deleteNativeFileFromUser(null, fileName, authHeaders); }
-			//TODO////////////////////////////////////////////////
-			//if(resultEKMPDAO.insertDataFromExcel(listOfQueryies,data)){	deleteNativeFileFromUser(null, fileName, authHeaders); }
-			///////////////////////////////////////////////////
 			 String info =  new String("Файл успешно загружен. Протокол загрузки можно посмотреть в текстовом файле.");
 			 builder = Response.status(Response.Status.OK);
 		     builder.entity( info );
