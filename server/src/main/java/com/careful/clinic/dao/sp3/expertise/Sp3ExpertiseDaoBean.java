@@ -17,12 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.careful.clinic.model.*;
 import org.hibernate.transform.Transformers;
-
-import com.careful.clinic.model.Sp3RateMo;
-import com.careful.clinic.model.ListExcelFiles;
-import com.careful.clinic.model.PersonModel;
-import com.careful.clinic.model.WrapSp3;
 
 @Stateless
 public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
@@ -1324,6 +1320,159 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 			Long _5 = ((BigDecimal) record[5]).longValue();
 
 			ls.add(new Sp3RateMo(_0, _1, _2, _3,_4,_5));
+
+		});
+
+		res=null;
+
+		return ls;
+	}
+
+	@Override
+	public List<AfterDisp3Group> getResalt_after_disp_3_group(String date1, String date2, String user) {
+		String sb = "select " +
+				"      tmp1.lp as code_mo ," +
+				"      tmp.name as name_mo," +
+				"      tmp1.total," +
+				"      tmp1.total_1," +
+				"      tmp1.total_2," +
+				"      tmp1.total_4," +
+				"      tmp1.total_20_22," +
+				"      tmp1.total_20," +
+				"      tmp1.total_22," +
+				"      tmp1.total_21_23," +
+				"      tmp1.total_21," +
+				"      tmp1.total_23 " +
+				"from" +
+				"  ( " +
+				"  select   z_tmp.lpu as lp," +
+				"           count(*) total," +
+				"           count (case when z_tmp.smoid = 1 then 1 end) total_1," +
+				"           count (case when z_tmp.smoid = 2 then 1 end) total_2," +
+				"           count (case when z_tmp.smoid = 4 then 1 end) total_4," +
+				"           count (case when z_tmp.rezobr in (20,22) then 1 end) as total_20_22," +
+				"           count (case when z_tmp.rezobr in (20) then 1 end) as total_20," +
+				"           count (case when z_tmp.rezobr in (22) then 1 end) as total_22," +
+				"           count (case when z_tmp.rezobr in (21,23) then 1 end ) as total_21_23," +
+				"           count (case when z_tmp.rezobr in (21) then 1 end) as total_21," +
+				"           count (case when z_tmp.rezobr in (23) then 1 end) as total_23 " +
+				"     from " +
+				"       (select p.FIO," +
+				"              p.dr," +
+				"              p.SMOID," +
+				"              p.SERPOLIS," +
+				"              p.NUMPOLIS," +
+				"              p.lpu," +
+				"              p.AMBKARTA," +
+				"              p.DAT_BEG," +
+				"              p.DAT_END," +
+				"              LPU_PRIK," +
+				"              p.s1," +
+				"              p.account," +
+				"              p.AC_DATE," +
+				"              p.REZOBR," +
+				"              p.ds1 as f_mkb_usl," +
+				"              f_person_telephone_v2@dome_dev(p.fam, p.im, p.ot, p.dr) as tel," +
+				"              p.id" +
+				"          from" +
+				"            pat p, demand d" +
+				"            where" +
+				"            d.id_demand = p.demand_id" +
+				"            and  p.caretype = 30" +
+				"            and   p.REZOBR in (20,21)" +
+				"            and  d.period between  '"+date1+"' and '"+date2+"' " +
+				"            and  p.dat_end >= '01.01.2018'" +
+				"            and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401083')" +
+				"            and (p.fio,p.dr)  in (" +
+				"                                  select fio, dr" +
+				"                                                from pat pp" +
+				"                                                   where pp.caretype = 30" +
+				"                                                   and  pp.dat_end >= '01.01.2018'" +
+				"                                                   and  pp.mes in (401079,401080))" +
+				"              and p.id not in (select ot.id_pred from otkl_id ot where ot.id_pred = p.id)" +
+				"          union " +
+				"          select  zz.FIO,zz.dr,zz.SMOID,zz.SERPOLIS,zz.NUMPOLIS,LPU,zz.AMBKARTA,zz.DAT_BEG,zz.DAT_END,zz.LPU_PRIK,zz.s1,zz.account,zz.AC_DATE,zz.REZOBR,zz.ds1 as f_mkb_usl,f_person_telephone_v2@dome_dev(zz.fam, zz.im, zz.ot, zz.drr) as tel,zz.id " +
+				"             from (select p.mes,p.FIO,p.dr,p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA,p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR,p.ds1,p.fam,p.im,p.ot,p.dr as drr,p.id " +
+				"                   from demand d, pat p " +
+				"                   where" +
+				"                   d.id_demand = p.demand_id" +
+				"                   and  p.caretype = 30" +
+				"                   and   p.REZOBR in (22,23)" +
+				"                   and  d.period between  '"+date1+"' and '"+date2+"' " +
+				"                   and  p.dat_end >= '01.01.2018'" +
+				"                   and  p.mes='401072'" +
+				"                   and exists (select 1 from pat pp" +
+				"                                                   where pp.caretype = 30  " +
+				"                                                          and (pp.mes between '401048' and '401071' or pp.mes between '401081' and '401083') " +
+				"                                                          and pp.fio = p.fio and pp.dr = p.dr)" +
+				"                   and p.id not in (select ot.id_pred from otkl_id ot where ot.id_pred = p.id)" +
+				"                   ) zz " +
+				"          union " +
+				"          select  zz.FIO,zz.dr,zz.SMOID,zz.SERPOLIS,zz.NUMPOLIS,LPU,zz.AMBKARTA,zz.DAT_BEG,zz.DAT_END,zz.LPU_PRIK,zz.s1,zz.account,zz.AC_DATE,zz.REZOBR,zz.ds1 as f_mkb_usl,f_person_telephone_v2@dome_dev(zz.fam, zz.im, zz.ot, zz.drr) as tel,zz.id " +
+				"             from (select p.mes,p.FIO,p.dr,p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA,p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR,p.ds1,p.fam,p.im,p.ot,p.dr as drr,p.id " +
+				"                    from demand d, pat p " +
+				"                    where" +
+				"                           d.id_demand = p.demand_id" +
+				"                           and  p.caretype = 30" +
+				"                           and  p.REZOBR in (22,23)" +
+				"                           and  d.period between  '"+date1+"' and '"+date2+"' " +
+				"                           and  p.dat_end >= '01.01.2018'" +
+				"                           and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401083')" +
+				"                           and not exists (select 1 from pat pp" +
+				"                                                   where pp.caretype = 30" +
+				"                                                                      and mes in (401072)" +
+				"                                                                      and pp.fio = p.fio and pp.dr = p.dr)" +
+				"                           and p.id not in (select ot.id_pred from otkl_id ot where ot.id_pred = p.id)" +
+				"                   ) zz" +
+				"          union " +
+				"          select  zz.FIO,zz.dr,zz.SMOID,zz.SERPOLIS,zz.NUMPOLIS,LPU,zz.AMBKARTA,zz.DAT_BEG,zz.DAT_END,zz.LPU_PRIK,zz.s1,zz.account,zz.AC_DATE,zz.REZOBR,zz.ds1 as f_mkb_usl,f_person_telephone_v2@dome_dev(zz.fam, zz.im, zz.ot, zz.drr) as tel,zz.id " +
+				"             from (select p.mes,p.FIO,p.dr,p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA,p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR,p.ds1,p.fam,p.im,p.ot,p.dr as drr,p.id " +
+				"                    from demand d, pat p " +
+				"                    where " +
+				"                          d.id_demand = p.demand_id " +
+				"                          and  p.caretype = 30 " +
+				"                          and   p.REZOBR in (20,21) " +
+				"                          and  d.period between  '"+date1+"' and '"+date2+"' " +
+				"                          and  p.dat_end >= '01.01.2018' " +
+				"                          and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401083') " +
+				"                          and not exists (select 1 from pat pp " +
+				"                                                   where pp.caretype = 30 " +
+				"                                                               and mes in(401072,401079,401080) " +
+				"                                                               and pp.fio = p.fio and pp.dr = p.dr) " +
+				"                          and p.id not in (select ot.id_pred from otkl_id ot where ot.id_pred = p.id)) zz " +
+				"                  where (zz.mes between '401048' and '401071' or zz.mes between '401081' and '401083')) z_tmp " +
+				"   group  by z_tmp.lpu " +
+				"   ) tmp1, (select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name " +
+				"  from medical_organization@dome_dawn t " +
+				"  where t.mo_d_end is null " +
+				"  and t.mo_mcod like '540%' " +
+				"  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  " +
+				") tmp where tmp1.lp = tmp.codl " +
+				"order by tmp1.total desc";
+
+		// TODO сделать выбор базы на сайте
+		Query q = non_mur_collect2018.createNativeQuery(sb);
+
+		List<Object[]> res = q.getResultList();
+		// for processed data
+		List<AfterDisp3Group> ls = new ArrayList<AfterDisp3Group>(res.size());
+
+		res.stream().forEach((record) -> {
+
+			String _0 = (String) record[0];
+			String _1 = (String) record[1];
+			Long _2 = ((BigDecimal) record[2]).longValue();
+			Long _3 = ((BigDecimal) record[3]).longValue();
+			Long _4 = ((BigDecimal) record[4]).longValue();
+			Long _5 = ((BigDecimal) record[5]).longValue();
+			Long _6 = ((BigDecimal) record[6]).longValue();
+			Long _7 = ((BigDecimal) record[7]).longValue();
+			Long _8 = ((BigDecimal) record[8]).longValue();
+			Long _9 = ((BigDecimal) record[9]).longValue();
+			Long _10 = ((BigDecimal) record[10]).longValue();
+			Long _11 = ((BigDecimal) record[11]).longValue();
+
+			ls.add(new AfterDisp3Group(_0, _1, _2, _3,_4,_5,_6,_7,_8,_9,_10,_11));
 
 		});
 

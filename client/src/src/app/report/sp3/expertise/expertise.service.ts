@@ -78,7 +78,6 @@ export class ExpertiseService{
       date2: date2,
       place: place+''
     }
-
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http
       .post(this.serverUrl + '/3a3b_noNazrNoGosp_report',JSON.stringify(obj2), {headers: headers})
@@ -87,6 +86,20 @@ export class ExpertiseService{
       .then(response =>response);
   }
 
+  downloadFile_expertise_after_disp_3_group(date1: string,date2: string,place: number):Promise<any>{
+
+    let obj2 = {
+      date1: date1,
+      date2: date2,
+      place: place+''
+    }
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http
+      .post(this.serverUrl + '/after_disp_3_group_report',JSON.stringify(obj2), {headers: headers})
+      .debounceTime(500)
+      .toPromise()
+      .then(response =>response);
+  }
 
 
 	listFilesExpertise(data : number): Promise<ListExcelFiles[]> {

@@ -49,6 +49,7 @@ export class ExpertiseComponent implements OnInit{
 	 public panelOpenState2 : boolean = false;
 	 public panelOpenState3 : boolean = false;
    public panelOpenState4 : boolean = false;
+   public panelOpenState5 : boolean = false;
 	 public myForm: FormGroup;
 
 	 _3a_expertise: string = environment.expertise_field1;
@@ -62,6 +63,7 @@ export class ExpertiseComponent implements OnInit{
 	 _field_is_required: string = environment.field_is_required;
 	 _reset: string = environment.reset;
 	 _sp3_menu_expertisa: string = environment.sp3_menu_expertisa;
+	 _after_disp_3_group: string = environment.after_disp_3_group;
 
 
 
@@ -96,7 +98,7 @@ export class ExpertiseComponent implements OnInit{
 	}
 
 	setTrue(vl : number, vl2 : boolean){
-		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : vl == 4 ? this.panelOpenState4= vl2 : ''
+		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : vl == 4 ? this.panelOpenState4= vl2 : vl == 5 ? this.panelOpenState5= vl2 : ''
 	}
 
 
@@ -134,6 +136,16 @@ export class ExpertiseComponent implements OnInit{
   downloadFile_expertiseReport_3a3b_noNazrNoGosp(form: any){
     this.progress_bar = true;
     this.expertiseService.downloadFile_expertise3a3b_noNazrNoGosp(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
+      .then(result =>{
+        this.init_Expertise();
+        this.progress_bar = false;
+
+      })
+  }
+
+  downloadFile_expertiseReport_after_disp_3_group(form: any){
+    this.progress_bar = true;
+    this.expertiseService.downloadFile_expertise_after_disp_3_group(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
       .then(result =>{
         this.init_Expertise();
         this.progress_bar = false;

@@ -4,50 +4,30 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.careful.clinic.model.AfterDisp3Group;
 import org.xml.sax.SAXException;
 
 import com.careful.clinic.dao.sp3.expertise.ISp3ExpertiseDao;
 import com.careful.clinic.model.Sp3RateMo;
-import com.careful.clinic.model.ListExcelFiles;
 import com.careful.clinic.model.WrapSp3;
 import com.careful.clinic.report.sp3.expertise.Sp3ExpertiseReport;
-
-import net.sf.jasperreports.engine.JRException;
 
 @javax.ws.rs.Path("/sp3/expertise")
 public class RestServiceSp3Experise {
@@ -239,6 +219,36 @@ public class RestServiceSp3Experise {
 		}
 	}
 
+	@POST
+	@Path("/after_disp_3_group_report")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response report_after_disp_3_group(String x)  {
+
+		Response.ResponseBuilder builder = null;
+		String m[] = x.split("\":\"");
+		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
+		try{
+			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
+			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
+
+			List<AfterDisp3Group> ls_ =  (List<AfterDisp3Group>) sp3ExpertiseDAO.getResalt_after_disp_3_group(date1, date2, user);
+			String [] c ={"reports/sp3/expertise/after_disp_3_group_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\По_итогам_диспансеризации_установлена_3_группа_"};
+			// выполняем формирование отчета
+			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperAfterDisp3Group(ls_, user, date1, date2,c);
+
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Отчет успешно сформирован");
+			//throw new Exception();
+			return builder.build();
+		}catch (Exception e) {
+			e.printStackTrace();
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Произошла ошибка формирования отчета");
+			return builder.build();
+		}
+	}
+
 
 	@POST
 	@Path("/3b_report")
@@ -284,5 +294,4 @@ public class RestServiceSp3Experise {
 			return builder.build();
 		}
 	}
-
 }
