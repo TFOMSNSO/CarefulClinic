@@ -7,9 +7,10 @@ import { ListProphylacticComponent } from './list-prophylactic/list-prophylactic
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './login/login.component';
-import {  ListInformirovanieHeader} from './report/list-informirovanie/listinformirovanieheader.component';
+import { ListInformirovanieHeader} from './report/list-informirovanie/listinformirovanieheader.component';
+import { TelephoneSurveysComponent} from './report/telephone-surveys/telephone-surveys.component';
 
-import { TableBasicExample } from './table-basic/table-basic-example'; 
+import { TableBasicExample } from './table-basic/table-basic-example';
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'table', component: TableComponent },
   { path: 'list_prophylactic', component: ListProphylacticComponent, canActivate: [AuthGuard]  },
   { path: 'list_header_inform', component: ListInformirovanieHeader, canActivate: [AuthGuard]  },
+  { path: 'telephone-surveys', component: TelephoneSurveysComponent, canActivate: [AuthGuard]  },
   { path: '**', redirectTo: '' }
 ];
 

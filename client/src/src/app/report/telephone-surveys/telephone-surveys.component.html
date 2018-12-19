@@ -1,0 +1,113 @@
+<mat-card [@flyInOut]="'in'">
+  <mat-sidenav-container class="example-container">
+    <mat-list>
+      <mat-card-title>{{'Отчеты / Статистика телефонных опросов'}}</mat-card-title>
+      <mat-card-header>
+      </mat-card-header>
+    </mat-list>
+  </mat-sidenav-container>
+  <mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar>
+  <mat-card-content>
+    <mat-accordion>
+      <!--Таблица 3. Отчет об информировании ЗЛ (1 раз в 3 года)-->
+      <mat-expansion-panel (opened)="setTrue(1,true)" (closed)="setTrue(1,false)" (click)="init_table3()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div style="font-size: 13px;">{{_flk1}}</div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <div *ngIf='panelOpenState1'>
+              <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list><!--Выбранный отчет-->
+            </div>
+            <div *ngIf='!panelOpenState1'>
+              {{_report_inform_note}}<!--Выберите тип отчета-->
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_table3(row.namefile, 'table3')">
+          <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3><!--Файл-->
+          <mat-list-item>
+            <mat-icon mat-list-icon>note</mat-icon>
+            <h4 mat-line>{{row.namefile}}</h4>
+            <p mat-line>{{_reestr_download}}</p><!--скачать-->
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <!--Таблица 4. Отчет об информировании ЗЛ (1 раз в 2 года)-->
+      <mat-expansion-panel (opened)="setTrue(2,true)"
+                           (closed)="setTrue(2,false)" (click)="init_table4()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div style="font-size: 13px;">{{_flk2}}</div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <div *ngIf='panelOpenState2'>
+              <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list><!--Выбранный отчет-->
+            </div>
+            <div *ngIf='!panelOpenState2'>
+              {{_report_inform_note}}<!--Выберите тип отчета-->
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_table4(row.namefile, 'table4')">
+          <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3><!--Файл-->
+          <mat-list-item>
+            <mat-icon mat-list-icon>note</mat-icon>
+            <h4 mat-line>{{row.namefile}}</h4>
+            <p mat-line>{{_reestr_download}}</p><!--скачать-->
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <!--Таблица 5. Отчет об информировании ЗЛ (2-ой этап)-->
+      <mat-expansion-panel (opened)="setTrue(3,true)"
+                           (closed)="setTrue(3,false)" (click)="init_table5()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div style="font-size: 13px;">{{_flk3}}</div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <div *ngIf='panelOpenState3'>
+              <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list><!--Выбранный отчет-->
+            </div>
+            <div *ngIf='!panelOpenState3'>
+              {{_report_inform_note}}<!--Выберите тип отчета-->
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_table5(row.namefile, 'table5')">
+          <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3><!--Файл-->
+          <mat-list-item>
+            <mat-icon mat-list-icon>note</mat-icon>
+            <h4 mat-line>{{row.namefile}}</h4>
+            <p mat-line>{{_reestr_download}}</p><!--скачать-->
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <!--Таблица 6. Отчет об информировании ЗЛ (стоят на Д-учете)-->
+      <mat-expansion-panel (opened)="setTrue(4,true)"
+                           (closed)="setTrue(4,false)" (click)="init_table6()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div style="font-size: 13px;">{{_flk4}}</div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <div *ngIf='panelOpenState4'>
+              <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list><!--Выбранный отчет-->
+            </div>
+            <div *ngIf='!panelOpenState4'>
+              {{_report_inform_note}}<!--Выберите тип отчета-->
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list *ngFor="let row of listExcelFiles; let i = index" (click)="downloadFile_table6(row.namefile, 'table6')">
+          <h3 mat-subheader *ngIf="i==0">{{_reestr_file}}</h3><!--Файл-->
+          <mat-list-item>
+            <mat-icon mat-list-icon>note</mat-icon>
+            <h4 mat-line>{{row.namefile}}</h4>
+            <p mat-line>{{_reestr_download}}</p><!--скачать-->
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>

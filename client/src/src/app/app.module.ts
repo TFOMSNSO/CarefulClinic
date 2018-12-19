@@ -32,6 +32,7 @@ import { fakeBackendProvider } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { BaseRequestOptions } from '@angular/http';
 import { ListInformirovanieHeader} from './report/list-informirovanie/listinformirovanieheader.component';
+import { TelephoneSurveysComponent} from './report/telephone-surveys/telephone-surveys.component';
 	/*rout module*/
 import { AppRoutingModule }     from './app.routing.module';
 import { SidenaveSearchService } from './list-prophylactic/sidenave-search.service';
@@ -64,6 +65,7 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     ,SidenavUploadDataComponent
     ,DndDirective
     ,ListInformirovanieHeader
+    ,TelephoneSurveysComponent
 
   ],
   imports: [
