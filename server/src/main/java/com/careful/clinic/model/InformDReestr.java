@@ -6,7 +6,9 @@ import java.util.Date;
 
 public class InformDReestr {
 
-    private String fio;
+    private String fam;
+    private String im;
+    private String ot;
     private Date dr;
     private String tel;
     private String address;
@@ -16,25 +18,27 @@ public class InformDReestr {
     private String ambkarta;
     private Date dat_beg;
     private Date dat_end;
-    private Long lpu_prik;
+    private String lpu_prik;
     private Long account;
     private Date ac_date;
     private String rezobr;
     private String ds1;
     private Long prdn;
     private String mes;
-    private Long kratnost;
+    private String kratnost;
     private Date last_treatment;
     private Date plan_inform;
     private Date date_inform;
     //private Long id_assent;  Когда-нибудь понадобится
 
-    public InformDReestr(String fio, Date dr, String tel, String address, Long smoid, String pol, String lpu,
-                         String ambkarta, Date dat_beg, Date dat_end, Long lpu_prik, Long account, Date ac_date, String rezobr,
-                         String ds1, Long prdn, String mes, Long kratnost, Date last_treatment, Date plan_inform,
+    public InformDReestr(String fam,String im,String ot, Date dr, String tel, String address, Long smoid, String pol, String lpu,
+                         String ambkarta, Date dat_beg, Date dat_end, String lpu_prik, Long account, Date ac_date, String rezobr,
+                         String ds1, Long prdn, String mes, String kratnost, Date last_treatment, Date plan_inform,
                          Date date_inform) {
         super();
-        this.fio = fio;
+        this.fam = fam;
+        this.im = im;
+        this.ot = ot;
         this.dr = dr;
         this.tel = tel;
         this.address = address;
@@ -62,12 +66,30 @@ public class InformDReestr {
 
     }
 
-    public String getFio() {
-        return fio;
+    public String getFam() {
+        return fam;
     }
-    public void setFio(String fio) {
-        this.fio = fio;
+
+    public void setFam(String fam) {
+        this.fam = fam;
     }
+
+    public String getIm() {
+        return im;
+    }
+
+    public void setIm(String im) {
+        this.im = im;
+    }
+
+    public String getOt() {
+        return ot;
+    }
+
+    public void setOt(String ot) {
+        this.ot = ot;
+    }
+
     public Date getDr() {
         return dr;
     }
@@ -122,12 +144,15 @@ public class InformDReestr {
     public void setDat_end(Date dat_end) {
         this.dat_end = dat_end;
     }
-    public Long getLpu_prik() {
+
+    public String getLpu_prik() {
         return lpu_prik;
     }
-    public void setLpu_prik(Long lpu_prik) {
+
+    public void setLpu_prik(String lpu_prik) {
         this.lpu_prik = lpu_prik;
     }
+
     public Long getAccount() {
         return account;
     }
@@ -164,12 +189,15 @@ public class InformDReestr {
     public void setMes(String mes) {
         this.mes = mes;
     }
-    public Long getKratnost() {
+
+    public String getKratnost() {
         return kratnost;
     }
-    public void setKratnost(Long kratnost) {
+
+    public void setKratnost(String kratnost) {
         this.kratnost = kratnost;
     }
+
     public Date getLast_treatment() {
         return last_treatment;
     }

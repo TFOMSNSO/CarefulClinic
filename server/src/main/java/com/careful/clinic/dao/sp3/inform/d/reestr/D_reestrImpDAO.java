@@ -57,11 +57,11 @@ public class D_reestrImpDAO  implements D_reestr{
 		String sb;
 		String g = user.equals("777")  ?  " " : " and  per.person_linksmoestablishmentid =" +user+ " " ;
 		if(g == " ") {
-			sb = "select rec.fam||' '||rec.im||' '||rec.ot as FIO, rec.dr, f_person_telephone_v2@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp, per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, to_char(rec.rezobr), rec.ds1, rec.p_r_dn, yy.mes, -1*sc.back_propagation_month as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform " +
+			sb = "select rec.fam,rec.im,rec.ot, rec.dr, f_person_telephone_v2@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp, ' '||per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, to_char(rec.rezobr), rec.ds1, rec.p_r_dn, yy.mes, ' '||(-1*sc.back_propagation_month) as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform " +
 					"from " +
 					"d_records@link_ofoms rec " +
 					"left join pat yy on rec.pat_id=yy.id " +
-					"left join visit_schedule@link_ofoms sc on (rec.ds1 between sc.mkb_start and sc.mkb_end) " +
+					"left join SPR_MKB_KRATNOST@link_ofoms sc on (rec.ds1 between sc.mkb_start and sc.mkb_end) " +
 					"left join (select  pl.fam,pl.im,pl.ot,pl.dr, max(pl.date_plan_info) as plan_inform from plan_pm_i_d_records@link_ofoms pl group by pl.fam,pl.im,pl.ot,pl.dr ) pl2  on (pl2.fam=rec.fam) and (pl2.im=rec.im) and (pl2.ot=rec.ot) and (pl2.dr=rec.dr) " +
 					"left join  pm_assent@link_ofoms ass on ass.fam=rec.fam and ass.im=rec.im and ass.ot=rec.ot and ass.dr=rec.dr and ass.id_assent is not null " +
 					"left join person@dome_dev per on per.person_surname=rec.fam and per.person_kindfirstname=rec.im and per.person_kindlastname=rec.ot and per.person_birthday=rec.dr " +
@@ -72,15 +72,15 @@ public class D_reestrImpDAO  implements D_reestr{
 					g +
 					" and " +
 					" pl2.plan_inform between add_months((select   trunc(max(d.d_insert))  from D_RECORDS@link_ofoms d),-1) and  " +
-					" (select   trunc(add_months(max(pl.d_insert),1))  from plan_pm_i_d_records@link_ofoms pl ) ";
+					" (select   trunc(add_months(max(pl.d_insert),1))  from plan_pm_i_d_records@link_ofoms pl ) and rec.ds1 between sc.mkb_start and sc.mkb_end ";
 
 		}else
 		{
-			sb = "select rec.fam||' '||rec.im||' '||rec.ot as FIO, rec.dr, f_person_telephone_v2@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp, per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, to_char(rec.rezobr), rec.ds1, rec.p_r_dn, yy.mes, -1*sc.back_propagation_month as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform " +
+			sb = "select rec.fam,rec.im,rec.ot, rec.dr, f_person_telephone_v2@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp, ' '||per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, to_char(rec.rezobr), rec.ds1, rec.p_r_dn, yy.mes, ' '||(-1*sc.back_propagation_month) as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform " +
 					"from " +
 					"d_records@link_ofoms rec " +
 					"left join pat yy on rec.pat_id=yy.id " +
-					"left join visit_schedule@link_ofoms sc on (rec.ds1 between sc.mkb_start and sc.mkb_end) " +
+					"left join SPR_MKB_KRATNOST@link_ofoms sc on (rec.ds1 between sc.mkb_start and sc.mkb_end) " +
 					"left join (select  pl.fam,pl.im,pl.ot,pl.dr, max(pl.date_plan_info) as plan_inform from plan_pm_i_d_records@link_ofoms pl group by pl.fam,pl.im,pl.ot,pl.dr ) pl2  on (pl2.fam=rec.fam) and (pl2.im=rec.im) and (pl2.ot=rec.ot) and (pl2.dr=rec.dr) " +
 					"left join  pm_assent@link_ofoms ass on ass.fam=rec.fam and ass.im=rec.im and ass.ot=rec.ot and ass.dr=rec.dr and ass.id_assent is not null " +
 					"left join person@dome_dev per on per.person_surname=rec.fam and per.person_kindfirstname=rec.im and per.person_kindlastname=rec.ot and per.person_birthday=rec.dr " +
@@ -91,7 +91,7 @@ public class D_reestrImpDAO  implements D_reestr{
 					g +
 					" and " +
 					" pl2.plan_inform between add_months((select   trunc(max(d.d_insert))  from D_RECORDS@link_ofoms d),-1) and  " +
-					" (select   trunc(add_months(max(pl.d_insert),1))  from plan_pm_i_d_records@link_ofoms pl ) and rec.p_r_dn in (1,2) ";
+					" (select   trunc(add_months(max(pl.d_insert),1))  from plan_pm_i_d_records@link_ofoms pl ) and rec.p_r_dn in (1,2) and rec.ds1 between sc.mkb_start and sc.mkb_end ";
 		}
 		// TODO сделать выбор базы на сайте
 		Query q = non_mur_collect2018.createNativeQuery(sb);
@@ -106,29 +106,31 @@ public class D_reestrImpDAO  implements D_reestr{
 
 			try {
 				String _0 = (String) record[0];
-				Date _1 = (Date) record[1];
-				String _tel = (String) record[2];
-				String _3 = (String) record[3];
-				Long _4 = ((BigDecimal) record[4]).longValue();
+				String _1 = (String) record[1];
+				String _2 = (String) record[2];
+				Date _3 = (Date) record[3];
+				String _tel = (String) record[4];
 				String _5 = (String) record[5];
-				String _6 = (String) record[6];
+				Long _6 = ((BigDecimal) record[6]).longValue();
 				String _7 = (String) record[7];
-				Date _8 = (Date) record[8];
-				Date _9 = (Date) record[9];
-				Long _10 = ((BigDecimal) record[10]).longValue();
-				Long _11 = ((BigDecimal) record[11]).longValue();
-				Date _12 = (Date) record[12];
-				String _13 = (String) record[13];
-				String _14 = (String) record[14];
-				Long _15 = ((BigDecimal) record[15]).longValue();
+				String _8 = (String) record[8];
+				String _9 = (String) record[9];
+				Date _10 = (Date) record[10];
+				Date _11 = (Date) record[11];
+				String _12 = (String) record[12];
+				Long _13 = ((BigDecimal) record[13]).longValue();
+				Date _14 = (Date) record[14];
+				String _15 = (String) record[15];
 				String _16 = (String) record[16];
 				Long _17 = ((BigDecimal) record[17]).longValue();
-				Date _18 = (Date) record[18];
-				Date _19 = (Date) record[19];
+				String _18 = (String) record[18];
+				String _19 = (String) record[19];
 				Date _20 = (Date) record[20];
+				Date _21 = (Date) record[21];
+				Date _22 = (Date) record[22];
 				//Long _21 = ((BigDecimal) record[21]).longValue(); Когда-нибудь понадобится
 
-				ls.add(new InformDReestr(_0, _1, _tel, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20));
+				ls.add(new InformDReestr(_0, _1, _2, _3, _tel, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22));
 			}catch (NullPointerException e){
 
 			}
