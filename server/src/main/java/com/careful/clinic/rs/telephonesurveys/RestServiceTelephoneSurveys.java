@@ -1,17 +1,14 @@
 package com.careful.clinic.rs.telephonesurveys;
 
 import com.careful.clinic.dao.telephonesurveys.TelephoneSurveysDAO;
-import org.xml.sax.SAXException;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,7 +21,7 @@ public class RestServiceTelephoneSurveys {
     @Path("/listFilesTable3/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<?> listFilesStatInform(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+    public Collection<?> listFilesStatInform(@PathParam("id") Integer id) throws IOException {
 
         List<?> df = (List<?>) telephoneSurveysDAO.getListFlk1(id);
 
@@ -35,7 +32,7 @@ public class RestServiceTelephoneSurveys {
     @Path("/listFilesTable3Url/{place}/{id}/{namefile}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces("application/vnd.ms-excel")
-    public Response getdownloadFile(@PathParam("place") String place, @PathParam("id") Integer id, @PathParam("namefile") String namefile) {
+    public Response getdownloadFile(@PathParam("place") String place, @PathParam("id") Integer id, @PathParam("namefile") String namefile)  {
 
         String directoryServer = System.getProperty("jboss.home.dir");
         String directoryDestination = "";
@@ -45,7 +42,7 @@ public class RestServiceTelephoneSurveys {
         if(id == 2)	directoryDestination = "\\content\\report\\telephonesurveys\\flk1\\2";
         if(id == 4)	directoryDestination = "\\content\\report\\telephonesurveys\\flk1\\4";
 
-        directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+        directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());//substring необходим, так как в переменную namefile передано имя файла с датой его измененя (см.DAO)
 
         File file = new File(directoryDestination);
         try {
@@ -66,7 +63,7 @@ public class RestServiceTelephoneSurveys {
     @Path("/listFilesTable4/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<?> listFilesStatInformTable4(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+    public Collection<?> listFilesStatInformTable4(@PathParam("id") Integer id) {
 
         List<?> df = (List<?>) telephoneSurveysDAO.getListFlk2(id);
 
@@ -87,7 +84,7 @@ public class RestServiceTelephoneSurveys {
         if(id == 2)	directoryDestination = "\\content\\report\\telephonesurveys\\flk2\\2";
         if(id == 4)	directoryDestination = "\\content\\report\\telephonesurveys\\flk2\\4";
 
-        directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+        directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
         File file = new File(directoryDestination);
         try {
@@ -108,7 +105,7 @@ public class RestServiceTelephoneSurveys {
     @Path("/listFilesTable5/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<?> listFilesStatInformTable5(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+    public Collection<?> listFilesStatInformTable5(@PathParam("id") Integer id) {
 
         List<?> df = (List<?>) telephoneSurveysDAO.getListFlk3(id);
 
@@ -129,7 +126,7 @@ public class RestServiceTelephoneSurveys {
         if(id == 2)	directoryDestination = "\\content\\report\\telephonesurveys\\flk3\\2";
         if(id == 4)	directoryDestination = "\\content\\report\\telephonesurveys\\flk3\\4";
 
-        directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+        directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
         File file = new File(directoryDestination);
         try {
@@ -150,7 +147,7 @@ public class RestServiceTelephoneSurveys {
     @Path("/listFilesTable6/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<?> listFilesStatInformTable6(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+    public Collection<?> listFilesStatInformTable6(@PathParam("id") Integer id) {
 
         List<?> df = (List<?>) telephoneSurveysDAO.getListFlk4(id);
 
@@ -171,7 +168,7 @@ public class RestServiceTelephoneSurveys {
         if(id == 2)	directoryDestination = "\\content\\report\\telephonesurveys\\flk4\\2";
         if(id == 4)	directoryDestination = "\\content\\report\\telephonesurveys\\flk4\\4";
 
-        directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+        directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
         File file = new File(directoryDestination);
         try {

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import {environment} from '../../../environments/environment';
 import { ListExcelFiles } from '../../model/list.files.excel';

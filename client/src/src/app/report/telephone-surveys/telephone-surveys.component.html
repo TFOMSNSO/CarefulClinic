@@ -9,7 +9,6 @@
   <mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar>
   <mat-card-content>
     <mat-accordion>
-      <!--Таблица 3. Отчет об информировании ЗЛ (1 раз в 3 года)-->
       <mat-expansion-panel (opened)="setTrue(1,true)" (closed)="setTrue(1,false)" (click)="init_table3()">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -33,7 +32,6 @@
           </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
-      <!--Таблица 4. Отчет об информировании ЗЛ (1 раз в 2 года)-->
       <mat-expansion-panel (opened)="setTrue(2,true)"
                            (closed)="setTrue(2,false)" (click)="init_table4()">
         <mat-expansion-panel-header>
@@ -58,7 +56,6 @@
           </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
-      <!--Таблица 5. Отчет об информировании ЗЛ (2-ой этап)-->
       <mat-expansion-panel (opened)="setTrue(3,true)"
                            (closed)="setTrue(3,false)" (click)="init_table5()">
         <mat-expansion-panel-header>
@@ -83,7 +80,6 @@
           </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
-      <!--Таблица 6. Отчет об информировании ЗЛ (стоят на Д-учете)-->
       <mat-expansion-panel (opened)="setTrue(4,true)"
                            (closed)="setTrue(4,false)" (click)="init_table6()">
         <mat-expansion-panel-header>
