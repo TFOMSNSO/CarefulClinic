@@ -4,12 +4,24 @@ import com.careful.clinic.model.ListExcelFiles;
 
 import javax.ejb.Stateless;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
 public class StatInformDAOBean implements StatInformDAO {
+
+    private String addDate(String directoryDestination, String ob) {
+
+        File file = new File(directoryDestination + File.separator + ob);
+        final long lastModified = file.lastModified();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-");
+        String x = sdf.format(new Date(lastModified));
+        return x;
+    }
+
     @Override
     public Collection<?> getListStatInform(Integer id) {
 
@@ -25,10 +37,15 @@ public class StatInformDAOBean implements StatInformDAO {
 
         File path = new File(directoryDestination);
         String ob[] = path.list();
+        List<String> lsn = new ArrayList<>();
         List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
-            for (int i = 0; i < ob.length; i++) {
-                ls.add(new ListExcelFiles(ob[i], directoryDestination + File.separator + ob[i]));
-            }
+        for (int i = 0; i < ob.length; i++) {
+            String x =addDate(directoryDestination, ob[i]);
+            lsn.add(x + ob[i]);
+        }
+        for (int j = 0; j < lsn.size(); j++) {
+            ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
+        }
         return ls;
     }
 
@@ -47,9 +64,14 @@ public class StatInformDAOBean implements StatInformDAO {
 
         File path = new File(directoryDestination);
         String ob[] = path.list();
+        List<String> lsn = new ArrayList<>();
         List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
         for (int i = 0; i < ob.length; i++) {
-            ls.add(new ListExcelFiles(ob[i], directoryDestination + File.separator + ob[i]));
+            String x =addDate(directoryDestination, ob[i]);
+            lsn.add(x + ob[i]);
+        }
+        for (int j = 0; j < lsn.size(); j++) {
+            ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
         }
         return ls;
     }
@@ -69,9 +91,14 @@ public class StatInformDAOBean implements StatInformDAO {
 
         File path = new File(directoryDestination);
         String ob[] = path.list();
+        List<String> lsn = new ArrayList<>();
         List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
         for (int i = 0; i < ob.length; i++) {
-            ls.add(new ListExcelFiles(ob[i], directoryDestination + File.separator + ob[i]));
+            String x =addDate(directoryDestination, ob[i]);
+            lsn.add(x + ob[i]);
+        }
+        for (int j = 0; j < lsn.size(); j++) {
+            ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
         }
         return ls;
     }
@@ -91,9 +118,14 @@ public class StatInformDAOBean implements StatInformDAO {
 
         File path = new File(directoryDestination);
         String ob[] = path.list();
+        List<String> lsn = new ArrayList<>();
         List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
         for (int i = 0; i < ob.length; i++) {
-            ls.add(new ListExcelFiles(ob[i], directoryDestination + File.separator + ob[i]));
+            String x =addDate(directoryDestination, ob[i]);
+            lsn.add(x + ob[i]);
+        }
+        for (int j = 0; j < lsn.size(); j++) {
+            ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
         }
         return ls;
     }

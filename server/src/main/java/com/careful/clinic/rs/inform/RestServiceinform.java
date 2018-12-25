@@ -164,7 +164,7 @@ public class RestServiceinform {
 
 
 
-		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+		directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
 		File file = new File(directoryDestination);
 		try {
@@ -199,7 +199,7 @@ public class RestServiceinform {
 
 
 
-		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+		directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
 		File file = new File(directoryDestination);
 		try {
@@ -234,7 +234,7 @@ public class RestServiceinform {
 		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\reinform\\4";
 
 
-		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+		directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
 		File file = new File(directoryDestination);
 		try {
@@ -271,7 +271,7 @@ public class RestServiceinform {
 		}
 
 
-		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+		directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
 		File file = new File(directoryDestination);
 		try {

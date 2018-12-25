@@ -46,7 +46,7 @@ public class RestServiceStatinform {
         if(id == 2)	directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\2";
         if(id == 4)	directoryDestination = "\\content\\report\\statinform\\report_info_1in3\\4";
 
-        directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+        directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
         File file = new File(directoryDestination);
         try {
@@ -88,7 +88,7 @@ public class RestServiceStatinform {
         if(id == 2)	directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\2";
         if(id == 4)	directoryDestination = "\\content\\report\\statinform\\report_info_1in2\\4";
 
-        directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+        directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
         File file = new File(directoryDestination);
         try {
@@ -130,7 +130,7 @@ public class RestServiceStatinform {
         if(id == 2)	directoryDestination = "\\content\\report\\statinform\\report_info_2stage\\2";
         if(id == 4)	directoryDestination = "\\content\\report\\statinform\\report_info_2stage\\4";
 
-        directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+        directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
         File file = new File(directoryDestination);
         try {
@@ -172,7 +172,7 @@ public class RestServiceStatinform {
         if(id == 2)	directoryDestination = "\\content\\report\\statinform\\report_info_D_control\\2";
         if(id == 4)	directoryDestination = "\\content\\report\\statinform\\report_info_D_control\\4";
 
-        directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+        directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
         File file = new File(directoryDestination);
         try {

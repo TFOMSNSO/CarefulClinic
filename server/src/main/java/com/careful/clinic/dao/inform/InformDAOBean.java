@@ -1,10 +1,8 @@
 package com.careful.clinic.dao.inform;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.ejb.Stateless;
 
@@ -13,8 +11,19 @@ import com.careful.clinic.model.ListExcelFiles;
 @Stateless
 public class InformDAOBean implements InformDAO {
 
+	private String addDate(String directoryDestination, String ob) {
+
+		File file = new File(directoryDestination + File.separator + ob);
+		final long lastModified = file.lastModified();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-");
+		String x = sdf.format(new Date(lastModified));
+		return x;
+	}
+
 // TODO: variable 'current year' is hard code. Replace them.	
-	
+
+
+
 	@Override
 	public Collection<?> getListInformSecondStage(Integer id) {
 		int current_year = Calendar.getInstance().get(Calendar.YEAR);
@@ -27,13 +36,17 @@ public class InformDAOBean implements InformDAO {
 		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_about_second_stage\\4";
 		
 		directoryDestination = directoryServer+directoryDestination;
-		
+
 		File path = new File(directoryDestination);
 		String ob[] = path.list();
+		List<String> lsn = new ArrayList<>();
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
-		for(int i=0;i < ob.length;i++){
-			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
-			
+		for (int i = 0; i < ob.length; i++) {
+			String x =addDate(directoryDestination, ob[i]);
+			lsn.add(x + ob[i]);
+		}
+		for (int j = 0; j < lsn.size(); j++) {
+			ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
 		}
 		
 		return ls;
@@ -52,13 +65,17 @@ public class InformDAOBean implements InformDAO {
 		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_kvartals\\4";
 		
 		directoryDestination = directoryServer+directoryDestination;
-		
+
 		File path = new File(directoryDestination);
 		String ob[] = path.list();
+		List<String> lsn = new ArrayList<>();
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
-		for(int i=0;i < ob.length;i++){
-			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
-			
+		for (int i = 0; i < ob.length; i++) {
+			String x =addDate(directoryDestination, ob[i]);
+			lsn.add(x + ob[i]);
+		}
+		for (int j = 0; j < lsn.size(); j++) {
+			ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
 		}
 		
 		return ls;
@@ -77,13 +94,17 @@ public class InformDAOBean implements InformDAO {
 		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_actual\\4";
 		
 		directoryDestination = directoryServer+directoryDestination;
-		
+
 		File path = new File(directoryDestination);
 		String ob[] = path.list();
+		List<String> lsn = new ArrayList<>();
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
-		for(int i=0;i < ob.length;i++){
-			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
-			
+		for (int i = 0; i < ob.length; i++) {
+			String x =addDate(directoryDestination, ob[i]);
+			lsn.add(x + ob[i]);
+		}
+		for (int j = 0; j < lsn.size(); j++) {
+			ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
 		}
 		
 		return ls;
@@ -103,13 +124,17 @@ public class InformDAOBean implements InformDAO {
 		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\reinform\\4";
 		
 		directoryDestination = directoryServer+directoryDestination;
-		
+
 		File path = new File(directoryDestination);
 		String ob[] = path.list();
+		List<String> lsn = new ArrayList<>();
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
-		for(int i=0;i < ob.length;i++){
-			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
-			
+		for (int i = 0; i < ob.length; i++) {
+			String x =addDate(directoryDestination, ob[i]);
+			lsn.add(x + ob[i]);
+		}
+		for (int j = 0; j < lsn.size(); j++) {
+			ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
 		}
 		
 		return ls;
@@ -129,13 +154,17 @@ public class InformDAOBean implements InformDAO {
 		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\ProfMedOsmotri\\4";
 		
 		directoryDestination = directoryServer+directoryDestination;
-		
+
 		File path = new File(directoryDestination);
 		String ob[] = path.list();
+		List<String> lsn = new ArrayList<>();
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
-		for(int i=0;i < ob.length;i++){
-			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
-			
+		for (int i = 0; i < ob.length; i++) {
+			String x =addDate(directoryDestination, ob[i]);
+			lsn.add(x + ob[i]);
+		}
+		for (int j = 0; j < lsn.size(); j++) {
+			ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
 		}
 		
 		return ls;

@@ -8,9 +8,9 @@ import javax.ejb.Local;
 @Local
 public interface InformDAO {
 	
-//TODO: Refactor a methods with share logic  	
-	
-	public Collection<?>  getListInformSecondStage(Integer id);
+//TODO: Refactor a methods with share logic
+
+    public Collection<?>  getListInformSecondStage(Integer id);
 
 	/**
 	 * Метод берет из определенной папки файлы для информирования по кварталам
