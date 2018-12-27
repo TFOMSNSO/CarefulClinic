@@ -107,19 +107,19 @@ public abstract class AbstractDataPmI extends AbstractDataUploadType {
 			Row row = null;
 			StringBuilder strb = new StringBuilder();
 			
-			strb  = sheet.getPhysicalNumberOfRows() < 50_000 ? strb.append("VALID Количество строк допустимо. \n") : strb.append("ERROR Превышено допустимое количество строк в загружаемом файле. Не более 50 000 строк. \n");
-			strb  = sheet.getRow(0).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Тип запроса") ? strb.append("VALID Тэг 'Тип запроса' - корректно. \n") : strb.append("ERROR Тэг 'Тип запроса' - некорректно. \n");
-			strb  = sheet.getRow(1).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Дата формирования") ? strb.append("VALID Тэг 'Дата формирования' - корректно \n") : strb.append("ERROR Тэг 'Дата формирования' - некорректно \n");
-			strb  = sheet.getRow(2).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Смо") ? strb.append("VALID Тэг 'Смо'  - корректно.  \n") : strb.append("ERROR Тэг 'Смо' - некорректно. \n");
+			strb  = sheet.getPhysicalNumberOfRows() < 50_000 ? strb.append("VALID Количество строк допустимо. \r\n") : strb.append("ERROR Превышено допустимое количество строк в загружаемом файле. Не более 50 000 строк. \r\n");
+			strb  = sheet.getRow(0).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Тип запроса") ? strb.append("VALID Тэг 'Тип запроса' - корректно. \r\n") : strb.append("ERROR Тэг 'Тип запроса' - некорректно. \r\n");
+			strb  = sheet.getRow(1).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Дата формирования") ? strb.append("VALID Тэг 'Дата формирования' - корректно \r\n") : strb.append("ERROR Тэг 'Дата формирования' - некорректно \r\n");
+			strb  = sheet.getRow(2).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Смо") ? strb.append("VALID Тэг 'Смо'  - корректно.  \r\n") : strb.append("ERROR Тэг 'Смо' - некорректно. \r\n");
 			
-			strb  = sheet.getRow(3).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Фамилия") ? strb.append("VALID Тэг 'Фамилия' - корректно.  \n") : strb.append("ERROR Тэг 'Фамилия' - некорректно. \n");
-			strb  = sheet.getRow(3).getCell(1).getStringCellValue().trim().equalsIgnoreCase("Имя") ? strb.append("VALID Тэг 'Имя' - корректно.  \n") : strb.append("ERROR Тэг 'Имя' - некорректно. \n");
-			strb  = sheet.getRow(3).getCell(2).getStringCellValue().trim().equalsIgnoreCase("Отчество") ? strb.append("VALID Тэг 'Отчество' - корректно.  \n") : strb.append("ERROR Тэг 'Отчество' - некорректно. \n");
-			strb  = sheet.getRow(3).getCell(3).getStringCellValue().trim().equalsIgnoreCase("Дата рождения") ? strb.append("VALID Тэг 'Дата рождения' - корректно.  \n") : strb.append("ERROR Тэг 'Дата рождения' - некорректно. \n");
-			strb  = sheet.getRow(3).getCell(4).getStringCellValue().trim().equalsIgnoreCase("Этап информирования") ? strb.append("VALID Тэг 'Этап информирования' - корректно.  \n") : strb.append("ERROR Тэг 'Этап информирования' - некорректно. \n");
-			strb  = sheet.getRow(3).getCell(5).getStringCellValue().trim().equalsIgnoreCase("Дата информирования") ? strb.append("VALID Тэг 'Дата информирования' - корректно.  \n") : strb.append("ERROR Тэг 'Дата информирования' - некорректно. \n");
-			strb  = sheet.getRow(3).getCell(6).getStringCellValue().trim().equalsIgnoreCase("Тип информирования") ? strb.append("VALID Тэг 'Тип информирования' - корректно.  \n") : strb.append("ERROR Тэг 'Тип информирования' - некорректно. \n");
-			strb  = sheet.getRow(3).getCell(7).getStringCellValue().trim().equalsIgnoreCase("Примечание") ? strb.append("VALID Тэг 'Примечание' - корректно.  \n") : strb.append("ERROR Тэг 'Примечание' - некорректно. \n");
+			strb  = sheet.getRow(3).getCell(0).getStringCellValue().trim().equalsIgnoreCase("Фамилия") ? strb.append("VALID Тэг 'Фамилия' - корректно.  \r\n") : strb.append("ERROR Тэг 'Фамилия' - некорректно. \r\n");
+			strb  = sheet.getRow(3).getCell(1).getStringCellValue().trim().equalsIgnoreCase("Имя") ? strb.append("VALID Тэг 'Имя' - корректно.  \r\n") : strb.append("ERROR Тэг 'Имя' - некорректно. \r\n");
+			strb  = sheet.getRow(3).getCell(2).getStringCellValue().trim().equalsIgnoreCase("Отчество") ? strb.append("VALID Тэг 'Отчество' - корректно.  \r\n") : strb.append("ERROR Тэг 'Отчество' - некорректно. \r\n");
+			strb  = sheet.getRow(3).getCell(3).getStringCellValue().trim().equalsIgnoreCase("Дата рождения") ? strb.append("VALID Тэг 'Дата рождения' - корректно.  \r\n") : strb.append("ERROR Тэг 'Дата рождения' - некорректно. \r\n");
+			strb  = sheet.getRow(3).getCell(4).getStringCellValue().trim().equalsIgnoreCase("Этап информирования") ? strb.append("VALID Тэг 'Этап информирования' - корректно.  \r\n") : strb.append("ERROR Тэг 'Этап информирования' - некорректно. \r\n");
+			strb  = sheet.getRow(3).getCell(5).getStringCellValue().trim().equalsIgnoreCase("Дата информирования") ? strb.append("VALID Тэг 'Дата информирования' - корректно.  \r\n") : strb.append("ERROR Тэг 'Дата информирования' - некорректно. \r\n");
+			strb  = sheet.getRow(3).getCell(6).getStringCellValue().trim().equalsIgnoreCase("Тип информирования") ? strb.append("VALID Тэг 'Тип информирования' - корректно.  \r\n") : strb.append("ERROR Тэг 'Тип информирования' - некорректно. \r\n");
+			strb  = sheet.getRow(3).getCell(7).getStringCellValue().trim().equalsIgnoreCase("Примечание") ? strb.append("VALID Тэг 'Примечание' - корректно.  \r\n") : strb.append("ERROR Тэг 'Примечание' - некорректно. \r\n");
 			
 			if(strb.toString().contains("ERROR")) { System.out.println(strb.toString()); throw new CheckStructureExcelException(strb.toString()); }
 			
