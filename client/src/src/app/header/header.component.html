@@ -25,9 +25,9 @@
   <button mat-menu-item [routerLink]="['/list_prophylactic']">{{list_insur_menu}}</button><!--списки застрахованных-->
   <button mat-menu-item [routerLink]="['/list_header_inform']">{{list_inform_header}}</button><!--Списки для информирования-->
   <button mat-menu-item  [matMenuTriggerFor]="menu_sp3">{{ _sp3_menu }}</button><!--Страховой представитель 3-->
+  <button mat-menu-item (click)="var_sidenav_uploaddata.open(); var_sidenav_uploaddata.init()">{{_uploadfile}}</button>
   <!--TODO сделать возможность администратору выкладывать контент. Кнопка и компонет уже созданы. Нужно доработать-->
   <!--<button mat-menu-item  [matMenuTriggerFor]="admin_list_opt">{{_menu_admin}}</button>--><!--Администрирование-->
-  <button mat-menu-item (click)="var_sidenav_uploaddata.open(); var_sidenav_uploaddata.init()">{{_uploadfile}}</button>
   <button mat-menu-item [routerLink]="['/login']">{{exit_app}}</button><!--Выйти из приложения-->
 </mat-menu>
 
@@ -35,7 +35,6 @@
 <mat-menu #invertebrates="matMenu">
   <button mat-menu-item [routerLink]="['/statistics-inform/reports']">{{statistics_inform_header}}</button><!--Статистика информирования-->
   <button mat-menu-item [routerLink]="['/statistics-assent/reports']">{{statistics_assent_header}}</button><!--Статистика согласий-->
-  <!--TODO сделать компонент телефонных опросов-->
   <button mat-menu-item [routerLink]="['/telephone-surveys']">{{telephone_surveys}}</button><!--Телефонные опросы-->
 </mat-menu>
 
