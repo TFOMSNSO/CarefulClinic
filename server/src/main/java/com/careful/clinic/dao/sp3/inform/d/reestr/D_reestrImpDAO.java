@@ -28,6 +28,15 @@ public class D_reestrImpDAO  implements D_reestr{
 	@PersistenceContext(unitName="NONXAMUR2018")
 	private EntityManager non_mur_collect2018;
 
+	private String addDate(String directoryDestination, String ob) {
+
+		File file = new File(directoryDestination + File.separator + ob);
+		final long lastModified = file.lastModified();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-");
+		String x = sdf.format(new Date(lastModified));
+		return x;
+	}
+
 	@Override
 	public List<?> getListDReestr(Integer id) {
 		int current_year = Calendar.getInstance().get(Calendar.YEAR);
@@ -43,10 +52,14 @@ public class D_reestrImpDAO  implements D_reestr{
 
 		File path = new File(directoryDestination);
 		String ob[] = path.list();
+		List<String> lsn = new ArrayList<>();
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
-		for(int i=0;i < ob.length;i++){
-			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
-
+		for (int i = 0; i < ob.length; i++) {
+			String x =addDate(directoryDestination, ob[i]);
+			lsn.add(x + ob[i]);
+		}
+		for (int j = 0; j < lsn.size(); j++) {
+			ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
 		}
 
 		return ls;

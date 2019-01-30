@@ -65,7 +65,7 @@ public class RestServiceSp3InformDReestr {
 
 
 
-		directoryDestination = directoryServer+directoryDestination+File.separator+namefile;
+		directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
 
 		File file = new File(directoryDestination);
 		try {
