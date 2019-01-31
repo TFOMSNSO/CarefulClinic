@@ -31,6 +31,8 @@
 	<field name="last_treatment" class="java.util.Date"/>
 	<field name="plan_inform" class="java.util.Date"/>
 	<field name="date_inform" class="java.util.Date"/>
+	<field name="mes6" class="java.lang.String"/>
+	<field name="last_treatment_mes6" class="java.util.Date"/>
 	<columnHeader>
 		<band height="97">
 			<textField>
@@ -640,6 +642,58 @@
 				</textElement>
 				<textFieldExpression><![CDATA["2"]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="1797" y="38" width="70" height="46" uuid="f3b0ae6a-755d-475d-8c3f-cdc422bc8821"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["МЭС последнего диспансерного наблюдения"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1797" y="84" width="70" height="13" uuid="7ed37873-0b83-42a0-af31-add5f6421bd4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["25"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1867" y="38" width="70" height="46" uuid="34810d5f-d778-455d-b93e-1e32f9fedf9a"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Дата последнего диспансерного наблюдения"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1867" y="84" width="70" height="13" uuid="483fccd8-d65d-40f5-9c93-00650f0dda83"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["26"]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
@@ -925,6 +979,30 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{im}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1867" y="0" width="70" height="26" uuid="6d3b7611-85f9-45bc-8a25-b292cb78bee3"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{last_treatment_mes6}]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="1797" y="0" width="70" height="26" uuid="e9f20302-8806-487e-9513-33558248eced"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mes6}]]></textFieldExpression>
+				<patternExpression><![CDATA["dd.MM.yyyy"]]></patternExpression>
 			</textField>
 		</band>
 	</detail>

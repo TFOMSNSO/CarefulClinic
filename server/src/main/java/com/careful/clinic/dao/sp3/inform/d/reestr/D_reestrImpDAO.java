@@ -70,7 +70,7 @@ public class D_reestrImpDAO  implements D_reestr{
 		String sb;
 		String g = user.equals("777")  ?  " " : " and  per.person_linksmoestablishmentid =" +user+ " " ;
 		if(g == " ") {
-			sb = "select rec.fam,rec.im,rec.ot, rec.dr, f_person_telephone_v2@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp, ' '||per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, to_char(rec.rezobr), rec.ds1, rec.p_r_dn, yy.mes, ' '||(-1*sc.back_propagation_month) as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform " +
+			sb = "select rec.fam,rec.im,rec.ot, rec.dr, f_person_telephone_v2@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp, ' '||per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, to_char(rec.rezobr), rec.ds1, rec.p_r_dn, yy.mes, ' '||(-1*sc.back_propagation_month) as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform, ''||rec.mes6, rec.dat_end_mes6 " +
 					"from " +
 					"d_records@link_ofoms rec " +
 					"left join pat yy on rec.pat_id=yy.id " +
@@ -89,7 +89,7 @@ public class D_reestrImpDAO  implements D_reestr{
 
 		}else
 		{
-			sb = "select rec.fam,rec.im,rec.ot, rec.dr, f_person_telephone_v2@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp, ' '||per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, to_char(rec.rezobr), rec.ds1, rec.p_r_dn, yy.mes, ' '||(-1*sc.back_propagation_month) as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform " +
+			sb = "select rec.fam,rec.im,rec.ot, rec.dr, f_person_telephone_v2@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as tel, ADDRESS_PERSONFIO@dome_dev(rec.fam, rec.im, rec.ot, rec.dr) as address, per.person_linksmoestablishmentid as smo, nvl(per.person_serpolicy||per.person_numpolicy,pa.enp) as pol, yy.lpu, yy.ambkarta, yy.dat_beg, rec.date_end_disp, ' '||per.person_establishmentambul as mo_prik, yy.account, yy.ac_date, to_char(rec.rezobr), rec.ds1, rec.p_r_dn, yy.mes, ' '||(-1*sc.back_propagation_month) as kratnost, rec.last_treatment, pl2.plan_inform, pii.date_inform, ''||rec.mes6, rec.dat_end_mes6 " +
 					"from " +
 					"d_records@link_ofoms rec " +
 					"left join pat yy on rec.pat_id=yy.id " +
@@ -141,9 +141,11 @@ public class D_reestrImpDAO  implements D_reestr{
 				Date _20 = (Date) record[20];
 				Date _21 = (Date) record[21];
 				Date _22 = (Date) record[22];
+				String _23 = (String) record[23];
+				Date _24 = (Date) record[24];
 				//Long _21 = ((BigDecimal) record[21]).longValue(); Когда-нибудь понадобится
 
-				ls.add(new InformDReestr(_0, _1, _2, _3, _tel, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22));
+				ls.add(new InformDReestr(_0, _1, _2, _3, _tel, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24));
 			}catch (NullPointerException e){
 
 			}

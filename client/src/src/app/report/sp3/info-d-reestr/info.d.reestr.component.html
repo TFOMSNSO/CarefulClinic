@@ -62,10 +62,9 @@
 		  <mat-expansion-panel (opened)="setTrue(2,true)" (closed)="setTrue(2,false)">
 			<mat-expansion-panel-header>
 			  <mat-panel-title>
-									{{_info_d_reestr}}
+          {{_info_d_reestr}}
 			  </mat-panel-title>
 			  <mat-panel-description>
-
 			  <div *ngIf='panelOpenState2'>
 				 <mat-chip-list><mat-chip color="accent" selected="true">{{_report_inform_note_after}}</mat-chip></mat-chip-list>
 			  </div>
@@ -83,6 +82,7 @@
 						<mat-list-item>
 							<h4 mat-line>
 							  <button type='submit' mat-raised-button color='primary'[disabled]>сформировать список ЗЛ</button>
+                (Внимание! Список может формироваться до 30 минут. Не покидайте страницу.)
               </h4>
 						</mat-list-item>
 					</form>

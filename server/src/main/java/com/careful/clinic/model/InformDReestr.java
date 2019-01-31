@@ -29,12 +29,14 @@ public class InformDReestr {
     private Date last_treatment;
     private Date plan_inform;
     private Date date_inform;
+    private String mes6;
+    private Date last_treatment_mes6;
     //private Long id_assent;  Когда-нибудь понадобится
 
     public InformDReestr(String fam,String im,String ot, Date dr, String tel, String address, Long smoid, String pol, String lpu,
                          String ambkarta, Date dat_beg, Date dat_end, String lpu_prik, Long account, Date ac_date, String rezobr,
                          String ds1, Long prdn, String mes, String kratnost, Date last_treatment, Date plan_inform,
-                         Date date_inform) {
+                         Date date_inform, String mes6, Date last_treatment_mes6) {
         super();
         this.fam = fam;
         this.im = im;
@@ -59,6 +61,8 @@ public class InformDReestr {
         this.last_treatment = last_treatment;
         this.plan_inform = plan_inform;
         this.date_inform = date_inform;
+        this.mes6 = mes6;
+        this.last_treatment_mes6 = last_treatment_mes6;
         //this.id_assent = id_assent;  Когда-нибудь понадобится
     }
 
@@ -188,6 +192,22 @@ public class InformDReestr {
     }
     public void setMes(String mes) {
         this.mes = mes;
+    }
+
+    public String getMes6() {
+        return mes6;
+    }
+
+    public void setMes6(String mes6) {
+        this.mes6 = mes6;
+    }
+
+    public Date getLast_treatment_mes6() {
+        return last_treatment_mes6;
+    }
+
+    public void setLast_treatment_mes6(Date last_treatment_mes6) {
+        this.last_treatment_mes6 = last_treatment_mes6;
     }
 
     public String getKratnost() {
