@@ -32,6 +32,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	@PersistenceContext(unitName="NONXAMUR2018")
 	private EntityManager non_mur_collect2018;
 
+	@PersistenceContext(unitName="NONXAMUR2019")
+	private EntityManager non_mur_collect2019;
+
 
 
 
@@ -120,7 +123,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+ " where zz.mes between '401048' and '401071'  ";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		q.setFirstResult(firrstResult);
 		q.setMaxResults(60_000);
@@ -247,7 +250,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+ " where zz.mes between '401048' and '401071'  ";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		q.setFirstResult(firrstResult);
 		q.setMaxResults(60_000);
@@ -471,7 +474,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+"                  ) zz";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		q.setFirstResult(firrstResult);
 		q.setMaxResults(60_000);
@@ -606,7 +609,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" ) tmp1,  "
 				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc ";
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		List<Object[]> res = q.getResultList();
 		// for processed data
@@ -809,7 +812,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc ";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		List<Object[]> res = q.getResultList();
 		// for processed data
@@ -936,7 +939,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		List<Object[]> res = q.getResultList();
 		// for processed data
@@ -1106,7 +1109,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+"                  ) zz";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		q.setFirstResult(firrstResult);
 		q.setMaxResults(60_000);
@@ -1304,7 +1307,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc ";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		List<Object[]> res = q.getResultList();
 		// for processed data
@@ -1451,7 +1454,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"order by tmp1.total desc";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		List<Object[]> res = q.getResultList();
 		// for processed data

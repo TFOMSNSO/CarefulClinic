@@ -28,6 +28,9 @@ public class D_reestrImpDAO  implements D_reestr{
 	@PersistenceContext(unitName="NONXAMUR2018")
 	private EntityManager non_mur_collect2018;
 
+	@PersistenceContext(unitName="NONXAMUR2019")
+	private EntityManager non_mur_collect2019;
+
 	private String addDate(String directoryDestination, String ob) {
 
 		File file = new File(directoryDestination + File.separator + ob);
@@ -107,7 +110,7 @@ public class D_reestrImpDAO  implements D_reestr{
 					" (select   trunc(add_months(max(pl.d_insert),1))  from plan_pm_i_d_records@link_ofoms pl ) and rec.p_r_dn in (1,2) and rec.ds1 between sc.mkb_start and sc.mkb_end ";
 		}
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2018.createNativeQuery(sb);
+		Query q = non_mur_collect2019.createNativeQuery(sb);
 
 		q.setFirstResult(firrstResult);
 		q.setMaxResults(60_000);
