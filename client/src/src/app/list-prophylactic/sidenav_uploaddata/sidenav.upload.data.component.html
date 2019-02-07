@@ -12,7 +12,8 @@
   <br>
   <div class="dropzone" appDnd (filesChangeEmiter)="onFilesChange($event)" (filesInvalidEmiter)="onFileInvalids($event)" [allowed_extensions]="['xlsx']" >
     <div class="text-wrapper">
-      <div class="centered">{{ _drop }}</div>
+      <div class="centered">{{ _drop }}</div><div class="warntext2">&#9759;</div>
+      <span class="warntext"><div class="centered">  после перемещения файла дождитесь отчёт по загрузке <br> он будет в формате *.txt <br> ПРОЧТИТЕ ЕГО</div></span>
     </div>
   </div>
 
