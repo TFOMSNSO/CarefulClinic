@@ -107,7 +107,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		return query.getResultList();
 		
 	}
-	
+	//ToDo in branch "mis" create a select from MIS DB
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException{
 		
