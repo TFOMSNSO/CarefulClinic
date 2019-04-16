@@ -7,7 +7,6 @@ import javax.ejb.Local;
 
 import com.careful.clinic.model.AfterDisp3Group;
 import com.careful.clinic.model.Sp3RateMo;
-import com.careful.clinic.model.WrapSp3;
 
 @Local
 public interface ISp3ExpertiseDao {

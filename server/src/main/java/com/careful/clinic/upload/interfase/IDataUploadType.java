@@ -4,10 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
-import javax.ejb.Local;
-
-import org.apache.poi.openxml4j.opc.OPCPackage;
-
 import com.careful.clinic.exceptions.CheckStructureExcelException;
 import com.careful.clinic.exceptions.CheckTypizineExcelException;
 import com.careful.clinic.exceptions.ParseDataExcelException;

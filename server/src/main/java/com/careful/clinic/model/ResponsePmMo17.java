@@ -1,6 +1,5 @@
 package com.careful.clinic.model;
 
-import java.math.BigDecimal;
 
 public class ResponsePmMo17 {
 	public ResponsePmMo17(String tfoms_id, String god, String kv, String date_begin, String date_end) {

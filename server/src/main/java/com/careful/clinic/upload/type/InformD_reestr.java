@@ -2,21 +2,15 @@ package com.careful.clinic.upload.type;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.careful.clinic.exceptions.CheckStructureExcelException;
 import com.careful.clinic.exceptions.CheckTypizineExcelException;
-import com.careful.clinic.exceptions.ParseDataExcelException;
 import com.careful.clinic.upload.interfase.IDataUploadType;
 
 public class InformD_reestr extends AbstractDataPmI {

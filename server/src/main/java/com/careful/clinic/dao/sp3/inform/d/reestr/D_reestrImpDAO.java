@@ -2,7 +2,6 @@ package com.careful.clinic.dao.sp3.inform.d.reestr;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,9 +17,6 @@ import javax.persistence.Query;
 import com.careful.clinic.model.ListExcelFiles;
 import com.careful.clinic.model.Sp3RateMo;
 import com.careful.clinic.model.InformDReestr;
-
-
-import static com.sun.mail.imap.protocol.INTERNALDATE.format;
 
 @Stateless
 public class D_reestrImpDAO  implements D_reestr{

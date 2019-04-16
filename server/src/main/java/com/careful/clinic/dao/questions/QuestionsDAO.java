@@ -1,7 +1,6 @@
 package com.careful.clinic.dao.questions;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

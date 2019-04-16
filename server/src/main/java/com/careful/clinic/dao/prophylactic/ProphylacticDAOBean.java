@@ -1,7 +1,6 @@
 package com.careful.clinic.dao.prophylactic;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -17,57 +16,30 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.StoredProcedureQuery;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import com.careful.clinic.exceptions.ParseDataExcelException;
-import com.careful.clinic.guid.RandomGUID;
 import com.careful.clinic.model.ListExcelFiles;
 import com.careful.clinic.model.Person;
 import com.careful.clinic.model.PersonModel;
-import com.careful.clinic.model.PmMo2017;
 import com.careful.clinic.model.ResponseGer;
 import com.careful.clinic.model.ResponsePmMo17;
 import com.careful.clinic.model.SearchKeysModel;
-import com.careful.clinic.model.WrapPmI;
 import com.careful.clinic.model.WrapRespSerarchKeys;
-import com.careful.clinic.upload.interfase.IDataUploadType;
 import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 @Stateless
 public class ProphylacticDAOBean implements ProphylacticDAO{

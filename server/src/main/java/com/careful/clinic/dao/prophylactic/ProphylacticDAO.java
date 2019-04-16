@@ -9,14 +9,11 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.xml.sax.SAXException;
 
-import com.careful.clinic.exceptions.ParseDataExcelException;
 import com.careful.clinic.model.PersonModel;
 import com.careful.clinic.model.SearchKeysModel;
 import com.careful.clinic.model.WrapRespSerarchKeys;
-import com.careful.clinic.upload.interfase.IDataUploadType;
 
 @Local
 public interface ProphylacticDAO {

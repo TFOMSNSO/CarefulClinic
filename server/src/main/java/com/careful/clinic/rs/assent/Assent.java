@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,7 +15,6 @@ import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -33,12 +31,10 @@ import org.xml.sax.SAXException;
 
 import com.careful.clinic.rs.assent.interfase.AssentDAO;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;

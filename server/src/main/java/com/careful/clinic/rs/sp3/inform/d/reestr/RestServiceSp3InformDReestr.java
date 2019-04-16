@@ -22,7 +22,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import com.careful.clinic.model.Sp3RateMo;
 import com.careful.clinic.model.InformDReestr;
 import com.careful.clinic.dao.sp3.inform.d.reestr.D_reestr;
 import com.careful.clinic.rs.sp3.inform.d.reestr.report.D_reestr_Report;

@@ -2,7 +2,6 @@ package com.careful.clinic.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
