@@ -17,7 +17,7 @@ public interface IDataUploadType {
 	 * @throws CheckStructureExcelException 
 	 * 
 	 */
-	void checkOutStructure() throws IOException, ParseDataExcelException, CheckStructureExcelException;
+	void checkOutStructure() throws IOException, ParseDataExcelException, CheckStructureExcelException, CheckTypizineExcelException;
 	
 	/**
 	 *  Проверка типизации каждой строки в загружаемых данных
