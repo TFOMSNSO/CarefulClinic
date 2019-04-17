@@ -13,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class DRecordsMZType  extends AbstractDataUploadType{
@@ -30,6 +31,7 @@ public class DRecordsMZType  extends AbstractDataUploadType{
         return null;
     }
 
+    /**Метод проверяет корректность значений в ячейках Excel файла*/
     @Override
     public void checkOutStructure() throws IOException, ParseDataExcelException, CheckStructureExcelException, CheckTypizineExcelException {
         System.out.println("Process Typizine (DRecordsMZType) "+this.getClass().getName());
@@ -41,6 +43,9 @@ public class DRecordsMZType  extends AbstractDataUploadType{
         StringBuilder strb = new StringBuilder();
         StringBuilder sb = new StringBuilder();
 
+        Date date = new Date();
+        Date date2 = new Date(System.currentTimeMillis() - 5184000000l*108);
+
         for(int j=1; j< sheet.getPhysicalNumberOfRows(); j++){
 
             row = sheet.getRow(j);
@@ -48,6 +53,22 @@ public class DRecordsMZType  extends AbstractDataUploadType{
                 strb = super.checkDataFormat(row, new Integer[]{4}) ? strb.append("") : strb.append("ERROR Неверный формат даты рождения. Строка "+ (j+1)+"\r\n");
                 strb = super.checkDataFormat(row, new Integer[]{7}) ? strb.append("") : strb.append("ERROR Неверный формат поля 'Взят на учет'. Строка "+ (j+1)+"\r\n");
                 strb = super.checkDataFormat(row, new Integer[]{13}) ? strb.append("") : strb.append("ERROR Неверный формат поля 'Дата планируемого визита'. Строка "+ (j+1)+"\r\n");
+                if(((row.getCell(4).getDateCellValue()).after(date))||((row.getCell(4).getDateCellValue().after(date2))))
+                {
+                    strb.append("ERROR В поле 'Дата рождения' некорректная дата либо это ребёнок. Строка "+ (j+1)+"\r\n. ");
+                }
+                if(((row.getCell(7).getDateCellValue()).after(date)))
+                {
+                    strb.append("ERROR некорректная дата в поле 'Взят на учет'. Строка "+ (j+1)+"\r\n");
+                }
+                if(row.getCell(2).getStringCellValue().length()>6)
+                {
+                    strb.append("ERROR В поле 'МКБ' не может быть более 6 символов. Строка "+ (j+1)+"\r\n. ");
+                }
+                if(row.getCell(2).getStringCellValue().matches("[^A-Z].+"))
+                {
+                    strb.append("ERROR В поле 'МКБ' не корректное значение. Строка "+ (j+1)+"\r\n. ");
+                }
             }catch (Exception e){
                 strb.append("ERROR Непредвиденная ошибка. Строка "+ (j+1)+"\r\n");
             }
@@ -65,6 +86,7 @@ public class DRecordsMZType  extends AbstractDataUploadType{
 
     }
 
+    /**Метод по строчно парсит Excel файл и создаёт insert каждой строки*/
     @Override
     public void constructQuery() throws ParseException, IOException {
         DataFormatter formatter = new DataFormatter();
@@ -131,6 +153,8 @@ public class DRecordsMZType  extends AbstractDataUploadType{
     public void checkSinchronizeData(List<String> listquery) {
 
     }
+
+    /**Метод создаёт запросы на проверку дублей каждой мтроки*/
     @Override
     public String construct_querySelect(String str) {
         StringBuilder  sb = new StringBuilder();
@@ -148,28 +172,8 @@ public class DRecordsMZType  extends AbstractDataUploadType{
         sb.append(tmp_m[2]);
         sb.append(" and DR=");
         sb.append(tmp_m[3]);
-        /*sb.append(" and NUM_CARD=");
-        sb.append(tmp_m[4]);
-        sb.append(" and SITE=");
-        sb.append(tmp_m[5]);
-        sb.append(" and DATE_ACC=");
-        sb.append(tmp_m[6]);
-        sb.append(" and DATE_END_ACC=");
-        sb.append(tmp_m[7]);
-        sb.append(" and DISCRIPTION_END_ACC=");
-        sb.append(tmp_m[8]);
-        sb.append(" and DOCTOR_FATHER_OF_CARD=");
-        sb.append(tmp_m[9]);
-        sb.append(" and DOCTOR_FACT=");
-        sb.append(tmp_m[10]);
-        sb.append(" and TEL=");
-        sb.append(tmp_m[11]);*/
         sb.append(" and DATE_PLAN=");
         sb.append(tmp_m[12]);
-        /*sb.append(" and RECOMMENDATION=");
-        sb.append(tmp_m[13]);
-        sb.append(" and GR=");
-        sb.append(tmp_m[14]);*/
         return sb.toString();
     }
 }
