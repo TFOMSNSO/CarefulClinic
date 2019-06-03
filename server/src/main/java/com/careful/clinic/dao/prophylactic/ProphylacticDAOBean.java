@@ -48,12 +48,12 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	public XA_Dream2Dao xa_Dream2Dao;
 	// TODO Сделать фабрику как синглетон. 
 	@EJB
-	public UploadDataFactory  uploadFactory; 
+	public UploadDataFactory  uploadFactory;
 	
 	@PersistenceContext(unitName="OracleDSDeveloper")
     private EntityManager em_developer;
 	@PersistenceContext(unitName="NONXASDAME")
-    private EntityManager EM_NONXASDAME;
+	private EntityManager EM_NONXASDAME;
 
 	private int count = 0;
 	
