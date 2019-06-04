@@ -20,12 +20,14 @@
 
 <!--ГЛАВНОЕ МЕНЮ-->
 <mat-menu #appMenu="matMenu">
-  <button mat-menu-item [routerLink]="['/']">{{_menu_main_page}}</button><!--главная страница-->
+  <button mat-menu-item [routerLink]="['/']">1{{_menu_main_page}}</button><!--главная страница-->
   <button mat-menu-item [matMenuTriggerFor]="invertebrates">{{_menu_report_page}}</button><!--отчеты-->
   <button mat-menu-item [routerLink]="['/list_prophylactic']">{{list_insur_menu}}</button><!--списки застрахованных-->
   <button mat-menu-item [routerLink]="['/list_header_inform']">{{list_inform_header}}</button><!--Списки для информирования-->
   <button mat-menu-item  [matMenuTriggerFor]="menu_sp3">{{ _sp3_menu }}</button><!--Страховой представитель 3-->
+  <button mat-menu-item >{{ zno_item }}</button><!--Списки зно -->
   <button mat-menu-item (click)="var_sidenav_uploaddata.open(); var_sidenav_uploaddata.init()">{{_uploadfile}}</button>
+
   <!--TODO сделать возможность администратору выкладывать контент. Кнопка и компонет уже созданы. Нужно доработать-->
   <!--<button mat-menu-item  [matMenuTriggerFor]="admin_list_opt">{{_menu_admin}}</button>--><!--Администрирование-->
   <button mat-menu-item [routerLink]="['/login']">{{exit_app}}</button><!--Выйти из приложения-->
