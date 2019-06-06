@@ -121,6 +121,7 @@ export class PeopleDatabase {
   }
 
   searchPersonKeys(data: any): Promise<any>{
+    console.log('searchPersonKeys');
   	let headers = new Headers({'Content-Type': 'application/json'});
   	return this.http
 	  .post(this.serverUrl + '/search_person_keys', JSON.stringify(data), {headers: headers})
@@ -139,6 +140,7 @@ export class PeopleDatabase {
   }
 
   searchPersonInsur(per_data: any): Promise<any> {
+    console.log('searchPersonInsur');
 	let headers = new Headers({'Content-Type': 'application/json'});
 	return this.http
 	  .post(this.serverUrl + '/search_person_insur', JSON.stringify(per_data), {headers: headers})

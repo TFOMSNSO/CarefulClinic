@@ -11,6 +11,7 @@ import { ListInformirovanieHeader} from './report/list-informirovanie/listinform
 import { TelephoneSurveysComponent} from './report/telephone-surveys/telephone-surveys.component';
 
 import { TableBasicExample } from './table-basic/table-basic-example';
+import {ListZnoComponent} from "./list-zno/list-zno.component";
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'table', component: TableComponent },
   { path: 'list_prophylactic', component: ListProphylacticComponent, canActivate: [AuthGuard]  },
+  { path: 'list_zno', component: ListZnoComponent, canActivate: [AuthGuard]},
   { path: 'list_header_inform', component: ListInformirovanieHeader, canActivate: [AuthGuard]  },
   { path: 'telephone-surveys', component: TelephoneSurveysComponent, canActivate: [AuthGuard]  },
   { path: '**', redirectTo: '' }

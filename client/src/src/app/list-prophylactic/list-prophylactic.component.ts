@@ -132,7 +132,7 @@ export class ListProphylacticComponent implements OnInit {
 
   ngOnInit() {
     this.connect();
-     /*Observable.fromEvent(this.filter.nativeElement, 'keyup')
+     /*Observable.fromEvent(this.filter.nativeEle ment, 'keyup')
         .debounceTime(150)
         .distinctUntilChanged()
         .subscribe(() => {

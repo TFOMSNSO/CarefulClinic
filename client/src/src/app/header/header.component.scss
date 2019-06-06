@@ -50,7 +50,7 @@ p a{
   position: absolute;
   pointer-events: none;
   top:0; left:0; right:0; bottom: 0;
-  background: radial-gradient(0 0,circle farthest-side, rgba(208,212,110,0) 90%,rgba(208,212,110,.8) 98%,rgba(208,212,110,0) 100%) no-repeat;
+  background: radial-gradient(circle farthest-side at 0 0, rgba(208,212,110,0) 90%,rgba(208,212,110,.8) 98%,rgba(208,212,110,0) 100%) no-repeat;
   background: radial-gradient(circle farthest-side at 0 0, rgba(255,255,255,0) 90%,rgba(255,255,255,.8) 98%,rgba(255,255,255,0) 100%) no-repeat;
   background-position: inherit;
   -webkit-mask: url('./logo_small.png') center;

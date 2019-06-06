@@ -27,6 +27,8 @@ import { DndDirective } from './list-prophylactic/sidenav_uploaddata/dnd.directi
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService, UserService} from './_services/index';
+
+
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';
@@ -36,6 +38,7 @@ import { TelephoneSurveysComponent} from './report/telephone-surveys/telephone-s
 	/*rout module*/
 import { AppRoutingModule }     from './app.routing.module';
 import { SidenaveSearchService } from './list-prophylactic/sidenave-search.service';
+import { ListZnoComponent } from './list-zno/list-zno.component';
 //библиотека для ограничения доступа по ролям
 //import { NgxPermissionsModule } from 'ngx-permissions';
 
@@ -65,8 +68,8 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     ,SidenavUploadDataComponent
     ,DndDirective
     ,ListInformirovanieHeader
+    ,ListZnoComponent
     ,TelephoneSurveysComponent
-
   ],
   imports: [
   	MyDatePickerModule,

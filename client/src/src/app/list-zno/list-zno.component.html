@@ -1,0 +1,86 @@
+<mat-card [@flyInOut]="'in'">
+  <sidenav-component #var_sidenav (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-component>
+  <sidenavkeys-component #var_sidenav_search_keys (progress_bar_emit)="handleProgressUpdated($event)"></sidenavkeys-component>
+  <sidenav_export_excel-component #var_sidenav_export_excel ></sidenav_export_excel-component>
+  <!--<sidenav-upload-data-component #var_sidenav_uploaddata (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-upload-data-component>-->
+
+   <mat-sidenav-container class="example-container">
+    <mat-list>
+      <mat-card-title>{{list_zno}}</mat-card-title><!--Списки застрахованных лиц-->
+      <mat-card-header>
+        <table-header (filterOut)="getNotify($event)"></table-header>
+
+        <mat-menu #menu_tab="matMenu" >
+          <button mat-menu-item (click)="var_sidenav.open()">{{_searchFIOD}}</button>
+          <button mat-menu-item (click)="var_sidenav_search_keys.open()">{{_searchKEYS}}</button>
+          <button mat-menu-item [disabled]="!isValidBtnExport()" (click)="cleartable()">{{_cleartable}}</button>
+          <button mat-menu-item [disabled]="!isValidBtnExport()" (click)="get()">{{_exportExcel}}</button>
+          <button mat-menu-item (click)="var_sidenav_export_excel.open(); var_sidenav_export_excel.init()">{{_downloadtask}}</button>
+          <!--<button mat-menu-item (click)="var_sidenav_uploaddata.open(); var_sidenav_uploaddata.init()">{{_uploadfile}}</button>-->
+        </mat-menu>
+
+        <button id="btn_header" mat-icon-button [matMenuTriggerFor]="menu_tab">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <!-- <button id="btn_header"  (click)="var_sidenav.open()" mat-fab><mat-icon>add</mat-icon></button> -->
+      </mat-card-header>
+    </mat-list>
+  </mat-sidenav-container>
+
+  <mat-card-content @questionsAnim>
+    <mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" class="full-width">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.rowIndex}} </mat-cell>
+      </ng-container>
+
+      <!-- Column Definition:  -->
+      <ng-container  cdkColumnDef="personSurname">
+        <mat-header-cell *cdkHeaderCellDef>{{surname}}</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.personSurname}} </mat-cell>
+      </ng-container>
+
+      <!-- Column Definition:  -->
+      <ng-container cdkColumnDef="personKindfirstname">
+        <mat-header-cell *cdkHeaderCellDef>{{firstname}}</mat-header-cell>
+        <mat-cell *cdkCellDef="let row">
+          <div class="demo-progress-stat">{{row.personKindfirstname}}</div>
+
+        </mat-cell>
+      </ng-container>
+
+      <!-- Column Definition -->
+      <ng-container cdkColumnDef="personKindlastname">
+        <mat-header-cell *cdkHeaderCellDef>{{lastname}}</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.personKindlastname}} </mat-cell>
+      </ng-container>
+
+      <!-- Column Definition -->
+      <ng-container cdkColumnDef="personBirthday">
+        <mat-header-cell *cdkHeaderCellDef>{{bithday}}</mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.personBirthday}}</mat-cell>
+      </ng-container>
+      <!-- Column Definition -->
+      <ng-container cdkColumnDef="personYears">
+        <mat-header-cell *cdkHeaderCellDef>{{ t_years}}</mat-header-cell>
+        <mat-cell *cdkCellDef="let row" > {{row.years}}</mat-cell>
+      </ng-container>
+
+      <!-- Column Definition: Color -->
+      <ng-container cdkColumnDef="edit">
+        <mat-header-cell *cdkHeaderCellDef></mat-header-cell>
+        <mat-cell *cdkCellDef="let row" [style.color]="darkgray" (click)="preview(row)"><mat-icon>edit</mat-icon></mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row  *cdkRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+  </mat-card-content>
+
+</mat-card>

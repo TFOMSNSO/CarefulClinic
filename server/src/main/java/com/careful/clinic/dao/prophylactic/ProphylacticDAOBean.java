@@ -58,7 +58,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	private int count = 0;
 	
 	public Collection<?> getInfoInsur(PersonModel personmodel) throws ParseException{
-		
+		System.out.println("getInfoInsur");
 		TypedQuery<Person> query = em_developer.createNamedQuery("Person.findByFIOD", Person.class)
         		
 				.setParameter("personSurname", personmodel.getSurname().toUpperCase())
