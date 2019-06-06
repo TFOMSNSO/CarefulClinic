@@ -1,17 +1,20 @@
-import { Component, OnInit,ViewChild, Output, EventEmitter} from '@angular/core';
-import {PeopleDatabase} from "../../list-prophylactic/people-database";
-import {environment} from "../../../environments/environment";
-import {SidenaveSearchService} from "../../list-prophylactic/sidenave-search.service";
+import { Component,ElementRef,ViewChild,Output, EventEmitter} from '@angular/core';
+import { SidenaveSearchService} from "../../list-prophylactic/sidenave-search.service";
+import { PeopleDatabase } from "../../list-prophylactic/people-database";
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { OnInit } from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
-
+import { environment } from "../../../environments/environment";
 
 @Component({
-  selector: 'app-search-person-zno',
-  templateUrl: './search-person-zno.component.html',
-  styleUrls: ['./search-person-zno.component.scss']
+  moduleId: module.id,
+  selector: 'sidenav-search-zno',
+  templateUrl: './sidenav-search-zno.component.html',
+  styleUrls: ['./sidenav-search-zno.component.scss'],
+  providers: [SidenaveSearchService]
 })
-export class SearchPersonZnoComponent implements OnInit {
+export class SidenavSearchZnoComponent implements OnInit {
+
   reset: string = environment.reset;
   cancel: string = environment.cancel;
   field_is_required: string = environment.field_is_required;
@@ -29,13 +32,16 @@ export class SearchPersonZnoComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+
+  ngOnInit() {
     this.myForm =  this.formBuilder.group({
       surname: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       bithday: ['', Validators.required]
     });
+
+
   }
 
   myDatePickerOptions: IMyDpOptions = {
@@ -53,25 +59,25 @@ export class SearchPersonZnoComponent implements OnInit {
 
   open(){
     //this.variable_sidenave.nativeElement.open();
-    console.log('sidenav.open()');
+    console.log('sidenav ZNO.open()');
     this.variable_sidenave.toggle(true);
   }
-
+  //search zno person
   searchPerson(form: any): void{
     // �������� ������
-    console.log('search Person SEARCH PERSON ZNO.ts ' + form.value.surname);
+    console.log('ZNOZNOZNO search Person sidenave.search.component.ts ' + form.value.birthday);
     this.progress_bar_emit.emit({note: 'true', result:''});
 
     form.value.bithday = form.value.bithday.formatted;
     //this.sidenaveSearchService.searchPersonGer(form.value);
-    this.personSearchIsurService.searchPersonInsur(form.value)
+    this.personSearchIsurService.searchPersonZNO(form.value)
       .then(result =>{
         this.progress_bar_emit.emit({note :'false', result: result});
       })
   }
 
   resetForm() {
-    console.log('sidenav.search.component.ts resetForm()');
+    console.log('sidenav.search.ZNONZNONOOZNN.ts resetForm()');
     this.myForm.reset();
   }
 

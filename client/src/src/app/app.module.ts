@@ -27,8 +27,8 @@ import { DndDirective } from './list-prophylactic/sidenav_uploaddata/dnd.directi
 import { AuthGuard } from './_guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService, UserService} from './_services/index';
-
-
+import { ListZnoComponent } from './list-zno/list-zno.component';
+import { SidenavSearchZnoComponent } from './list-zno/sidenav-search-zno/sidenav-search-zno.component';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers/index';
@@ -39,8 +39,8 @@ import { TelephoneSurveysComponent} from './report/telephone-surveys/telephone-s
 	/*rout module*/
 import { AppRoutingModule }     from './app.routing.module';
 import { SidenaveSearchService } from './list-prophylactic/sidenave-search.service';
-import { ListZnoComponent } from './list-zno/list-zno.component';
-import { SearchPersonZnoComponent } from './list-zno/search-person-zno/search-person-zno.component';
+
+
 //библиотека для ограничения доступа по ролям
 //import { NgxPermissionsModule } from 'ngx-permissions';
 
@@ -71,7 +71,7 @@ import { SearchPersonZnoComponent } from './list-zno/search-person-zno/search-pe
     ,DndDirective
     ,ListInformirovanieHeader
     ,ListZnoComponent
-    ,SearchPersonZnoComponent
+    ,SidenavSearchZnoComponent
     ,TelephoneSurveysComponent
   ],
   imports: [

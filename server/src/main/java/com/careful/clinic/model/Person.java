@@ -23,7 +23,11 @@ import java.util.Date;
 @NamedQuery(name="Person.findByFIOD", query="SELECT c FROM Person c WHERE c.personSurname = :personSurname "
 												     + "and c.personKindfirstname =:personKindfirstname and"
 												     + " c.personKindlastname =:personKindlastname and "
-												     + "c.personBirthday =:personBirthday")
+												     + "c.personBirthday =:personBirthday"),
+		@NamedQuery(name="Person.findZno", query="SELECT c FROM Person c WHERE c.personSurname = :personSurname "
+				+ "and c.personKindfirstname =:personKindfirstname and"
+				+ " c.personKindlastname =:personKindlastname and "
+				+ "c.personBirthday =:personBirthday")
 })
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;

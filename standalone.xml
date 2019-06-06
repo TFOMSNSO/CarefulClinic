@@ -296,6 +296,37 @@
                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"/>
                     </validation>
                 </xa-datasource>
+                <xa-datasource jndi-name="java:/ds/OfomsTest" pool-name="ds/OfomsTest" enabled="true" use-java-context="true" use-ccm="true">
+                    <xa-datasource-property name="URL">
+                        jdbc:oracle:thin:@srv-oracle02:1521:dume
+                    </xa-datasource-property>
+                    <xa-datasource-property name="User">
+                        ofoms
+                    </xa-datasource-property>
+                    <xa-datasource-property name="Password">
+                        12345
+                    </xa-datasource-property>
+                    <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>
+                    <driver>ojdbc8.jar</driver>
+                    <xa-pool>
+                        <min-pool-size>1</min-pool-size>
+                        <max-pool-size>60</max-pool-size>
+                        <prefill>false</prefill>
+                        <use-strict-min>false</use-strict-min>
+                        <flush-strategy>FailingConnectionOnly</flush-strategy>
+                        <no-tx-separate-pools>true</no-tx-separate-pools>
+                        <pad-xid>false</pad-xid>
+                        <wrap-xa-resource>true</wrap-xa-resource>
+                    </xa-pool>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker"/>
+                        <validate-on-match>false</validate-on-match>
+                        <background-validation>false</background-validation>
+                        <use-fast-fail>false</use-fast-fail>
+                        <stale-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleStaleConnectionChecker"/>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"/>
+                    </validation>
+                </xa-datasource>
                 <xa-datasource jndi-name="java:/ds/DeveloperDame" pool-name="ds/DeveloperDame" enabled="true" use-java-context="true" use-ccm="true">
                     <xa-datasource-property name="URL">
                         jdbc:oracle:thin:@srv-oracle03:1521:dame

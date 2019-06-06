@@ -48,6 +48,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.careful.clinic.dao.zno.znoDAO;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -68,7 +69,7 @@ import com.careful.clinic.model.SearchKeysModel;
 import com.careful.clinic.model.WrapRespSerarchKeys;
 import com.careful.clinic.upload.interfase.IDataUploadType;
 import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
-
+//import com.careful.clinic.dao.zno.znoDAOBean;
 
 @javax.ws.rs.Path("/prophylactic")
 public class RestServiceProphylactic {
@@ -76,9 +77,12 @@ public class RestServiceProphylactic {
 	final String directoryServer = System.getProperty("jboss.home.dir");
 	
 	@EJB
-	UploadDataFactory  uploadFactory; 
+	UploadDataFactory  uploadFactory;
+
 	@EJB
 	ProphylacticDAO prophylacticDAO;
+	@EJB
+	znoDAO zno;
 	@EJB
 	XA_Dream2Dao xa_Dream2Dao;
 
@@ -377,12 +381,12 @@ public class RestServiceProphylactic {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> searchInsur(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
-		
-		List<?> df = (List<?>) prophylacticDAO.getInfoInsur(personmodel);
-		
+		//List<?> df = (List<?>) prophylacticDAO.getInfoInsur(personmodel);
+        List<?> df = (List<?>) zno.getInfoZNO(personmodel);
 		return	df;
 	}
-	
+	//-----------------------------------------------------------------------------------------1111111111111111111111111111111111111111111111111111
+
 	/**
 	 * Поиск застрахованных по ключам
 	 * @param personmodel - объект с заданными параметрами для поиска в базе

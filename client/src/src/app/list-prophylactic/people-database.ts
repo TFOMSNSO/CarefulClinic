@@ -234,6 +234,49 @@ export class PeopleDatabase {
 
   }
 
+  searchPersonZNO(per_data: any): Promise<any>{
+    let serverUrl1 = environment.BACKEND_URL + "/rest/zno";
+    console.log('searchPersonZNOZNO');
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http
+      .post(serverUrl1 + '/search_person_zno', JSON.stringify(per_data), {headers: headers})
+      .toPromise()
+       // lenght передаем как флаг отсутствия записи в рс ерз
+      .then(res =>{
+
+        let tmp_data = res.json();
+
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0;
+        if(tmp_data.length === 0) return tmp_data.length;
+
+        tmp_data[0].currentUser = this.currentUser['role'][0].id;
+
+        // ставляю пустою структуру гэра если ее нет
+        if(!("respGerl" in tmp_data[0])){
+          tmp_data[0].respGerl=[{
+            start_date_etap1:'',
+            end_date_etap1:'',
+            start_date_etap2:'',
+            end_date_etap2:'',
+            ref_id_person:'',
+            pm_god:'',
+            pm_kvartal:'',
+            adress:'',
+            tel:'',
+            pm_result:'',
+            pm_HOSPITAL_RESULT:''
+          }];
+        }
+
+        tmp_data.length != 0  ? this.addPerson_t(tmp_data[0]) : tmp_data.length
+
+      })
+      .catch(function(){return -1;
+      });
+  }
+
+
 
   initialize() {
     LATEST_ID = 0;
