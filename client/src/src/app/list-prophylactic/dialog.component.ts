@@ -154,16 +154,16 @@ _error1: string = environment.error1;
   }
 
   animationDone($event) {
-    //console.log('End');
+    console.log('End');
   }
 
  constructor(public dialogRef: MatDialogRef<DialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private personSearchIsurService: PeopleDatabase,private formBuilder: FormBuilder,) {
- //console.log('ddddd '+JSON.stringify(data));
+ console.log('ddddd '+JSON.stringify(data));
  }
 
  filterChanged(selectedValue: any){
-   //console.log('value is ',selectedValue.value);
-   //console.log('value is2 ',this.currentIndexPage);
+   console.log('value is ',selectedValue.value);
+   console.log('value is2 ',this.currentIndexPage);
 
 		// ���
 		if(this.currentIndexPage === 1){
