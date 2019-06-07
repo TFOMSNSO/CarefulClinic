@@ -1,7 +1,7 @@
 <mat-card [@flyInOut]="'in'">
   <sidenav-search-zno #var_sidenav (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-search-zno>
-  <sidenavkeys-component #var_sidenav_search_keys (progress_bar_emit)="handleProgressUpdated($event)"></sidenavkeys-component>
-  <sidenav_export_excel-component #var_sidenav_export_excel ></sidenav_export_excel-component>
+  <app-sidenav-search-zno-keys #var_sidenav_search_keys (progress_bar_emit)="handleProgressUpdated($event)"></app-sidenav-search-zno-keys>
+  <app-sidenav-export-excel-zno #var_sidenav_export_excel ></app-sidenav-export-excel-zno>
   <!--<sidenav-upload-data-component #var_sidenav_uploaddata (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-upload-data-component>-->
 
    <mat-sidenav-container class="example-container">
