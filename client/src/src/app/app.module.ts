@@ -39,6 +39,9 @@ import { TelephoneSurveysComponent} from './report/telephone-surveys/telephone-s
 	/*rout module*/
 import { AppRoutingModule }     from './app.routing.module';
 import { SidenaveSearchService } from './list-prophylactic/sidenave-search.service';
+import { SidenavSearchZnoKeysComponent } from './list-zno/sidenav-search-zno-keys/sidenav-search-zno-keys.component';
+import { SidenavUploaddataZnoComponent } from './list-zno/sidenav-uploaddata-zno/sidenav-uploaddata-zno.component';
+import { SidenavExportExcelZnoComponent } from './list-zno/sidenav-export-excel-zno/sidenav-export-excel-zno.component';
 
 
 //библиотека для ограничения доступа по ролям
@@ -72,6 +75,9 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
     ,ListInformirovanieHeader
     ,ListZnoComponent
     ,SidenavSearchZnoComponent
+    ,SidenavSearchZnoKeysComponent
+    ,SidenavUploaddataZnoComponent
+    ,SidenavExportExcelZnoComponent
     ,TelephoneSurveysComponent
   ],
   imports: [
