@@ -18,10 +18,12 @@ import java.util.Date;
  *
  */
 @Entity
-@Table(name="ZNO_PERSON")
-public class PersonZno implements Serializable {
+@Table(name = "ZNO_PERSON")
+@NamedQueries({
+        @NamedQuery(name="personzno.findbyid1",query = "SELECT z FROM ZNO_PERSON z")
+})
+public class ZNO_PERSON implements Serializable {
     private static final long serialVersionUID = 1L;
-
 
     @Id
     @Column(name="ID1")
@@ -170,4 +172,8 @@ public class PersonZno implements Serializable {
         this.personStateInsert = personStateInsert;
     }
 
+    @Override
+    public String toString() {
+        return "ZNO_PERSON[FAM:"+ personSurname + ",IM:" + personKindfirstname + ",OT:" + personKindlastname + "] ...";
+    }
 }
