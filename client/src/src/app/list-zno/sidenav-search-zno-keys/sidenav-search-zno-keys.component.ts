@@ -205,7 +205,7 @@ export class SidenavSearchZnoKeysComponent implements OnInit {
 
     //console.log(form.value);
     this.progress_bar_emit.emit({note: 'true', result:''});
-    this.personSearchIsurService.searchPersonKeys(form.value)
+    this.personSearchIsurService.searchPersonKeysZno(form.value)
       .then(res => {
         this.progress_bar_emit.emit({note :'false', result: res, search_keys: 'true'});
       });

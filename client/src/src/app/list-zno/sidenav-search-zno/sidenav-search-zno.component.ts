@@ -59,7 +59,7 @@ export class SidenavSearchZnoComponent implements OnInit {
 
   open(){
     //this.variable_sidenave.nativeElement.open();
-    console.log('sidenav ZNO.open()');
+    console.log('sidenav ZNO.open()111111');
     this.variable_sidenave.toggle(true);
   }
   //search zno person

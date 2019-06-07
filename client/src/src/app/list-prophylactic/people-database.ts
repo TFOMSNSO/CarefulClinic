@@ -139,6 +139,27 @@ export class PeopleDatabase {
   	.catch(this.handleError);
   }
 
+  searchPersonKeysZno(data: any): Promise<any>{
+    console.log('searchPersonKeysZno');
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http
+      .post(this.serverUrl + '/search_person_keys', JSON.stringify(data), {headers: headers})
+      .toPromise()
+      .then(res =>{
+        let tmp_data =  res.json();
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        for(let indexmas in tmp_data){
+          if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== Number(tmp_data[indexmas].personLinksmoestablishmentid) ) continue;
+          tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
+          this.addPerson_t(tmp_data[indexmas]);
+        }
+        tmp_data.length;
+      })
+      .catch(this.handleError);
+  }
+
+
+
   searchPersonInsur(per_data: any): Promise<any> {
     console.log('searchPersonInsur');
 	let headers = new Headers({'Content-Type': 'application/json'});

@@ -79,10 +79,10 @@ export class ListZnoComponent implements OnInit {
   dataSource: ProphylacticDataSource | null;
   displayedColumns: UserProperties[] = [];
 
-
+  dialogRef: MatDialogRef<DialogComponent> | null;
 
   constructor(public _peopleDatabase: PeopleDatabase,
-              public snackBar: MatSnackBar) { }
+              public snackBar: MatSnackBar,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.connect();
@@ -145,5 +145,38 @@ export class ListZnoComponent implements OnInit {
 
   get():void{
     this._peopleDatabase.exportToExcel(this.dataSource._peopleDatabase.data);
+  }
+
+  preview(pr:any):void{
+    let cc = {
+      disableClose: true,
+      panelClass: 'custom-overlay-pane-class',
+      hasBackdrop: true,
+      backdropClass: '',
+      width: '70%',
+      height: '500px',
+      position: {
+        top: '',
+        bottom: '',
+        left: '',
+        right: ''
+      },
+      data: pr
+    }
+    this.dialogRef = this.dialog.open(DialogComponent,cc);
+    // dialogRef.afterClosed().subscribe(result => {
+    // this.selectedOption = result;
+    //});
+
+    let result = JSON.stringify(pr, function(key, val) {
+      if (key !== "edit")
+        return val;
+    });
+
+  }
+
+  cleartable():void{
+    //this.dataSource._peopleDatabase.data.next([]);
+    this._peopleDatabase.initialize();
   }
 }
