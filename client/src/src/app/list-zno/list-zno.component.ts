@@ -148,6 +148,7 @@ export class ListZnoComponent implements OnInit {
   }
 
   preview(pr:any):void{
+    console.log('preview:'+pr.personSurname);
     let cc = {
       disableClose: true,
       panelClass: 'custom-overlay-pane-class',

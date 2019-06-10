@@ -42,6 +42,7 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
 import { SidenavSearchZnoKeysComponent } from './list-zno/sidenav-search-zno-keys/sidenav-search-zno-keys.component';
 import { SidenavUploaddataZnoComponent } from './list-zno/sidenav-uploaddata-zno/sidenav-uploaddata-zno.component';
 import { SidenavExportExcelZnoComponent } from './list-zno/sidenav-export-excel-zno/sidenav-export-excel-zno.component';
+import { DiaglogZnoComponent } from './list-zno/diaglog-zno/diaglog-zno.component';
 
 
 //библиотека для ограничения доступа по ролям
@@ -78,6 +79,7 @@ import { SidenavExportExcelZnoComponent } from './list-zno/sidenav-export-excel-
     ,SidenavSearchZnoKeysComponent
     ,SidenavUploaddataZnoComponent
     ,SidenavExportExcelZnoComponent
+    ,DiaglogZnoComponent
     ,TelephoneSurveysComponent
   ],
   imports: [

@@ -32,7 +32,7 @@ export class SidenavSearchZnoComponent implements OnInit {
 
   }
 
-
+//еще не понял
   ngOnInit() {
     this.myForm =  this.formBuilder.group({
       surname: ['', Validators.required],
@@ -40,8 +40,6 @@ export class SidenavSearchZnoComponent implements OnInit {
       lastname: ['', Validators.required],
       bithday: ['', Validators.required]
     });
-
-
   }
 
   myDatePickerOptions: IMyDpOptions = {
@@ -55,8 +53,6 @@ export class SidenavSearchZnoComponent implements OnInit {
     this.myForm.patchValue({bithday: null});
   }
 
-
-
   open(){
     //this.variable_sidenave.nativeElement.open();
     console.log('sidenav ZNO.open()111111');
@@ -65,7 +61,8 @@ export class SidenavSearchZnoComponent implements OnInit {
   //search zno person
   searchPerson(form: any): void{
     // �������� ������
-    console.log('ZNOZNOZNO search Person sidenave.search.component.ts ' + form.value.birthday);
+    console.log('ZNOZNOZNO search Person sidenave.search.component.ts ' + JSON.stringify(form.value));
+
     this.progress_bar_emit.emit({note: 'true', result:''});
 
     form.value.bithday = form.value.bithday.formatted;

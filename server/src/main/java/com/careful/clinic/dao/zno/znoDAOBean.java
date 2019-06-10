@@ -22,26 +22,24 @@ public class znoDAOBean implements znoDAO{
     private EntityManager oracletestem;
 
     public Collection<?> getInfoZNO(PersonModel personmodel) throws ParseException {
-        System.out.println("getInfoZAAAAAAAAAAAAAO");
+        System.out.println("znoDAOBean.java:getInfoZNO");
         System.out.println(personmodel);
-        TypedQuery<Person> query = em_developer.createNamedQuery("Person.findZno", Person.class)
+      /*  TypedQuery<Person> query = em_developer.createNamedQuery("Person.findByFIOD", Person.class)
 
                 .setParameter("personSurname", personmodel.getSurname().toUpperCase())
                 .setParameter("personKindfirstname", personmodel.getFirstname().toUpperCase())
                 .setParameter("personKindlastname", personmodel.getLastname().toUpperCase())
                 .setParameter("personBirthday", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
 
-        List<?> ls = query.getResultList();
+        List<?> ls = query.getResultList();*/
+      //  System.out.println(ls.get(0));
 
-        TypedQuery<ZNO_PERSON> qr = oracletestem.createNamedQuery("personzno.findbyid1",ZNO_PERSON.class);
-
-
+        TypedQuery<ZNO_PERSON> qr = oracletestem.createNamedQuery("personzno.findbyname",ZNO_PERSON.class)
+                .setParameter("personFirstname",personmodel.getFirstname().toUpperCase())
+                .setParameter("personSurname",personmodel.getSurname().toUpperCase());
 
         List<?> lq = qr.getResultList();
-        if(lq.size() > 0)
-        for(int i =0; i < 1; i++)
-            System.out.println(lq.get(i));
-
-        return ls;
+        System.out.println(lq.get(0));
+        return lq;
     }
 }

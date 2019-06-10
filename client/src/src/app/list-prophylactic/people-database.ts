@@ -255,19 +255,23 @@ export class PeopleDatabase {
 
   }
 
+  //per_data: {"surname":"Выдрин","firstname":"алексей","lastname":"эдуардович","bithday":"27.12.1997"}
   searchPersonZNO(per_data: any): Promise<any>{
+    console.log('per_data: ' + JSON.stringify(per_data));
     let serverUrl1 = environment.BACKEND_URL + "/rest/zno";
-    console.log('searchPersonZNOZNO');
+    console.log('searchPersonZNOZNO   user:' + localStorage.getItem('currentUser'));
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http
       .post(serverUrl1 + '/search_person_zno', JSON.stringify(per_data), {headers: headers})
       .toPromise()
        // lenght передаем как флаг отсутствия записи в рс ерз
       .then(res =>{
-
+        //res - response with status: 200 OK for URL:...  <- example
         let tmp_data = res.json();
-
+        console.log('tmp_data.length:' + tmp_data.length);
+        console.log('tmp_data[0]:' + JSON.stringify(tmp_data[0]));
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
         if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0;
         if(tmp_data.length === 0) return tmp_data.length;
 
@@ -305,15 +309,15 @@ export class PeopleDatabase {
     //for (let i = 0; i < 0; i++) { this.addPerson(); }
   }
 
-addPerson_t(data: any) {
+  addPerson_t(data: any) {
+      let date1 = new Date().getTime();
+      let date2 = new Date((data.personBirthday).replace( /(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1") ).getTime();
+      let  years_count= ((date1 - date2)/31536000000);
+      data.years = years_count.toString().substr(0,2);
+      const copiedData = this.data.slice();
+      console.log(JSON.stringify(data));
+      copiedData.push(data);
 
-		let date1 = new Date().getTime();
-		let date2 = new Date((data.personBirthday).replace( /(\d{2}).(\d{2}).(\d{4})/, "$3-$2-$1") ).getTime();
-		let  years_count= ((date1 - date2)/31536000000);
-		data.years = years_count.toString().substr(0,2);
-    const copiedData = this.data.slice();
-    copiedData.push(data);
-
-    this.dataChange.next(copiedData);
- }
+      this.dataChange.next(copiedData);
+  }
 }

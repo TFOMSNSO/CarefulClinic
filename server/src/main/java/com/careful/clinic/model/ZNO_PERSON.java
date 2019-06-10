@@ -20,7 +20,8 @@ import java.util.Date;
 @Entity
 @Table(name = "ZNO_PERSON")
 @NamedQueries({
-        @NamedQuery(name="personzno.findbyid1",query = "SELECT z FROM ZNO_PERSON z")
+        @NamedQuery(name="personzno.findbyid1",query = "SELECT z FROM ZNO_PERSON z "),
+        @NamedQuery(name="personzno.findbyname",query = "SELECT z FROM ZNO_PERSON z WHERE z.personKindfirstname = :personFirstname and z.personSurname = :personSurname")
 })
 public class ZNO_PERSON implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -174,6 +175,7 @@ public class ZNO_PERSON implements Serializable {
 
     @Override
     public String toString() {
-        return "ZNO_PERSON[FAM:"+ personSurname + ",IM:" + personKindfirstname + ",OT:" + personKindlastname + "] ...";
+        return "ZNO_PERSON[FAM:"+ personSurname + ",IM:" + personKindfirstname + ",OT:" + personKindlastname +
+                ",DR:"+personBirthday + ",DATE_INSERT:" + personDateInsert + ",DATE_STATE" + personDateState + "]";
     }
 }
