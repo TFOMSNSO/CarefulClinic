@@ -2,9 +2,11 @@ import {MatPaginator, MatSort} from '@angular/material';
 import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
-import {PeopleDatabase, UserData} from '../list-prophylactic/people-database';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
+import {PeopleZnoDatabaseService} from "./people-zno-database.service";
+import {UserData} from "./people-zno-database.service";
+import {PeopleDatabase} from "../list-prophylactic/people-database";
 
 export class ZnoDataSource extends DataSource<any>{
   _filterChange = new BehaviorSubject('');
@@ -13,7 +15,7 @@ export class ZnoDataSource extends DataSource<any>{
     this._filterChange.next(filter);
   }
 
-  constructor(public _peopleDatabase: PeopleDatabase) {
+  constructor(public _peopleDatabase: PeopleZnoDatabaseService) {
     super();
   }
 

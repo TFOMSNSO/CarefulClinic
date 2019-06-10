@@ -39,6 +39,7 @@ public class znoDAOBean implements znoDAO{
                 .setParameter("personSurname",personmodel.getSurname().toUpperCase());
 
         List<?> lq = qr.getResultList();
+        if(lq.size() > 0)
         System.out.println(lq.get(0));
         return lq;
     }

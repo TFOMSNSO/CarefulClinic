@@ -6,6 +6,7 @@ import {PeopleDatabase, UserData} from './people-database';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 
+
 export class ProphylacticDataSource extends DataSource<any> {
   _filterChange = new BehaviorSubject('');
   get filter(): string { return this._filterChange.value; }
@@ -17,7 +18,7 @@ export class ProphylacticDataSource extends DataSource<any> {
     super();
   }
 
-   connect(): Observable<UserData[]> {
+  connect(): Observable<UserData[]> {
 
     const displayDataChanges = [
     this._filterChange,

@@ -5,6 +5,7 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import {IMyDpOptions} from 'mydatepicker';
 import { environment } from "../../../environments/environment";
+import {PeopleZnoDatabaseService} from "../people-zno-database.service";
 
 @Component({
   moduleId: module.id,
@@ -28,7 +29,7 @@ export class SidenavSearchZnoComponent implements OnInit {
   @ViewChild('sidenav') variable_sidenave: any;
   @Output() progress_bar_emit: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private sidenaveSearchService: SidenaveSearchService,private formBuilder: FormBuilder,private personSearchIsurService: PeopleDatabase){
+  constructor(private sidenaveSearchService: SidenaveSearchService,private formBuilder: FormBuilder,private personSearchIsurService: PeopleZnoDatabaseService){
 
   }
 

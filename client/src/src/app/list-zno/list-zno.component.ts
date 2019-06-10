@@ -1,6 +1,4 @@
 import { Component, OnInit, Inject, ViewChild, TemplateRef,ElementRef } from '@angular/core';
-import {PeopleDatabase, UserData} from '../list-prophylactic/people-database';
-import {ProphylacticDataSource} from '../list-prophylactic/data-source';
 import {MatPaginator} from '@angular/material';
 import {MatSort} from '@angular/material';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
@@ -14,6 +12,9 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 import {MatSnackBar} from '@angular/material';
 import {environment} from '../../environments/environment';
+import {ZnoDataSource} from "./data-source";
+import {PeopleZnoDatabaseService} from "./people-zno-database.service";
+import {PeopleDatabase} from "app/list-prophylactic/people-database";
 
 
 export type UserProperties = 'personSurname' | 'personKindfirstname' | 'personKindlastname' | 'personBirthday' | 'personYears' | 'edit' | undefined;
@@ -76,12 +77,13 @@ export class ListZnoComponent implements OnInit {
   bad_action_add_person = environment.bad_action_add_person;
   action_add_person = environment.action_add_person;
   progress_bar: boolean = false;
-  dataSource: ProphylacticDataSource | null;
+  //dataSource: ProphylacticDataSource | null;
+  dataSource: ZnoDataSource | null;
   displayedColumns: UserProperties[] = [];
 
   dialogRef: MatDialogRef<DialogComponent> | null;
 
-  constructor(public _peopleDatabase: PeopleDatabase,
+  constructor(public _peopleDatabase: PeopleZnoDatabaseService,
               public snackBar: MatSnackBar,public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -92,7 +94,7 @@ export class ListZnoComponent implements OnInit {
 
   connect() {
     this.displayedColumns = ['personSurname','personKindfirstname','personKindlastname','personBirthday','personYears','edit'];
-    this.dataSource = new ProphylacticDataSource(this._peopleDatabase);
+    this.dataSource = new ZnoDataSource(this._peopleDatabase);
     this._peopleDatabase.initialize();
   }
 
@@ -140,7 +142,6 @@ export class ListZnoComponent implements OnInit {
     if(this.dataSource._peopleDatabase.data.length > 0)
           { return true;}
       else{ return false;}
-
   }
 
   get():void{

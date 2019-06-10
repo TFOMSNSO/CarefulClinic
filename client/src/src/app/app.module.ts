@@ -43,6 +43,7 @@ import { SidenavSearchZnoKeysComponent } from './list-zno/sidenav-search-zno-key
 import { SidenavUploaddataZnoComponent } from './list-zno/sidenav-uploaddata-zno/sidenav-uploaddata-zno.component';
 import { SidenavExportExcelZnoComponent } from './list-zno/sidenav-export-excel-zno/sidenav-export-excel-zno.component';
 import { DiaglogZnoComponent } from './list-zno/diaglog-zno/diaglog-zno.component';
+import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
 
 
 //библиотека для ограничения доступа по ролям
@@ -96,7 +97,7 @@ import { DiaglogZnoComponent } from './list-zno/diaglog-zno/diaglog-zno.componen
         {path: '',                    component: HomeComponent},])//,
     //NgxPermissionsModule.forRoot()
   ],
-  providers: [PeopleDatabase, SidenaveSearchService,AuthGuard,AuthenticationService,
+  providers: [PeopleDatabase,PeopleZnoDatabaseService, SidenaveSearchService,AuthGuard,AuthenticationService,
   // providers used to create fake backend
         fakeBackendProvider,
         MockBackend,
