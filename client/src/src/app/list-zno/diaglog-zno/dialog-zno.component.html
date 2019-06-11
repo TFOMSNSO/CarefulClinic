@@ -1,0 +1,120 @@
+
+<!--TODO: �������� ����������� ������ ���� ������ (���������� ��� ����� ���� ���������������) -->
+<mat-toolbar color="primary">
+  <div style="align-self: flex-end; padding-top:10px;">{{data.personSurname}} {{data.personKindfirstname}} {{data.personKindlastname}}</div>
+  <span style="align-self: flex-end; font-size: 12px;">{{_year_disp}}
+			<mat-form-field style="width: 70px;">
+			  <mat-select [(value)]=selected (change)="filterChanged($event)" [disabled]=disableSelect>
+        <mat-option value="2019">2019</mat-option>
+				<mat-option value="2018">2018</mat-option>
+				<mat-option value="2017">2017</mat-option>
+				<mat-option value="2016">2016</mat-option>
+			  </mat-select>
+			</mat-form-field>
+		</span>
+  <span style="flex-grow: 1; font-size: 25px;">{{title}}</span>
+  <mat-dialog-actions style="flex-grow: 0;">
+    <button mat-raised-button color="accent" mat-dialog-close="Option 1">{{ close_card}}</button>
+  </mat-dialog-actions>
+
+</mat-toolbar>
+
+<mat-tab-group color="primary" (selectChange)="check($event)">
+
+  <mat-tab id="tab1" label="{{tab1}}">
+    <mat-card>
+      <mat-card-content>
+        <table cellspacing="0">
+          <tr>
+            <td>
+              <mat-list-item>
+                <!-- <img mat-list-avatar src="app/list-prophylactic/icon/ic_account_box_black_48dp_1x.png" alt="Desc 1"> -->
+                <mat-input-container>
+                  <input matInput placeholder="{{surname}}" value="{{data.personSurname}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+            <td>
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="{{data.personKindfirstname}}" placeholder="{{firstname}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+            <td>
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="{{data.personKindlastname}}" placeholder="{{lastname}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="{{data.years}}" placeholder="{{t_years}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+            <td>
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="{{data.personBirthday}}" placeholder="{{bithday}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+          </tr>
+          <tr *ngIf="data.personadd">
+            <td  *ngIf="data.personadd.tele2">
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="{{data.personadd.tele2}}" placeholder="{{telefon}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+            <td  *ngIf="data.personadd.teledom">
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="{{data.personadd.teledom}}" placeholder="{{telefon}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+            <td  *ngIf="data.personadd.telework">
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="{{data.personadd.telework}}" placeholder="{{telefon}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-list-item>
+                <mat-input-container><!--{{data.smo == '1' ?  _linksmo_1  : data.smo  == '2' ?  _linksmo_2  : data.sno  == '4' ?  _linksmo_4  : _otkreplen}} -->
+                  <input matInput value="{{data.smoname}} " placeholder="{{linksmo}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="540{{data.personEstablishmentambul}}" placeholder="{{PM_HOSPITAL_RESULT}}">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
+
+
+
+
+<!-- <div style="margin-left: 20px;" mat-dialog-actions> -->
+
+<!-- </div> -->

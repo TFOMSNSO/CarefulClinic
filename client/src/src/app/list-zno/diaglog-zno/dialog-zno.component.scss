@@ -1,0 +1,87 @@
+mat-dialog-content{
+  min-height:400px;
+}
+
+table tr{
+  background-color: rgba(241, 241, 241, 0);
+}
+
+.full-width {
+  width: 100%;
+}
+
+div #mat-tab-label-0-0{
+  float:left;
+  width:25%;
+  //height: 20px;
+  //background: #ff0000;
+}
+
+#tab2{
+  display: inline-block;
+  margin:0 auto;
+  width:25%;
+  //height: 20px;
+  //background: #00ff00;
+}
+
+#tab3{
+  float:right;
+  width:25%;
+  //height: 20px;
+  //background: #0000ff;
+}
+
+/deep/.mat-tab-label {
+  min-width: 25% !important;
+}
+
+/deep/ .mat-dialog-container {
+  padding: 0;
+  border-radius: 10px;
+}
+
+/deep/.mat-toolbar{
+  height:30%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+  flex-direction: column;
+  align-items: baseline;
+}
+
+
+/deep/ .mat-tab-header{
+  background-color: #efefef;
+  margin-top:7px;
+}
+
+/deep/ .mat-ink-bar{
+  background-color: #ff4081;
+}
+
+/deep/ .btn_d{
+  position: relative;
+  top: 186%;
+  z-index: 10000;
+  right: 10%;
+}
+
+/deep/ mat-dialog-actions{
+  //position: relative;
+  //bottom: -65px;
+  z-index: 100000;
+  //right: 85px;
+}
+
+/deep/ mat-error{
+  text-align: center;
+  margin-top: 50px;
+}
+
+/deep/.mat-select-value{
+  color: white;
+}
+
+/deep/.mat-raised-button{
+  margin: auto;
+}

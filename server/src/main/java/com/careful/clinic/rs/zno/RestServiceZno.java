@@ -13,10 +13,7 @@ import org.xml.sax.SAXException;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.mail.Session;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -47,10 +44,12 @@ public class RestServiceZno {
     @Path("/search_person_zno")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<?> searchZno(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
-        System.out.println("ZNO RESTSERVICE");
-        List<?> df = (List<?>) zno.getInfoZNO(personmodel);
+    public Collection<?> searchZno(PersonModel personmodel) throws  ParseException {
 
+        List<?> df = (List<?>) zno.getInfoZNO(personmodel);
+        if(!df.isEmpty())
+            System.out.println("ZNO RESTSERVICE:" + df.get(0));
         return	df;
     }
+
 }

@@ -55,11 +55,8 @@
     <persistence-unit name="testunit" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/ds/oracleTest</jta-data-source>
-        <class>com.careful.clinic.model.PmI</class>
-        <class>com.careful.clinic.model.PmA</class>
-        <class>com.careful.clinic.model.ResultEKMP</class>
-        <class>com.careful.clinic.model.PmMo2017</class>
         <class>com.careful.clinic.model.ZNO_PERSON</class>
+        <class>com.careful.clinic.model.ZNO_TREATMENT</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
             <!--<property name="hibernate.show_sql" value="true" />-->

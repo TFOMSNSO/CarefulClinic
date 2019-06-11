@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DiaglogZnoComponent } from './diaglog-zno.component';
+import { DialogZnoComponent } from './dialog-zno.component';
 
-describe('DiaglogZnoComponent', () => {
-  let component: DiaglogZnoComponent;
-  let fixture: ComponentFixture<DiaglogZnoComponent>;
+describe('DialogZnoComponent', () => {
+  let component: DialogZnoComponent;
+  let fixture: ComponentFixture<DialogZnoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DiaglogZnoComponent ]
+      declarations: [ DialogZnoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DiaglogZnoComponent);
+    fixture = TestBed.createComponent(DialogZnoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

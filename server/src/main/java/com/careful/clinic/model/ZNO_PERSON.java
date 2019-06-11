@@ -21,7 +21,11 @@ import java.util.Date;
 @Table(name = "ZNO_PERSON")
 @NamedQueries({
         @NamedQuery(name="personzno.findbyid1",query = "SELECT z FROM ZNO_PERSON z "),
-        @NamedQuery(name="personzno.findbyname",query = "SELECT z FROM ZNO_PERSON z WHERE z.personKindfirstname = :personFirstname and z.personSurname = :personSurname")
+        @NamedQuery(name="personzno.findbyname",query = "SELECT z FROM ZNO_PERSON z " +
+                "WHERE z.personKindfirstname = :personFirstname " +
+                " and z.personSurname = :personSurname" +
+                " and z.personKindlastname = :personLastname" +
+                " and z.personBirthday = :birthday")
 })
 public class ZNO_PERSON implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -47,33 +51,31 @@ public class ZNO_PERSON implements Serializable {
     @Column(name="DR")
     private Date personBirthday;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
     @Temporal(TemporalType.DATE)
     @Column(name="DATE_INSERT")
-    @JsonIgnore
     private Date personDateInsert;
 
     @Column(name="STATE_INSUR")
-    @JsonIgnore
     private BigDecimal personStateInsur;
 
     @Temporal(TemporalType.DATE)
     @Column(name="DATE_INSUR")
-    @JsonIgnore
     private Date personDateInsur;
 
     @Column(name="STATE_REGISTR")
-    @JsonIgnore
     private BigDecimal personStateRegistr;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
     @Temporal(TemporalType.DATE)
     @Column(name="DATE_STATE")
-    @JsonIgnore
     private Date personDateState;
 
     @Column(name="STATE_INSERT")
-    @JsonIgnore
     private BigDecimal personStateInsert;
 
+    @Column(name="SMO")
+    private String smo;
 
 
 
@@ -173,9 +175,17 @@ public class ZNO_PERSON implements Serializable {
         this.personStateInsert = personStateInsert;
     }
 
+    public String getSmo() {
+        return smo;
+    }
+
+    public void setSmo(String smo) {
+        this.smo = smo;
+    }
+
     @Override
     public String toString() {
-        return "ZNO_PERSON[FAM:"+ personSurname + ",IM:" + personKindfirstname + ",OT:" + personKindlastname +
-                ",DR:"+personBirthday + ",DATE_INSERT:" + personDateInsert + ",DATE_STATE" + personDateState + "]";
+        return "ZNO_PERSON[ID1:"+ id1 + ",ID2:" + id2 +",FAM:"+ personSurname + ",IM:" + personKindfirstname + ",OT:" + personKindlastname +
+                ",DR:"+personBirthday + ",DATE_INSERT:" + personDateInsert + ",DATE_STATE:" + personDateState + ",STATE_INSUR:" + personStateInsur + ",DATE_INSUR:"+ personDateInsur  + ",SMO:" + smo + "]";
     }
 }

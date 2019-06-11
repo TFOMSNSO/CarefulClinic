@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment';
 import { ListMo,PmResalt } from '../../model/list.mo';
 import { PeopleDatabase } from '../../list-prophylactic/people-database';
 import { User } from '../../model/user';
+import {PeopleZnoDatabaseService} from "../people-zno-database.service";
 
 @Component({
   moduleId: module.id,
@@ -65,7 +66,7 @@ export class SidenavSearchZnoKeysComponent implements OnInit {
 
   @Output() progress_bar_emit: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('sidenavSearchKeys') variable_sidenave: any;
-  constructor(private formBuilder: FormBuilder, private personSearchIsurService: PeopleDatabase){}
+  constructor(private formBuilder: FormBuilder, private personSearchIsurService: PeopleZnoDatabaseService){}
 
 
   ngOnInit() {

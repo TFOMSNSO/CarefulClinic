@@ -20,7 +20,7 @@
 
 <!--ГЛАВНОЕ МЕНЮ-->
 <mat-menu #appMenu="matMenu">
-  <button mat-menu-item [routerLink]="['/']"> {{_menu_main_page}}</button><!--главная страница-->
+  <button mat-menu-item [routerLink]="['/']">{{_menu_main_page}}</button><!--главная страница-->
   <button mat-menu-item [matMenuTriggerFor]="invertebrates">{{_menu_report_page}}</button><!--отчеты-->
   <button mat-menu-item [routerLink]="['/list_prophylactic']">{{list_insur_menu}}</button><!--списки застрахованных-->
   <button mat-menu-item [routerLink]="['/list_header_inform']">{{list_inform_header}}</button><!--Списки для информирования-->

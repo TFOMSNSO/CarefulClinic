@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {User} from "../model/user";
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import { Http, Headers, RequestOptions, ResponseContentType } from '@angular/http';
+import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 export let LATEST_ID: number = 0;
@@ -38,6 +39,23 @@ export interface UserData {
   }]
 }
 
+export interface zno_user{
+  id1: string;
+  id2: string;
+  fam: string;
+  im: string;
+  ot: string;
+  dr: string;
+  date_insert: string;
+  state_insur: string;
+  date_insur: string;
+  state_registr: string;
+  date_state: string;
+  state_insert: string;
+  smo: string;
+}
+
+
 @Injectable()
 export class PeopleZnoDatabaseService {
   dataChange: BehaviorSubject<UserData[]> = new BehaviorSubject<UserData[]>([]);
@@ -46,24 +64,49 @@ export class PeopleZnoDatabaseService {
   serverUrl : string = environment.BACKEND_URL + "/rest/zno";
   currentUser: User;
 
-  constructor(private http: Http) {
+  constructor(private http: Http,private httpClient: HttpClient) {
     this.initialize();
   }
 
 
-  searchPersonZNO(per_data: any): Promise<any>{
-    console.log('per_data: ' + JSON.stringify(per_data));
-    console.log('people zno database:' + localStorage.getItem('currentUser'));
+  searchPersonGer(per_data: any): Promise<any> {
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http
-      .post(this.serverUrl + '/search_person_zno', JSON.stringify(per_data), {headers: headers})
+      .post(this.serverUrl + '/search_ger', JSON.stringify(per_data), {headers: headers})
+      .toPromise()
+      .then(res => res.json()[0])
+
+  }
+
+
+  private handleError(error: any): Promise<any> {
+    console.log(error); // for demo purposes only
+    return Promise.reject(error.message || error);
+    //return new Promise((resolve, reject) =>{}).then(res=> 0);
+  }
+  searchPersonInformir(per_data: any): Promise<any[]> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http
+      .post(this.serverUrl + '/search_informed', JSON.stringify(per_data), {headers: headers})
+      .toPromise()
+      .then(res => res.json())
+
+  }
+  searchPersonZNO(per_data: any): Promise<any>{
+    console.log('data to be posted:' + JSON.stringify(per_data));
+    console.log('currentUser:' + localStorage.getItem('currentUser'));
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    return this.http
+      .post(this.serverUrl + '/search_person_zno', JSON.stringify(per_data),{headers: headers})
       .toPromise()
       // lenght передаем как флаг отсутствия записи в рс ерз
       .then(res =>{
+        console.log('res:'+res);
         //res - response with status: 200 OK for URL:...  <- example
         let tmp_data = res.json();
         console.log('tmp_data.length:' + tmp_data.length);
-        console.log('peopleZnoDatabase   tmp_data[0]:' + JSON.stringify(tmp_data[0]));
+        console.log('peopleZnoDatabase   tmp_data[0].smo:' + tmp_data[0].smo);
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0;
@@ -94,6 +137,26 @@ export class PeopleZnoDatabaseService {
       .catch(function(){return -1;
       });
   }
+
+  searchPersonKeysZno(data: any): Promise<any>{
+    console.log(JSON.stringify(data));
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http
+      .post(this.serverUrl + '/search_person_keys', JSON.stringify(data), {headers: headers})
+      .toPromise()
+      .then(res =>{
+        let tmp_data =  res.json();
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        for(let indexmas in tmp_data){
+          if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== Number(tmp_data[indexmas].personLinksmoestablishmentid) ) continue;
+          tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
+          this.addPerson_t(tmp_data[indexmas]);
+        }
+        tmp_data.length;
+      })
+      .catch(this.handleError);
+  }
+
 
   addPerson_t(data: any) {
     let date1 = new Date().getTime();

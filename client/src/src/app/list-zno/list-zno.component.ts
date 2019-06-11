@@ -3,6 +3,7 @@ import {MatPaginator} from '@angular/material';
 import {MatSort} from '@angular/material';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import { DialogComponent } from '../list-prophylactic/dialog.component';
+import { DialogZnoComponent} from "./diaglog-zno/dialog-zno.component";
 import {DOCUMENT} from '@angular/platform-browser';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
@@ -81,7 +82,7 @@ export class ListZnoComponent implements OnInit {
   dataSource: ZnoDataSource | null;
   displayedColumns: UserProperties[] = [];
 
-  dialogRef: MatDialogRef<DialogComponent> | null;
+  dialogRef: MatDialogRef<DialogZnoComponent> | null;
 
   constructor(public _peopleDatabase: PeopleZnoDatabaseService,
               public snackBar: MatSnackBar,public dialog: MatDialog) { }
@@ -150,6 +151,17 @@ export class ListZnoComponent implements OnInit {
 
   preview(pr:any):void{
     console.log('preview:'+pr.personSurname);
+    let sid = Number(pr.smo);
+    pr.smoname = '';
+    switch(sid){
+      case 1: pr.smoname = environment.linksmo_1; break;
+      case 2: pr.smoname = environment.linksmo_2; break;
+      case 4: pr.smoname = environment.linksmo_4; break;
+      default:
+        pr.smoname = environment.otkreplen;
+    }
+    console.log('smoname:' + pr.smoname);
+
     let cc = {
       disableClose: true,
       panelClass: 'custom-overlay-pane-class',
@@ -165,7 +177,7 @@ export class ListZnoComponent implements OnInit {
       },
       data: pr
     }
-    this.dialogRef = this.dialog.open(DialogComponent,cc);
+    this.dialogRef = this.dialog.open(DialogZnoComponent,cc);
     // dialogRef.afterClosed().subscribe(result => {
     // this.selectedOption = result;
     //});

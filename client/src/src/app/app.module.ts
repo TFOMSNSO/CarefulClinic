@@ -29,6 +29,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthenticationService, UserService} from './_services/index';
 import { ListZnoComponent } from './list-zno/list-zno.component';
 import { SidenavSearchZnoComponent } from './list-zno/sidenav-search-zno/sidenav-search-zno.component';
+import { HttpClientModule } from '@angular/common/http';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers/index';
@@ -42,7 +43,7 @@ import { SidenaveSearchService } from './list-prophylactic/sidenave-search.servi
 import { SidenavSearchZnoKeysComponent } from './list-zno/sidenav-search-zno-keys/sidenav-search-zno-keys.component';
 import { SidenavUploaddataZnoComponent } from './list-zno/sidenav-uploaddata-zno/sidenav-uploaddata-zno.component';
 import { SidenavExportExcelZnoComponent } from './list-zno/sidenav-export-excel-zno/sidenav-export-excel-zno.component';
-import { DiaglogZnoComponent } from './list-zno/diaglog-zno/diaglog-zno.component';
+import { DialogZnoComponent } from './list-zno/diaglog-zno/dialog-zno.component';
 import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
 
 
@@ -80,10 +81,11 @@ import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
     ,SidenavSearchZnoKeysComponent
     ,SidenavUploaddataZnoComponent
     ,SidenavExportExcelZnoComponent
-    ,DiaglogZnoComponent
+    ,DialogZnoComponent
     ,TelephoneSurveysComponent
   ],
   imports: [
+    HttpClientModule,
   	MyDatePickerModule,
     BrowserModule,
     FormsModule,
@@ -104,7 +106,7 @@ import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
         BaseRequestOptions,
         UserService
 		],
-  entryComponents: [DialogComponent],
+  entryComponents: [DialogZnoComponent,DialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

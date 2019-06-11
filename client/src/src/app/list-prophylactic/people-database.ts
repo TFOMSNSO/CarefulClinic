@@ -63,10 +63,10 @@ export class PeopleDatabase {
  	console.log(error); // for demo purposes only
   	return Promise.reject(error.message || error);
   //return new Promise((resolve, reject) =>{}).then(res=> 0);
-}
+  }
 
   downloadExcel(data: string,data2: number,place: string){
- const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
+  const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
     const options = new RequestOptions({headers: headers});
     options.responseType = ResponseContentType.Blob;
     this.http.get(`${this.serverUrl}/download/${place}/${data2}/${data}`, options)
@@ -75,7 +75,7 @@ export class PeopleDatabase {
                 var filename = data;
                 FileSaver.saveAs(blob, filename);
         })
-}
+  }
 
   /* Загрузка сформированных файлов
   */
@@ -139,24 +139,7 @@ export class PeopleDatabase {
   	.catch(this.handleError);
   }
 
-  searchPersonKeysZno(data: any): Promise<any>{
-    console.log('searchPersonKeysZno');
-    let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http
-      .post(this.serverUrl + '/search_person_keys', JSON.stringify(data), {headers: headers})
-      .toPromise()
-      .then(res =>{
-        let tmp_data =  res.json();
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        for(let indexmas in tmp_data){
-          if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== Number(tmp_data[indexmas].personLinksmoestablishmentid) ) continue;
-          tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
-          this.addPerson_t(tmp_data[indexmas]);
-        }
-        tmp_data.length;
-      })
-      .catch(this.handleError);
-  }
+
 
 
 
@@ -254,54 +237,6 @@ export class PeopleDatabase {
 	  .then(res => res.json()[0])
 
   }
-
-  //per_data: {"surname":"Выдрин","firstname":"алексей","lastname":"эдуардович","bithday":"27.12.1997"}
-  searchPersonZNO(per_data: any): Promise<any>{
-    console.log('per_data: ' + JSON.stringify(per_data));
-    let serverUrl1 = environment.BACKEND_URL + "/rest/zno";
-    console.log('searchPersonZNOZNO   user:' + localStorage.getItem('currentUser'));
-    let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http
-      .post(serverUrl1 + '/search_person_zno', JSON.stringify(per_data), {headers: headers})
-      .toPromise()
-       // lenght передаем как флаг отсутствия записи в рс ерз
-      .then(res =>{
-        //res - response with status: 200 OK for URL:...  <- example
-        let tmp_data = res.json();
-        console.log('tmp_data.length:' + tmp_data.length);
-        console.log('tmp_data[0]:' + JSON.stringify(tmp_data[0]));
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0;
-        if(tmp_data.length === 0) return tmp_data.length;
-
-        tmp_data[0].currentUser = this.currentUser['role'][0].id;
-
-        // ставляю пустою структуру гэра если ее нет
-        if(!("respGerl" in tmp_data[0])){
-          tmp_data[0].respGerl=[{
-            start_date_etap1:'',
-            end_date_etap1:'',
-            start_date_etap2:'',
-            end_date_etap2:'',
-            ref_id_person:'',
-            pm_god:'',
-            pm_kvartal:'',
-            adress:'',
-            tel:'',
-            pm_result:'',
-            pm_HOSPITAL_RESULT:''
-          }];
-        }
-
-        tmp_data.length != 0  ? this.addPerson_t(tmp_data[0]) : tmp_data.length
-
-      })
-      .catch(function(){return -1;
-      });
-  }
-
-
 
   initialize() {
     LATEST_ID = 0;
