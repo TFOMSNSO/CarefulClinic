@@ -2,16 +2,6 @@
 <!--TODO: �������� ����������� ������ ���� ������ (���������� ��� ����� ���� ���������������) -->
 <mat-toolbar color="primary">
   <div style="align-self: flex-end; padding-top:10px;">{{data.personSurname}} {{data.personKindfirstname}} {{data.personKindlastname}}</div>
-  <span style="align-self: flex-end; font-size: 12px;">{{_year_disp}}
-			<mat-form-field style="width: 70px;">
-			  <mat-select [(value)]=selected (change)="filterChanged($event)" [disabled]=disableSelect>
-        <mat-option value="2019">2019</mat-option>
-				<mat-option value="2018">2018</mat-option>
-				<mat-option value="2017">2017</mat-option>
-				<mat-option value="2016">2016</mat-option>
-			  </mat-select>
-			</mat-form-field>
-		</span>
   <span style="flex-grow: 1; font-size: 25px;">{{title}}</span>
   <mat-dialog-actions style="flex-grow: 0;">
     <button mat-raised-button color="accent" mat-dialog-close="Option 1">{{ close_card}}</button>
@@ -19,7 +9,7 @@
 
 </mat-toolbar>
 
-<mat-tab-group color="primary" (selectChange)="check($event)">
+<mat-tab-group mat-stretch-tabs color="primary" (selectedTabChange)="check($event)" >
 
   <mat-tab id="tab1" label="{{tab1}}">
     <mat-card>
@@ -91,7 +81,7 @@
           <tr>
             <td>
               <mat-list-item>
-                <mat-input-container><!--{{data.smo == '1' ?  _linksmo_1  : data.smo  == '2' ?  _linksmo_2  : data.sno  == '4' ?  _linksmo_4  : _otkreplen}} -->
+                <mat-input-container>
                   <input matInput value="{{data.smoname}} " placeholder="{{linksmo}}">
                 </mat-input-container>
               </mat-list-item>
@@ -107,6 +97,90 @@
             </td>
           </tr>
         </table>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+
+  <mat-tab id="tab2" label="{{tab2}}"><div [@toggle]="show" style="overflow: hidden;"
+                                                *ngIf="show" ><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></div>
+    <mat-card>
+      <mat-card-content>
+          <div *ngFor="let data_treatment of treats_data"  >
+            <div [@toggle]="!show" *ngIf="!show" style="margin: 5px;">
+                <div *ngIf="data_treatment.treat_types.length > 0; else no_treatment">
+                  {{treat_type}}:
+                      <mat-label *ngFor="let type of data_treatment.treat_types">{{type}};  </mat-label>
+                </div>
+                <ng-template #no_treatment>
+                  <p>{{no_treatment_types}}.</p><!--Типы лечения отсутствуют.-->
+                </ng-template>
+                <table cellspacing="0">
+                  <tr>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput  value="{{data_treatment.dateBegin}}" placeholder="{{t_date_begin}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.dateEnd}}" placeholder="{{t_date_end}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.mkb}}" placeholder="{{mkb}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.lpuId}}" placeholder="{{lpu_name}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.otProfk}}" placeholder="{{ot_profk}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.mesKsg}}" placeholder="{{mes_ksg}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                  </tr>
+                    <!--<button mat-raised-button color="primary">Экспертиза</button>-->
+                </table>
+                <div style="margin-bottom: 10px;">
+                  <mat-accordion>
+                    <mat-expansion-panel >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Подробнее
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      подробная информация | экспертиза
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+                <mat-divider></mat-divider>
+              </div>
+          </div>
       </mat-card-content>
     </mat-card>
   </mat-tab>

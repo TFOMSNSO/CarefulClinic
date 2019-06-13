@@ -160,8 +160,6 @@ export class ListZnoComponent implements OnInit {
       default:
         pr.smoname = environment.otkreplen;
     }
-    console.log('smoname:' + pr.smoname);
-
     let cc = {
       disableClose: true,
       panelClass: 'custom-overlay-pane-class',

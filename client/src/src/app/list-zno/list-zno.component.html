@@ -12,7 +12,7 @@
 
         <mat-menu #menu_tab="matMenu" >
           <button mat-menu-item (click)="var_sidenav.open()">{{_searchFIOD}}</button>
-          <button mat-menu-item (click)="var_sidenav_search_keys.open()">{{_searchKEYS}}</button>
+          <!--<button mat-menu-item (click)="var_sidenav_search_keys.open()">{{_searchKEYS}}</button>-->
           <button mat-menu-item [disabled]="!isValidBtnExport()" (click)="cleartable()">{{_cleartable}}</button>
           <button mat-menu-item [disabled]="!isValidBtnExport()" (click)="get()">{{_exportExcel}}</button>
           <button mat-menu-item (click)="var_sidenav_export_excel.open(); var_sidenav_export_excel.init()">{{_downloadtask}}</button>

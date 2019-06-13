@@ -18,17 +18,23 @@ import java.util.Date;
  *
  */
 @Entity
-@Table(name = "TOP_REGIST_COLLECT")
+@Table(name = "TOR_REGISTR_COLLECT")
+@NamedQueries({
+        @NamedQuery(name="treatmentZno.findbyid1",query = "SELECT z FROM ZNO_TREATMENT z " +
+                "WHERE z.idRegistr = :p_id ")
+})
 public class ZNO_TREATMENT implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
     @Column(name="TTYPE")
     private String ttype;
 
+    @JsonIgnore
     @Column(name="ID_REGISTR")
     private String idRegistr;
 
+    @Id
+    @JsonIgnore
     @Column(name="ID_COLLECT")
     private String idCollect;
 
@@ -51,6 +57,7 @@ public class ZNO_TREATMENT implements Serializable {
     @Column(name="DAT_END")
     private Date dateEnd;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Column(name="MES_KSG")
     private String mesKsg;
 
@@ -82,12 +89,121 @@ public class ZNO_TREATMENT implements Serializable {
     private String lt6;
 
 
+    public String getTtype() {
+        return ttype;
+    }
+    public void setTtype(String ttype) {
+        this.ttype = ttype;
+    }
+    public String getIdRegistr() {
+        return idRegistr;
+    }
+    public void setIdRegistr(String idRegistr) {
+        this.idRegistr = idRegistr;
+    }
+    public String getIdCollect() {
+        return idCollect;
+    }
+    public void setIdCollect(String idCollect) {
+        this.idCollect = idCollect;
+    }
+    public String getTypeAcc() {
+        return typeAcc;
+    }
+    public void setTypeAcc(String typeAcc) {
+        this.typeAcc = typeAcc;
+    }
+    public String getLinkYear() {
+        return linkYear;
+    }
+    public void setLinkYear(String linkYear) {
+        this.linkYear = linkYear;
+    }
+    public String getLpuId() {
+        return lpuId;
+    }
+    public void setLpuId(String lpuId) {
+        this.lpuId = lpuId;
+    }
+    public Date getDateBegin() {
+        return dateBegin;
+    }
+    public void setDateBegin(Date dateBegin) {
+        this.dateBegin = dateBegin;
+    }
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+    String getMesKsg() {
+        return mesKsg;
+    }
+    public void setMesKsg(String mesKsg) {
+        this.mesKsg = mesKsg;
+    }
+    public String getDsOnk() {
+        return dsOnk;
+    }
+    public void setDsOnk(String dsOnk) {
+        this.dsOnk = dsOnk;
+    }
+    public String getMkb() {
+        return mkb;
+    }
+    public void setMkb(String mkb) {
+        this.mkb = mkb;
+    }
+    public String getOtProfk() {
+        return otProfk;
+    }
+    public void setOtProfk(String otProfk) {
+        this.otProfk = otProfk;
+    }
+    public String getLt1() {
+        return lt1;
+    }
+    public void setLt1(String lt1) {
+        this.lt1 = lt1;
+    }
+    public String getLt2() {
+        return lt2;
+    }
+    public void setLt2(String lt2) {
+        this.lt2 = lt2;
+    }
+    public String getLt3() {
+        return lt3;
+    }
+    public void setLt3(String lt3) {
+        this.lt3 = lt3;
+    }
+    public String getLt4() {
+        return lt4;
+    }
+    public void setLt4(String lt4) {
+        this.lt4 = lt4;
+    }
+    public String getLt5() {
+        return lt5;
+    }
+    public void setLt5(String lt5) {
+        this.lt5 = lt5;
+    }
+    public String getLt6() {
+        return lt6;
+    }
+    public void setLt6(String lt6) {
+        this.lt6 = lt6;
+    }
 
+    public ZNO_TREATMENT(){}
 
     @Override
     public String toString() {
         return "ZNO_TREATMENT[ttype:"+ ttype +",idRegistr:" + idRegistr +  ",idCollect:" + idCollect +",typeAcc:"+ typeAcc + ",linkYear:" + linkYear
                 + ",lpuId:" + lpuId + ",dateBegin:"+ dateBegin + ",dateEnd:" + dateEnd + ",mesKsg:" + mesKsg + ",dsOnk:" + dsOnk + ",mkb:"+ mkb
-                + ",otProfk" + otProfk + "\nlt1:" + lt1 + ",lt2:" + lt2+ ",lt3:" + lt3+ ",lt4:" + lt4+ ",lt5:" + lt5+ ",lt6:" + lt6 + "]";
+                + ",otProfk:" + otProfk + "\nlt1:" + lt1 + ",lt2:" + lt2+ ",lt3:" + lt3+ ",lt4:" + lt4+ ",lt5:" + lt5+ ",lt6:" + lt6 + "]";
     }
 }

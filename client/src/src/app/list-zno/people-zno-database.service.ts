@@ -78,6 +78,13 @@ export class PeopleZnoDatabaseService {
 
   }
 
+  searchTreatment(id:any): Promise<any>{
+    console.log('searchTreatment id:' + id );
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(this.serverUrl + '/treatment',id,{headers: headers})
+      .toPromise().then(res => res.json());
+
+  }
 
   private handleError(error: any): Promise<any> {
     console.log(error); // for demo purposes only

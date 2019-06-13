@@ -12,28 +12,39 @@ table tr{
 
 div #mat-tab-label-0-0{
   float:left;
-  width:25%;
+  //width:25%;
   //height: 20px;
   //background: #ff0000;
 }
 
+mat-expansion-panel{
+  padding-bottom: 10px;
+}
+
+#treat{
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border: 3px #0a0a0a;
+}
+
 #tab2{
-  display: inline-block;
+  //display: inline-block;
   margin:0 auto;
-  width:25%;
+  float:right;
+  //width:25%;
   //height: 20px;
   //background: #00ff00;
 }
 
 #tab3{
   float:right;
-  width:25%;
+  //width:25%;
   //height: 20px;
   //background: #0000ff;
 }
 
 /deep/.mat-tab-label {
-  min-width: 25% !important;
+  //min-width: 25% !important;
 }
 
 /deep/ .mat-dialog-container {
@@ -84,4 +95,8 @@ div #mat-tab-label-0-0{
 
 /deep/.mat-raised-button{
   margin: auto;
+}
+
+mat-grid-tile {
+  background: slategrey;
 }

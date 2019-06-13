@@ -172,7 +172,7 @@ _error1: string = environment.error1;
 		   let data_cust ={
 				  surname: this.data.personSurname,
 				  firstname:this.data.personKindfirstname,
-				  lastname:this.data.personKindlastname,
+				  lastname:this .data.personKindlastname,
 				  bithday:this.data.personBirthday,
 				  year:	selectedValue.value
 				}

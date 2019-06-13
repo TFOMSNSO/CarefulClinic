@@ -7,6 +7,7 @@ import com.careful.clinic.dao.zno.znoDAO;
 import com.careful.clinic.dao.zno.znoDAOBean;
 import com.careful.clinic.guid.RandomGUID;
 import com.careful.clinic.model.PersonModel;
+import com.careful.clinic.model.ZNO_TREATMENT;
 import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
 import org.xml.sax.SAXException;
 
@@ -51,5 +52,17 @@ public class RestServiceZno {
             System.out.println("ZNO RESTSERVICE:" + df.get(0));
         return	df;
     }
+
+
+    @POST
+    @Path("/treatment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<?>  getTreatment(String id) throws  ParseException {
+
+        List<?>  df =  (List<?>) zno.getTreatmentById(id);
+        return	df;
+    }
+
 
 }

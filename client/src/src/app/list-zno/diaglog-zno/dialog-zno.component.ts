@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTabChangeEvent} from '@angular/material';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import {IMyDpOptions} from 'mydatepicker';
@@ -30,7 +30,7 @@ import {DialogComponent} from "../../list-prophylactic/dialog.component";
           opacity: 0,
           transform: 'translateX(-100%)'
         }),
-        animate('2s ease-in')
+        animate('1s ease-in')
       ]),
       transition(':leave', [
         animate('0s 0s ease-out', style({
@@ -46,8 +46,9 @@ export class DialogZnoComponent {
   title:string = environment.title;
   tab1: string = environment.tab1;
   data_not_found: string = environment.data_not_found;
-  tab2: string = environment.tab2;
+  tab2: string = environment.title_treat;
   tab3: string = environment.tab3;
+  tab4:string = environment.sp3_menu_expertisa;
   surname: string = environment.surname;
   firstname : string = environment.firstname;
   lastname : string = environment.lastname;
@@ -75,67 +76,22 @@ export class DialogZnoComponent {
   _linksmo_2: string = environment.linksmo_2;
   _linksmo_1: string = environment.linksmo_1;
   _linksmo_4: string = environment.linksmo_4;
-  _statsurvey1: string = environment.statsurvey1;
-  _statsurvey2: string = environment.statsurvey2;
-  _statsurvey3: string = environment.statsurvey3;
-  _statsurvey4: string = environment.statsurvey4;
-  _statsurvey5: string = environment.statsurvey5;
-  _statsurvey6: string = environment.statsurvey6;
-  _statsurvey7: string = environment.statsurvey7;
-  _statsurvey8: string = environment.statsurvey8;
-  _statsurvey9: string = environment.statsurvey9;
-  _statsurvey10: string = environment.statsurvey10;
-  _statsurvey11: string = environment.statsurvey11;
-  _statsurvey12: string = environment.statsurvey12;
-  _statsurvey13: string = environment.statsurvey13;
-  _statsurvey14: string = environment.statsurvey14;
-  _statsurvey15: string = environment.statsurvey15;
-  _statsurvey16: string = environment.statsurvey16;
-  _statsurvey17: string = environment.statsurvey17;
-  _statsurvey18: string = environment.statsurvey18;
-  _statsurvey19: string = environment.statsurvey19;
-  _statsurvey101: string = environment.statsurvey101;
-  _statsurvey102: string = environment.statsurvey102;
-  _statsurvey103: string = environment.statsurvey103;
-  _statsurvey104: string = environment.statsurvey104;
-  _statsurvey105: string = environment.statsurvey105;
-  _statsurvey106: string = environment.statsurvey106;
-  _statsurvey107: string = environment.statsurvey107;
-  _statsurvey108: string = environment.statsurvey108;
-  _statsurvey109: string = environment.statsurvey109;
-  _statsurvey110: string = environment.statsurvey110;
-  _statsurvey111: string = environment.statsurvey111;
-  _statsurvey20: string = environment.statsurvey20;
-  _statsurvey_result: string = environment.statsurvey_result;
-  _statsurvey_date: string = environment.statsurvey_date;
-  _titlesurvey: string = environment.titlesurvey;
-  _maintitlesurvey: string = environment.maintitlesurvey;
-  _otkreplen: string = environment.otkreplen;
-  _year_disp: string = environment.year_disp;
-  _error1: string = environment.error1;
-  _error2: string = environment.error2;
-  _error3: string = environment.error3;
-  _error4: string = environment.error4;
-  _error5: string = environment.error5;
-  _error6: string = environment.error6;
-  _error7: string = environment.error7;
-  _error8: string = environment.error8;
-  _error9: string = environment.error9;
-  _error10: string = environment.error10;
-  _error11: string = environment.error11;
-  _error12: string = environment.error12;
-  _resstat: string = environment.resstat;
 
+  treat_type: string = environment.treat_types;
+  t_date_begin: string = environment.date_begin;
+  t_date_end: string = environment.date_end;
+  mkb: string = environment.mkb;
+  mes_ksg :string = environment.mes_ksg;
+  no_treatment_types:string = environment.no_treatment;
+  lpu_name:string = environment.lpu_name;
+  ot_profk:string = environment.ot_profk;
+  treats_data: any;
 
   public resultsurvey: any = Resultsurvey;
   public myFormsurvey: FormGroup;
-  public data_survey = [];
-  public data_ger = [];
-  public data_plan_informir;
-  public data_informir = [];
-  public selected=2017;
+  //public data_treatment:any ;
   public currentIndexPage = 0;
-  public disableSelect: boolean = false;
+
 
   @Input() show:boolean = true;
   flag:boolean = true;
@@ -164,58 +120,41 @@ export class DialogZnoComponent {
 
   }
 
+  check(event : MatTabChangeEvent): void {
+    this.show = true;
+    this.currentIndexPage = event.index;
+    if(event.index === 1){
+      let id_cust = this.data.id1;
+      this.peopleDatabase.searchTreatment(id_cust).then(res => {
+        for(let i:number=0;i < res.length; i++){
+          this.makeTreatment(res[i]);
+        }
+        this.treats_data = res;
+        console.log('treats_data:' + JSON.stringify(res));
 
-  filterChanged(selectedValue: any){
-    console.log('value is ',selectedValue.value);
-    console.log('value is2 ',this.currentIndexPage);
-
-    // ���
-    if(this.currentIndexPage === 1){
-      this.show= true;
-      this.disableSelect = true;
-      let data_cust ={
-        surname: this.data.personSurname,
-        firstname:this.data.personKindfirstname,
-        lastname:this.data.personKindlastname,
-        bithday:this.data.personBirthday,
-        year:	selectedValue.value
-      }
-      this.peopleDatabase.searchPersonGer(data_cust)
-        .then(result =>{
-          this.show= false;
-          this.data_ger=result;
-          this.disableSelect = false;
-
-        });
-
-
-
-    }
-    // ��������������
-    if(this.currentIndexPage === 2){
-
-      this.disableSelect = true;
-      this.flag_informed = true;
-
-      let data_cust ={
-        surname: this.data.personSurname,
-        firstname: this.data.personKindfirstname,
-        lastname: this.data.personKindlastname,
-        bithday: this.data.personBirthday,
-        year:	selectedValue.value
-      }
-
-      // ��������� � �������
-      this.peopleDatabase.searchPersonInformir(data_cust)
-        .then(result =>{
-          this.disableSelect = false;
-          this.data_informir = result;
-          this.flag_informed = false;
-        });
-
-
+      });
     }
   }
+
+  makeTreatment(data:any){
+    console.log('no_treatment_types:' + this.no_treatment_types);
+    let treat_types = [];
+    var i:number = 0;
+    if(data.lt1 == '1') {treat_types[i] = environment.treat_type1; i++}
+    if(data.lt2 == '1') {treat_types[i] = environment.treat_type2; i++}
+    if(data.lt3 == '1') {treat_types[i] = environment.treat_type3; i++}
+    if(data.lt4 == '1') {treat_types[i] = environment.treat_type4; i++}
+    if(data.lt5 == '1') {treat_types[i] = environment.treat_type5; i++}
+    if(data.lt6 == '1') {treat_types[i] = environment.treat_type6;}
+
+    console.log('treat_types: ' + treat_types.toString());
+    data.treat_types = treat_types;
+    //console.log('data:' + JSON.stringify(this.data));
+    this.show = false;
+
+  }
+
+
 }
 
 
