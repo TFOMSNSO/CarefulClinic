@@ -31,6 +31,7 @@
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
          <property name="hibernate.show_sql" value="false" />
          <property name="hibernate.connection.charSet" value="UTF-8"/>
+
       </properties>
    </persistence-unit>
    <persistence-unit name="OracleDream2DS"  transaction-type="JTA">
@@ -57,6 +58,7 @@
         <jta-data-source>java:/ds/oracleTest</jta-data-source>
         <class>com.careful.clinic.model.ZNO_PERSON</class>
         <class>com.careful.clinic.model.ZNO_TREATMENT</class>
+        <class>com.careful.clinic.model.Expertise</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
             <!--<property name="hibernate.show_sql" value="true" />-->
@@ -125,6 +127,18 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
             
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="MEDEXP"  transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:jboss/datasources/MEDEXP</jta-data-source>
+        <class>com.careful.clinic.model.Expertise</class>
+        <properties>
+            <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+
         </properties>
     </persistence-unit>
 

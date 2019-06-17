@@ -81,8 +81,7 @@ public class RestServiceProphylactic {
 
 	@EJB
 	ProphylacticDAO prophylacticDAO;
-	@EJB
-	znoDAO zno;
+
 	@EJB
 	XA_Dream2Dao xa_Dream2Dao;
 
@@ -381,8 +380,7 @@ public class RestServiceProphylactic {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> searchInsur(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
-		//List<?> df = (List<?>) prophylacticDAO.getInfoInsur(personmodel);
-        List<?> df = (List<?>) zno.getInfoZNO(personmodel);
+		List<?> df = (List<?>) prophylacticDAO.getInfoInsur(personmodel);
 		return	df;
 	}
 	//-----------------------------------------------------------------------------------------1111111111111111111111111111111111111111111111111111

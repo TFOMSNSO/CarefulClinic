@@ -25,7 +25,14 @@ import java.util.Date;
                 "WHERE z.personKindfirstname = :personFirstname " +
                 " and z.personSurname = :personSurname" +
                 " and z.personKindlastname = :personLastname" +
-                " and z.personBirthday = :birthday")
+                " and z.personBirthday = :birthday"),
+        @NamedQuery(name="personzno.findbynamesmo",query = "SELECT z FROM ZNO_PERSON z " +
+                "WHERE z.personKindfirstname = :personFirstname " +
+                " and z.personSurname = :personSurname" +
+                " and z.personKindlastname = :personLastname" +
+                " and z.personBirthday = :birthday" +
+                " and z.smo = :smo"),
+        @NamedQuery(name="personzno.findbyid",query = "SELECT z FROM ZNO_PERSON z WHERE z.id1 = :p_id")
 })
 public class ZNO_PERSON implements Serializable {
     private static final long serialVersionUID = 1L;

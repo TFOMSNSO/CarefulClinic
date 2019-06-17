@@ -141,43 +141,55 @@
                       </mat-list-item>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <mat-list-item>
-                        <mat-input-container>
-                          <input matInput value="{{data_treatment.lpuId}}" placeholder="{{lpu_name}}">
-                        </mat-input-container>
-                      </mat-list-item>
-                    </td>
-                    <td>
-                      <mat-list-item>
-                        <mat-input-container>
-                          <input matInput value="{{data_treatment.otProfk}}" placeholder="{{ot_profk}}">
-                        </mat-input-container>
-                      </mat-list-item>
-                    </td>
-                    <td>
-                      <mat-list-item>
-                        <mat-input-container>
-                          <input matInput value="{{data_treatment.mesKsg}}" placeholder="{{mes_ksg}}">
-                        </mat-input-container>
-                      </mat-list-item>
-                    </td>
-                  </tr>
+
                     <!--<button mat-raised-button color="primary">Экспертиза</button>-->
                 </table>
-                <div style="margin-bottom: 10px;">
                   <mat-accordion>
-                    <mat-expansion-panel >
+                    <mat-expansion-panel>
                       <mat-expansion-panel-header>
                         <mat-panel-title>
                           Подробнее
                         </mat-panel-title>
                       </mat-expansion-panel-header>
-                      подробная информация | экспертиза
+                      <div [@toggle]="showEx" style="overflow: hidden;"
+                           *ngIf="showEx" ><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></div>
+                      <div style="margin-bottom: 10px;" *ngIf="!showEx">
+                        <table>
+                          <tr>
+                            <td>
+                              <mat-list-item>
+                                <mat-input-container>
+                                  <input matInput value="{{data_treatment.lpuId}}" placeholder="{{lpu_name}}">
+                                </mat-input-container>
+                              </mat-list-item>
+                            </td>
+                            <td>
+                              <mat-list-item>
+                                <mat-input-container>
+                                  <input matInput value="{{data_treatment.otProfk}}" placeholder="{{ot_profk}}">
+                                </mat-input-container>
+                              </mat-list-item>
+                            </td>
+                            <td>
+                              <mat-list-item>
+                                <mat-input-container>
+                                  <input matInput value="{{data_treatment.mesKsg}}" placeholder="{{mes_ksg}}">
+                                </mat-input-container>
+                              </mat-list-item>
+                            </td>
+                          </tr>
+                          <div *ngIf="data_treatment.expertise ; else no_expertise_content">
+                              {{data_treatment.expertise.examDate}}
+                          </div>
+                          <ng-template #no_expertise_content>
+                            No expertise
+                          </ng-template>
+                        </table>
+                        <div>
+                        </div>
+                      </div>
                     </mat-expansion-panel>
                   </mat-accordion>
-                </div>
                 <mat-divider></mat-divider>
               </div>
           </div>

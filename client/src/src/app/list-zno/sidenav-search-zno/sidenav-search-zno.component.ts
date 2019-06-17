@@ -33,7 +33,6 @@ export class SidenavSearchZnoComponent implements OnInit {
 
   }
 
-//еще не понял
   ngOnInit() {
     this.myForm =  this.formBuilder.group({
       surname: ['', Validators.required],
@@ -56,17 +55,18 @@ export class SidenavSearchZnoComponent implements OnInit {
 
   open(){
     //this.variable_sidenave.nativeElement.open();
-    console.log('open');
     this.variable_sidenave.toggle(true);
   }
   //search zno person
   searchPerson(form: any): void{
     // �������� ������
     console.log('ZNOZNOZNO search Person sidenave.search.component.ts ' + JSON.stringify(form.value));
-
+    let smo = JSON.parse(localStorage.getItem('currentUser'));
+    console.log('MY SMO IS ' + smo['role'][0].id);
     this.progress_bar_emit.emit({note: 'true', result:''});
-
+    form.value.smo = smo['role'][0].id;
     form.value.bithday = form.value.bithday.formatted;
+    console.log('form.value = ' + JSON.stringify(form.value));
     //this.sidenaveSearchService.searchPersonGer(form.value);
     this.personSearchIsurService.searchPersonZNO(form.value)
       .then(result =>{
@@ -75,7 +75,6 @@ export class SidenavSearchZnoComponent implements OnInit {
   }
 
   resetForm() {
-    console.log('sidenav.search.ZNONZNONOOZNN.ts resetForm()');
     this.myForm.reset();
   }
 

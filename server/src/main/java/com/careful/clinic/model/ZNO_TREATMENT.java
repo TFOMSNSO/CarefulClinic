@@ -29,12 +29,10 @@ public class ZNO_TREATMENT implements Serializable {
     @Column(name="TTYPE")
     private String ttype;
 
-    @JsonIgnore
     @Column(name="ID_REGISTR")
     private String idRegistr;
 
     @Id
-    @JsonIgnore
     @Column(name="ID_COLLECT")
     private String idCollect;
 

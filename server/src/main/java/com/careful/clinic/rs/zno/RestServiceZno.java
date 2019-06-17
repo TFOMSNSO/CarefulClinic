@@ -6,8 +6,7 @@ import com.careful.clinic.dao.prophylactic.XA_Dream2Dao;
 import com.careful.clinic.dao.zno.znoDAO;
 import com.careful.clinic.dao.zno.znoDAOBean;
 import com.careful.clinic.guid.RandomGUID;
-import com.careful.clinic.model.PersonModel;
-import com.careful.clinic.model.ZNO_TREATMENT;
+import com.careful.clinic.model.*;
 import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
 import org.xml.sax.SAXException;
 
@@ -45,7 +44,7 @@ public class RestServiceZno {
     @Path("/search_person_zno")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<?> searchZno(PersonModel personmodel) throws  ParseException {
+    public Collection<?> searchZno(PersonSmoModel personmodel) throws  ParseException {
 
         List<?> df = (List<?>) zno.getInfoZNO(personmodel);
         if(!df.isEmpty())
@@ -62,6 +61,15 @@ public class RestServiceZno {
 
         List<?>  df =  (List<?>) zno.getTreatmentById(id);
         return	df;
+    }
+
+    @POST
+    @Path("/expertise")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Expertise getExpertise(PersonExpModel person) throws  ParseException {
+
+        return	zno.getExpertiseById(person);
     }
 
 

@@ -69,36 +69,27 @@ export class PeopleZnoDatabaseService {
   }
 
 
-  searchPersonGer(per_data: any): Promise<any> {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http
-      .post(this.serverUrl + '/search_ger', JSON.stringify(per_data), {headers: headers})
-      .toPromise()
-      .then(res => res.json()[0])
-
-  }
 
   searchTreatment(id:any): Promise<any>{
-    console.log('searchTreatment id:' + id );
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(this.serverUrl + '/treatment',id,{headers: headers})
       .toPromise().then(res => res.json());
 
   }
 
+  findExpertise(person:any):any{
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(this.serverUrl + '/expertise',JSON.stringify(person),{headers: headers})
+      .toPromise().then(res => res.json());
+  }
+
+
   private handleError(error: any): Promise<any> {
     console.log(error); // for demo purposes only
     return Promise.reject(error.message || error);
     //return new Promise((resolve, reject) =>{}).then(res=> 0);
   }
-  searchPersonInformir(per_data: any): Promise<any[]> {
-    let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http
-      .post(this.serverUrl + '/search_informed', JSON.stringify(per_data), {headers: headers})
-      .toPromise()
-      .then(res => res.json())
 
-  }
   searchPersonZNO(per_data: any): Promise<any>{
     console.log('data to be posted:' + JSON.stringify(per_data));
     console.log('currentUser:' + localStorage.getItem('currentUser'));
@@ -109,14 +100,13 @@ export class PeopleZnoDatabaseService {
       .toPromise()
       // lenght передаем как флаг отсутствия записи в рс ерз
       .then(res =>{
-        console.log('res:'+res);
         //res - response with status: 200 OK for URL:...  <- example
         let tmp_data = res.json();
-        console.log('tmp_data.length:' + tmp_data.length);
-        console.log('peopleZnoDatabase   tmp_data[0].smo:' + tmp_data[0].smo);
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0;
+    /*    if(this.currentUser['role'][0].id !== 777 || this.currentUser['role'][0].id !== tmp_data[0].smo ){
+          return 0;
+        }*/
         if(tmp_data.length === 0) return tmp_data.length;
 
         tmp_data[0].currentUser = this.currentUser['role'][0].id;
@@ -171,7 +161,7 @@ export class PeopleZnoDatabaseService {
     let  years_count= ((date1 - date2)/31536000000);
     data.years = years_count.toString().substr(0,2);
     const copiedData = this.data.slice();
-    console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(data));
     copiedData.push(data);
 
     this.dataChange.next(copiedData);

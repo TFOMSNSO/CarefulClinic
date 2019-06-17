@@ -86,6 +86,7 @@ export class DialogZnoComponent {
   lpu_name:string = environment.lpu_name;
   ot_profk:string = environment.ot_profk;
   treats_data: any;
+  expertises: any = [];
 
   public resultsurvey: any = Resultsurvey;
   public myFormsurvey: FormGroup;
@@ -94,6 +95,7 @@ export class DialogZnoComponent {
 
 
   @Input() show:boolean = true;
+  @Input() showEx:boolean = true;
   flag:boolean = true;
   flag_informed:boolean = true;
   flag_survey:boolean = true;
@@ -126,18 +128,30 @@ export class DialogZnoComponent {
     if(event.index === 1){
       let id_cust = this.data.id1;
       this.peopleDatabase.searchTreatment(id_cust).then(res => {
+        this.treats_data = res;
         for(let i:number=0;i < res.length; i++){
-          this.makeTreatment(res[i]);
+          this.findexp(res[i].dateBegin,res[i].dateEnd,this.data).then(r =>{
+            console.log('rrrrrrrrrrrrrrrrrrr:'+JSON.stringify(r));
+            this.treats_data[i].expertise = r;
+            console.log('td['+i+']=' + JSON.stringify(this.treats_data[i].expertise));
+          });
+        }
+
+        for(let i:number=0;i < this.treats_data.length; i++){
+          this.makeTreatment(this.treats_data[i]);
         }
         this.treats_data = res;
-        console.log('treats_data:' + JSON.stringify(res));
+
+      //  console.log(JSON.stringify(this.treats_data));
+        this.showEx = false;
+        this.show = false;
+        //console.log('treats_data:' + JSON.stringify(res));
 
       });
     }
   }
 
   makeTreatment(data:any){
-    console.log('no_treatment_types:' + this.no_treatment_types);
     let treat_types = [];
     var i:number = 0;
     if(data.lt1 == '1') {treat_types[i] = environment.treat_type1; i++}
@@ -147,14 +161,25 @@ export class DialogZnoComponent {
     if(data.lt5 == '1') {treat_types[i] = environment.treat_type5; i++}
     if(data.lt6 == '1') {treat_types[i] = environment.treat_type6;}
 
-    console.log('treat_types: ' + treat_types.toString());
     data.treat_types = treat_types;
-    //console.log('data:' + JSON.stringify(this.data));
-    this.show = false;
+
 
   }
 
+  findexp(dateBegin:any,dateEnd:any,person:any):Promise<any>{
+    let resp: any = null;
+    let p:any = {};
+    p.surname = person.personSurname;
+    p.firstname = person.personKindfirstname;
+    p.lastname = person.personKindlastname;
+    p.bithday = person.personBirthday;
+    p.dateBegin = dateBegin;
+    p.dateEnd = dateEnd;
+    console.log('data cust:' + JSON.stringify(p));
 
+    return this.peopleDatabase.findExpertise(p);
+
+  }
 }
 
 

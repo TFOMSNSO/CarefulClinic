@@ -376,12 +376,15 @@ public class Person implements Serializable {
 	}
 
 	public Personadd getPersonadd() {
-		
 		return this.personadd;
 	}
 
 	public void setPersonadd(Personadd personadd) {
 		this.personadd = personadd;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "person[" + getPersonSurname() + " " + getPersonKindfirstname() + "]";
+	}
 }
