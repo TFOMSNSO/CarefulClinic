@@ -198,7 +198,6 @@ export class PeopleDatabase {
 	  .post(this.serverUrl + '/search_informed', JSON.stringify(per_data), {headers: headers})
 	  .toPromise()
 	  .then(res => res.json())
-
   }
     searchPlanPersonInformir(adressid: string): Promise<any[]> {
 	let headers = new Headers({'Content-Type': 'application/json'});

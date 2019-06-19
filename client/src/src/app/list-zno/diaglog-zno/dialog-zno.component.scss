@@ -1,5 +1,5 @@
 mat-dialog-content{
-  min-height:400px;
+  min-height:500px;
 }
 
 table tr{
@@ -8,6 +8,20 @@ table tr{
 
 .full-width {
   width: 100%;
+}
+
+
+table{
+  width: 100%;
+}
+
+mat-label{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.td-back{
+  background: #9ebfab;
 }
 
 div #mat-tab-label-0-0{

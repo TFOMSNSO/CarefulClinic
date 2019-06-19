@@ -102,11 +102,13 @@
   </mat-tab>
 
   <mat-tab id="tab2" label="{{tab2}}"><div [@toggle]="show" style="overflow: hidden;"
-                                                *ngIf="show" ><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></div>
+                                                *ngIf="show" ><mat-spinner style="margin:auto; margin-top:100px;"></mat-spinner></div>
     <mat-card>
-      <mat-card-content>
-          <div *ngFor="let data_treatment of treats_data"  >
-            <div [@toggle]="!show" *ngIf="!show" style="margin: 5px;">
+      <mat-card-content [@toggle]="!show">
+          <mat-card *ngFor="let data_treatment of treats_data"  style="margin-bottom: 20px;margin-top: 20px; border: 2px solid;">
+            <mat-card-content>
+            <div  *ngIf="!show" style="margin: 5px; overflow: auto;">
+
                 <div *ngIf="data_treatment.treat_types.length > 0; else no_treatment">
                   {{treat_type}}:
                       <mat-label *ngFor="let type of data_treatment.treat_types">{{type}};  </mat-label>
@@ -114,7 +116,7 @@
                 <ng-template #no_treatment>
                   <p>{{no_treatment_types}}.</p><!--Типы лечения отсутствуют.-->
                 </ng-template>
-                <table cellspacing="0">
+                <table cellspacing="0" mat-table>
                   <tr>
                     <td></td>
                   </tr>
@@ -141,58 +143,75 @@
                       </mat-list-item>
                     </td>
                   </tr>
-
-                    <!--<button mat-raised-button color="primary">Экспертиза</button>-->
+                  <tr>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.lpuId}}" placeholder="{{lpu_name}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.otProfk}}" placeholder="{{ot_profk}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.mesKsg}}" placeholder="{{mes_ksg}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                  </tr>
                 </table>
                   <mat-accordion>
-                    <mat-expansion-panel>
+                    <mat-expansion-panel style="border: 1px solid;" *ngIf="data_treatment.expertise; else  no_expertise_content">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
-                          Подробнее
+                          {{about}}
                         </mat-panel-title>
                       </mat-expansion-panel-header>
-                      <div [@toggle]="showEx" style="overflow: hidden;"
-                           *ngIf="showEx" ><mat-spinner style="margin:auto; margin-top:50px;"></mat-spinner></div>
-                      <div style="margin-bottom: 10px;" *ngIf="!showEx">
-                        <table>
-                          <tr>
-                            <td>
-                              <mat-list-item>
-                                <mat-input-container>
-                                  <input matInput value="{{data_treatment.lpuId}}" placeholder="{{lpu_name}}">
-                                </mat-input-container>
-                              </mat-list-item>
-                            </td>
-                            <td>
-                              <mat-list-item>
-                                <mat-input-container>
-                                  <input matInput value="{{data_treatment.otProfk}}" placeholder="{{ot_profk}}">
-                                </mat-input-container>
-                              </mat-list-item>
-                            </td>
-                            <td>
-                              <mat-list-item>
-                                <mat-input-container>
-                                  <input matInput value="{{data_treatment.mesKsg}}" placeholder="{{mes_ksg}}">
-                                </mat-input-container>
-                              </mat-list-item>
-                            </td>
-                          </tr>
-                          <div *ngIf="data_treatment.expertise ; else no_expertise_content">
-                              {{data_treatment.expertise.examDate}}
-                          </div>
-                          <ng-template #no_expertise_content>
-                            No expertise
-                          </ng-template>
-                        </table>
-                        <div>
+                        <div style="width: 100%; overflow: auto">
+                          <mat-card style="background: #9ebfab;">
+                            <mat-card-header>
+                              <mat-card-title>{{title_exp}}:</mat-card-title>
+                              <mat-card-subtitle >{{cod_exp}}:{{data_treatment.expertise.examCodeInfo.expName.name}}</mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>
+                              <div style="width: 100%; overflow: auto" class="td-back">
+                                <mat-list-item >
+                                  <mat-label>{{exam_date}}:  </mat-label>
+                                  <mat-label>{{data_treatment.expertise.examDate}}</mat-label>
+                                </mat-list-item>
+                                <mat-list-item >
+                                  <mat-label>{{exam_code}}:  </mat-label>
+                                  <mat-label>{{data_treatment.expertise.examCodeInfo.nameExp}}</mat-label>
+                                </mat-list-item>
+                                <mat-list-item *ngIf="data_treatment.expertise.defInfo != null">
+                                    <mat-label>{{def_main}}:  </mat-label>
+                                    <mat-label>{{data_treatment.expertise.defInfo.id}} - {{data_treatment.expertise.defInfo.nameDef}}</mat-label>
+                                </mat-list-item>
+                                <div *ngIf="data_treatment.expertise.defects.length > 0">
+                                  <mat-label>Дефекты: </mat-label>
+                                  <mat-list-item *ngFor="let defect of data_treatment.expertise.defects">
+                                    <mat-label>{{defect.defectInfo.id}} - {{defect.defectInfo.nameDef}}</mat-label>
+                                  </mat-list-item>
+                                </div>
+                              </div>
+                            </mat-card-content>
+                          </mat-card>
                         </div>
-                      </div>
                     </mat-expansion-panel>
+                    <ng-template #no_expertise_content>
+                      {{no_expertise}}
+                    </ng-template>
                   </mat-accordion>
-                <mat-divider></mat-divider>
               </div>
-          </div>
+            </mat-card-content>
+          </mat-card>
       </mat-card-content>
     </mat-card>
   </mat-tab>
