@@ -76,8 +76,8 @@ export class SidenavSearchZnoKeysComponent implements OnInit {
 
 
   createForm() {
-    console.log('createForm() search zno keys');
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    //console.log(JSON.stringify(this.currentUser));
     this.myForm =  this.formBuilder.group({
       age :
         this.formBuilder.group({
@@ -87,144 +87,51 @@ export class SidenavSearchZnoKeysComponent implements OnInit {
             manAgemax: [''],
             maleAgemin: [''],
             maleAgemax: ['']
-          }
-          ,{ validator: this.atLeastOne2(Validators.required) }),
-      typeMo: [''],
-      nullstate: [false],
-      nullmedicalexamination_conducted: [false],
-      firstdatenullstate: [''],
-      seconddatenullstate: [''],
-      firststate: [false],
-      no_firststate: [false],
-      firsttel: [''],
-      firstsms: [''],
-      firstemail: [''],
-      firstmail: [''],
-      firstpersonal_information: [''],
-      firstinforming_inadmissible: [''],
-      firstmedicalexamination_conducted: [''],
-      firstdatefirststate: [''],
-      seconddatefirststate: [''],
-      secondstate: [''],
-      no_secondstate: [false],
-      secondtel: [''],
-      secondsms: [''],
-      secondemail: [''],
-      secondmail: [''],
-      secondpersonal_information: [''],
-      secondinforming_inadmissible: [''],
-      secondmedicalexamination_conducted: [''],
-      firstdatesecondstate: [''],
-      seconddatesecondstate: [''],
-      thridstate: [''],
-      no_thridstate: [false],
-      thridtel: [''],
-      thridsms: [''],
-      thridemail: [''],
-      thridmail: [''],
-      thridpersonal_information: [''],
-      thridinforming_inadmissible: [''],
-      thridmedicalexamination_conducted: [''],
-      firstdatethridstate: [''],
-      seconddatethridstate: [''],
-      ger :
-        this.formBuilder.group({
-            pm_result:[''],
-            start_date_etap1_dsp:[''],
-            end_date_etap1_dsp:['']
-          }
-          ,{ validator: this.atLeastOne3(Validators.required) }),
-      isTelefon:[''],
+          }),
       exportExcel:[false],
       currentUser:[this.currentUser['role'][0].id],
       count_notes:['', [Validators.required, Validators.min(1),Validators.max(5000000)]],
-      survey_stat:[''],
       simaz:[false],
       vtb:[false],
       ingos:[false],
-      plan_disp:[0]
     });
+
+    //console.log('initiate form:'  + JSON.stringify(this.myForm.value));
   }
 
-  atLeastOne3 = (validator: ValidatorFn) => (group: FormGroup): ValidationErrors | null => {
-
-    if((group.controls.pm_result.value === 2 || group.controls.pm_result.value === 5) && ((group.controls.start_date_etap1_dsp.value != '' && group.controls.start_date_etap1_dsp.value != null) || (group.controls.end_date_etap1_dsp.value != '' && group.controls.end_date_etap1_dsp.value != null))){
-      if((group.controls.start_date_etap1_dsp.value !='' && group.controls.start_date_etap1_dsp.value != null) && (group.controls.end_date_etap1_dsp.value !='' && group.controls.end_date_etap1_dsp.value != null )){
-        return null;
-      }else{
-        return { atLeastOne: true};
-      }
-
-    }else{
-      return null;
-    }
-  };
 
 
 
-  atLeastOne2 = (validator: ValidatorFn) => (group: FormGroup): ValidationErrors | null => {
-    let tmp1 = 0, tmp2 = 0;
-    if(group.controls.mansAge.value){
-      if(group.controls.manAgemin.value && group.controls.manAgemax.value){
-        tmp1 = 0;
-      }else{
-        tmp1 = 1;
-      }
-    }
+  searchPersonZnoKeys(form: any): void{
+    //console.log('data to edit:' + JSON.stringify(form.value));
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    form.value.currentUser = this.currentUser.role[0].id;
 
-    if(group.controls.maleAge.value){
-      if(group.controls.maleAgemin.value && group.controls.maleAgemax.value){
-        tmp2 = 0;
-      }else{
-        tmp2 = 1;
-      }
-    }
-    if((tmp1+tmp2) > 0){return { atLeastOne: true};}else{return null;}
-  };
-
-
-  searchPersonKeys(form: any): void{
-    // ������� ��������� ������, �������������� ���������� ���������� � ������ ��������
     for(let k in form.value.age) form.value[k]=form.value.age[k];
     delete form.value.age;
-    for(let k in form.value.ger) form.value[k]=form.value.ger[k];
-    delete form.value.ger;
-    // ������� null
+
     for(let k in form.value) form.value[k]=== null ?form.value[k]='':form.value[k];
-
-    // ����������� ���� � dd.mm.yyyy
-    form.value.firstdatenullstate != null ? (form.value.firstdatenullstate.formatted  != undefined ? form.value.firstdatenullstate = form.value.firstdatenullstate.formatted : form.value.firstdatenullstate = ''): form.value.firstdatenullstate = '';
-    form.value.seconddatenullstate != null ? (form.value.seconddatenullstate.formatted != undefined ? form.value.seconddatenullstate = form.value.seconddatenullstate.formatted : form.value.seconddatenullstate = ''): form.value.seconddatenullstate = '';
-    form.value.firstdatefirststate != null ? (form.value.firstdatefirststate.formatted  != undefined ? form.value.firstdatefirststate = form.value.firstdatefirststate.formatted : form.value.firstdatefirststate = ''): form.value.firstdatefirststate = '';
-    form.value.seconddatefirststate != null ? (form.value.seconddatefirststate.formatted != undefined ? form.value.seconddatefirststate = form.value.seconddatefirststate.formatted : form.value.seconddatefirststate = ''): form.value.seconddatefirststate = '';
-    form.value.firstdatesecondstate != null ? (form.value.firstdatesecondstate.formatted != undefined ? form.value.firstdatesecondstate = form.value.firstdatesecondstate.formatted : form.value.firstdatesecondstate = ''): form.value.firstdatesecondstate = '';
-    form.value.seconddatesecondstate != null ? (form.value.seconddatesecondstate.formatted != undefined ? form.value.seconddatesecondstate = form.value.seconddatesecondstate.formatted : form.value.seconddatesecondstate = ''): form.value.seconddatesecondstate = '';
-    form.value.firstdatethridstate != null ? (form.value.firstdatethridstate.formatted != undefined ? form.value.firstdatethridstate = form.value.firstdatethridstate.formatted : form.value.firstdatethridstate = ''): form.value.firstdatethridstate = '';
-    form.value.seconddatethridstate != null ? (form.value.seconddatethridstate.formatted != undefined ? form.value.seconddatethridstate = form.value.seconddatethridstate.formatted : form.value.seconddatethridstate = ''): form.value.seconddatethridstate = '';
-    form.value.start_date_etap1_dsp != null ? (form.value.start_date_etap1_dsp.formatted != undefined ? form.value.start_date_etap1_dsp = form.value.start_date_etap1_dsp.formatted : form.value.start_date_etap1_dsp = ''): form.value.start_date_etap1_dsp = '';
-    form.value.end_date_etap1_dsp != null ? (form.value.end_date_etap1_dsp.formatted != undefined ? form.value.end_date_etap1_dsp = form.value.end_date_etap1_dsp.formatted : form.value.end_date_etap1_dsp = ''): form.value.end_date_etap1_dsp = '';
-
-    //console.log(form.value);
+    //console.log('value to be posed:' + JSON.stringify(form.value) );
     this.progress_bar_emit.emit({note: 'true', result:''});
     this.personSearchIsurService.searchPersonKeysZno(form.value)
       .then(res => {
         this.progress_bar_emit.emit({note :'false', result: res, search_keys: 'true'});
       });
-    let r=[];
-    //
   }
 
 
   open(){
-    console.log('search zno keys');
-    //this.variable_sidenave.nativeElement.open();
     this.variable_sidenave.toggle(true);
 
     this.myForm.valueChanges.subscribe(data => {
-      //console.log('Form changes', data)
       if(data.count_notes > 5000) data.exportExcel=true;
-      console.log('Form changes', data.count_notes+' - '+data.exportExcel);
+      //console.log('Form changes', data.count_notes+' - '+data.exportExcel);
     })
+  }
+
+  resetForm() {
+    console.log('reset');
+    this.myForm.reset();
   }
 
 }

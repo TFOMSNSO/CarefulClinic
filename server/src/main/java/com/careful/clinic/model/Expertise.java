@@ -136,12 +136,15 @@ public class Expertise implements Serializable {
     })
     private SPR_EXAM_CODE examCodeInfo;
 
-
-
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne
     @JoinColumn(name="DEF_MAIN",referencedColumnName = "ID")
     private ME_SPR_DEFECTS defInfo;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="MEDEXPR_ID")
+    private List<ME_MEDEXP_DEFECT> defects;
+
 
     public ME_SPR_DEFECTS getDefInfo() {
         return defInfo;
@@ -150,12 +153,6 @@ public class Expertise implements Serializable {
     public void setDefInfo(ME_SPR_DEFECTS defInfo) {
         this.defInfo = defInfo;
     }
-
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="MEDEXPR_ID",referencedColumnName = "ID")
-    private List<ME_MEDEXP_DEFECT> defects;
-
 
     public List<ME_MEDEXP_DEFECT> getDefects() {
         return defects;
@@ -375,6 +372,6 @@ public class Expertise implements Serializable {
     public Expertise(){}
     @Override
     public String toString() {
-        return "expertise[" + beginTreat + "," + endTreat +  " , "  + "]";
+        return "expertise[" + beginTreat + "," + endTreat +  " , defects"  + defects.size() +  "]";
     }
 }

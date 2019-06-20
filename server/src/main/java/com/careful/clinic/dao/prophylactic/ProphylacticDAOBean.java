@@ -506,7 +506,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	public  void writeListToFile(String fileName, List<WrapRespSerarchKeys> wrapRespSerarchKeys, String querytext) throws Exception{
 		
 		SXSSFWorkbook workbook = null;
-		
+
 		if(fileName.endsWith("xlsx")){
 			workbook = new SXSSFWorkbook(-1);
 		}else{
@@ -610,8 +610,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		                ((SXSSFSheet)sheet).flushRows(100); // retain 100 last rows and flush all others
 		           }
 		}
-		
-		//lets write the excel data to file now
+
 		String directoryServer = System.getProperty("jboss.home.dir");
 		String directoryDestination = "";
 		if(wrapRespSerarchKeys.get(0).getCurrentUser() == 777) directoryDestination = "\\content\\donwload\\777";
@@ -644,7 +643,8 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		String ob[] = path.list();
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
 		for(int i=0;i < ob.length;i++){
-			ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
+			if(!ob[i].startsWith("~$"))
+				ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
 		}
 		
 		return ls;

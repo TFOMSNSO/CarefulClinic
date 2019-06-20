@@ -82,7 +82,7 @@
             <td>
               <mat-list-item>
                 <mat-input-container>
-                  <input matInput value="{{data.smoname}} " placeholder="{{linksmo}}">
+                  <input matInput value="{{data.smo === 1 ?  _linksmo_1  : data.smo  === 2 ?  _linksmo_2  : data.smo  === 4 ?  _linksmo_4  : _otkreplen}}" placeholder="{{linksmo}}">
                 </mat-input-container>
               </mat-list-item>
             </td>
@@ -111,7 +111,7 @@
 
                 <div *ngIf="data_treatment.treat_types.length > 0; else no_treatment">
                   {{treat_type}}:
-                      <mat-label *ngFor="let type of data_treatment.treat_types">{{type}};  </mat-label>
+                  <mat-label *ngFor="let type of data_treatment.treat_types" style="border: 1px black;"> <b>{{type}};</b>  </mat-label>
                 </div>
                 <ng-template #no_treatment>
                   <p>{{no_treatment_types}}.</p><!--Типы лечения отсутствуют.-->

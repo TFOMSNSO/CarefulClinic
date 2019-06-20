@@ -64,6 +64,10 @@ export class DialogZnoComponent {
   dinfo : string = environment.dinfo ;
   tinfo : string = environment.tinfo;
   linksmo : string = environment.linksmo;
+  _linksmo_2: string = environment.linksmo_2;
+  _linksmo_1: string = environment.linksmo_1;
+  _linksmo_4: string = environment.linksmo_4;
+  _otkreplen: string = environment.otkreplen;
 
   about: string = environment.about;
 
@@ -136,8 +140,8 @@ export class DialogZnoComponent {
         for(let i:number=0;i < res.length; i++){
           this.findexp(res[i].dateBegin,res[i].dateEnd,this.data).then(r =>{
             this.treats_data[i].expertise = r;
-            if(r != null)
-              console.log('expertise:' + JSON.stringify(this.treats_data[i].expertise));
+            //if(r != null)
+              //console.log('expertise:' + JSON.stringify(this.treats_data[i].expertise));
           });
         }
 

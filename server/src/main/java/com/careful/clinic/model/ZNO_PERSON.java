@@ -84,7 +84,26 @@ public class ZNO_PERSON implements Serializable {
     @Column(name="SMO")
     private String smo;
 
+    private Integer currentUser;
 
+    private String years;
+
+
+    public Integer getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(Integer currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public String getYears() {
+        return years;
+    }
+
+    public void setYears(String years) {
+        this.years = years;
+    }
 
     public String getId1() {
         return id1;
@@ -193,6 +212,7 @@ public class ZNO_PERSON implements Serializable {
     @Override
     public String toString() {
         return "ZNO_PERSON[ID1:"+ id1 + ",ID2:" + id2 +",FAM:"+ personSurname + ",IM:" + personKindfirstname + ",OT:" + personKindlastname +
-                ",DR:"+personBirthday + ",DATE_INSERT:" + personDateInsert + ",DATE_STATE:" + personDateState + ",STATE_INSUR:" + personStateInsur + ",DATE_INSUR:"+ personDateInsur  + ",SMO:" + smo + "]";
+                ",DR:"+personBirthday + ",DATE_INSERT:" + personDateInsert + ",DATE_STATE:" + personDateState + ",STATE_INSUR:" + personStateInsur +
+                ",DATE_INSUR:"+ personDateInsur  + ",SMO:" + smo + ", years:" + years + ",currentUser:" + currentUser + "]";
     }
 }

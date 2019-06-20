@@ -85,7 +85,6 @@ export class PeopleZnoDatabaseService {
 
 
   private handleError(error: any): Promise<any> {
-    console.log(error); // for demo purposes only
     return Promise.reject(error.message || error);
     //return new Promise((resolve, reject) =>{}).then(res=> 0);
   }
@@ -111,7 +110,7 @@ export class PeopleZnoDatabaseService {
 
         tmp_data[0].currentUser = this.currentUser['role'][0].id;
 
-        // ставляю пустою структуру гэра если ее нет
+       /* // ставляю пустою структуру гэра если ее нет
         if(!("respGerl" in tmp_data[0])){
           tmp_data[0].respGerl=[{
             start_date_etap1:'',
@@ -126,7 +125,7 @@ export class PeopleZnoDatabaseService {
             pm_result:'',
             pm_HOSPITAL_RESULT:''
           }];
-        }
+        }*/
 
         tmp_data.length != 0  ? this.addPerson_t(tmp_data[0]) : tmp_data.length
 
@@ -139,17 +138,16 @@ export class PeopleZnoDatabaseService {
     console.log(JSON.stringify(data));
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http
-      .post(this.serverUrl + '/search_person_keys', JSON.stringify(data), {headers: headers})
+      .post(this.serverUrl + '/search_person_zno_keys', JSON.stringify(data), {headers: headers})
       .toPromise()
       .then(res =>{
         let tmp_data =  res.json();
+        console.log(JSON.stringify(tmp_data));
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         for(let indexmas in tmp_data){
-          if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== Number(tmp_data[indexmas].personLinksmoestablishmentid) ) continue;
           tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
           this.addPerson_t(tmp_data[indexmas]);
         }
-        tmp_data.length;
       })
       .catch(this.handleError);
   }
@@ -161,18 +159,19 @@ export class PeopleZnoDatabaseService {
     let  years_count= ((date1 - date2)/31536000000);
     data.years = years_count.toString().substr(0,2);
     const copiedData = this.data.slice();
-    //console.log(JSON.stringify(data));
+
     copiedData.push(data);
 
     this.dataChange.next(copiedData);
   }
 
   exportToExcel(per_data: any): Promise<any[]> {
+    //console.log('exportToExcel:' + JSON.stringify(per_data));
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http
-      .post(this.serverUrl + '/exportToexcel', JSON.stringify(per_data), {headers: headers})
+      .post(this.serverUrl + "/export_excel_zno", JSON.stringify(per_data), {headers: headers})
       .toPromise()
-      .then(res => res.json())
+      .then(res => res != null ? res.json() : res)
   }
 
 

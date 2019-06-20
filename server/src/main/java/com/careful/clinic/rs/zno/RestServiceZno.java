@@ -47,11 +47,26 @@ public class RestServiceZno {
     public Collection<?> searchZno(PersonSmoModel personmodel) throws  ParseException {
 
         List<?> df = (List<?>) zno.getInfoZNO(personmodel);
-        if(!df.isEmpty())
-            System.out.println("ZNO RESTSERVICE:" + df.get(0));
         return	df;
     }
 
+    @POST
+    @Path("/search_person_zno_keys")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<?> searchZnoKeys(SearchZnoKeysModel keysModel) throws  ParseException {
+
+        List<?> df = (List<?>) zno.getInfoZNOKeys(keysModel);
+        return	df;
+    }
+
+    @POST
+    @Path("/export_excel_zno")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<?> exportExcelZno(List<ZNO_PERSON> list) throws  Exception {
+        return zno.exportToExcel(list);
+    }
 
     @POST
     @Path("/treatment")
@@ -68,7 +83,6 @@ public class RestServiceZno {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Expertise getExpertise(PersonExpModel person) throws  ParseException {
-
         return	zno.getExpertiseById(person);
     }
 

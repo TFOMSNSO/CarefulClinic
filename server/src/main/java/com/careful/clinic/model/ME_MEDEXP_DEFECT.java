@@ -21,7 +21,6 @@ public class ME_MEDEXP_DEFECT implements Serializable {
 
 
 
-
     public String getMedexprId() {
         return medexprId;
     }

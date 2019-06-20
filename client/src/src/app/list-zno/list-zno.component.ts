@@ -151,7 +151,7 @@ export class ListZnoComponent implements OnInit {
 
   preview(pr:any):void{
     console.log('preview:'+pr.personSurname);
-    let sid = Number(pr.smo);
+   /* let sid = Number(pr.smo);
     pr.smoname = '';
     switch(sid){
       case 1: pr.smoname = environment.linksmo_1; break;
@@ -159,7 +159,7 @@ export class ListZnoComponent implements OnInit {
       case 4: pr.smoname = environment.linksmo_4; break;
       default:
         pr.smoname = environment.otkreplen;
-    }
+    }*/
     let cc = {
       disableClose: true,
       panelClass: 'custom-overlay-pane-class',
