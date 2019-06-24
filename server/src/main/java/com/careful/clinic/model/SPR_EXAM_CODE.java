@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 
 @Entity
+@Table(name="TOR_SPR_EXAM_CODE")
 @NamedQueries({
         @NamedQuery(name="getNameByIdAndCode",query = "SELECT s FROM SPR_EXAM_CODE s where s.id= :examCode and s.typeExp = :codeExp")
 })

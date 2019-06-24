@@ -14,7 +14,7 @@ import java.util.Date;
  *
  */
 @Entity
-@Table(name = "ZNO_PERSON")
+@Table(name = "V_ZNO_PERSON")
 @NamedQueries({
         @NamedQuery(name="personzno.findbyid1",query = "SELECT z FROM ZNO_PERSON z "),
         @NamedQuery(name="personzno.findbyname",query = "SELECT z FROM ZNO_PERSON z " +

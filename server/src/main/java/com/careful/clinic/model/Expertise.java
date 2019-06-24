@@ -16,7 +16,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name="ME_MEDEXP")
+@Table(name="TOR_ME_MEDEXP")
 @NamedQueries({
         @NamedQuery(name = "Expertise.findall", query = "SELECT e FROM Expertise e"),
         @NamedQuery(name = "Expertise.findex", query = "SELECT e FROM Expertise e WHERE" +

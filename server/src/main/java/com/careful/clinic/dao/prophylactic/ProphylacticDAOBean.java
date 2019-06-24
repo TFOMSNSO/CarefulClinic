@@ -647,7 +647,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 				basicFileAttributes = Files.readAttributes(temp.toPath(),BasicFileAttributes.class);
 				Date timeCreated = new Date(basicFileAttributes.creationTime().toMillis());
 				Date today = new Date();
-				if( (today.getTime() - timeCreated.getTime()) < 86400000 * 3) {
+				if( (today.getTime() - timeCreated.getTime()) < 86400000 * 5) {
 					ls.add(new ListExcelFiles(ob[i], directoryDestination + File.separator + ob[i], timeCreated.toString()));
 					System.out.println("Время создания:" + timeCreated.toString());
 				}

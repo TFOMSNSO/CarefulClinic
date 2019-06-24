@@ -4,6 +4,9 @@ public class ZNO_PERSON_YEARS extends ZNO_PERSON{
     private Integer currentUser;
     private String years;
 
+
+
+
     public Integer getCurrentUser() {
         return currentUser;
     }

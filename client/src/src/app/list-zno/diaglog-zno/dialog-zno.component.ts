@@ -132,14 +132,14 @@ export class DialogZnoComponent {
       let id_cust = this.data.id1;
       this.peopleDatabase.searchTreatment(id_cust).then(res => {
         this.treats_data = res;
-
-        for(let i:number=0;i < this.treats_data.length; i++){
+        //console.log(JSON.stringify(res));
+       /* for(let i:number=0;i < this.treats_data.length; i++){
           this.findexp(res[i].dateBegin,res[i].dateEnd,this.data).then(r =>{
-            this.treats_data[i].expertise = r;
+            //this.treats_data[i].expertise = r;
             //if(r != null)
               //console.log('expertise:' + JSON.stringify(this.treats_data[i].expertise));
           });
-        }
+        }*/
 
         for(let i:number=0;i < this.treats_data.length; i++) {
           this.makeTreatment(this.treats_data[i]);

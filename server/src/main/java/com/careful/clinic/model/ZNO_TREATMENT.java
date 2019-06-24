@@ -18,7 +18,7 @@ import java.util.Date;
  *
  */
 @Entity
-@Table(name = "TOR_REGISTR_COLLECT")
+@Table(name = "V_TOR_REGISTR_COLLECT")
 @NamedQueries({
         @NamedQuery(name="treatmentZno.findbyid1",query = "SELECT z FROM ZNO_TREATMENT z " +
                 "WHERE z.idRegistr = :p_id ORDER BY z.dateBegin")
@@ -84,6 +84,23 @@ public class ZNO_TREATMENT implements Serializable {
     @Column(name="LT_6")
     private String lt6;
 
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "TOR_COLLECT_MEDEXP",
+            joinColumns = @JoinColumn(name="ID_COLLECT",referencedColumnName = "ID_COLLECT"),
+            inverseJoinColumns = @JoinColumn(name="ID_EXP",referencedColumnName = "ID")
+    )
+    private Expertise expertise;
+
+
+    public Expertise getExpertise() {
+        return expertise;
+    }
+
+    public void setExpertise(Expertise expertise) {
+        this.expertise = expertise;
+    }
 
     public String getTtype() {
         return ttype;

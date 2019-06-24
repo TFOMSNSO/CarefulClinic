@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name="ME_SPR_VIEWEXP")
+@Table(name="TOR_ME_SPR_VIEWEXP")
 @NamedQueries({
         @NamedQuery(name="getNameById",query = "SELECT e FROM EXP_NAME e WHERE e.id = ?1"),
         @NamedQuery(name="findallnames",query = "SELECT e FROM EXP_NAME e")

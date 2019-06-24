@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 
 @Entity
+@Table(name="TOR_ME_MEDEXP_DEFECT")
 public class ME_MEDEXP_DEFECT implements Serializable {
     @Id
     @Column(name="ID")

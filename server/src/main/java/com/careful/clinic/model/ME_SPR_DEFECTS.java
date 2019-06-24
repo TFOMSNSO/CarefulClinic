@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name="TOR_ME_SPR_DEFECTS")
 @NamedQueries({
         @NamedQuery(name="getDefMain",query = "SELECT d FROM ME_SPR_DEFECTS d WHERE d.id = :id")
 })
