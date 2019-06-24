@@ -41,6 +41,7 @@ export const environment = {
   treat_type4: 'Химиолучевая терапия',
   treat_type5: 'Неспецифическое лечение',
   treat_type6: 'Диагностика',
+  treat_typed: 'Поликлиника',
   mkb: 'МКБ',
   ot_profk:'Отделение/Кабинет',
   lpu_name:'Лечебное учреждение',

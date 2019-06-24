@@ -10,7 +10,7 @@
       <a mat-list-item *ngFor="let row of listExcelFiles;"  (click)="downloadExcel(row.namefile)">
         <mat-icon mat-list-icon>tab</mat-icon>
         <span mat-line>{{row.namefile}}</span>
-        <span mat-line class="demo-secondary-text"> Description </span>
+        <span mat-line class="demo-secondary-text"> {{row.descriotion}} </span>
       </a>
     </div>
     <ng-template #other_content>
@@ -19,6 +19,4 @@
     </ng-template>
   </mat-nav-list>
   <br><br>
-
-
 </mat-sidenav>

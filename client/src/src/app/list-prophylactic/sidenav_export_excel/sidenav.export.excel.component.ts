@@ -15,7 +15,7 @@ import {environment} from '../../../environments/environment';
   templateUrl: './sidenav.export.excel.component.html',
   styleUrls: ['./sidenav.export.excel.component.scss'],
   providers: [PeopleDatabase]
-  
+
 })
 
 
@@ -26,9 +26,9 @@ export class SidenavExportExcelComponent   implements OnInit{
 	private currentUser: User;
 	public flag: boolean = true;
 	data_not_found = environment.data_not_found;
-	
+
 		constructor(private personSearchIsurService: PeopleDatabase,private sanitizer:DomSanitizer){}
-	
+
 	ngOnInit():void {
   }
 
@@ -43,7 +43,7 @@ sanitize(url:string){
  open(){
  	this.variable_sidenave.toggle(true);
  }
- 
+
     private getListNameFiles(data : number): void{
     	 this.flag = true;
 	 	 this.personSearchIsurService.listFiles(data)
@@ -52,9 +52,9 @@ sanitize(url:string){
 	 }
 
 
-downloadExcel(data: string):void{
-this.personSearchIsurService.downloadExcel(data,this.currentUser['role'][0].id,'download');
-}
+  downloadExcel(data: string):void{
+  this.personSearchIsurService.downloadExcel(data,this.currentUser['role'][0].id,'download');
+  }
 
 
 }

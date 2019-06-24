@@ -10,6 +10,7 @@ mat-sidenav.nav_header{
 }
 .nav_header{
   width:95%;
+  height: 500px;
 }
 
 .example-card{

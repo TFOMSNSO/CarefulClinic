@@ -138,9 +138,10 @@
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
-
         </properties>
     </persistence-unit>
+
+
 
     <persistence-unit name="NONXAMUR2019"  transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
@@ -148,7 +149,6 @@
         <properties>
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
-
         </properties>
     </persistence-unit>
 </persistence>

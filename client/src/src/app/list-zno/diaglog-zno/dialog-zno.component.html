@@ -1,5 +1,5 @@
 
-<!--TODO: �������� ����������� ������ ���� ������ (���������� ��� ����� ���� ���������������) -->
+
 <mat-toolbar color="primary">
   <div style="align-self: flex-end; padding-top:10px;">{{data.personSurname}} {{data.personKindfirstname}} {{data.personKindlastname}}</div>
   <span style="flex-grow: 1; font-size: 25px;">{{title}}</span>
@@ -54,7 +54,7 @@
                 </mat-input-container>
               </mat-list-item>
             </td>
-          </tr>
+          </tr><!--
           <tr *ngIf="data.personadd">
             <td  *ngIf="data.personadd.tele2">
               <mat-list-item>
@@ -77,21 +77,12 @@
                 </mat-input-container>
               </mat-list-item>
             </td>
-          </tr>
+          </tr>-->
           <tr>
             <td>
               <mat-list-item>
                 <mat-input-container>
-                  <input matInput value="{{data.smo === 1 ?  _linksmo_1  : data.smo  === 2 ?  _linksmo_2  : data.smo  === 4 ?  _linksmo_4  : _otkreplen}}" placeholder="{{linksmo}}">
-                </mat-input-container>
-              </mat-list-item>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <mat-list-item>
-                <mat-input-container>
-                  <input matInput value="540{{data.personEstablishmentambul}}" placeholder="{{PM_HOSPITAL_RESULT}}">
+                  <input matInput value="{{data.smo == 1 ?  _linksmo_1  : data.smo  == 2 ?  _linksmo_2  : data.smo  == 4 ?  _linksmo_4  : _otkreplen}}" placeholder="{{linksmo}}">
                 </mat-input-container>
               </mat-list-item>
             </td>
@@ -103,8 +94,8 @@
 
   <mat-tab id="tab2" label="{{tab2}}"><div [@toggle]="show" style="overflow: hidden;"
                                                 *ngIf="show" ><mat-spinner style="margin:auto; margin-top:100px;"></mat-spinner></div>
-    <mat-card>
-      <mat-card-content [@toggle]="!show">
+    <mat-card [@toggle]="!show" *ngIf="!show">
+      <mat-card-content>
           <mat-card *ngFor="let data_treatment of treats_data"  style="margin-bottom: 20px;margin-top: 20px; border: 2px solid;">
             <mat-card-content>
             <div  *ngIf="!show" style="margin: 5px; overflow: auto;">
@@ -171,14 +162,13 @@
                     <mat-expansion-panel style="border: 1px solid;" *ngIf="data_treatment.expertise; else  no_expertise_content">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
-                          {{about}}
+                          {{title_exp}}
                         </mat-panel-title>
                       </mat-expansion-panel-header>
                         <div style="width: 100%; overflow: auto">
                           <mat-card style="background: #9ebfab;">
                             <mat-card-header>
-                              <mat-card-title>{{title_exp}}:</mat-card-title>
-                              <mat-card-subtitle >{{cod_exp}}:{{data_treatment.expertise.examCodeInfo.expName.name}}</mat-card-subtitle>
+                              <mat-card-title >{{cod_exp}}:{{data_treatment.expertise.examCodeInfo.expName.name}}</mat-card-title>
                             </mat-card-header>
                             <mat-card-content>
                               <div style="width: 100%; overflow: auto" class="td-back">
@@ -194,12 +184,15 @@
                                     <mat-label>{{def_main}}:  </mat-label>
                                     <mat-label>{{data_treatment.expertise.defInfo.id}} - {{data_treatment.expertise.defInfo.nameDef}}</mat-label>
                                 </mat-list-item>
-                                <div *ngIf="data_treatment.expertise.defects.length > 0">
+                                <div *ngIf="data_treatment.expertise.defects.length > 0; else no_defects">
                                   <mat-label>Дефекты: </mat-label>
                                   <mat-list-item *ngFor="let defect of data_treatment.expertise.defects">
                                     <mat-label>{{defect.defectInfo.id}} - {{defect.defectInfo.nameDef}}</mat-label>
                                   </mat-list-item>
                                 </div>
+                                <ng-template #no_defects>
+                                  <mat-label>Дефекты отсутствуют.</mat-label>
+                                </ng-template>
                               </div>
                             </mat-card-content>
                           </mat-card>
@@ -215,6 +208,7 @@
       </mat-card-content>
     </mat-card>
   </mat-tab>
+
 </mat-tab-group>
 
 

@@ -28,6 +28,7 @@ public class znoDAOBean implements znoDAO{
     @PersistenceContext(unitName = "MEDEXP")
     private EntityManager medExp;
 
+
     public Collection<?> getInfoZNO(PersonSmoModel personmodel) throws ParseException {
         System.out.println("znoDAOBean.java:getInfoZNO:lulcs" + personmodel);
         String tempSmo = personmodel.getSmo().trim();
@@ -80,9 +81,9 @@ public class znoDAOBean implements znoDAO{
                 .setParameter("endtreat", new SimpleDateFormat("dd.MM.yyyy").parse(person.getDateEnd()));
 
         try {
-            System.out.println("a------------------------------------------------------------------------------------");
+            //System.out.println("a------------------------------------------------------------------------------------");
             e = tq.getSingleResult();
-            System.out.println("b------------------------------------------------------------------------------------");
+            //System.out.println("b------------------------------------------------------------------------------------");
             System.out.println(e);
             return e;
         }catch(NonUniqueResultException ex){
@@ -94,21 +95,18 @@ public class znoDAOBean implements znoDAO{
     }
 
     @Override
-    public Collection<?> exportToExcel(List<ZNO_PERSON> list) throws Exception {
+    public ResponseDescription exportToExcel(List<ZNO_PERSON_YEARS> list) throws Exception {
         SimpleDateFormat time_formatter = new SimpleDateFormat("yyyy-MM-dd_HH_mm");
         String current_time_str = time_formatter.format(System.currentTimeMillis());
-
-        writeListToFile("org_" + list.get(0).getSmo() + "_"+current_time_str+".xlsx",list);
-        return new ArrayList<>();
+        try {
+            return writeListToFile("org_" + list.get(0).getSmo() + "_" + current_time_str + ".xlsx", list);
+        }catch (Exception ex){
+            return new ResponseDescription("Ошибка во время сохранения файла!");
+        }
     }
 
     @Override
-    public void writeListToFile(String fileName, List<ZNO_PERSON> list) throws Exception {
-        System.out.println("filename:" + fileName);
-        for(int i =0; i < list.size(); i++){
-            System.out.println(list.get(i));
-        }
-
+    public ResponseDescription writeListToFile(String fileName, List<ZNO_PERSON_YEARS> list) throws Exception {
 
         SXSSFWorkbook workbook = null;
 
@@ -137,9 +135,9 @@ public class znoDAOBean implements znoDAO{
         cell4.setCellValue("Полных лет");
 
 
-        Iterator<ZNO_PERSON> iterator = list.iterator();
+        Iterator<ZNO_PERSON_YEARS> iterator = list.iterator();
         int rowIndex = 1;
-        ZNO_PERSON person;
+        ZNO_PERSON_YEARS person;
         while(iterator.hasNext()){
             person = iterator.next();
             Row row1 = sheet.createRow(rowIndex++);
@@ -170,7 +168,7 @@ public class znoDAOBean implements znoDAO{
 
 
         workbook.dispose();
-        System.out.println("loaded");
+        return new ResponseDescription("Файл готов к загрузке.");
     }
 
 
@@ -180,8 +178,27 @@ public class znoDAOBean implements znoDAO{
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT z.ID1,z.ID2,z.FAM,Z.IM,Z.OT,Z.DR,Z.SMO z FROM ZNO_PERSON z ");
         if(keysmodel.getCurrentUser() != 777){
-            sb.append(" WHERE z.SMO = ");
+            sb.append("WHERE z.SMO = ");
             sb.append(keysmodel.getCurrentUser());
+            sb.append(" AND ");
+        }else{
+            ArrayList<String> smos = new ArrayList<>();
+            if(keysmodel.isIngos()){
+                smos.add("4");
+            }
+            if(keysmodel.isSimaz()){
+                smos.add("1");
+            }
+            if(keysmodel.isVtb()){
+                smos.add("2");
+            }
+            if(!smos.isEmpty()){
+                sb.append(" WHERE ");
+                for(int i = 0; i< smos.size()-1;i++)
+                    sb.append(" z.SMO = " + smos.get(i) + " OR ");
+
+                sb.append(" z.SMO = "  + smos.get(smos.size()-1));
+            }
         }
         sb.append(" FETCH FIRST ");
         sb.append(keysmodel.getCount_notes());

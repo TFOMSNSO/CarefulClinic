@@ -90,8 +90,6 @@ export class PeopleZnoDatabaseService {
   }
 
   searchPersonZNO(per_data: any): Promise<any>{
-    console.log('data to be posted:' + JSON.stringify(per_data));
-    console.log('currentUser:' + localStorage.getItem('currentUser'));
     let headers = new Headers({'Content-Type': 'application/json'});
 
     return this.http
@@ -102,10 +100,6 @@ export class PeopleZnoDatabaseService {
         //res - response with status: 200 OK for URL:...  <- example
         let tmp_data = res.json();
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-    /*    if(this.currentUser['role'][0].id !== 777 || this.currentUser['role'][0].id !== tmp_data[0].smo ){
-          return 0;
-        }*/
         if(tmp_data.length === 0) return tmp_data.length;
 
         tmp_data[0].currentUser = this.currentUser['role'][0].id;
@@ -136,13 +130,17 @@ export class PeopleZnoDatabaseService {
 
   searchPersonKeysZno(data: any): Promise<any>{
     console.log(JSON.stringify(data));
+    var time = performance.now();
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http
       .post(this.serverUrl + '/search_person_zno_keys', JSON.stringify(data), {headers: headers})
       .toPromise()
       .then(res =>{
         let tmp_data =  res.json();
-        console.log(JSON.stringify(tmp_data));
+        time = performance.now() - time;
+        console.log("TIME:" + time/1000.0 );
+        console.log("length:" + tmp_data.length);
+        //console.log(JSON.stringify(tmp_data));
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         for(let indexmas in tmp_data){
           tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
@@ -151,6 +149,8 @@ export class PeopleZnoDatabaseService {
       })
       .catch(this.handleError);
   }
+
+
 
 
   addPerson_t(data: any) {
@@ -165,7 +165,7 @@ export class PeopleZnoDatabaseService {
     this.dataChange.next(copiedData);
   }
 
-  exportToExcel(per_data: any): Promise<any[]> {
+  exportToExcel(per_data: any): Promise<any> {
     //console.log('exportToExcel:' + JSON.stringify(per_data));
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http

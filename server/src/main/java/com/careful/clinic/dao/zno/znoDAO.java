@@ -14,7 +14,7 @@ public interface znoDAO {
     Collection<?> getInfoZNO(PersonSmoModel personmodel) throws ParseException;
     Collection<?>  getTreatmentById(String id);
     Collection<?> getInfoZNOKeys(SearchZnoKeysModel keysmodel);
-    Collection<?> exportToExcel(List<ZNO_PERSON> arrayList) throws Exception;
+    ResponseDescription exportToExcel(List<ZNO_PERSON_YEARS> arrayList) throws Exception;
     Expertise getExpertiseById(PersonExpModel e) throws ParseException;
-    void writeListToFile(String fileName, List<ZNO_PERSON> arrayList) throws Exception;
+    ResponseDescription writeListToFile(String fileName, List<ZNO_PERSON_YEARS> arrayList) throws Exception;
 }

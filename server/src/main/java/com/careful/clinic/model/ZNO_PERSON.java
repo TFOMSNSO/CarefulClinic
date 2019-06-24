@@ -2,10 +2,6 @@ package com.careful.clinic.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -54,19 +50,17 @@ public class ZNO_PERSON implements Serializable {
     private String personKindlastname;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
-    //@Temporal(TemporalType.DATE)
     @Column(name="DR")
     private Date personBirthday;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
-    @Temporal(TemporalType.DATE)
     @Column(name="DATE_INSERT")
     private Date personDateInsert;
 
     @Column(name="STATE_INSUR")
     private BigDecimal personStateInsur;
 
-    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
     @Column(name="DATE_INSUR")
     private Date personDateInsur;
 
@@ -74,7 +68,6 @@ public class ZNO_PERSON implements Serializable {
     private BigDecimal personStateRegistr;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
-    @Temporal(TemporalType.DATE)
     @Column(name="DATE_STATE")
     private Date personDateState;
 
@@ -84,26 +77,6 @@ public class ZNO_PERSON implements Serializable {
     @Column(name="SMO")
     private String smo;
 
-    private Integer currentUser;
-
-    private String years;
-
-
-    public Integer getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(Integer currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public String getYears() {
-        return years;
-    }
-
-    public void setYears(String years) {
-        this.years = years;
-    }
 
     public String getId1() {
         return id1;
@@ -213,6 +186,6 @@ public class ZNO_PERSON implements Serializable {
     public String toString() {
         return "ZNO_PERSON[ID1:"+ id1 + ",ID2:" + id2 +",FAM:"+ personSurname + ",IM:" + personKindfirstname + ",OT:" + personKindlastname +
                 ",DR:"+personBirthday + ",DATE_INSERT:" + personDateInsert + ",DATE_STATE:" + personDateState + ",STATE_INSUR:" + personStateInsur +
-                ",DATE_INSUR:"+ personDateInsur  + ",SMO:" + smo + ", years:" + years + ",currentUser:" + currentUser + "]";
+                ",DATE_INSUR:"+ personDateInsur  + ",SMO:" + smo + "]";
     }
 }

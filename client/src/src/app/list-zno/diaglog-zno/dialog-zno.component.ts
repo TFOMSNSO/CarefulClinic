@@ -127,17 +127,13 @@ export class DialogZnoComponent {
   }
 
   check(event : MatTabChangeEvent): void {
-    //this.currentIndexPage = event.index;
-   // console.log('currentindex:' + this.currentIndexPage);
-   // console.log('show:' + this.show);
-
     if(event.index === 1){
       this.show = true;
       let id_cust = this.data.id1;
       this.peopleDatabase.searchTreatment(id_cust).then(res => {
         this.treats_data = res;
-        //console.log(JSON.stringify(res));
-        for(let i:number=0;i < res.length; i++){
+
+        for(let i:number=0;i < this.treats_data.length; i++){
           this.findexp(res[i].dateBegin,res[i].dateEnd,this.data).then(r =>{
             this.treats_data[i].expertise = r;
             //if(r != null)
@@ -165,6 +161,9 @@ export class DialogZnoComponent {
     if(data.lt4 == '1') {treat_types[i] = environment.treat_type4; i++}
     if(data.lt5 == '1') {treat_types[i] = environment.treat_type5; i++}
     if(data.lt6 == '1') {treat_types[i] = environment.treat_type6;}
+    if(i == 0)
+      treat_types[i] = environment.treat_typed;
+
     data.treat_types = treat_types;
   }
 

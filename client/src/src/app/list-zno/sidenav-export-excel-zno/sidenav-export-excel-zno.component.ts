@@ -46,7 +46,7 @@ export class SidenavExportExcelZnoComponent implements OnInit {
   private getListNameFiles(data : number): void{
     this.flag = true;
     this.personSearchIsurService.listFiles(data)
-      .then(res => {this.listExcelFiles = res});
+      .then(res => {this.listExcelFiles = res;console.log(JSON.stringify(this.listExcelFiles))});
     this.flag = false;
   }
 

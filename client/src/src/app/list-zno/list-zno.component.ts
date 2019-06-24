@@ -146,20 +146,16 @@ export class ListZnoComponent implements OnInit {
   }
 
   get():void{
-    this._peopleDatabase.exportToExcel(this.dataSource._peopleDatabase.data);
+    console.log(JSON.stringify(this.dataSource._peopleDatabase.data));
+    this._peopleDatabase.exportToExcel(this.dataSource._peopleDatabase.data).then(res => {
+      this.snackBar.open(res.desccription, '', {
+        duration: 3000,
+      });
+    });
   }
 
   preview(pr:any):void{
     console.log('preview:'+pr.personSurname);
-   /* let sid = Number(pr.smo);
-    pr.smoname = '';
-    switch(sid){
-      case 1: pr.smoname = environment.linksmo_1; break;
-      case 2: pr.smoname = environment.linksmo_2; break;
-      case 4: pr.smoname = environment.linksmo_4; break;
-      default:
-        pr.smoname = environment.otkreplen;
-    }*/
     let cc = {
       disableClose: true,
       panelClass: 'custom-overlay-pane-class',

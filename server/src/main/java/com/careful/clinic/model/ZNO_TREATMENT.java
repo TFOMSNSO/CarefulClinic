@@ -21,7 +21,7 @@ import java.util.Date;
 @Table(name = "TOR_REGISTR_COLLECT")
 @NamedQueries({
         @NamedQuery(name="treatmentZno.findbyid1",query = "SELECT z FROM ZNO_TREATMENT z " +
-                "WHERE z.idRegistr = :p_id ")
+                "WHERE z.idRegistr = :p_id ORDER BY z.dateBegin")
 })
 public class ZNO_TREATMENT implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -46,12 +46,10 @@ public class ZNO_TREATMENT implements Serializable {
     private String lpuId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
-    //@Temporal(TemporalType.DATE)
     @Column(name="DAT_BEG")
     private Date dateBegin;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
-    //@Temporal(TemporalType.DATE)
     @Column(name="DAT_END")
     private Date dateEnd;
 

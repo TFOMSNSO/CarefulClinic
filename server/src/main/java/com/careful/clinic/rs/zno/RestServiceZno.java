@@ -64,7 +64,7 @@ public class RestServiceZno {
     @Path("/export_excel_zno")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<?> exportExcelZno(List<ZNO_PERSON> list) throws  Exception {
+    public ResponseDescription exportExcelZno(List<ZNO_PERSON_YEARS> list) throws  Exception {
         return zno.exportToExcel(list);
     }
 

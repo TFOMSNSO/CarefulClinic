@@ -3,16 +3,12 @@ package com.careful.clinic.dao.prophylactic;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -641,10 +637,26 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		
 		File path = new File(directoryDestination);
 		String ob[] = path.list();
+
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
 		for(int i=0;i < ob.length;i++){
-			if(!ob[i].startsWith("~$"))
-				ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
+			File temp = new File(directoryDestination + "\\" + ob[i]);
+			BasicFileAttributes basicFileAttributes = null;
+
+			try{
+				basicFileAttributes = Files.readAttributes(temp.toPath(),BasicFileAttributes.class);
+				Date timeCreated = new Date(basicFileAttributes.creationTime().toMillis());
+				Date today = new Date();
+				if( (today.getTime() - timeCreated.getTime()) < 86400000 * 3) {
+					ls.add(new ListExcelFiles(ob[i], directoryDestination + File.separator + ob[i], timeCreated.toString()));
+					System.out.println("Время создания:" + timeCreated.toString());
+				}
+			}catch(IOException ex){
+
+			}
+
+			//if(!ob[i].startsWith("~$"))
+				//ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
 		}
 		
 		return ls;
