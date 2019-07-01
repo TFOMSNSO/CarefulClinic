@@ -120,7 +120,10 @@ public class ResultEKMPType extends AbstractDataUploadType{
                         sb.append(df2.format(df3.parse(row.getCell(i).toString())));
                     }
                 }else{
-                    sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase());
+                    if(i == 12)
+                        sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase().trim());
+                    else
+                        sb.append(formatter.formatCellValue(row.getCell(i)).toUpperCase());
                 }
                 sb.append("'");
                 sb.append(",");

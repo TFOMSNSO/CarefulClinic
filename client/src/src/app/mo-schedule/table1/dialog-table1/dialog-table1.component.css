@@ -1,0 +1,18 @@
+mat-card{
+  height: 100%;
+  width: 100%;
+}
+
+
+.divleft{
+  float: left; width: 50%;
+}
+
+
+.divright{
+  float: right; width: 50%;
+}
+
+mat-label{
+  margin: 5px;
+}

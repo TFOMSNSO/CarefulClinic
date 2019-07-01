@@ -131,6 +131,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
         storedProcedure.execute();
 
         String respXml = (String)storedProcedure.getOutputParameterValue("response");
+        System.out.println("respXml:" + respXml);
         ResponseGer rGer = parseResponse(respXml);
         List<ResponseGer> ls = new ArrayList<ResponseGer>(1);
         ls.add(rGer);

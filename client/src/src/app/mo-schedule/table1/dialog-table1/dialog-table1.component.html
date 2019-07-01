@@ -1,0 +1,56 @@
+<mat-card>
+  <mat-card-content style="height: 100%">
+    <mat-divider></mat-divider>
+    <div style="margin-top: 50px; border: 1px blanchedalmond;">
+      <div class="divright">
+        <mat-list>
+          <mat-list-item *ngFor="let jobtime of data.dates"  style="font: 12pt italic ;">
+            <mat-label>{{jobtime.dw}}:  </mat-label>
+            <mat-label> {{jobtime.timeBegin != null ? jobtime.timeBegin + ' - ' : ' нет '}} </mat-label>
+            <mat-label> {{ jobtime.timeEnd }} </mat-label>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div class="divleft">
+        <mat-list>
+          <mat-list-item>
+            <mat-label>{{address}}:</mat-label>
+            <mat-label>{{data.address}}</mat-label>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item>
+            <mat-label>{{kod_mo}}:</mat-label>
+            <mat-label>{{data.lpuId}}</mat-label>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item>
+            <mat-label>{{kod_otd}}:</mat-label>
+            <mat-label>{{data.otdId}}</mat-label>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item>
+            <mat-label>{{type_mo}}:</mat-label>
+            <mat-label>{{data.typeMo}}</mat-label>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item>
+            <mat-label>{{phone}}:</mat-label>
+            <mat-label>{{data.phone}}</mat-label>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item>
+            <mat-label>{{prof}}:</mat-label>
+            <mat-label>{{data.prof}}</mat-label>
+          </mat-list-item>
+          <mat-divider [inset]="true"></mat-divider>
+          <mat-list-item *ngIf="data.prim">
+            <mat-label>{{prim}}:</mat-label>
+            <div>
+              <mat-label>{{data.prim}}</mat-label>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

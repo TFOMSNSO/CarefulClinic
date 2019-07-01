@@ -181,7 +181,6 @@ _error1: string = environment.error1;
 						this.show= false;
 						this.data_ger=result;
 						this.disableSelect = false;
-
 				});
 
 

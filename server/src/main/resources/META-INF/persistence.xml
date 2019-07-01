@@ -53,6 +53,17 @@
         </properties>
     </persistence-unit>
 
+    <persistence-unit name="WebOfoms"  transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:/ds/WebOfomsDream2</jta-data-source>
+        <class>com.careful.clinic.model.schedulemodels.DISP_TABLE1</class>
+        <properties>
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+        </properties>
+    </persistence-unit>
+
+
     <persistence-unit name="testunit" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/ds/oracleTest</jta-data-source>

@@ -45,6 +45,9 @@ import { SidenavUploaddataZnoComponent } from './list-zno/sidenav-uploaddata-zno
 import { SidenavExportExcelZnoComponent } from './list-zno/sidenav-export-excel-zno/sidenav-export-excel-zno.component';
 import { DialogZnoComponent } from './list-zno/diaglog-zno/dialog-zno.component';
 import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
+import { MoScheduleComponent } from './mo-schedule/mo-schedule.component';
+import {ScheduleHeaderComponent} from "./mo-schedule/schedule.header.component";
+import { DialogTable1Component } from './mo-schedule/table1/dialog-table1/dialog-table1.component';
 
 
 //библиотека для ограничения доступа по ролям
@@ -66,9 +69,6 @@ import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
     TableHeaderDemo,
     ListProphylacticComponent,
     DialogComponent
-	//DialogDemo
-    //,JazzDialog
-    //,IFrameDialog
     ,ListProphylacticHeaderComponent
     ,SadeaveSearchComponent
     ,SadeaveSearchKeysComponent
@@ -82,6 +82,9 @@ import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
     ,SidenavUploaddataZnoComponent
     ,SidenavExportExcelZnoComponent
     ,DialogZnoComponent
+    ,MoScheduleComponent
+    ,ScheduleHeaderComponent
+    ,DialogTable1Component
     ,TelephoneSurveysComponent
   ],
   imports: [
@@ -106,7 +109,7 @@ import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
         BaseRequestOptions,
         UserService
 		],
-  entryComponents: [DialogZnoComponent,DialogComponent],
+  entryComponents: [DialogZnoComponent,DialogComponent,DialogTable1Component],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
