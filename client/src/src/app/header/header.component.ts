@@ -47,7 +47,7 @@ export class HeaderComponent{
    zno_item: string = environment.title_zno;
   _uploadfile: string = environment.uploadfile;
   schedule:string = environment.menu_schedule_mo;
-
+  schedule4:string = environment.menu_schedule_mo4;
   action_add_person = environment.action_add_person;
   add_table = environment.add_table;
   bad_action_add_person = environment.bad_action_add_person;

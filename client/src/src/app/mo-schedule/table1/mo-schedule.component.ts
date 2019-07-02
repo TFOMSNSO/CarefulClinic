@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import {Schdeuleds} from "./schdeuleds";
-import {ModatabaseService} from "./modatabase.service";
+import {ModatabaseService} from "../modatabase.service";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {DialogTable1Component} from "./table1/dialog-table1/dialog-table1.component";
+import {DialogTable1Component} from "./dialog-table1/dialog-table1.component";
 
 export type MoColumn = "lpuId" | "otdId" | "address" | "phone" | "typeMo" | "prof" | "prim" | "about" | undefined;
 
@@ -49,12 +49,8 @@ export type MoColumn = "lpuId" | "otdId" | "address" | "phone" | "typeMo" | "pro
   ]
 })
 export class MoScheduleComponent implements OnInit {
-
-
-
   title_schedule:string = environment.menu_schedule_mo;
-
-
+  header_schedule:string = environment.schedule_mo_header;
 
   dataSource:Schdeuleds | null;
   displayedColumns : MoColumn[] = [];
@@ -84,6 +80,10 @@ export class MoScheduleComponent implements OnInit {
     //console.log('preview:' + JSON.stringify(row));
 
     this.dialogRef = this.dialog.open(DialogTable1Component,cc);
+  }
+
+  getNotify(note:string): void{
+    this.dataSource.filter = note;
   }
 
 }

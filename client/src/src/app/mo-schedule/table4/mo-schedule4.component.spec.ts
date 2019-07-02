@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MoScheduleComponent } from './mo-schedule.component';
+import { MoSchedule4Component } from './mo-schedule4.component';
 
-describe('MoScheduleComponent', () => {
-  let component: MoScheduleComponent;
-  let fixture: ComponentFixture<MoScheduleComponent>;
+describe('MoSchedule4Component', () => {
+  let component: MoSchedule4Component;
+  let fixture: ComponentFixture<MoSchedule4Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MoScheduleComponent ]
+      declarations: [ MoSchedule4Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MoScheduleComponent);
+    fixture = TestBed.createComponent(MoSchedule4Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

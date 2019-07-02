@@ -3,7 +3,7 @@
 
   <mat-sidenav-container >
     <mat-list>
-      <mat-card-title #titlezno>{{title_schedule}}</mat-card-title><!--Списки зно-->
+      <mat-card-title>{{header_schedule}}</mat-card-title>
       <mat-card-header>
         <schedule-header (filterOut)="getNotify($event)"></schedule-header>
 

@@ -1,5 +1,5 @@
 import { Component,ViewChild,Output,ElementRef,EventEmitter} from '@angular/core';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 
 @Component({

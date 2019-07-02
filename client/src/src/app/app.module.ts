@@ -45,9 +45,11 @@ import { SidenavUploaddataZnoComponent } from './list-zno/sidenav-uploaddata-zno
 import { SidenavExportExcelZnoComponent } from './list-zno/sidenav-export-excel-zno/sidenav-export-excel-zno.component';
 import { DialogZnoComponent } from './list-zno/diaglog-zno/dialog-zno.component';
 import {PeopleZnoDatabaseService} from "./list-zno/people-zno-database.service";
-import { MoScheduleComponent } from './mo-schedule/mo-schedule.component';
-import {ScheduleHeaderComponent} from "./mo-schedule/schedule.header.component";
+import { MoScheduleComponent } from './mo-schedule/table1/mo-schedule.component';
+import {ScheduleHeaderComponent} from "./mo-schedule/table1/schedule.header.component";
 import { DialogTable1Component } from './mo-schedule/table1/dialog-table1/dialog-table1.component';
+import {MoSchedule4Component} from "./mo-schedule/table4/mo-schedule4.component";
+import {Schedule4HeaderComponent} from "./mo-schedule/table4/schedule4.header.component";
 
 
 //библиотека для ограничения доступа по ролям
@@ -86,6 +88,8 @@ import { DialogTable1Component } from './mo-schedule/table1/dialog-table1/dialog
     ,ScheduleHeaderComponent
     ,DialogTable1Component
     ,TelephoneSurveysComponent
+    ,MoSchedule4Component
+    ,Schedule4HeaderComponent
   ],
   imports: [
     HttpClientModule,

@@ -3,7 +3,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
-import {ModatabaseService, moInfo} from "./modatabase.service";
+import {ModatabaseService, moInfo} from "../modatabase.service";
 
 
 
@@ -30,7 +30,9 @@ export class Schdeuleds extends DataSource<any>{
     return Observable.merge(...displayDataChanges).map(() => {
       let data = this.modatabase.data.slice().filter((item: moInfo) =>{
         let srhStr = item.lpuId;
-        return srhStr.indexOf(this.filter) != -1;
+        if(this.filter == '') return true;
+        //return srhStr == this.filter.trim();
+        return srhStr.indexOf(this.filter.trim()) != -1;
       });
 
       return data

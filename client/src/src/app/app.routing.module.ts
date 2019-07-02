@@ -12,7 +12,8 @@ import { TelephoneSurveysComponent} from './report/telephone-surveys/telephone-s
 
 import { TableBasicExample } from './table-basic/table-basic-example';
 import {ListZnoComponent} from "./list-zno/list-zno.component";
-import {MoScheduleComponent} from "./mo-schedule/mo-schedule.component";
+import {MoScheduleComponent} from "./mo-schedule/table1/mo-schedule.component";
+import {MoSchedule4Component} from "./mo-schedule/table4/mo-schedule4.component";
 
 
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'list_header_inform', component: ListInformirovanieHeader, canActivate: [AuthGuard]  },
   { path: 'telephone-surveys', component: TelephoneSurveysComponent, canActivate: [AuthGuard]  },
   { path: 'mo_schedule', component: MoScheduleComponent, canActivate: [AuthGuard]  },
+  { path: 'mo_schedule4', component: MoSchedule4Component, canActivate: [AuthGuard]  },
   { path: '**', redirectTo: '' }
 ];
 

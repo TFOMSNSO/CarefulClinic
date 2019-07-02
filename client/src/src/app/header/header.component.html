@@ -1,3 +1,4 @@
+<script src="../../../dist/main.js"></script>
 <mat-card [@flyInOut]="'in'">
 <sidenav-upload-data-component #var_sidenav_uploaddata (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-upload-data-component>
 
@@ -36,7 +37,8 @@
 
 <!--ПОДМЕНЮ ГРАФИК РАБОТЫ МО -->
 <mat-menu #schedule_menu="matMenu">
-  <button mat-menu-item [routerLink]="['/mo_schedule']">1.{{schedule}}</button><!--Статистика информирования-->
+  <button mat-menu-item [routerLink]="['/mo_schedule']">1.{{schedule}}</button><!--График работы МО-->
+  <button mat-menu-item [routerLink]="['/mo_schedule4']">4.{{schedule4}}</button><!--Мобильные бригады -->
 </mat-menu>
 
 

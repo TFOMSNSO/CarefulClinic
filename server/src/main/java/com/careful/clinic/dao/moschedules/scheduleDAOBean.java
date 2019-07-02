@@ -1,6 +1,7 @@
 package com.careful.clinic.dao.moschedules;
 
 import com.careful.clinic.model.schedulemodels.DISP_TABLE1;
+import com.careful.clinic.model.schedulemodels.DISP_TABLE4;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,5 +24,18 @@ public class scheduleDAOBean implements scheduleDAO {
             System.out.println(list.get(0));
         }
         return list;
+    }
+
+    @Override
+    public List<DISP_TABLE4> getAllTable4() {
+        TypedQuery<DISP_TABLE4> tq = webofoms.createNamedQuery("findAllt4",DISP_TABLE4.class);
+
+        List<DISP_TABLE4> list = tq.getResultList();
+
+        if(!list.isEmpty()){
+            System.out.println(list.get(0));
+        }
+        return list;
+
     }
 }
