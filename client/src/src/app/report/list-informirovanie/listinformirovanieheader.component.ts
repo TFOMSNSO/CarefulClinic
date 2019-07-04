@@ -6,7 +6,7 @@ import {ListInformirovanieHeaderService} from './listinformirovanieheader.servic
 import { ListExcelFiles } from '../../model/list.files.excel';
 import * as FileSaver from 'file-saver';
 
-
+//зачем тут столько методов хз. не я писал.
 @Component({
     selector:'app-informirovanie',
     templateUrl: './listinformirovanieheader.component.html',
@@ -39,11 +39,13 @@ export class ListInformirovanieHeader{
 	 public listExcelFiles: ListExcelFiles[] = [];
 	 public listonKvartal: ListExcelFiles[] = [];
 	 public listonKvartalActual: ListExcelFiles[] = [];
+	 public listInformBrig: ListExcelFiles[] = [];
 	 public progress_bar: boolean = false;
 	 public panelOpenState1 : boolean = false;
 	 public panelOpenState2 : boolean = false;
 	 public panelOpenState3 : boolean = false;
 	 public panelOpenState4 : boolean = false;
+	 public panelOpenstate5: boolean = false;
 
 	  kvs = [
 				{value: '1', viewValue: '1-\u0439 \u043A\u0432\u0430\u0440\u0442\u0430\u043B'},//й квартал
@@ -70,6 +72,7 @@ export class ListInformirovanieHeader{
    _report_inform_about_second_level: string = environment.report_inform_about_second_level;          //Информирование о 2-м этапе
    _profmedosmtr: string = environment.profmedosmtr;                                                  //Профилактические мед.осмотры
    _report_inform_plane_actual = environment.report_inform_plane_actual;                              //Актуальный план информирования за определенный квартал
+   _inform_mobile_brig: string = environment.inform_mobile_brig;                                      //Информироване о мобильных бригадах
 
 
 
@@ -103,6 +106,17 @@ export class ListInformirovanieHeader{
 		this.getListNameFilesInformirovanieActual(this.currentUser['role'][0].id);
 	}
 
+
+	init_brig():void{
+     this.getListInfromBrig(this.currentUser['role'][0].id);
+  }
+
+	getListInfromBrig(data : number): void{
+       this.listInformirovanieHeaderService.listFilesInformBrig(data)
+         .then(res => this.listInformBrig = res);
+  }
+
+
 	/* поквартальное информирование */
 	getListNameFilesInformirovanie(data : number): void{
     	 this.listInformirovanieHeaderService.listFilesKvartals(data)
@@ -128,7 +142,7 @@ export class ListInformirovanieHeader{
 
 
 	setTrue(vl : number, vl2 : boolean){
-		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : vl == 4 ? this.panelOpenState4= vl2 :''
+		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : vl == 3 ? this.panelOpenState3= vl2 : vl == 4 ? this.panelOpenState4= vl2 : vl == 5 ? this.panelOpenstate5= vl2 : ''
 	}
 
     downloadFile():void{
@@ -148,20 +162,19 @@ export class ListInformirovanieHeader{
    /**/
 
     downloadFile_2(data: string,data2: string):void{
-	this.progress_bar = true;
+      this.progress_bar = true;
 
-	this.listInformirovanieHeaderService.downloadFile_2(data,this.currentUser['role'][0].id,data2)
-	.then(result =>{
-			let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-			FileSaver.saveAs(blob, data);
-			this.progress_bar = false;
-	})
-	.catch(e =>{
-		this.progress_bar = false;
-		console.log('e '+e);
-	});
-
-	}
+      this.listInformirovanieHeaderService.downloadFile_2(data,this.currentUser['role'][0].id,data2)
+      .then(result =>{
+          let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+          FileSaver.saveAs(blob, data);
+          this.progress_bar = false;
+      })
+      .catch(e =>{
+        this.progress_bar = false;
+        console.log('e '+e);
+      });
+	  }
 
 	 downloadFile_informKvartals(data: string):void{
 		this.progress_bar = true;
@@ -208,6 +221,20 @@ export class ListInformirovanieHeader{
 		});
 	}
 
+	downloadFile_InformBrig(data: string){
+    this.progress_bar = true;
+
+    this.listInformirovanieHeaderService.downloadFile_informBrig(data,this.currentUser['role'][0].id,'inform_brig')
+      .then(result =>{
+        let blob = new Blob([result.blob()], {type: 'application/x-rar-compressed'});
+        FileSaver.saveAs(blob, data);
+        this.progress_bar = false;
+      })
+      .catch(e =>{
+        this.progress_bar = false;
+        console.log('e '+e);
+      });
+  }
 
 
 

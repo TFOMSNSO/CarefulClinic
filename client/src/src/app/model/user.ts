@@ -8,5 +8,4 @@ export interface User {
 export interface Roles {
 	id:	number,
 	role: string;
-	
 }

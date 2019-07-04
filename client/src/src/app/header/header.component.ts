@@ -46,8 +46,12 @@ export class HeaderComponent{
    _sp3_menu_d_reestr: string = environment.sp3_menu_d_reestr;
    zno_item: string = environment.title_zno;
   _uploadfile: string = environment.uploadfile;
-  schedule:string = environment.menu_schedule_mo;
+  schedule:string = environment.menu_schedule_mo;//граифк работы мо
+  schedule2:string = environment.menu_schedule_mo2;
+  schedule3:string = environment.menu_schedule_mo3;
   schedule4:string = environment.menu_schedule_mo4;
+  schedule5:string = environment.menu_schedule_mo5;
+  schedule6:string = environment.menu_schedule_mo6;
   action_add_person = environment.action_add_person;
   add_table = environment.add_table;
   bad_action_add_person = environment.bad_action_add_person;

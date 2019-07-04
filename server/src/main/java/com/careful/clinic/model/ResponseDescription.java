@@ -1,6 +1,8 @@
 package com.careful.clinic.model;
 
-public class ResponseDescription {
+import java.io.Serializable;
+
+public class ResponseDescription implements Serializable {
     private String desccription;
 
     public ResponseDescription(){

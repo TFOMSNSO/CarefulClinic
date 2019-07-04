@@ -6,7 +6,9 @@
       <mat-card-title>{{header_schedule}}</mat-card-title>
       <mat-card-header>
         <schedule-header (filterOut)="getNotify($event)"></schedule-header>
-
+        <div style="position: absolute; right: 20px;">
+          <button mat-raised-button matTooltip="Скачать данные из таблицы в формате эксель(.xlxs)" (click)="get()">Экспорт в эксель</button>
+        </div>
       </mat-card-header>
     </mat-list>
   </mat-sidenav-container>
@@ -16,19 +18,19 @@
     <mat-table [dataSource]="dataSource" class="full-width" style="text-align: center;">
 
       <ng-container matColumnDef="lpuId">
-        <mat-header-cell *matHeaderCellDef> Код Мо </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> {{lpuid}} </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.lpuId}} </mat-cell>
       </ng-container>
 
 
       <ng-container  cdkColumnDef="otdId">
-        <mat-header-cell *cdkHeaderCellDef> Код отделения </mat-header-cell>
+        <mat-header-cell *cdkHeaderCellDef> {{kodOtd}} </mat-header-cell>
         <mat-cell *cdkCellDef="let row"> {{row.otdId}} </mat-cell>
       </ng-container>
 
 
       <ng-container cdkColumnDef="address">
-        <mat-header-cell *cdkHeaderCellDef> Адрес </mat-header-cell>
+        <mat-header-cell *cdkHeaderCellDef> {{address}} </mat-header-cell>
         <mat-cell *cdkCellDef="let row">
           <div class="demo-progress-stat">{{row.address}}</div>
         </mat-cell>
@@ -36,28 +38,28 @@
 
 
       <ng-container cdkColumnDef="phone">
-        <mat-header-cell *cdkHeaderCellDef> Телефон </mat-header-cell>
+        <mat-header-cell *cdkHeaderCellDef> {{phone}} </mat-header-cell>
         <mat-cell *cdkCellDef="let row"> {{row.phone}} </mat-cell>
       </ng-container>
 
 
       <ng-container cdkColumnDef="typeMo">
-        <mat-header-cell *cdkHeaderCellDef> Тип МО </mat-header-cell>
+        <mat-header-cell *cdkHeaderCellDef> {{typeMo}} </mat-header-cell>
         <mat-cell *cdkCellDef="let row"> {{row.typeMo}}</mat-cell>
       </ng-container>
 
       <ng-container cdkColumnDef="prof">
-        <mat-header-cell *cdkHeaderCellDef> № кабинета профилактики </mat-header-cell>
+        <mat-header-cell *cdkHeaderCellDef> {{otkProf}} </mat-header-cell>
         <mat-cell *cdkCellDef="let row" > {{row.prof}}</mat-cell>
       </ng-container>
 
       <ng-container cdkColumnDef="prim">
-        <mat-header-cell *cdkHeaderCellDef> Примечание </mat-header-cell>
+        <mat-header-cell *cdkHeaderCellDef> {{prim}} </mat-header-cell>
         <mat-cell *cdkCellDef="let row" > {{row.prim}}</mat-cell>
       </ng-container>
 
       <ng-container cdkColumnDef="about">
-        <mat-header-cell *cdkHeaderCellDef>Подробнее</mat-header-cell>
+        <mat-header-cell *cdkHeaderCellDef>{{about}}</mat-header-cell>
         <mat-cell *cdkCellDef="let row" [style.color]="darkgray" (click)="preview(row)"><mat-icon>edit</mat-icon></mat-cell>
       </ng-container>
 

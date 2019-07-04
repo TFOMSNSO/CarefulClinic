@@ -9,14 +9,14 @@ import { ListExcelFiles } from '../../model/list.files.excel';
 export class ListInformirovanieHeaderService{
 
   serverUrl : string = environment.BACKEND_URL + "/rest/inform";
-  
+
 
   constructor(private http: Http) { console.log('ContactService instance created.'); }
-  
+
   /*
-	  Для загрузки файла. Метод участвует в цепочке вызовов методов в случае отсутствия передачи по параметру названия файла.
-	  Название файла определяется на сервере по четко указанному пути (путь прописан на сервере) и файл лежит в единственном
-	  экземпляре.
+	  Р”Р»СЏ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р°. РњРµС‚РѕРґ СѓС‡Р°СЃС‚РІСѓРµС‚ РІ С†РµРїРѕС‡РєРµ РІС‹Р·РѕРІРѕРІ РјРµС‚РѕРґРѕРІ РІ СЃР»СѓС‡Р°Рµ РѕС‚СЃСѓС‚СЃС‚РІРёСЏ РїРµСЂРµРґР°С‡Рё РїРѕ РїР°СЂР°РјРµС‚СЂСѓ РЅР°Р·РІР°РЅРёСЏ С„Р°Р№Р»Р°.
+	  РќР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р° РѕРїСЂРµРґРµР»СЏРµС‚СЃСЏ РЅР° СЃРµСЂРІРµСЂРµ РїРѕ С‡РµС‚РєРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РїСѓС‚Рё (РїСѓС‚СЊ РїСЂРѕРїРёСЃР°РЅ РЅР° СЃРµСЂРІРµСЂРµ) Рё С„Р°Р№Р» Р»РµР¶РёС‚ РІ РµРґРёРЅСЃС‚РІРµРЅРЅРѕРј
+	  СЌРєР·РµРјРїР»СЏСЂРµ.
   */
     downloadFile(data2: number,place: string): Promise<any>{
 		const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
@@ -31,35 +31,35 @@ export class ListInformirovanieHeaderService{
 					  .toPromise()
 		.then(response =>response);
 	}
-	
-  /* Загрузка сформированных файлов. Информирование о втором этапе*/
-  
+
+  /* Р—Р°РіСЂСѓР·РєР° СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… С„Р°Р№Р»РѕРІ. РРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёРµ Рѕ РІС‚РѕСЂРѕРј СЌС‚Р°РїРµ*/
+
   listFiles(data : number): Promise<ListExcelFiles[]> {
   let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.get(`${this.serverUrl}/listFilesSecondStageInform/${data}`,{headers: headers})
                .toPromise()
                .then(response => response.json() as ListExcelFiles[]);
   }
-  
+
   listFiles_1(data : number): Promise<ListExcelFiles[]> {
   let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.get(`${this.serverUrl}/listFilesProfMedOsmotri/${data}`,{headers: headers})
                .toPromise()
                .then(response => response.json() as ListExcelFiles[]);
   }
-  
-  
-  /* Загрузка сформированных файлов. Информирование поквартальное */
-  
+
+
+  /* Р—Р°РіСЂСѓР·РєР° СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… С„Р°Р№Р»РѕРІ. РРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёРµ РїРѕРєРІР°СЂС‚Р°Р»СЊРЅРѕРµ */
+
   listFilesKvartals(data : number): Promise<ListExcelFiles[]> {
   let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.get(`${this.serverUrl}/listFilesInformKvartals/${data}`,{headers: headers})
                .toPromise()
                .then(response => response.json() as ListExcelFiles[]);
   }
-  
-  /* Загрузка сформированных файлов. Актуальный план информирования за оперделенный квартал */
-  
+
+  /* Р—Р°РіСЂСѓР·РєР° СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… С„Р°Р№Р»РѕРІ. РђРєС‚СѓР°Р»СЊРЅС‹Р№ РїР»Р°РЅ РёРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ Р·Р° РѕРїРµСЂРґРµР»РµРЅРЅС‹Р№ РєРІР°СЂС‚Р°Р» */
+
   downKvartalsActual(data: string,data2: number,place: string):Promise<any>{
 	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
 		const options = new RequestOptions({headers: headers});
@@ -68,31 +68,41 @@ export class ListInformirovanieHeaderService{
 		  .toPromise()
 			.then(response =>response);
 	}
-  
-  
-  /* Загрузка сформированных файлов. Повтороное информирование */
-  
+
+
+  /* Р—Р°РіСЂСѓР·РєР° СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… С„Р°Р№Р»РѕРІ. РРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёРµ РјРѕР±РёР»СЊРЅС‹С… Р±СЂРёРіР°Рґ */
+
+  listFilesInformBrig(data : number): Promise<ListExcelFiles[]> {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.get(`${this.serverUrl}/listInformBrig/${data}`,{headers: headers})
+      .toPromise()
+      .then(response => response.json() as ListExcelFiles[]);
+  }
+
+
+  /* Р—Р°РіСЂСѓР·РєР° СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… С„Р°Р№Р»РѕРІ. РџРѕРІС‚РѕСЂРѕРЅРѕРµ РёРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёРµ */
+
   listFilesReinform(data : number): Promise<ListExcelFiles[]> {
   let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.get(`${this.serverUrl}/listFilesreinform/${data}`,{headers: headers})
                .toPromise()
                .then(response => response.json() as ListExcelFiles[]);
   }
-  
-  /* Загрузка сформированных файлов. Повтороное информирование */
-  
+
+  /* Р—Р°РіСЂСѓР·РєР° СЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅС‹С… С„Р°Р№Р»РѕРІ. РџРѕРІС‚РѕСЂРѕРЅРѕРµ РёРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёРµ */
+
   listFilesKvartalsActual(data : number): Promise<ListExcelFiles[]> {
   let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.get(`${this.serverUrl}/listFilesInformKvartalsActual/${data}`,{headers: headers})
                .toPromise()
                .then(response => response.json() as ListExcelFiles[]);
   }
-  
-  
+
+
 
 	/*
-		Метод предназначен для загрузки файла по полному пути.
-	*/  
+		РњРµС‚РѕРґ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р° РїРѕ РїРѕР»РЅРѕРјСѓ РїСѓС‚Рё.
+	*/
 	downloadFile_2(data: string,data2: number,place: string):Promise<any>{
 	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
 		const options = new RequestOptions({headers: headers});
@@ -101,11 +111,11 @@ export class ListInformirovanieHeaderService{
 		  .toPromise()
 			.then(response =>response);
 	}
-	
+
 	/*
-		Метод предназначен для загрузки файла по полному пути.
-		Квартальное информирование
-	*/  
+		РњРµС‚РѕРґ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р° РїРѕ РїРѕР»РЅРѕРјСѓ РїСѓС‚Рё.
+		РљРІР°СЂС‚Р°Р»СЊРЅРѕРµ РёРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёРµ
+	*/
 	downloadFile_kvartals(data: string,data2: number,place: string):Promise<any>{
 	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
 		const options = new RequestOptions({headers: headers});
@@ -114,12 +124,12 @@ export class ListInformirovanieHeaderService{
 		  .toPromise()
 			.then(response =>response);
 	}
-	
-	
+
+
 	/*
-		Метод предназначен для загрузки файла по полному пути.
-		Повтороное информирование
-	*/  
+		РњРµС‚РѕРґ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р° РїРѕ РїРѕР»РЅРѕРјСѓ РїСѓС‚Рё.
+		РџРѕРІС‚РѕСЂРѕРЅРѕРµ РёРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёРµ
+	*/
 	downloadFile_reinform(data: string,data2: number,place: string):Promise<any>{
 	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
 		const options = new RequestOptions({headers: headers});
@@ -128,8 +138,20 @@ export class ListInformirovanieHeaderService{
 		  .toPromise()
 			.then(response =>response);
 	}
-	
-  
-  
-  
+
+	/*
+    РњРµС‚РѕРґ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р° РїРѕ РїРѕР»РЅРѕРјСѓ РїСѓС‚Рё.
+    РРЅС„РѕСЂРјРёСЂРѕРІР°РЅРёРµ Рѕ РјРѕР±РёР»СЊРЅС‹С… Р±СЂРёРіР°РґР°С…
+*/
+  downloadFile_informBrig(data: string,data2: number,place: string):Promise<any>{
+    const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
+    const options = new RequestOptions({headers: headers});
+    options.responseType = ResponseContentType.Blob;
+    return this.http.get(`${this.serverUrl}/listFilesInformBrig/${place}/${data2}/${data}`, options)
+      .toPromise()
+      .then(response =>response);
+  }
+
+
+
 }

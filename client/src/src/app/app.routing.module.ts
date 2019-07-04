@@ -14,6 +14,10 @@ import { TableBasicExample } from './table-basic/table-basic-example';
 import {ListZnoComponent} from "./list-zno/list-zno.component";
 import {MoScheduleComponent} from "./mo-schedule/table1/mo-schedule.component";
 import {MoSchedule4Component} from "./mo-schedule/table4/mo-schedule4.component";
+import {MoSchedule2Component} from "./mo-schedule/table2/mo-schedule2.component";
+import {MoSchedule5Component} from "./mo-schedule/table5/mo-schedule5/mo-schedule5.component";
+import {MoSchedule6Component} from "./mo-schedule/table6/mo-schedule6/mo-schedule6.component";
+import {MoSchedule3Component} from "./mo-schedule/table3/mo-schedule3/mo-schedule3.component";
 
 
 
@@ -30,7 +34,11 @@ const routes: Routes = [
   { path: 'list_header_inform', component: ListInformirovanieHeader, canActivate: [AuthGuard]  },
   { path: 'telephone-surveys', component: TelephoneSurveysComponent, canActivate: [AuthGuard]  },
   { path: 'mo_schedule', component: MoScheduleComponent, canActivate: [AuthGuard]  },
+  { path: 'mo_schedule2', component: MoSchedule2Component, canActivate: [AuthGuard]  },
+  { path: 'mo_schedule3', component: MoSchedule3Component, canActivate: [AuthGuard]  },
   { path: 'mo_schedule4', component: MoSchedule4Component, canActivate: [AuthGuard]  },
+  { path: 'mo_schedule5', component: MoSchedule5Component, canActivate: [AuthGuard]  },
+  { path: 'mo_schedule6', component: MoSchedule6Component, canActivate: [AuthGuard]  },
   { path: '**', redirectTo: '' }
 ];
 

@@ -5,8 +5,10 @@
     <mat-list>
       <mat-card-title #titlezno>{{header_schedule}}</mat-card-title><!--Списки зно-->
       <mat-card-header>
-        <schedule-header4 (filterOut4)="getNotify($event)"></schedule-header4>
-
+        <schedule-header (filterOut)="getNotify($event)"></schedule-header>
+        <div style="position: absolute; right: 20px;">
+          <button mat-raised-button matTooltip="Скачать данные из таблицы в формате эксель(.xlxs)" (click)="get()">Экспорт в эксель</button>
+        </div>
       </mat-card-header>
     </mat-list>
   </mat-sidenav-container>
@@ -16,7 +18,7 @@
     <mat-table [dataSource]="dataSource" class="full-width" style="text-align: center;">
 
       <ng-container matColumnDef="lpuId">
-        <mat-header-cell *matHeaderCellDef> Код Мо </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> {{lpuId}} </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.lpuId}} </mat-cell>
       </ng-container>
 

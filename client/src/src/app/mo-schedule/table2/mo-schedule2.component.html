@@ -1,0 +1,55 @@
+<mat-card [@flyInOut]="'in'">
+  <!--<sidenav-upload-data-component #var_sidenav_uploaddata (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-upload-data-component>-->
+
+  <mat-sidenav-container >
+    <mat-list>
+      <mat-card-title #titlezno>{{header_schedule2}}</mat-card-title><!--Списки зно-->
+      <mat-card-header>
+        <schedule-header (filterOut)="getNotify($event)"></schedule-header>
+        <div style="position: absolute; right: 20px;">
+          <button mat-raised-button matTooltip="Скачать данные из таблицы в формате эксель(.xlxs)" (click)="get()">Экспорт в эксель</button>
+        </div>
+      </mat-card-header>
+    </mat-list>
+  </mat-sidenav-container>
+
+  <mat-card-content @questionsAnim>
+    <mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" class="full-width" style="text-align: center;">
+
+      <ng-container matColumnDef="lpuId">
+        <mat-header-cell *matHeaderCellDef> {{lpuid}} </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.lpuId}} </mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="fio">
+        <mat-header-cell *cdkHeaderCellDef> {{fio}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row">
+          <div class="demo-progress-stat">{{row.fio}}</div>
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container cdkColumnDef="dol">
+        <mat-header-cell *cdkHeaderCellDef> {{dol}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.dol}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container cdkColumnDef="phone">
+        <mat-header-cell *cdkHeaderCellDef> {{phone}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row" > {{row.phone}}</mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="prim">
+        <mat-header-cell *cdkHeaderCellDef> {{prim}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row" > {{row.prim}}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row  *cdkRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card-content>
+
+
+</mat-card>

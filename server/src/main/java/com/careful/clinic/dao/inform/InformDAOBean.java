@@ -12,7 +12,6 @@ import com.careful.clinic.model.ListExcelFiles;
 public class InformDAOBean implements InformDAO {
 
 	private String addDate(String directoryDestination, String ob) {
-
 		File file = new File(directoryDestination + File.separator + ob);
 		final long lastModified = file.lastModified();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-");
@@ -108,7 +107,6 @@ public class InformDAOBean implements InformDAO {
 		}
 		
 		return ls;
-		
 	}
 
 	
@@ -170,4 +168,31 @@ public class InformDAOBean implements InformDAO {
 		return ls;
 	}
 
+	@Override
+	public Collection<?> getListInformBrig(Integer id) {
+		int current_year = Calendar.getInstance().get(Calendar.YEAR);
+
+		String directoryServer = System.getProperty("jboss.home.dir");
+		String directoryDestination = "";
+		if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_brig\\777";
+		if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_brig\\1";
+		if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_brig\\2";
+		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year +"\\inform_brig\\4";
+
+		directoryDestination = directoryServer+directoryDestination;
+
+		File path = new File(directoryDestination);
+		String ob[] = path.list();
+		List<String> lsn = new ArrayList<>();
+		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
+		for (int i = 0; i < ob.length; i++) {
+			String x =addDate(directoryDestination, ob[i]);
+			lsn.add(x + ob[i]);
+		}
+		for (int j = 0; j < lsn.size(); j++) {
+			ls.add(new ListExcelFiles(lsn.get(j), directoryDestination + File.separator + lsn.get(j)));
+		}
+
+		return ls;
+	}
 }

@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
-import {Schdeuleds4} from "./schdeuleds4";
+import {Scheduleds4} from "./scheduleds4";
 import {ModatabaseService} from "../modatabase.service";
 
 
-
 export type MoColumn4 = "lpuId" | "address" | "dateBegin" | "dateEnd" | "timeBegin" | "timeEnd" | "typeMo" | "prim" | undefined;
-
 
 
 @Component({
@@ -49,7 +47,6 @@ export type MoColumn4 = "lpuId" | "address" | "dateBegin" | "dateEnd" | "timeBeg
   ]
 })
 export class MoSchedule4Component implements OnInit {
-
   header_schedule:string = environment.schedule_mo_header4;
   destination_address:string = environment.dest_address;
   dateBegin: string = environment.date_begin;
@@ -60,9 +57,8 @@ export class MoSchedule4Component implements OnInit {
   prim: string = environment.prim;
   typeMo: string = environment.type_mo;
 
-
-  dataSource:Schdeuleds4 | null;
-  displayedColumns : MoColumn4[] = [];
+  dataSource:Scheduleds4 | null;//--------------------------------
+  displayedColumns : MoColumn4[] = [];//--------------------------------
 
   constructor(public moservice: ModatabaseService) { }
 
@@ -72,12 +68,17 @@ export class MoSchedule4Component implements OnInit {
 
   connect(){
     this.displayedColumns = ["lpuId", "address", "dateBegin", "dateEnd","timeBegin", "timeEnd","typeMo", "prim"];
-    this.dataSource = new Schdeuleds4(this.moservice);
-    this.moservice.getAllt4();
+    this.dataSource = new Scheduleds4(this.moservice);//------------------------------------
+    this.moservice.getAllt4();//-----------------------------------
   }
 
   getNotify(note:string): void{
     this.dataSource.filter = note;
+  }
+
+  get(){
+    //console.log( JSON.stringify(this.dataSource.modatabase.data4) );
+    this.moservice.exportExcel4(this.dataSource.getDataFilter());//-------------------------------------------
   }
 
 }

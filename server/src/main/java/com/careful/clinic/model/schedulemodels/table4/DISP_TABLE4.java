@@ -1,4 +1,4 @@
-package com.careful.clinic.model.schedulemodels;
+package com.careful.clinic.model.schedulemodels.table4;
 
 import javax.persistence.*;
 

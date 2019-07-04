@@ -49,7 +49,11 @@ import { MoScheduleComponent } from './mo-schedule/table1/mo-schedule.component'
 import {ScheduleHeaderComponent} from "./mo-schedule/table1/schedule.header.component";
 import { DialogTable1Component } from './mo-schedule/table1/dialog-table1/dialog-table1.component';
 import {MoSchedule4Component} from "./mo-schedule/table4/mo-schedule4.component";
-import {Schedule4HeaderComponent} from "./mo-schedule/table4/schedule4.header.component";
+import { MoSchedule2Component } from './mo-schedule/table2/mo-schedule2.component';
+import { MoSchedule5Component } from './mo-schedule/table5/mo-schedule5/mo-schedule5.component';
+import { MoSchedule3Component } from './mo-schedule/table3/mo-schedule3/mo-schedule3.component';
+import { MoSchedule6Component } from './mo-schedule/table6/mo-schedule6/mo-schedule6.component';
+import { Dialogtable3Component } from './mo-schedule/table3/dialogtable3/dialogtable3.component';
 
 
 //библиотека для ограничения доступа по ролям
@@ -84,12 +88,16 @@ import {Schedule4HeaderComponent} from "./mo-schedule/table4/schedule4.header.co
     ,SidenavUploaddataZnoComponent
     ,SidenavExportExcelZnoComponent
     ,DialogZnoComponent
-    ,MoScheduleComponent
     ,ScheduleHeaderComponent
     ,DialogTable1Component
+    ,Dialogtable3Component
     ,TelephoneSurveysComponent
+    ,MoScheduleComponent
     ,MoSchedule4Component
-    ,Schedule4HeaderComponent
+    ,MoSchedule5Component
+    ,MoSchedule3Component
+    ,MoSchedule6Component
+    ,MoSchedule2Component
   ],
   imports: [
     HttpClientModule,
@@ -113,7 +121,7 @@ import {Schedule4HeaderComponent} from "./mo-schedule/table4/schedule4.header.co
         BaseRequestOptions,
         UserService
 		],
-  entryComponents: [DialogZnoComponent,DialogComponent,DialogTable1Component],
+  entryComponents: [DialogZnoComponent,DialogComponent,DialogTable1Component,Dialogtable3Component],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

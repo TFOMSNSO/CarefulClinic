@@ -9,7 +9,7 @@ import javax.ejb.Local;
 public interface InformDAO {
 	
 //TODO: Refactor a methods with share logic
-
+//пы сы зачем тут столько методов я не знаю. не я писал.
     public Collection<?>  getListInformSecondStage(Integer id);
 
 	/**
@@ -32,5 +32,8 @@ public interface InformDAO {
 	 * @param id
 	 * @return Список имен файлов которые являются актульным планом информирования за определеееый квартал
 	 */
-	Collection<?> getListInformKvartalActual(Integer id); 
+	Collection<?> getListInformKvartalActual(Integer id);
+
+
+	Collection<?> getListInformBrig(Integer id);
 }

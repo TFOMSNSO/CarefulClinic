@@ -136,7 +136,7 @@ _error1: string = environment.error1;
  public data_ger = [];
  public data_plan_informir;
  public data_informir = [];
- public selected=2017;
+ public selected='2019';
  public currentIndexPage = 0;
  public disableSelect: boolean = false;
 

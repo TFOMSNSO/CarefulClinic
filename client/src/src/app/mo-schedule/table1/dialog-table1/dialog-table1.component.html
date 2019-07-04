@@ -1,55 +1,81 @@
-<mat-card>
-  <mat-card-content style="height: 100%">
+<div mat-dialog-content>
+  <div style="height: 100%">
     <div style="margin-top: 50px; border: 1px blanchedalmond;">
       <div class="divright">
         <mat-list>
           <mat-list-item *ngFor="let jobtime of data.dates"  style="font: 12pt italic ;">
-            <mat-label>{{jobtime.dw}}:  </mat-label>
+            <mat-form-field>
+              <input matInput  placeholder="{{jobtime.dw}}" value="{{jobtime.timeBegin}} - {{jobtime.timeEnd}}">
+            </mat-form-field>
+            <!--<mat-label>{{jobtime.dw}}:  </mat-label>
             <mat-label> {{jobtime.timeBegin != null ? jobtime.timeBegin + ' - ' : ' нет '}} </mat-label>
-            <mat-label> {{ jobtime.timeEnd }} </mat-label>
+            <mat-label> {{ jobtime.timeEnd }} </mat-label>-->
           </mat-list-item>
         </mat-list>
       </div>
       <div class="divleft">
         <mat-list>
           <mat-list-item>
-            <mat-label>{{address}}:</mat-label>
-            <mat-label>{{data.address}}</mat-label>
+            <mat-form-field >
+              <input matInput  placeholder="{{address}}" value="{{data.address}}">
+            </mat-form-field>
+            <!--<mat-label>{{address}}:</mat-label>
+            <mat-label>{{data.address}}</mat-label>-->
           </mat-list-item>
-          <mat-divider [inset]="true"></mat-divider>
+
           <mat-list-item>
-            <mat-label>{{kod_mo}}:</mat-label>
-            <mat-label>{{data.lpuId}}</mat-label>
+            <mat-form-field >
+              <input matInput  placeholder="{{kod_mo}}" value="{{data.lpuId}}">
+            </mat-form-field>
+            <!--<mat-label>{{kod_mo}}:</mat-label>
+            <mat-label>{{data.lpuId}}</mat-label>-->
           </mat-list-item>
-          <mat-divider [inset]="true"></mat-divider>
+
           <mat-list-item>
-            <mat-label>{{kod_otd}}:</mat-label>
-            <mat-label>{{data.otdId}}</mat-label>
+            <mat-form-field >
+              <input matInput  placeholder="{{kod_otd}}" value="{{data.otdId}}">
+            </mat-form-field>
+            <!--<mat-label>{{kod_otd}}:</mat-label>
+            <mat-label>{{data.otdId}}</mat-label>-->
           </mat-list-item>
-          <mat-divider [inset]="true"></mat-divider>
+
           <mat-list-item>
-            <mat-label>{{type_mo}}:</mat-label>
-            <mat-label>{{data.typeMo}}</mat-label>
+            <mat-form-field >
+              <input matInput  placeholder="{{type_mo}}" value="{{data.typeMo}}">
+            </mat-form-field>
+            <!--<mat-label>{{type_mo}}:</mat-label>
+            <mat-label>{{data.typeMo}}</mat-label>-->
           </mat-list-item>
-          <mat-divider [inset]="true"></mat-divider>
+
           <mat-list-item>
-            <mat-label>{{phone}}:</mat-label>
-            <mat-label>{{data.phone}}</mat-label>
+            <mat-form-field >
+              <input matInput  placeholder="{{phone}}" value="{{data.phone}}">
+            </mat-form-field>
+            <!--<mat-label>{{phone}}:</mat-label>
+            <mat-label>{{data.phone}}</mat-label>-->
           </mat-list-item>
-          <mat-divider [inset]="true"></mat-divider>
+
           <mat-list-item>
-            <mat-label>{{prof}}:</mat-label>
-            <mat-label>{{data.prof}}</mat-label>
+            <mat-form-field>
+              <input matInput  placeholder="{{prof}}" value="{{data.prof}}">
+            </mat-form-field>
+            <!--<mat-label>{{prof}}:</mat-label>
+            <mat-label>{{data.prof}}</mat-label>-->
           </mat-list-item>
-          <mat-divider [inset]="true"></mat-divider>
-          <mat-list-item *ngIf="data.prim">
-            <mat-label>{{prim}}:</mat-label>
-            <div>
-              <mat-label>{{data.prim}}</mat-label>
-            </div>
+
+          <mat-list-item *ngIf="data.prim" style="margin-top: 30px;">
+            <mat-form-field>
+              <textarea matInput value="{{data.prim}}" placeholder="{{prim}}"></textarea>
+            </mat-form-field>
+            <!--<mat-label>{{prim}}:</mat-label>
+            <mat-label>{{data.prim}}</mat-label>-->
           </mat-list-item>
         </mat-list>
+
       </div>
+
+
     </div>
-  </mat-card-content>
-</mat-card>
+
+  </div>
+</div>

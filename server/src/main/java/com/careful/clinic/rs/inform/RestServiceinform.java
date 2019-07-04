@@ -96,6 +96,20 @@ public class RestServiceinform {
 		return df;
 	}
 
+
+	@GET
+	@Path("/listInformBrig/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> listFilesInformBrig(@PathParam("id") Integer id) throws ParserConfigurationException, SAXException, IOException, ParseException {
+
+		List<?> df = (List<?>) informDAO.getListInformBrig(id);
+
+		return df;
+	}
+
+
+
 	@GET
 	@Path("/download/{place}/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -249,6 +263,43 @@ public class RestServiceinform {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}
 	}
+
+	@GET
+	@Path("/listFilesInformBrig/{place}/{id}/{namefile}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces("application/x-rar-compressed")
+	public Response listFilesInformBrig(@PathParam("place") String place, @PathParam("id") Integer id, @PathParam("namefile") String namefile) {
+		int current_year = Calendar.getInstance().get(Calendar.YEAR);
+
+		String directoryServer = System.getProperty("jboss.home.dir");
+		String directoryDestination = "";
+
+		if(id == 777) directoryDestination = "\\content\\report\\informing\\"+current_year+"\\inform_brig\\777";
+		if(id == 1)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\inform_brig\\1";
+		if(id == 2)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\inform_brig\\2";
+		if(id == 4)	directoryDestination = "\\content\\report\\informing\\"+current_year+"\\inform_brig\\4";
+
+
+		directoryDestination = directoryServer+directoryDestination+File.separator+namefile.substring(11, namefile.length());
+
+		File file = new File(directoryDestination);
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+
+			Response.ResponseBuilder response = Response.ok(file);
+			response.header("Content-Disposition", "attachment; filename="+file.getName());
+			response.header("Content-Type", contentType);
+			response.header("Content-Length", file.length());
+			return response.build();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+	}
+
+
+
+
 
 
 

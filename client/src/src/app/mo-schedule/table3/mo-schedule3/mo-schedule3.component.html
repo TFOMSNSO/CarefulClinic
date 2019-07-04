@@ -1,0 +1,65 @@
+<mat-card [@flyInOut]="'in'">
+  <!--<sidenav-upload-data-component #var_sidenav_uploaddata (progress_bar_emit)="handleProgressUpdated($event)"></sidenav-upload-data-component>-->
+
+  <mat-sidenav-container >
+    <mat-list>
+      <mat-card-title #titlezno>{{header_schedule}}</mat-card-title><!--Списки зно-->
+      <mat-card-header>
+        <schedule-header (filterOut)="getNotify($event)"></schedule-header>
+        <div style="position: absolute; right: 20px;">
+          <button mat-raised-button matTooltip="Скачать данные из таблицы в формате эксель(.xlxs)" (click)="get()">Экспорт в эксель</button>
+        </div>
+      </mat-card-header>
+    </mat-list>
+  </mat-sidenav-container>
+
+  <mat-card-content @questionsAnim>
+    <mat-progress-bar  *ngIf="progress_bar"  mode="query" color="warn" ></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" class="full-width" style="text-align: center;">
+
+      <ng-container matColumnDef="lpuId">
+        <mat-header-cell *matHeaderCellDef> {{lpuId}} </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.lpuId}} </mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="kodOtd">
+        <mat-header-cell *cdkHeaderCellDef> {{kodOtd}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row">
+          <div class="demo-progress-stat">{{row.kodOtd}}</div>
+        </mat-cell>
+      </ng-container>
+
+
+      <ng-container cdkColumnDef="usl">
+        <mat-header-cell *cdkHeaderCellDef> {{usl}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.usl}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container cdkColumnDef="kab">
+        <mat-header-cell *cdkHeaderCellDef> {{kab}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.kab}}</mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="typeMo">
+        <mat-header-cell *cdkHeaderCellDef> {{typeMo}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row" > {{row.typeMo}}</mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="prim">
+        <mat-header-cell *cdkHeaderCellDef> {{prim}} </mat-header-cell>
+        <mat-cell *cdkCellDef="let row" > {{row.prim}}</mat-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="about">
+        <mat-header-cell *cdkHeaderCellDef>{{about}}</mat-header-cell>
+        <mat-cell *cdkCellDef="let row" [style.color]="darkgray" (click)="preview(row)"><mat-icon>edit</mat-icon></mat-cell>
+      </ng-container>
+
+      <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row  *cdkRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </mat-card-content>
+
+
+</mat-card>
