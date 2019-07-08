@@ -142,9 +142,16 @@ export class ModatabaseService {
       let temp = res as moInfo[];
       for (let i in temp) {
         temp[i].currentUser = this.currentUser['role'][0].id;
+        temp[i].dates.sort(function (a,b) {
+            return Number(a.dw) - Number(b.dw);
+        })
         for (let a in temp[i].dates) {
           temp[i].dates[a].dw = this.week[Number(temp[i].dates[a].dw) - 1];
         }
+/*
+        if(temp[i].lpuId == "143"){
+          console.log('143:' + JSON.stringify(temp[i]));
+        }*/
       }
       this.dataChange.next(temp);
     });
@@ -168,12 +175,17 @@ export class ModatabaseService {
       let temp = res as moInfo3[];
       for (let i in temp) {
         temp[i].currentUser = this.currentUser['role'][0].id;
+        temp[i].dates.sort(function (a,b) {
+          return Number(a.dw) - Number(b.dw);
+        })
+
+
         for (let a in temp[i].dates) {
           temp[i].dates[a].dw = this.week[Number(temp[i].dates[a].dw) - 1];
         }
       }
       this.dataChange3.next(temp);
-      console.log(JSON.stringify(temp[0]));
+      //console.log(JSON.stringify(temp[0]));
     });
   }
 

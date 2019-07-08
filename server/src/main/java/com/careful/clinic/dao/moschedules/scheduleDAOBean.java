@@ -55,7 +55,11 @@ public class scheduleDAOBean implements scheduleDAO {
 
         List<DISP_TABLE2> list = tq.getResultList();
         if(!list.isEmpty()){
-            System.out.println(list.get(0));
+            for(int i =0; i < list.size(); i++){
+                if(list.get(i).getLpuId().trim().equals("143")){
+                    System.out.println(list.get(i));
+                }
+            }
         }
         return list;
     }
@@ -232,8 +236,9 @@ public class scheduleDAOBean implements scheduleDAO {
             List<DISP_TABLE_DT> week = temp.getDates();
             for(int i = 0; i < week.size(); i++){
                 DISP_TABLE_DT day = week.get(i);
+                int index = getDay(day.getDw());
                 String value = "c " + day.getTimeBegin() + " до " + day.getTimeEnd();
-                row1.createCell(i+7).setCellValue(value.contains("null") ? "нет" : value);
+                row1.createCell(index+7).setCellValue(value.contains("null") ? "нет" : value);
             }
 
             if(rowIndex % 100 == 0) {
@@ -521,7 +526,7 @@ public class scheduleDAOBean implements scheduleDAO {
     }
 
     private ResponseDescription writeListToFile1(String fileName, List<DISP_TABLE1_V2> list) throws Exception {
-        System.out.println("user:" + list.get(0).getCurrentUser());
+        System.out.println("listtofile1:" + list.get(0));
         SXSSFWorkbook workbook = null;
         if(fileName.endsWith("xlsx")){
             workbook = new SXSSFWorkbook(-1);
@@ -578,8 +583,9 @@ public class scheduleDAOBean implements scheduleDAO {
             List<DISP_TABLE_DT> week = temp.getDates();
             for(int i = 0; i < week.size(); i++){
                 DISP_TABLE_DT day = week.get(i);
+                int index = getDay(day.getDw());
                 String value = "c " + day.getTimeBegin() + " до " + day.getTimeEnd();
-                row1.createCell(i+7).setCellValue(value.contains("null") ? "нет" : value);
+                row1.createCell(index+7).setCellValue(value.contains("null") ? "нет" : value);
             }
 
             if(rowIndex % 100 == 0) {
@@ -601,5 +607,13 @@ public class scheduleDAOBean implements scheduleDAO {
 
         workbook.dispose();
         return new ResponseDescription(fileName);
+    }
+
+    private int getDay(String day){
+        for(int i = 0; i < 7; i++){
+            if(days[i].equalsIgnoreCase(day.trim()))
+                return i;
+        }
+        return -1;
     }
 }

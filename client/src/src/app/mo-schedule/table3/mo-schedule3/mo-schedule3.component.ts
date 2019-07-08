@@ -81,7 +81,7 @@ export class MoSchedule3Component implements OnInit {
       //height:'70%',
       data: row
     }
-    console.log(JSON.stringify(row));
+    //console.log(JSON.stringify(row));
     this.dialogRef = this.dialog.open(Dialogtable3Component,cc);
   }
 
