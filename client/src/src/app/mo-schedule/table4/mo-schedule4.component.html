@@ -9,6 +9,12 @@
         <div style="position: absolute; right: 20px;">
           <button mat-raised-button matTooltip="Скачать данные из таблицы в формате эксель(.xlxs)" (click)="get()">Экспорт в эксель</button>
         </div>
+        <div *ngIf="currentUser['role'][0].id === 777" style="padding-left: 50px; display: block;">
+                <button mat-icon-button matTooltip="Посмотреть изменения в таблице" (click)="getHistory()" style="float: right"><mat-icon style="font-size: 40px">cake</mat-icon></button>
+                <mat-input-container style="float: left; width: 50px;">
+                  <input type="number" matInput  placeholder="Дней" [(ngModel)]="selectedDays">
+                </mat-input-container>
+        </div>
       </mat-card-header>
     </mat-list>
   </mat-sidenav-container>

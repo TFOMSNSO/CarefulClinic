@@ -3,6 +3,10 @@ import {environment} from "../../../environments/environment";
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import {Scheduleds4} from "./scheduleds4";
 import {ModatabaseService} from "../modatabase.service";
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {User} from "../../model/user";
+import {DialogTable1Component} from "../table1/dialog-table1/dialog-table1.component";
+import {HistoryDialogComponent} from "./history-dialog/history-dialog.component";
 
 
 export type MoColumn4 = "lpuId" | "address" | "dateBegin" | "dateEnd" | "timeBegin" | "timeEnd" | "typeMo" | "prim" | undefined;
@@ -56,13 +60,16 @@ export class MoSchedule4Component implements OnInit {
   lpuId: string = environment.kod_mo;
   prim: string = environment.prim;
   typeMo: string = environment.type_mo;
-
+  public currentUser: User;
   dataSource:Scheduleds4 | null;//--------------------------------
   displayedColumns : MoColumn4[] = [];//--------------------------------
+  dialogRef: MatDialogRef<HistoryDialogComponent> | null;
+  selectedDays: string;
 
-  constructor(public moservice: ModatabaseService) { }
+  constructor(public moservice: ModatabaseService,public dialog: MatDialog) { }
 
-  ngOnInit() {
+  ngOnInit(){
+
     this.connect();
   }
 
@@ -70,6 +77,9 @@ export class MoSchedule4Component implements OnInit {
     this.displayedColumns = ["lpuId", "address", "dateBegin", "dateEnd","timeBegin", "timeEnd","typeMo", "prim"];
     this.dataSource = new Scheduleds4(this.moservice);//------------------------------------
     this.moservice.getAllt4();//-----------------------------------
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.selectedDays = '3';
+
   }
 
   getNotify(note:string): void{
@@ -77,8 +87,21 @@ export class MoSchedule4Component implements OnInit {
   }
 
   get(){
-    //console.log( JSON.stringify(this.dataSource.modatabase.data4) );
     this.moservice.exportExcel4(this.dataSource.getDataFilter());//-------------------------------------------
   }
 
+  getHistory(){
+    this.moservice.getHistoryT4By(this.selectedDays).then(res => {
+      let cc = {
+        disableClose: false,
+        panelClass: 'custom-overlay-pane-class',
+        hasBackdrop: true,
+        backdropClass: '',
+        //height: '50%',
+        maxHeight:'70%',
+        data: {dataShow: res, days: this.selectedDays}
+      }
+      this.dialogRef = this.dialog.open(HistoryDialogComponent,cc);
+    });
+  }
 }

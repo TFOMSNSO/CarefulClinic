@@ -10,13 +10,16 @@ import com.careful.clinic.model.schedulemodels.table2.DISP_TABLE2_V2;
 import com.careful.clinic.model.schedulemodels.table3.DISP_TABLE3;
 import com.careful.clinic.model.schedulemodels.table3.DISP_TABLE3_V2;
 import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4;
+import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4_UPDATE;
 import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4_V2;
+import com.careful.clinic.model.schedulemodels.table4.DaysBy;
 import com.careful.clinic.model.schedulemodels.table5.DISP_TABLE5;
 import com.careful.clinic.model.schedulemodels.table5.DISP_TABLE5_V2;
 import com.careful.clinic.model.schedulemodels.table6.DISP_TABLE6;
 import com.careful.clinic.model.schedulemodels.table6.DISP_TABLE6_V2;
 
 import javax.ejb.EJB;
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -61,8 +64,21 @@ public class RestServiceSchedule {
     @Produces(MediaType.APPLICATION_JSON)
     public List<DISP_TABLE6> getAllt6(){ return schedule.getAllTable6();}
 
+    @GET
+    @Path("/table4_update")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<DISP_TABLE4_UPDATE> getHistoryTable4(){
+        return schedule.getHistoryTable4();
+    }
 
-
+    @POST
+    @Path("table4_update_days")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<DISP_TABLE4_UPDATE> getHistoryDaysTable4(DaysBy days){
+        System.out.println("days:" + days);
+        return schedule.getHistoryTable4(days.getDays());
+    }
 
     @POST
     @Path("/export_table_disp1")

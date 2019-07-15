@@ -1,0 +1,76 @@
+<div mat-dialog-content *ngIf="dataShow.length > 0; else nohistory">
+  <h5>
+    История изменения графиков выезда мобильных бригад за {{days}} суток.
+  </h5>
+  <div style="overflow-y: auto">
+    <table style="border: black 1px inset;">
+      <tr>
+        <th>
+          Дата изменения
+        </th>
+        <th>
+          {{lpuId}}
+        </th>
+        <th>
+          {{address}}
+        </th>
+        <th>
+          {{dateBegin}}
+        </th>
+        <th>
+          {{dateEnd}}
+        </th>
+        <th>
+          {{timeBegin}}
+        </th>
+        <th>
+          {{timeEnd}}
+        </th>
+        <th>
+          {{typeMo}}
+        </th>
+        <th>
+          {{prim}}
+        </th>
+      </tr>
+      <tr *ngFor="let row of dataShow">
+        <td>
+          {{row.dateInsert}}
+        </td>
+        <td>
+          {{row.lpuId}}
+        </td>
+        <td [ngClass] = "{warning:row.address !=null ? row.address.includes('->') : false}">
+          {{row.address}}
+        </td>
+        <td [ngClass] = "{warning:row.dateBegin != null ? row.dateBegin.includes('->') : false}">
+          {{row.dateBegin}}
+        </td>
+        <td [ngClass] = "{warning:row.dateEnd != null ? row.dateEnd.includes('->') : false}">
+          {{row.dateEnd}}
+        </td>
+        <td [ngClass] = "{warning:row.timeBegin != null ? row.timeBegin.includes('->') : false}">
+          {{row.timeBegin}}
+        </td>
+        <td [ngClass] = "{warning:row.timeEnd != null ? row.timeEnd.includes('->') : false}">
+          {{row.timeEnd}}
+        </td>
+        <td [ngClass] = "{warning:row.typeMo != null ? row.typeMo.includes('->') : false}">
+          {{row.typeMo}}
+        </td>
+        <td [ngClass] = "{warning:row.prim != null ?  row.prim.includes('->') : false}">
+          {{row.prim}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<ng-template #nohistory>
+  <div>
+    <mat-label>История не найдена</mat-label>
+  </div>
+</ng-template>
+
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="dialogRef.close()">Закрыть</button>
+</div>

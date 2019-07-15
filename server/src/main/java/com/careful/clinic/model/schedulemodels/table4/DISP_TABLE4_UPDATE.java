@@ -1,15 +1,19 @@
-package com.careful.clinic.model.schedulemodels.table5;
+package com.careful.clinic.model.schedulemodels.table4;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Entity
-@Table(name = "DISP_TABLE5")
+@Table(name = "DIPS_TABLE4_UPDATE")
 @NamedQueries({
-        @NamedQuery(name = "findAllt5",query = "SELECT t FROM DISP_TABLE5 t order by t.lpuId")
+        @NamedQuery(name = "t4updateAll",query = "SELECT t from DISP_TABLE4_UPDATE t"),
+        @NamedQuery(name ="t4updateDays",query = "SELECT t from DISP_TABLE4_UPDATE t where t.dateInsert >= sysdate() - :days order by t.dateInsert desc")
 })
-public class DISP_TABLE5 implements Serializable {
+public class DISP_TABLE4_UPDATE implements Serializable {
     @Column(name = "LPUID")
     private String lpuId;
 
@@ -31,13 +35,25 @@ public class DISP_TABLE5 implements Serializable {
     @Column(name = "TYPE_MO")
     private String typeMo;
 
-    @Id
+    @javax.persistence.Id
     @Column(name = "ID")
     private String Id;
 
     @Column(name = "PRIM")
     private String prim;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm", timezone = "Asia/Novosibirsk")
+    @Column(name = "D_INSERT")
+    private Date dateInsert;
+
+
+    public Date getDateInsert() {
+        return dateInsert;
+    }
+
+    public void setDateInsert(Date dateInsert) {
+        this.dateInsert = dateInsert;
+    }
 
     public String getLpuId() {
         return lpuId;
@@ -113,7 +129,7 @@ public class DISP_TABLE5 implements Serializable {
 
     @Override
     public String toString() {
-        return "DISP_TABLE5{" +
+        return "DISP_TABLE4_UPDATE{" +
                 "lpuId='" + lpuId + '\'' +
                 ", address='" + address + '\'' +
                 ", dateBegin=" + dateBegin +
@@ -125,5 +141,4 @@ public class DISP_TABLE5 implements Serializable {
                 ", prim='" + prim + '\'' +
                 '}';
     }
-
 }

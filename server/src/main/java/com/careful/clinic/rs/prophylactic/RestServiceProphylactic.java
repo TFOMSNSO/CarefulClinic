@@ -160,7 +160,7 @@ public class RestServiceProphylactic {
 			}
 			if(listOfQueryies == null) throw new ParseDataExcelException("Ошибка в шаблоне. Не удается определить шаблон.");
 			//data.checkOuTroughDB(listOfQueryies)
-			//send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
+			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
 			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){deleteNativeFileFromUser(null, fileName, authHeaders); }
 			 String info =  new String("Файл успешно загружен. Протокол загрузки можно посмотреть в текстовом файле.");
 			 builder = Response.status(Response.Status.OK);
@@ -235,11 +235,10 @@ public class RestServiceProphylactic {
     	//String textMessage = "Test Message Text";
  
         try {
- 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("info@eir.tfoms.nso"));
             /*if(xa_Dream2Dao.str.contains("RESULT_EKMP")){
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses2));}
+            message.setRecipients(Message.RecipientType.TO, InternetA	ddress.parse(addresses2));}
             if(xa_Dream2Dao.doubleStr().contains("RESULT_EKMP")==false){
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses));
 			}*/

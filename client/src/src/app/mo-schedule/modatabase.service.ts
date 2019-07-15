@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {environment} from "../../environments/environment";
 import {User} from "../model/user";
 import {PeopleDatabase} from "../list-prophylactic/people-database";
@@ -60,6 +60,7 @@ export class moInfo4{
   timeEnd: string;
   typeMo: string;
   prim: string;
+  Id: string;
   currentUser: any;
 }
 
@@ -135,6 +136,15 @@ export class ModatabaseService {
     //console.log('user:' + this.currentUser['role'][0].id);
   }
 
+  getHistoryT4():Promise<any>{
+    let header = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.httpClient.get(this.serverUrl + "/table4_update",{headers: header}).toPromise();
+  }
+
+  getHistoryT4By(day):Promise<any>{
+    return this.httpClient.post(this.serverUrl + '/table4_update_days',{days: day},{headers:{ 'Content-Type': 'application/json' }}).toPromise();
+  }
+
   //таблица 1 - DISP_TABLE1(webofoms@dume). получаем список всех мо и график их работы
   getAllt1() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -148,10 +158,6 @@ export class ModatabaseService {
         for (let a in temp[i].dates) {
           temp[i].dates[a].dw = this.week[Number(temp[i].dates[a].dw) - 1];
         }
-/*
-        if(temp[i].lpuId == "143"){
-          console.log('143:' + JSON.stringify(temp[i]));
-        }*/
       }
       this.dataChange.next(temp);
     });

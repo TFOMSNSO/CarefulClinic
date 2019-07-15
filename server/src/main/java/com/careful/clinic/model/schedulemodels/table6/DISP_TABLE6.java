@@ -1,6 +1,7 @@
 package com.careful.clinic.model.schedulemodels.table6;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "findAllt6",query = "SELECT t FROM DISP_TABLE6 t order by t.lpuId")
 })
-public class DISP_TABLE6 {
+public class DISP_TABLE6 implements Serializable {
     @Column(name = "LPUID")
     private String lpuId;
 

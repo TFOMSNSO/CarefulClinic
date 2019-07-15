@@ -9,6 +9,7 @@ import com.careful.clinic.model.schedulemodels.table2.DISP_TABLE2_V2;
 import com.careful.clinic.model.schedulemodels.table3.DISP_TABLE3;
 import com.careful.clinic.model.schedulemodels.table3.DISP_TABLE3_V2;
 import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4;
+import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4_UPDATE;
 import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4_V2;
 import com.careful.clinic.model.schedulemodels.table5.DISP_TABLE5;
 import com.careful.clinic.model.schedulemodels.table5.DISP_TABLE5_V2;
@@ -111,6 +112,36 @@ public class scheduleDAOBean implements scheduleDAO {
         }
         return list;
     }
+
+
+    @Override
+    public List<DISP_TABLE4_UPDATE> getHistoryTable4() {
+        TypedQuery<DISP_TABLE4_UPDATE> tq = webofoms.createNamedQuery("t4updateAll",DISP_TABLE4_UPDATE.class);
+
+        List<DISP_TABLE4_UPDATE> list = tq.getResultList();
+
+        if(!list.isEmpty()){
+            System.out.println("DISP_TABLE4_UPDATE all:" + list.size());
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<DISP_TABLE4_UPDATE> getHistoryTable4(String days) {
+        TypedQuery<DISP_TABLE4_UPDATE> tq = webofoms.createNamedQuery("t4updateDays",DISP_TABLE4_UPDATE.class)
+                .setParameter("days",days);
+
+        System.out.print("tq" + tq);
+        List<DISP_TABLE4_UPDATE> list = tq.getResultList();
+
+        if(!list.isEmpty()){
+            System.out.println("DISP_TABLE4_UPDATE all:" + list.size());
+        }
+
+        return list;
+    }
+
 
     @Override
     public ResponseDescription exportTable1(List<DISP_TABLE1_V2> list) {

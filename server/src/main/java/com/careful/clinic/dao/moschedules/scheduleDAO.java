@@ -21,6 +21,9 @@ public interface scheduleDAO {
     List<DISP_TABLE5> getAllTable5();
     List<DISP_TABLE6> getAllTable6();
 
+    List<DISP_TABLE4_UPDATE> getHistoryTable4();
+    List<DISP_TABLE4_UPDATE> getHistoryTable4(String days);
+
     ResponseDescription exportTable1(List<DISP_TABLE1_V2> list);
     ResponseDescription exportTable2(List<DISP_TABLE2_V2> list);
     ResponseDescription exportTable3(List<DISP_TABLE3_V2> list);
