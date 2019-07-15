@@ -67,7 +67,6 @@ export class SadeaveSearchComponent   implements OnInit{
 
  searchPerson(form: any): void{
  	// �������� ������
-   console.log('search Person sidenave.search.component.ts ' + form.value.birthday);
  	this.progress_bar_emit.emit({note: 'true', result:''});
 
  	form.value.bithday = form.value.bithday.formatted;

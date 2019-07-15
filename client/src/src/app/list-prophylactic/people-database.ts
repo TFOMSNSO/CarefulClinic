@@ -144,7 +144,6 @@ export class PeopleDatabase {
 
 
   searchPersonInsur(per_data: any): Promise<any> {
-    console.log('searchPersonInsur');
 	let headers = new Headers({'Content-Type': 'application/json'});
 	return this.http
 	  .post(this.serverUrl + '/search_person_insur', JSON.stringify(per_data), {headers: headers})
@@ -153,7 +152,7 @@ export class PeopleDatabase {
 	  .then(res =>{
 
 	  let tmp_data = res.json();
-
+    console.log(JSON.stringify(tmp_data));
 	  this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 	  if(this.currentUser['role'][0].id !== 777 && this.currentUser['role'][0].id !== tmp_data[0].personLinksmoestablishmentid ) return 0;
 	  if(tmp_data.length === 0) return tmp_data.length;
