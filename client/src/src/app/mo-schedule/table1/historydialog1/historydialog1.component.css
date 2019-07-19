@@ -50,6 +50,7 @@ mat-toolbar-row{
 }
 
 .no_info{
+  padding-top: 150px;
   width: 100%;
   height: 300px;
   text-align: center;

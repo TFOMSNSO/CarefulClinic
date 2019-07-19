@@ -7,7 +7,7 @@
   </mat-toolbar-row>
   <mat-toolbar-row>
     <mat-label style="float: left" for="days">Изменить период:</mat-label>
-    <input name="days" matInput type="number" style="width: 100px; float: left;" placeholder="Количество дней" min="1" max="99999" [(ngModel)]="days">
+    <input name="days" matInput type="number" style="width: 100px; float: left;" placeholder="Количество дней" min="0" max="99999" [(ngModel)]="days">
     <button mat-icon-button color="warn" style="float: left; width: 45px; height: 45px;" matTooltip="Обновить текущую вкладку" (click)="refresh()" ><mat-icon style="font-size: 45px">refresh</mat-icon></button>
     <!--<button mat-icon-button color="accent" style="float: right" matTooltip="Скачать таблицу в формате эксель." (click)="export()"><mat-icon style="font-size: 50px">create_new_folder</mat-icon></button>-->
     <a (click)="export()" style="float: right; padding: 0;" matTooltip="Скачать таблицу в формате эксель." ><img src="assets/images/excel_icon.png" ></a>
@@ -282,7 +282,7 @@
         </div>
         <ng-template #nohistory3>
           <div  class="no_info">
-            <mat-label class="no_info_label">В выбранном периоде записи не добавлялись.<mat-icon>done</mat-icon></mat-label>
+            <mat-label class="no_info_label">В выбранном периоде записи не удалялись.<mat-icon>done</mat-icon></mat-label>
           </div>
         </ng-template>
       </mat-card-content>
