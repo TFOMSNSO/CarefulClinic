@@ -56,6 +56,7 @@ import { MoSchedule6Component } from './mo-schedule/table6/mo-schedule6/mo-sched
 import { Dialogtable3Component } from './mo-schedule/table3/dialogtable3/dialogtable3.component';
 import { ScheduleHeader4Component } from './mo-schedule/table4/schedule-header4/schedule-header4.component';
 import { HistoryDialogComponent } from './mo-schedule/table4/history-dialog/history-dialog.component';
+import { Historydialog1Component } from './mo-schedule/table1/historydialog1/historydialog1.component';
 
 
 //библиотека для ограничения доступа по ролям
@@ -101,6 +102,7 @@ import { HistoryDialogComponent } from './mo-schedule/table4/history-dialog/hist
     ,MoSchedule6Component
     ,ScheduleHeader4Component
     ,HistoryDialogComponent
+    ,Historydialog1Component
     ,MoSchedule2Component
   ],
   imports: [
@@ -125,7 +127,8 @@ import { HistoryDialogComponent } from './mo-schedule/table4/history-dialog/hist
         BaseRequestOptions,
         UserService
 		],
-  entryComponents: [DialogZnoComponent,DialogComponent,DialogTable1Component,Dialogtable3Component,HistoryDialogComponent],
+  entryComponents: [DialogZnoComponent,DialogComponent,DialogTable1Component
+                    ,Dialogtable3Component,HistoryDialogComponent,Historydialog1Component],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

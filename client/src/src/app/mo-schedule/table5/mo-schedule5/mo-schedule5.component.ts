@@ -76,7 +76,7 @@ export class MoSchedule5Component implements OnInit {
     this.dataSource.filter = note;
   }
 
-  get(){
-    this.moservice.exportExcel5(this.dataSource.modatabase.data5);
+  exportData(){
+    this.moservice.exportAsExcelFile(this.dataSource.getDataFilter(),5);
   }
 }

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import {Scheduleds} from "./scheduleds";
-import {ModatabaseService} from "../modatabase.service";
+import {ModatabaseService, moInfo} from "../modatabase.service";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {DialogTable1Component} from "./dialog-table1/dialog-table1.component";
+import {Historydialog1Component} from "./historydialog1/historydialog1.component";
 
 export type MoColumn = "lpuId" | "otdId" | "address" | "phone" | "typeMo" | "prof" | "prim" | "about" | undefined;
 
@@ -59,12 +60,12 @@ export class MoScheduleComponent implements OnInit {
   address: string = environment.address;
   prim: string = environment.prim;
   about: string = environment.about;
-
-
+  selectedDays: string;
 
   dataSource:Scheduleds | null;
   displayedColumns : MoColumn[] = [];
   dialogRef: MatDialogRef<DialogTable1Component> | null;
+  dialogHis: MatDialogRef<Historydialog1Component> | null;
 
   constructor(public moservice: ModatabaseService,public dialog: MatDialog) { }
 
@@ -76,6 +77,7 @@ export class MoScheduleComponent implements OnInit {
     this.displayedColumns = ["lpuId", "otdId", "address", "phone", "typeMo", "prof", "about"];
     this.dataSource = new Scheduleds(this.moservice);
     this.moservice.getAllt1();
+    this.selectedDays = '7';
   }
 
   preview(row:any){
@@ -92,12 +94,26 @@ export class MoScheduleComponent implements OnInit {
     this.dialogRef = this.dialog.open(DialogTable1Component,cc);
   }
 
-  getNotify(note:string): void{
-    this.dataSource.filter = note;
+  getHistory(){
+    let cc = {
+      disableClose: false,
+      panelClass: 'custom-overlay-pane-class',
+      hasBackdrop: true,
+      backdropClass: '',
+      height: '80%',
+      width: '80%',
+      maxHeight:'80%',
+      data: {days:this.selectedDays}
+    }
+    this.dialogHis = this.dialog.open(Historydialog1Component,cc);
   }
 
-  get(){
-    this.moservice.exportExcel1(this.dataSource.getDataFilter());
+  exportData(){
+    this.moservice.exportAsExcelFile(this.dataSource.getDataFilter(),1);
+  }
+
+  getNotify(note:string): void{
+    this.dataSource.filter = note;
   }
 
 }

@@ -21,14 +21,16 @@ public interface scheduleDAO {
     List<DISP_TABLE5> getAllTable5();
     List<DISP_TABLE6> getAllTable6();
 
-    List<DISP_TABLE4_UPDATE> getHistoryTable4();
-    List<DISP_TABLE4_UPDATE> getHistoryTable4(String days);
 
-    ResponseDescription exportTable1(List<DISP_TABLE1_V2> list);
-    ResponseDescription exportTable2(List<DISP_TABLE2_V2> list);
-    ResponseDescription exportTable3(List<DISP_TABLE3_V2> list);
-    ResponseDescription exportTable4(List<DISP_TABLE4_V2> list);
-    ResponseDescription exportTable5(List<DISP_TABLE5_V2> list);
-    ResponseDescription exportTable6(List<DISP_TABLE6_V2> list);
+    //история по таблице 4
+    List<DISP_TABLE4_UPDATE> getHistoryTable4(String days);
+    List<DISP_TABLE4> getHistoryInsertTable4(String days);
+    List<DISP_TABLE4_HISTORY> getHistoryDeleteTable4(String days);
+
+    //история по таблице 1
+    List<DISP_TABLE1> getHistoryInsertTable1(String days);
+    List<DISP_TABLE1_UPDATE> getHistoryUpdateTable1(String days);
+    List<DISP_TABLE1_HISTORY> getHistoryDeleteTable1(String days);
+
 
 }

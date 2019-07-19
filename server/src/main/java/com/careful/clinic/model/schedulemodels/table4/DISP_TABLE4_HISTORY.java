@@ -9,13 +9,10 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "DISP_TABLE4")
 @NamedQueries({
-        @NamedQuery(name = "findAllt4",query = "SELECT t FROM DISP_TABLE4 t order by t.lpuId"),
-        @NamedQuery(name="findByDayst4", query = "SELECT t FROM DISP_TABLE4 t where t.dateInsert > sysdate() - :days order by t.dateInsert desc")
-
+        @NamedQuery(name="findDeleteHistoryT4",query = "SELECT t FROM DISP_TABLE4_HISTORY t where t.dateInsert > sysdate() - :days order by t.dateInsert desc")
 })
-public class DISP_TABLE4 implements Serializable {
+public class DISP_TABLE4_HISTORY implements Serializable {
     @Column(name = "LPUID")
     private String lpuId;
 

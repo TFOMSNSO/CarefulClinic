@@ -49,4 +49,7 @@ export class DialogTable1Component  {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
 
+
+
+
 }

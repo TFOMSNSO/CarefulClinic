@@ -24,6 +24,8 @@ export class ExpertiseService{
 		  .toPromise()
 			.then(response =>response);
 	*/
+      console.log(date1);
+      console.log(date2);
 			let obj2 = {
 				date1: date1,
 				date2: date2,

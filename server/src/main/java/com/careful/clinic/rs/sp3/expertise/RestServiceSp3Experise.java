@@ -63,6 +63,7 @@ public class RestServiceSp3Experise {
 		try{
 			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
 			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
+			System.out.print("date1:" + date1 + "\ndate2:" + date2);
 			List<WrapSp3> ls = null;
 			// смещение для запроса
 			int iter = 0;

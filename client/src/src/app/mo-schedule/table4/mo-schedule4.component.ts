@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import {Scheduleds4} from "./scheduleds4";
-import {ModatabaseService} from "../modatabase.service";
+import {ModatabaseService, moInfo4} from "../modatabase.service";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {User} from "../../model/user";
 import {DialogTable1Component} from "../table1/dialog-table1/dialog-table1.component";
@@ -66,6 +66,8 @@ export class MoSchedule4Component implements OnInit {
   dialogRef: MatDialogRef<HistoryDialogComponent> | null;
   selectedDays: string;
 
+  insertHistory: moInfo4[] | null;
+  deleteHistory: moInfo4[] | null;
   constructor(public moservice: ModatabaseService,public dialog: MatDialog) { }
 
   ngOnInit(){
@@ -78,30 +80,30 @@ export class MoSchedule4Component implements OnInit {
     this.dataSource = new Scheduleds4(this.moservice);//------------------------------------
     this.moservice.getAllt4();//-----------------------------------
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.selectedDays = '3';
-
+    this.selectedDays = '7';
   }
 
   getNotify(note:string): void{
     this.dataSource.filter = note;
   }
 
-  get(){
-    this.moservice.exportExcel4(this.dataSource.getDataFilter());//-------------------------------------------
-  }
 
   getHistory(){
-    this.moservice.getHistoryT4By(this.selectedDays).then(res => {
       let cc = {
         disableClose: false,
         panelClass: 'custom-overlay-pane-class',
         hasBackdrop: true,
         backdropClass: '',
-        //height: '50%',
-        maxHeight:'70%',
-        data: {dataShow: res, days: this.selectedDays}
+        height: '80%',
+        width: '80%',
+        maxHeight:'80%',
+        data: {days:this.selectedDays}
       }
       this.dialogRef = this.dialog.open(HistoryDialogComponent,cc);
-    });
+
+  }
+
+  exportData(){
+    this.moservice.exportAsExcelFile(this.dataSource.getDataFilter(),4);
   }
 }

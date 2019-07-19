@@ -86,6 +86,9 @@ export class MoSchedule3Component implements OnInit {
   }
 
 
+  exportData(){
+    this.moservice.exportAsExcelFile(this.dataSource.getDataFilter(),3);
+  }
 
   ngOnInit() {
     this.connect();
@@ -101,8 +104,5 @@ export class MoSchedule3Component implements OnInit {
     this.dataSource.filter = note;
   }
 
-  get(){
-    this.moservice.exportExcel3(this.dataSource.getDataFilter());//-------------------------------------------
-  }
 
 }

@@ -4,15 +4,14 @@ package com.careful.clinic.rs.schedule;
 import com.careful.clinic.dao.moschedules.scheduleDAO;
 import com.careful.clinic.model.ResponseDescription;
 import com.careful.clinic.model.schedulemodels.table1.DISP_TABLE1;
+import com.careful.clinic.model.schedulemodels.table1.DISP_TABLE1_HISTORY;
+import com.careful.clinic.model.schedulemodels.table1.DISP_TABLE1_UPDATE;
 import com.careful.clinic.model.schedulemodels.table1.DISP_TABLE1_V2;
 import com.careful.clinic.model.schedulemodels.table2.DISP_TABLE2;
 import com.careful.clinic.model.schedulemodels.table2.DISP_TABLE2_V2;
 import com.careful.clinic.model.schedulemodels.table3.DISP_TABLE3;
 import com.careful.clinic.model.schedulemodels.table3.DISP_TABLE3_V2;
-import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4;
-import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4_UPDATE;
-import com.careful.clinic.model.schedulemodels.table4.DISP_TABLE4_V2;
-import com.careful.clinic.model.schedulemodels.table4.DaysBy;
+import com.careful.clinic.model.schedulemodels.table4.*;
 import com.careful.clinic.model.schedulemodels.table5.DISP_TABLE5;
 import com.careful.clinic.model.schedulemodels.table5.DISP_TABLE5_V2;
 import com.careful.clinic.model.schedulemodels.table6.DISP_TABLE6;
@@ -64,13 +63,6 @@ public class RestServiceSchedule {
     @Produces(MediaType.APPLICATION_JSON)
     public List<DISP_TABLE6> getAllt6(){ return schedule.getAllTable6();}
 
-    @GET
-    @Path("/table4_update")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<DISP_TABLE4_UPDATE> getHistoryTable4(){
-        return schedule.getHistoryTable4();
-    }
-
     @POST
     @Path("table4_update_days")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -81,51 +73,48 @@ public class RestServiceSchedule {
     }
 
     @POST
-    @Path("/export_table_disp1")
+    @Path("table4_insert_days")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseDescription exportTable1(List<DISP_TABLE1_V2> data){
-        return schedule.exportTable1(data);
+    public List<DISP_TABLE4> getHistoryInsertDaysTable4(DaysBy days){
+        System.out.println("days:" + days);
+        return schedule.getHistoryInsertTable4(days.getDays());
     }
 
     @POST
-    @Path("/export_table_disp2")
+    @Path("table1_insert_days")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseDescription exportTable2(List<DISP_TABLE2_V2> data){
-        return schedule.exportTable2(data);
+    public List<DISP_TABLE1> getHistoryInsertDaysTable1(DaysBy days){
+        System.out.println("days:" + days);
+        return schedule.getHistoryInsertTable1(days.getDays());
     }
 
     @POST
-    @Path("/export_table_disp3")
+    @Path("table1_update_days")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseDescription exportTable3(List<DISP_TABLE3_V2> data){
-        return schedule.exportTable3(data);
+    public List<DISP_TABLE1_UPDATE> getHistoryUpdateDaysTable1(DaysBy days){
+        System.out.println("days delete:" + days);
+        return schedule.getHistoryUpdateTable1(days.getDays());
     }
 
     @POST
-    @Path("/export_table_disp4")
+    @Path("table1_delete_days")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseDescription exportTable4(List<DISP_TABLE4_V2> data){
-        return schedule.exportTable4(data);
+    public List<DISP_TABLE1_HISTORY> getHistoryDeleteDaysTable1(DaysBy days){
+        System.out.println("days delete:" + days);
+        return schedule.getHistoryDeleteTable1(days.getDays());
     }
 
     @POST
-    @Path("/export_table_disp5")
+    @Path("table4_delete_days")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseDescription exportTable5(List<DISP_TABLE5_V2> data){
-        return schedule.exportTable5(data);
+    public List<DISP_TABLE4_HISTORY> getHistoryDeleteDaysTable4(DaysBy days){
+        System.out.println("days delete:" + days);
+        return schedule.getHistoryDeleteTable4(days.getDays());
     }
 
-
-    @POST
-    @Path("/export_table_disp6")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public ResponseDescription exportTable6(List<DISP_TABLE6_V2> data){
-        return schedule.exportTable6(data);
-    }
 }

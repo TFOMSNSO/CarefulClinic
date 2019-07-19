@@ -77,8 +77,8 @@ export class MoSchedule2Component implements OnInit {
     this.dataSource.filter = note;
   }
 
-  get(){
-    //console.log( JSON.stringify(this.dataSource.getDataFilter()));
-    this.moservice.exportExcel2(this.dataSource.getDataFilter());//------------------------------------------
+  exportData(){
+    this.moservice.exportAsExcelFile(this.dataSource.getDataFilter(),2);
   }
+
 }

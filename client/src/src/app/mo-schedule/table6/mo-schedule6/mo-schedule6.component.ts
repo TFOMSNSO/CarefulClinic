@@ -76,9 +76,8 @@ export class MoSchedule6Component implements OnInit {
     this.dataSource.filter = note;
   }
 
-  get(){
-    //console.log( JSON.stringify(this.dataSource.modatabase.data4) );
-    this.moservice.exportExcel6(this.dataSource.getDataFilter());//-------------------------------------------
+  exportData(){
+    this.moservice.exportAsExcelFile(this.dataSource.getDataFilter(),6);
   }
 
 }

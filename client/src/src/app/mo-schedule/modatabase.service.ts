@@ -4,8 +4,23 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {environment} from "../../environments/environment";
 import {User} from "../model/user";
 import {PeopleDatabase} from "../list-prophylactic/people-database";
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
 
-//disp_Table1
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
+
+
+const headers1 =  ["lpuId","otdId","address","phone","typeMo","prof","prim","monday","tuesday","wednesday","thursday","friday","saturday","sunday","dateInsert"];
+const headers2 = ["lpuId","fio","dol","phone","prim"];
+const headers3 = ["lpuId","kodOtd","usl","kab","typeMo","prim","monday","tuesday","wednesday","thursday","friday","saturday","sunday"];
+const headers4 = ["lpuId","address","dateBegin","dateEnd","timeBegin","timeEnd","typeMo","prim"];
+const headers6 = ["lpuId","kodOtd","kab","date","timeBegin","timeEnd","typeMo","prim"];
+
+/*TODO: убрать функции экспорта, заменить их на exportAsExcelFile*/
+
+//disp_Table1 webofoms@dume
 export class moInfo{
   lpuId: string;
   otdId: string;
@@ -61,6 +76,7 @@ export class moInfo4{
   typeMo: string;
   prim: string;
   Id: string;
+  dateInsert: string;
   currentUser: any;
 }
 
@@ -136,14 +152,161 @@ export class ModatabaseService {
     //console.log('user:' + this.currentUser['role'][0].id);
   }
 
-  getHistoryT4():Promise<any>{
-    let header = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.httpClient.get(this.serverUrl + "/table4_update",{headers: header}).toPromise();
+
+  // экспорт таблиц в эксель
+  exportAsExcelFile(json: any[],table : number):void{
+    let excelFileName = '_';
+    let datacust = json.slice();
+    let headers = [];
+    switch (table){
+      case 1:{
+        headers = headers1;
+        let firstRow = {
+          lpuId: 'Код МО',
+          otdId: 'Код отделения',
+          address: 'Адрес',
+          phone: 'Телефон',
+          typeMo: 'Тип Мед.Осмотра',
+          prof: '№ каб. профилактики',
+          prim: 'Примечание',
+          monday:'Понедельник',
+          tuesday:'Вторник',
+          wednesday:'Среда',
+          thursday:'Четверг',
+          friday:'Пятница',
+          saturday:'Суббота',
+          sunday:'Воскресенье',
+        };
+        for(let i in datacust){
+          datacust[i].monday = datacust[i].dates[0].dy == '1' ?'C ' + datacust[i].dates[0].timeBegin + ' до ' + datacust[i].dates[0].timeEnd : '-';
+          datacust[i].tuesday = datacust[i].dates[1].dy == '1' ?'C ' + datacust[i].dates[1].timeBegin + ' до ' + datacust[i].dates[1].timeEnd : '-';
+          datacust[i].wednesday = datacust[i].dates[2].dy == '1' ?'C ' + datacust[i].dates[2].timeBegin + ' до ' + datacust[i].dates[2].timeEnd : '-';
+          datacust[i].thursday = datacust[i].dates[3].dy == '1' ?'C ' + datacust[i].dates[3].timeBegin + ' до ' + datacust[i].dates[3].timeEnd : '-';
+          datacust[i].friday = datacust[i].dates[4].dy == '1' ?'C ' + datacust[i].dates[4].timeBegin + ' до ' + datacust[i].dates[4].timeEnd : '-';
+          datacust[i].saturday = datacust[i].dates[5].dy == '1' ?'C ' + datacust[i].dates[5].timeBegin + ' до ' + datacust[i].dates[5].timeEnd : '-';
+          datacust[i].sunday = datacust[i].dates[6].dy == '1' ?'C ' + datacust[i].dates[6].timeBegin + ' до ' + datacust[i].dates[6].timeEnd : '-';
+        }
+        datacust.unshift(firstRow);
+        excelFileName = 'ГрафикРаботыМо_';
+        break;
+      }
+      case 2:{
+        headers = headers2;
+        let firstRow = {
+          lpuId: 'Код МО',
+          fio: 'Контактное лицо(ФИО)',
+          dol: 'Адрес',
+          phone: 'Телефон',
+          prim: 'Примечание',
+          };
+        datacust.unshift(firstRow);
+        excelFileName = 'КонтактныеЛица_';
+        break;
+      }
+      case 3:{
+        headers = headers3;
+        let firstRow = {
+          lpuId: 'Код МО',
+          kodOtd: 'Код отделения',
+          usl: 'Услуга',
+          kab: 'Кабинет',
+          typeMo: 'Тип Мед.Осмотра',
+          prim: 'Примечание',
+          monday:'Понедельник',
+          tuesday:'Вторник',
+          wednesday:'Среда',
+          thursday:'Четверг',
+          friday:'Пятница',
+          saturday:'Суббота',
+          sunday:'Воскресенье',
+        };
+        for(let i in datacust){
+          datacust[i].monday = datacust[i].dates[0].dy == '1' ?'C ' + datacust[i].dates[0].timeBegin + ' до ' + datacust[i].dates[0].timeEnd : '-';
+          datacust[i].tuesday = datacust[i].dates[1].dy == '1' ?'C ' + datacust[i].dates[1].timeBegin + ' до ' + datacust[i].dates[1].timeEnd : '-';
+          datacust[i].wednesday = datacust[i].dates[2].dy == '1' ?'C ' + datacust[i].dates[2].timeBegin + ' до ' + datacust[i].dates[2].timeEnd : '-';
+          datacust[i].thursday = datacust[i].dates[3].dy == '1' ?'C ' + datacust[i].dates[3].timeBegin + ' до ' + datacust[i].dates[3].timeEnd : '-';
+          datacust[i].friday = datacust[i].dates[4].dy == '1' ?'C ' + datacust[i].dates[4].timeBegin + ' до ' + datacust[i].dates[4].timeEnd : '-';
+          datacust[i].saturday = datacust[i].dates[5].dy == '1' ?'C ' + datacust[i].dates[5].timeBegin + ' до ' + datacust[i].dates[5].timeEnd : '-';
+          datacust[i].sunday = datacust[i].dates[6].dy == '1' ?'C ' + datacust[i].dates[6].timeBegin + ' до ' + datacust[i].dates[6].timeEnd : '-';
+        }
+        datacust.unshift(firstRow);
+        excelFileName = 'ПорядокМаршрутизации_';
+        break;
+      }
+      case 4:{
+        headers = headers4;
+        let firstRow = {
+          dateBegin : 'Дата начала',
+          dateEnd : 'Дата окончания',
+          address : 'Адрес проведения',
+          lpuId : 'Код МО',
+          typeMo : 'Тип Мед.Осмотра',
+          prim : 'Примечание',
+          timeBegin : 'Время начала',
+          timeEnd : 'Время окончания'
+        };
+        datacust.unshift(firstRow);
+        excelFileName = 'МобильныеБригады_';
+        headers = headers4;
+        break;
+      }
+      case 5:{
+        headers = headers4;
+        let firstRow = {
+          dateBegin : 'Дата начала',
+          dateEnd : 'Дата окончания',
+          address : 'Населенный пункт',
+          lpuId : 'Код МО',
+          typeMo : 'Тип Мед.Осмотра',
+          prim : 'Примечание',
+          timeBegin : 'Время сбора',
+          timeEnd : 'Время обратного прибытия'
+        };
+        datacust.unshift(firstRow);
+        excelFileName = 'СрокиДоставки_';
+        break;
+      }
+      case 6:{
+        headers = headers6;
+        let firstRow = {
+          date : 'Дата проведения',
+          kab : 'Кабинет',
+          kodOtd : 'Код отделения',
+          lpuId : 'Код МО',
+          typeMo : 'Тип Мед.Осмотра',
+          prim : 'Примечание',
+          timeBegin : 'Время начала',
+          timeEnd : 'Время окончания'
+        };
+        datacust.unshift(firstRow);
+        excelFileName = 'СпециальныеДни_';
+        break;
+      }
+    }
+    for(let i in datacust){
+      delete datacust[i].id;
+      delete datacust[i].currentUser;
+      delete datacust[i].dateInsert;
+    }
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datacust,{header:headers,skipHeader:true});
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+  }
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    var now = new Date;
+    const data: Blob = new Blob([buffer], {type: EXCEL_TYPE});
+    FileSaver.saveAs(data, fileName  + now.getDate() + '_' + (now.getMonth()+1) + '_' + now.getFullYear() + EXCEL_EXTENSION);
   }
 
-  getHistoryT4By(day):Promise<any>{
-    return this.httpClient.post(this.serverUrl + '/table4_update_days',{days: day},{headers:{ 'Content-Type': 'application/json' }}).toPromise();
-  }
+
+
+
+
+
+
+
 
   //таблица 1 - DISP_TABLE1(webofoms@dume). получаем список всех мо и график их работы
   getAllt1() {
@@ -204,6 +367,7 @@ export class ModatabaseService {
       for(let i in temp){
         temp[i].currentUser = this.currentUser['role'][0].id;
       }
+      //console.log(JSON.stringify(temp[0]));
       this.dataChange4.next(temp);
     });
   }
@@ -231,75 +395,4 @@ export class ModatabaseService {
       this.dataChange6.next(temp);
     });
   }
-
-
-  exportExcel1(data: moInfo[]){
-    if (data.length > 0) {
-      let header = new HttpHeaders({'Content-Type': 'application/json'});
-      this.httpClient.post(this.serverUrl + '/export_table_disp1', JSON.stringify(data), {headers: header})
-        .toPromise().then((res) => {
-        const filename = res['desccription'];
-        this.peopleDatabase.downloadExcel(filename, this.currentUser['role'][0].id, 'download');
-      })
-    }
-  }
-
-  exportExcel2(data: moInfo2[]){
-    if (data.length > 0) {
-      let header = new HttpHeaders({'Content-Type': 'application/json'});
-      this.httpClient.post(this.serverUrl + '/export_table_disp2', JSON.stringify(data), {headers: header})
-        .toPromise().then((res) => {
-        const filename = res['desccription'];
-        this.peopleDatabase.downloadExcel(filename, this.currentUser['role'][0].id, 'download');
-      })
-    }
-  }
-
-
-  exportExcel3(data: moInfo3[]){
-    if (data.length > 0) {
-      let header = new HttpHeaders({'Content-Type': 'application/json'});
-      this.httpClient.post(this.serverUrl + '/export_table_disp3', JSON.stringify(data), {headers: header})
-        .toPromise().then((res) => {
-        const filename = res['desccription'];
-        this.peopleDatabase.downloadExcel(filename, this.currentUser['role'][0].id, 'download');
-      })
-    }
-  }
-
-
-  exportExcel4(data: moInfo4[]){
-    if (data.length > 0) {
-      let header = new HttpHeaders({'Content-Type': 'application/json'});
-      this.httpClient.post(this.serverUrl + '/export_table_disp4', JSON.stringify(data), {headers: header})
-        .toPromise().then((res) => {
-        const filename = res['desccription'];
-        this.peopleDatabase.downloadExcel(filename, this.currentUser['role'][0].id, 'download');
-      })
-    }
-  }
-
-  exportExcel5(data: moInfo4[]){
-    if (data.length > 0) {
-      let header = new HttpHeaders({'Content-Type': 'application/json'});
-      this.httpClient.post(this.serverUrl + '/export_table_disp5', JSON.stringify(data), {headers: header})
-        .toPromise().then((res) => {
-        const filename = res['desccription'];
-        this.peopleDatabase.downloadExcel(filename, this.currentUser['role'][0].id, 'download');
-      })
-    }
-  }
-
-
-  exportExcel6(data: moInfo6[]){
-    if (data.length > 0) {
-      let header = new HttpHeaders({'Content-Type': 'application/json'});
-      this.httpClient.post(this.serverUrl + '/export_table_disp6', JSON.stringify(data), {headers: header})
-        .toPromise().then((res) => {
-        const filename = res['desccription'];
-        this.peopleDatabase.downloadExcel(filename, this.currentUser['role'][0].id, 'download');
-      })
-    }
-  }
-
 }

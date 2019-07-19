@@ -3,22 +3,18 @@ package com.careful.clinic.model.schedulemodels.table1;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.inject.Named;
 import javax.persistence.*;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "DISP_TABLE1")
-@NamedQueries({
-        @NamedQuery(name = "findAllt1",query = "SELECT t FROM DISP_TABLE1 t order by t.lpuId"),
-        @NamedQuery(name = "findByDayst1", query = "SELECT t FROM DISP_TABLE1 t where t.dateInsert > sysdate() - :days order by t.dateInsert desc")
-})
-public class DISP_TABLE1 implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "findUpdateByDayst1", query = "SELECT t FROM DISP_TABLE1_UPDATE t where t.dateInsert > sysdate() - :days order by t.dateInsert desc")
+})
+public class DISP_TABLE1_UPDATE implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "LPUID")
     private String lpuId;
@@ -43,7 +39,7 @@ public class DISP_TABLE1 implements Serializable {
     @Column(name = "PROF")
     private String prof;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy HH:mm", timezone = "Asia/Novosibirsk")
     @Column(name ="D_INSERT")
     private Date dateInsert;
 
@@ -52,7 +48,7 @@ public class DISP_TABLE1 implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID",referencedColumnName = "ID")
-    private List<DISP_TABLE_DT> dates;
+    private List<DISP_TABLE1_DT_UPDATE> dates;
 
     public String getLpuId() {
         return lpuId;
@@ -126,17 +122,17 @@ public class DISP_TABLE1 implements Serializable {
         this.prim = prim;
     }
 
-    public List<DISP_TABLE_DT> getDates() {
+    public List<DISP_TABLE1_DT_UPDATE> getDates() {
         return dates;
     }
 
-    public void setDates(List<DISP_TABLE_DT> dates) {
+    public void setDates(List<DISP_TABLE1_DT_UPDATE> dates) {
         this.dates = dates;
     }
 
     @Override
     public String toString() {
-        return "DISP_TABLE1{" +
+        return "DISP_TABLE1_UPDATE{" +
                 "lpuId='" + lpuId + '\'' +
                 ", otdId='" + otdId + '\'' +
                 ", address='" + address + '\'' +

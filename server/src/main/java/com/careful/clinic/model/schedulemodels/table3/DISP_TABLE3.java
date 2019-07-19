@@ -2,6 +2,7 @@ package com.careful.clinic.model.schedulemodels.table3;
 
 
 import com.careful.clinic.model.schedulemodels.table1.DISP_TABLE_DT;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -32,6 +33,7 @@ public class DISP_TABLE3 implements Serializable {
     private String prim;
 
     @Id
+    @JsonIgnore
     @Column(name = "ID")
     private String Id;
 

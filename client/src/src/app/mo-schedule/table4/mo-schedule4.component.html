@@ -7,13 +7,11 @@
       <mat-card-header>
         <schedule-header (filterOut)="getNotify($event)"></schedule-header>
         <div style="position: absolute; right: 20px;">
-          <button mat-raised-button matTooltip="Скачать данные из таблицы в формате эксель(.xlxs)" (click)="get()">Экспорт в эксель</button>
+          <button mat-raised-button matTooltip="Скачать данные из таблицы в формате эксель(.xlxs)" (click)="exportData()">Экспорт в эксель</button>
         </div>
-        <div *ngIf="currentUser['role'][0].id === 777" style="padding-left: 50px; display: block;">
-                <button mat-icon-button matTooltip="Посмотреть изменения в таблице" (click)="getHistory()" style="float: right"><mat-icon style="font-size: 40px">cake</mat-icon></button>
-                <mat-input-container style="float: left; width: 50px;">
-                  <input type="number" matInput  placeholder="Дней" [(ngModel)]="selectedDays">
-                </mat-input-container>
+        <div style=" width: 300px; position:absolute; right: 200px;">
+                <button mat-icon-button color="warn" matTooltip="Посмотреть историю изменения/добавления/удаления записей за выбранное количество дней" (click)="getHistory()" style="float:right;"><mat-icon style="font-size: 50px">explore</mat-icon></button>
+                <input  matInput placeholder="Дней"  type="number" min="0" max="99999"  [(ngModel)]="selectedDays" style="float: right; width: 70px;">
         </div>
       </mat-card-header>
     </mat-list>
@@ -72,6 +70,4 @@
       <mat-row  *cdkRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
   </mat-card-content>
-
-
 </mat-card>

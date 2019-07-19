@@ -19,67 +19,84 @@
     <mat-card>
       <mat-card-content>
         <div mat-dialog-content #history1 *ngIf="dataShow.length > 0; else nohistory1">
-            <table cellspacing="0">
-              <tr>
-                <th>
-                  Дата изменения
-                </th>
-                <th>
-                  {{lpuId}}
-                </th>
-                <th>
-                  {{address}}
-                </th>
-                <th>
-                  {{dateBegin}}
-                </th>
-                <th>
-                  {{dateEnd}}
-                </th>
-                <th>
-                  {{timeBegin}}
-                </th>
-                <th>
-                  {{timeEnd}}
-                </th>
-                <th>
-                  {{typeMo}}
-                </th>
-                <th>
-                  {{prim}}
-                </th>
-              </tr>
-              <tr *ngFor="let row of dataShow">
-                <td>
-                  {{row.dateInsert}}
-                </td>
-                <td>
-                  {{row.lpuId}}
-                </td>
-                <td [ngClass] = "{warning:row.address !=null ? row.address.includes('->') : false}">
-                  {{row.address}}
-                </td>
-                <td [ngClass] = "{warning:row.dateBegin != null ? row.dateBegin.includes('->') : false}">
-                  {{row.dateBegin}}
-                </td>
-                <td [ngClass] = "{warning:row.dateEnd != null ? row.dateEnd.includes('->') : false}">
-                  {{row.dateEnd}}
-                </td>
-                <td [ngClass] = "{warning:row.timeBegin != null ? row.timeBegin.includes('->') : false}">
-                  {{row.timeBegin}}
-                </td>
-                <td [ngClass] = "{warning:row.timeEnd != null ? row.timeEnd.includes('->') : false}">
-                  {{row.timeEnd}}
-                </td>
-                <td [ngClass] = "{warning:row.typeMo != null ? row.typeMo.includes('->') : false}">
-                  {{row.typeMo}}
-                </td>
-                <td [ngClass] = "{warning:row.prim != null ?  row.prim.includes('->') : false}">
-                  {{row.prim}}
-                </td>
-              </tr>
-            </table>
-
+          <table cellspacing="0">
+            <tr>
+              <th>
+                Дата изменения
+              </th>
+              <th>
+                {{lpuId}}
+              </th>
+              <th>
+                {{kodOtd}}
+              </th>
+              <th>
+                {{address}}
+              </th>
+              <th>
+                {{phone}}
+              </th>
+              <th>
+                {{typeMo}}
+              </th>
+              <th>
+                {{otkProf}}
+              </th>
+              <th>
+                {{prim}}
+              </th>
+              <th>
+                Понедельник
+              </th>
+              <th>
+                Вторник
+              </th>
+              <th>
+                Среда
+              </th>
+              <th>
+                Четверг
+              </th>
+              <th>
+                Пятница
+              </th>
+              <th>
+                Суббота
+              </th>
+              <th>
+                Воскресенье
+              </th>
+            </tr>
+            <tr *ngFor="let row of dataShow">
+              <td>
+                {{row.dateInsert}}
+              </td>
+              <td>
+                {{row.lpuId}}
+              </td>
+              <td [ngClass] = "{warning:row.kodOtd !=null ? row.kodOtd.includes('->') : false}">
+                {{row.otdId}}
+              </td>
+              <td [ngClass] = "{warning:row.address != null ? row.address.includes('->') : false}">
+                {{row.address}}
+              </td>
+              <td [ngClass] = "{warning:row.phone != null ? row.phone.includes('->') : false}">
+                {{row.phone}}
+              </td>
+              <td [ngClass] = "{warning:row.typeMo != null ? row.typeMo.includes('->') : false}">
+                {{row.typeMo}}
+              </td>
+              <td [ngClass] = "{warning:row.otkProf != null ? row.otkProf.includes('->') : false}">
+                {{row.prof}}
+              </td>
+              <td [ngClass] = "{warning:row.prim != null ? row.prim.includes('->') : false}">
+                {{row.prim}}
+              </td>
+              <td *ngFor="let day of row.dates" [ngClass] = "{warning: day.dy == '1' ? day.timeBegin.includes('->') ? true : day.timeEnd.includes('->') : false}">
+                {{day.dy == '1' ? 'c ' + day.timeBegin + ' до '+day.timeEnd : '-'}}
+              </td>
+            </tr>
+          </table>
         </div>
         <ng-template #nohistory1>
           <div  class="no_info">
@@ -92,7 +109,7 @@
   <mat-tab id="history_insert" label="История добавления">
     <mat-card>
       <mat-card-content>
-        <div mat-dialog-content #history2 *ngIf="dataShowInsert.length > 0; else nohistory2">
+        <div mat-dialog-content #history2  *ngIf="dataShowInsert.length > 0; else nohistory2">
           <table cellspacing="0">
             <tr>
               <th>
@@ -102,25 +119,43 @@
                 {{lpuId}}
               </th>
               <th>
+                {{kodOtd}}
+              </th>
+              <th>
                 {{address}}
               </th>
               <th>
-                {{dateBegin}}
-              </th>
-              <th>
-                {{dateEnd}}
-              </th>
-              <th>
-                {{timeBegin}}
-              </th>
-              <th>
-                {{timeEnd}}
+                {{phone}}
               </th>
               <th>
                 {{typeMo}}
               </th>
               <th>
+                {{otkProf}}
+              </th>
+              <th>
                 {{prim}}
+              </th>
+              <th>
+                Понедельник
+              </th>
+              <th>
+                Вторник
+              </th>
+              <th>
+                Среда
+              </th>
+              <th>
+                Четверг
+              </th>
+              <th>
+                Пятница
+              </th>
+              <th>
+                Суббота
+              </th>
+              <th>
+                Воскресенье
               </th>
             </tr>
             <tr *ngFor="let row of dataShowInsert">
@@ -131,25 +166,25 @@
                 {{row.lpuId}}
               </td>
               <td>
+                {{row.otdId}}
+              </td>
+              <td>
                 {{row.address}}
               </td>
               <td>
-                {{row.dateBegin}}
-              </td>
-              <td>
-                {{row.dateEnd}}
-              </td>
-              <td>
-                {{row.timeBegin}}
-              </td>
-              <td>
-                {{row.timeEnd}}
+                {{row.phone}}
               </td>
               <td>
                 {{row.typeMo}}
               </td>
               <td>
+                {{row.prof}}
+              </td>
+              <td>
                 {{row.prim}}
+              </td>
+              <td *ngFor="let day of row.dates">
+                {{day.dy == '1' ? 'c ' + day.timeBegin + ' до '+day.timeEnd : '-'}}
               </td>
             </tr>
           </table>
@@ -165,7 +200,7 @@
   <mat-tab id="history_delete" label="История удаления">
     <mat-card>
       <mat-card-content>
-        <div mat-dialog-content #history3 *ngIf="dataShowDelete.length > 0; else nohistory3">
+        <div mat-dialog-content #history3  *ngIf="dataShowDelete.length > 0; else nohistory3">
           <table cellspacing="0">
             <tr>
               <th>
@@ -175,25 +210,43 @@
                 {{lpuId}}
               </th>
               <th>
+                {{kodOtd}}
+              </th>
+              <th>
                 {{address}}
               </th>
               <th>
-                {{dateBegin}}
-              </th>
-              <th>
-                {{dateEnd}}
-              </th>
-              <th>
-                {{timeBegin}}
-              </th>
-              <th>
-                {{timeEnd}}
+                {{phone}}
               </th>
               <th>
                 {{typeMo}}
               </th>
               <th>
+                {{otkProf}}
+              </th>
+              <th>
                 {{prim}}
+              </th>
+              <th>
+                Понедельник
+              </th>
+              <th>
+                Вторник
+              </th>
+              <th>
+                Среда
+              </th>
+              <th>
+                Четверг
+              </th>
+              <th>
+                Пятница
+              </th>
+              <th>
+                Суббота
+              </th>
+              <th>
+                Воскресенье
               </th>
             </tr>
             <tr *ngFor="let row of dataShowDelete">
@@ -204,25 +257,25 @@
                 {{row.lpuId}}
               </td>
               <td>
+                {{row.otdId}}
+              </td>
+              <td>
                 {{row.address}}
               </td>
               <td>
-                {{row.dateBegin}}
-              </td>
-              <td>
-                {{row.dateEnd}}
-              </td>
-              <td>
-                {{row.timeBegin}}
-              </td>
-              <td>
-                {{row.timeEnd}}
+                {{row.phone}}
               </td>
               <td>
                 {{row.typeMo}}
               </td>
               <td>
+                {{row.prof}}
+              </td>
+              <td>
                 {{row.prim}}
+              </td>
+              <td *ngFor="let day of row.dates">
+                 {{day.dy == '1' ? 'c ' + day.timeBegin + ' до '+day.timeEnd : '-'}}
               </td>
             </tr>
           </table>

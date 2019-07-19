@@ -3,22 +3,18 @@ package com.careful.clinic.model.schedulemodels.table1;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.inject.Named;
 import javax.persistence.*;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "DISP_TABLE1")
-@NamedQueries({
-        @NamedQuery(name = "findAllt1",query = "SELECT t FROM DISP_TABLE1 t order by t.lpuId"),
-        @NamedQuery(name = "findByDayst1", query = "SELECT t FROM DISP_TABLE1 t where t.dateInsert > sysdate() - :days order by t.dateInsert desc")
-})
-public class DISP_TABLE1 implements Serializable {
-    private static final long serialVersionUID = 1L;
 
+@Entity
+@NamedQueries({
+        @NamedQuery(name="findDeleteByDayst1",query = "SELECT t FROM DISP_TABLE1_HISTORY t where t.dateInsert > sysdate() - :days order by t.dateInsert desc")
+})
+public class DISP_TABLE1_HISTORY implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "LPUID")
     private String lpuId;
@@ -35,7 +31,7 @@ public class DISP_TABLE1 implements Serializable {
     @Column(name = "TYPE_MO")
     private String typeMo;
 
-    @Id
+    @javax.persistence.Id
     @JsonIgnore
     @Column(name = "ID")
     private String Id;
@@ -136,7 +132,7 @@ public class DISP_TABLE1 implements Serializable {
 
     @Override
     public String toString() {
-        return "DISP_TABLE1{" +
+        return "DISP_TABLE1_HISTORY{" +
                 "lpuId='" + lpuId + '\'' +
                 ", otdId='" + otdId + '\'' +
                 ", address='" + address + '\'' +
