@@ -92,8 +92,8 @@
               <td [ngClass] = "{warning:row.prim != null ? row.prim.includes('->') : false}">
                 {{row.prim}}
               </td>
-              <td *ngFor="let day of row.dates" [ngClass] = "{warning: day.dy == '1' ? day.timeBegin.includes('->') ? true : day.timeEnd.includes('->') : false}">
-                {{day.dy == '1' ? 'c ' + day.timeBegin + ' до '+day.timeEnd : '-'}}
+              <td *ngFor="let day of row.dates" [ngClass] = "{warning: day.dy == '1' ? (day.timeBegin ? day.timeBegin.includes('->') : false) || (day.timeEnd ? day.timeEnd.includes('->') :false) : false}">
+                {{day.dy == '1' ? ((day.timeBegin ?'c ' + day.timeBegin : '') +  (day.timeEnd ? ' до ' + day.timeEnd : '') ) : '-'}}
               </td>
             </tr>
           </table>
@@ -184,7 +184,7 @@
                 {{row.prim}}
               </td>
               <td *ngFor="let day of row.dates">
-                {{day.dy == '1' ? 'c ' + day.timeBegin + ' до '+day.timeEnd : '-'}}
+                {{day.dy == '1' ? ((day.timeBegin ?'c ' + day.timeBegin : '') +  (day.timeEnd ? ' до ' + day.timeEnd : '') ) : '-'}}
               </td>
             </tr>
           </table>
@@ -275,7 +275,7 @@
                 {{row.prim}}
               </td>
               <td *ngFor="let day of row.dates">
-                 {{day.dy == '1' ? 'c ' + day.timeBegin + ' до '+day.timeEnd : '-'}}
+                {{day.dy == '1' ? ((day.timeBegin ?'c ' + day.timeBegin : '') +  (day.timeEnd ? ' до ' + day.timeEnd : '') ) : '-'}}
               </td>
             </tr>
           </table>

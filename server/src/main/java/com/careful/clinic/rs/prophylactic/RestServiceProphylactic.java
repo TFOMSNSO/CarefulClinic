@@ -152,12 +152,16 @@ public class RestServiceProphylactic {
 			/*Блок загрузки в базу
 			 * Парсим и загружаем в базу отработанный файл 
 			 * */
-			
+			System.out.println("fileName:" + fileName);
 			IDataUploadType data = uploadFactory.getInstansUploadData(fileName);
 			List<String> listOfQueryies =  null;
+			long t1 = System.currentTimeMillis();
 			if (data != null ) {
+				System.out.println("orderingParsingProcess");
 				listOfQueryies =  data.orderingParsingProcess();
 			}
+			long t2 = System.currentTimeMillis();
+			System.out.println("oredering parsing process time:" + (t2-t1)/1000.0);
 			if(listOfQueryies == null) throw new ParseDataExcelException("Ошибка в шаблоне. Не удается определить шаблон.");
 			//data.checkOuTroughDB(listOfQueryies)
 			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
@@ -310,9 +314,9 @@ public class RestServiceProphylactic {
 		// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
 		
 		java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
-		  Files.deleteIfExists(f);
-		  java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
-  	      Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
+		Files.deleteIfExists(f);
+		java.nio.file.Path out = Files.createFile(Paths.get(toName.replaceAll(".xlsx", ".txt")));
+	  	Files.write(Paths.get(out.toUri()), e.getMessage().getBytes(), StandardOpenOption.APPEND);
 	}
 	
 	private String getPathTo (String v){

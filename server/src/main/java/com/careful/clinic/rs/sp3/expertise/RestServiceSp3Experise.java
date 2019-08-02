@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
 import com.careful.clinic.model.AfterDisp3Group;
+import net.sf.jasperreports.engine.JRException;
 import org.xml.sax.SAXException;
 
 import com.careful.clinic.dao.sp3.expertise.ISp3ExpertiseDao;
@@ -56,43 +57,50 @@ public class RestServiceSp3Experise {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response report_3a(String x)  {
-
+		System.out.println("Start 3a");
 		Response.ResponseBuilder builder = null;
 		String m[] = x.split("\":\"");
 		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
 		try{
 			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
 			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
-			System.out.print("date1:" + date1 + "\ndate2:" + date2);
+			System.out.print("date:" + date1 + "\ndate:" + date2 + "\n");
 			List<WrapSp3> ls = null;
 			// смещение для запроса
 			int iter = 0;
 			// порядковый номер файла
 			int i =1;
-			String [] mm = {"reports/sp3/expertise/3a_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3А_список_экспертиза_"};
+			String [] mm = {"/reports/sp3/expertise/3a_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3А_список_экспертиза_"};
 			while(true){
 				ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a_expertise(date1, date2, user, iter);
+				if(ls == null) break;
 				if (ls.size() != 0) sp3ExpertiseReport.executeJasperReportExpertise(ls, "_"+i, user, date1, date2, mm);
 				else break;
-
 				i++;
 				iter = iter + 60_000;
 			}
 
 			List<Sp3RateMo> ls_ =  (List<Sp3RateMo>) sp3ExpertiseDAO.getResalt3a_expertiseRateMo(date1, date2, user);
-			String [] c ={"reports/sp3/expertise/3a_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А_экспертиза_рейтингМО_"};
+			String [] c ={"/reports/sp3/expertise/3a_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А_экспертиза_рейтингМО_"};
 			// выполняем формирование отчета
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
 
 
 			builder = Response.status(Response.Status.OK);
-			builder.entity("Отчет успешно сформирован");
+			builder.entity("Отчет успешно сформирован.");
+			System.out.println("End 3a");
 			//throw new Exception();
 			return builder.build();
+		}catch (JRException e){
+			System.out.println("JRException catch:" + e.getMessage());
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Произошла ошибка формирования отчета.");
+			return builder.build();
 		}catch (Exception e) {
+			System.out.println("Exception:" + e.getClass().getName());
 			e.printStackTrace();
 			builder = Response.status(Response.Status.OK);
-			builder.entity("Произошла ошибка формирования отчета");
+			builder.entity("Произошла ошибка формирования отчета.");
 			return builder.build();
 		}
 	}
@@ -239,8 +247,7 @@ public class RestServiceSp3Experise {
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperAfterDisp3Group(ls_, user, date1, date2,c);
 
 			builder = Response.status(Response.Status.OK);
-			builder.entity("Отчет успешно сформирован");
-			//throw new Exception();
+			builder.entity("Отчет успешно сформирован.Количество записей:" + ls_.size());
 			return builder.build();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -251,13 +258,14 @@ public class RestServiceSp3Experise {
 	}
 
 
+
+
+
 	@POST
 	@Path("/3b_report")
-	//@Consumes("application/x-www-form-urlencoded")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response report_3b(String x)  {
-
 		Response.ResponseBuilder builder = null;
 		String m[] = x.split("\":\"");
 		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
@@ -284,9 +292,9 @@ public class RestServiceSp3Experise {
 			// выполняем формирование отчета
 			if (ls_.size() != 0) sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2, c);
 
+
 			builder = Response.status(Response.Status.OK);
-			builder.entity("Отчет успешно сформирован");
-			//throw new Exception();
+			builder.entity("Отчет успешно сформирован. Количество записей:" + ls.size());
 			return builder.build();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -295,4 +303,205 @@ public class RestServiceSp3Experise {
 			return builder.build();
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@POST
+	@Path("/3a_report_new")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response report_3a_new(String x)  {
+		Response.ResponseBuilder builder = null;
+		String m[] = x.split("\":\"");
+		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
+		try{
+			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
+			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
+			List<WrapSp3> ls = null;
+
+			String [] mm = {"/reports/sp3/expertise/3a_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3А_список_экспертиза_"};
+			String [] c ={"/reports/sp3/expertise/3a_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3А_экспертиза_рейтингМО_"};
+			ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a_expertise(date1, date2, user, 0);
+			if(!ls.isEmpty()){
+				sp3ExpertiseReport.executeJasperReportExpertise(ls, "_", user, date1, date2, mm);
+				List<Sp3RateMo> ls_ =  sp3ExpertiseDAO.getResalt3a_expertiseRateMo(date1, date2, user);
+				sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
+
+
+
+				builder = Response.status(Response.Status.OK);
+				builder.entity("Отчет успешно сформирован. Количество записей:" + ls.size());
+				return builder.build();
+			}else{
+				builder = Response.status(Response.Status.OK);
+				builder.entity("Отчет не сформирован. Нет данных.");
+				return builder.build();
+			}
+		}catch (JRException e){
+			System.out.println("JRException catch:" + e.getMessage());
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Произошла ошибка формирования отчета.");
+			return builder.build();
+		}catch (Exception e) {
+			System.out.println("Exception:" + e.getClass().getName());
+			e.printStackTrace();
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Произошла ошибка формирования отчета.");
+			return builder.build();
+		}
+	}
+
+
+
+	@POST
+	@Path("/3b_report_new")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response report_3b_new(String x){
+		Response.ResponseBuilder builder = null;
+		System.out.println("request:" + x);
+		String m[] = x.split("\":\"");
+		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
+		String [] mm = {"reports/sp3/expertise/3b_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\3Б_список_экспертиза_"};
+		String [] c ={"reports/sp3/expertise/3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\3Б_экспертиза_рейтингМО_"};
+		try{
+			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
+			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
+
+
+			List<WrapSp3> ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3b_expertise(date1, date2, user, 0);
+			if(!ls.isEmpty()){
+				sp3ExpertiseReport.executeJasperReportExpertise(ls, "_", user, date1, date2, mm);
+				List<Sp3RateMo> ls_ = sp3ExpertiseDAO.getResalt3b_expertiseRateMo(date1, date2, user);
+				sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2, c);
+
+
+				builder = Response.status(Response.Status.OK);
+				builder.entity("Отчет успешно сформирован. Количество записей:" + ls.size());
+				return builder.build();
+			}else{
+				builder = Response.status(Response.Status.OK);
+				builder.entity("Отчет не сформирован. Нет данных.");
+				return builder.build();
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Произошла ошибка формирования отчета");
+			return builder.build();
+		}
+	}
+
+	@POST
+	@Path("/3a3b_report_new")
+	//@Consumes("application/x-www-form-urlencoded")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response report_3a3b_new(String x)  {
+
+		Response.ResponseBuilder builder = null;
+		String m[] = x.split("\":\"");
+		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
+		try{
+			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
+			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
+			List<WrapSp3> ls = null;
+			String [] mm = {"reports/sp3/expertise/3a3b_expertise.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\Экспертиза_3_группа_без_назначения_лечебно-диагностических_мероприятий_"};
+			String [] c ={"reports/sp3/expertise/3a3b_expertise_rateMO.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\Экспертиза_3_группа_без_назначения_лечебно-диагностических_мероприятий _рейтинг_МО_"};
+			ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a3b_expertise(date1, date2, user, 0);
+			if(!ls.isEmpty()) {
+				sp3ExpertiseReport.executeJasperReportExpertise(ls, "_", user, date1, date2, mm);
+				List<Sp3RateMo> ls_ = sp3ExpertiseDAO.getResalt3a3b_expertiseRateMo(date1, date2, user);
+				sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2, c);
+
+
+				builder = Response.status(Response.Status.OK);
+				builder.entity("Отчет успешно сформирован. Количество записей:" + ls.size());
+				return builder.build();
+			}else{
+				builder = Response.status(Response.Status.OK);
+				builder.entity("Отчет не сформирован. Нет данных.");
+				return builder.build();
+			}
+
+		}catch (Exception e) {
+			e.printStackTrace();
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Произошла ошибка формирования отчета");
+			return builder.build();
+		}
+	}
+
+
+
+
+	@POST
+	@Path("/3a3b_noNazrNoGosp_report_new")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response report_3a3b_noNazrNoGosp_new(String x)  {
+
+		Response.ResponseBuilder builder = null;
+		String m[] = x.split("\":\"");
+		String user = Integer.parseInt(m[3].substring(0, 3).replaceAll("[\\D]", ""))+"";
+		try{
+			String date1 = m[1].substring(0, 10).substring(6,10)+m[1].substring(0, 10).substring(3,5);
+			String date2 = m[2].substring(0, 10).substring(6,10)+m[2].substring(0, 10).substring(3,5);
+			List<WrapSp3> ls = null;
+			// смещение для запроса
+			String [] mm = {"reports/sp3/expertise/3a3b_expertise_noNazrNoGosp.jrxml", "\\content\\report\\sp3\\expert\\"+user+"\\Экспертиза_3_группа_без_признака_Д-учета_"};
+			String [] c ={"reports/sp3/expertise/3a3b_expertise_rateMO_noNazrNoGosp.jrxml","\\content\\report\\sp3\\expert\\"+user+"\\Экспертиза_3_группа_без_признака_Д-учета_рейтинг_МО_"};
+			ls = (List<WrapSp3>) sp3ExpertiseDAO.getResalt3a3b_expertise_noNazrNoGosp(date1, date2, user, 0);
+			if(!ls.isEmpty()){
+				sp3ExpertiseReport.executeJasperReportExpertise(ls, "_", user, date1, date2, mm);
+				List<Sp3RateMo> ls_ = sp3ExpertiseDAO.getResalt3a3b_expertiseRateMo_noNazrNoGosp(date1, date2, user);
+				sp3ExpertiseReport.executeJasperReportRateMoExpertise(ls_, user, date1, date2,c);
+
+
+
+				// выполняем формирование отчета
+				builder = Response.status(Response.Status.OK);
+				builder.entity("Отчет успешно сформирован. Количество записей:" + ls.size());
+				return builder.build();
+			}else{
+				builder = Response.status(Response.Status.OK);
+				builder.entity("Отчет не сформирован. Нет данных.");
+				return builder.build();
+			}
+
+
+		}catch (Exception e) {
+			e.printStackTrace();
+			builder = Response.status(Response.Status.OK);
+			builder.entity("Произошла ошибка формирования отчета");
+			return builder.build();
+		}
+	}
+
+
+
+
+
 }

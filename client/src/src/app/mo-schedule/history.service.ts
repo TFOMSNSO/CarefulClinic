@@ -109,7 +109,7 @@ export class HistoryService {
   }
 
   getHistory(table:string,type:string,day:string){
-    return this.httpClient.post(this.serverUrl + '/'+table+'_'+type+'_days',{days:day},{headers:{ 'Content-Type': 'application/json' }}).toPromise();
+    return this.httpClient.post(this.serverUrl + '/'+table+'_'+type+'_days',{ days:day },{ headers:{ 'Content-Type': 'application/json' } }).toPromise();
   }
 
 

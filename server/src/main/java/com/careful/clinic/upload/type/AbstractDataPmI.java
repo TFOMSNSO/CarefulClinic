@@ -61,7 +61,7 @@ public abstract class AbstractDataPmI extends AbstractDataUploadType {
 			
 			boolean bl = isLastRowCustom(formatter,row);
 			if(bl) break;
-			System.out.println("AbstractDataPmI inserted row");
+			//System.out.println("AbstractDataPmI inserted row");
 		}
 		
 		
@@ -94,7 +94,7 @@ public abstract class AbstractDataPmI extends AbstractDataUploadType {
 		 sb.append(tmp_m[7]);
 		 sb.append(" and p.smo=");
 		 sb.append(tmp_m[9]);
-		System.out.println("AbstractDataPmI count rows and search double");
+		//System.out.println("AbstractDataPmI count rows and search double");
 		return sb.toString();
 	}
 

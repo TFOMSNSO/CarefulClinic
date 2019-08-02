@@ -26,3 +26,29 @@ mat-form-field{
 mat-list-item{
   margin-top: 20px;
 }
+
+
+/deep/.mat-toolbar{
+  height:10%;
+  background: #9ebfab;
+  padding: 0;
+  /*background: #9ebfab;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+  flex-direction: column;
+  align-items: baseline;*/
+}
+/deep/ .mat-dialog-container {
+  padding: 0;
+  border-radius: 10px;
+}
+
+mat-dialog-actions{
+  float: right;
+  padding-top: 0;
+}
+
+mat-toolbar-row{
+  display: inline-block;
+  width: 100%;
+}

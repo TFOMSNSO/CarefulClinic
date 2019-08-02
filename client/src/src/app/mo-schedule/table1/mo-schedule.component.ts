@@ -76,7 +76,8 @@ export class MoScheduleComponent implements OnInit {
   connect(){
     this.displayedColumns = ["lpuId", "otdId", "address", "phone", "typeMo", "prof", "about"];
     this.dataSource = new Scheduleds(this.moservice);
-    this.moservice.getAllt1();
+
+    this.moservice.getAll('table1');
     this.selectedDays = '7';
   }
 

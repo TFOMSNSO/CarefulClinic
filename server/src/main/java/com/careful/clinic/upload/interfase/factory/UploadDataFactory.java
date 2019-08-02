@@ -49,7 +49,9 @@ public class UploadDataFactory {
 		} else if(type.trim().equalsIgnoreCase("РЕЗУЛЬТАТЫ ЭКМП")){
 			dut = new ResultEKMPType(pkg,fileName);
 		} else if(type.trim().equalsIgnoreCase("Результат информирования о предстоящей диспансеризации")){
+			System.out.println(type + "good");
 			dut = new InformD_reestr(pkg,fileName);
+			System.out.println(dut);
 		} else if(type.trim().equalsIgnoreCase("МО")){
 			dut = new DRecordsMZType(pkg,fileName);
 		} else{

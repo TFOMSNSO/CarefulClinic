@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTabChangeEvent} from '@angular/material';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import {environment} from "../../../../environments/environment";
+
+
 @Component({
   selector: 'app-dialog-table1',
   templateUrl: './dialog-table1.component.html',

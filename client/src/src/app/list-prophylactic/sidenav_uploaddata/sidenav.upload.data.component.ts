@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { PeopleDatabase } from '../people-database';
 import { User } from '../../model/user';
 import { ListExcelFiles } from '../../model/list.files.excel';
-import {environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -12,7 +12,7 @@ import {environment} from '../../../environments/environment';
   templateUrl: './sidenav.upload.data.component.html',
   styleUrls: ['./sidenav.upload.data.component.scss'],
   providers: [PeopleDatabase]
-  
+
 })
 
 
@@ -26,13 +26,13 @@ export class SidenavUploadDataComponent   implements OnInit{
   	public invalidFiles : any = [];
   	public listUploadedFiles: ListExcelFiles[] = [];
   	public flag: boolean = true;
-  	
+
   	_pull: string = environment.pull;
   	_drop: string = environment.drop;
   	data_not_found = environment.data_not_found;
-  	
+
 	constructor(private personSearchIsurService: PeopleDatabase){}
-	
+
 ngOnInit():void {
  }
 
@@ -44,9 +44,9 @@ ngOnInit():void {
  open(){
  	this.variable_sidenave.toggle(true);
  }
- 
+
  onFilesChange(fileList : Array<File>){
- 	this.progress_bar_upload = true; 
+ 	this.progress_bar_upload = true;
     this.fileList = fileList;
     this.personSearchIsurService.upload(fileList)
   	.then(result =>{
@@ -63,8 +63,8 @@ ngOnInit():void {
     this.progress_bar_upload = false;
     this.init();
   }
-  
-  
+
+
   private getListNameUploadedFiles(data : number): void{
   		this.flag = true;
 	 	 this.personSearchIsurService.listFiles2(data)
@@ -73,7 +73,7 @@ ngOnInit():void {
 	 	 this.flag = false;
 	 	 });
 }
-  
+
 downloadExcel(data: string):void{
 this.personSearchIsurService.downloadExcel(data,this.currentUser['role'][0].id,'upload');
 

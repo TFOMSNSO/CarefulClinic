@@ -303,11 +303,53 @@ export class ModatabaseService {
 
 
 
+  getAll(table:string){
+    this.httpClient.get(this.serverUrl + "/"+table+"_all").toPromise().then(res => {
+      let temp = res;
+      if(table == 'table1' || table == 'table3'){
+        for (let i in temp) {
+          temp[i].dates.sort(function (a,b) {
+            return Number(a.dw) - Number(b.dw);
+          })
+          for (let a in temp[i].dates) {
+            temp[i].dates[a].dw = this.week[Number(temp[i].dates[a].dw) - 1];
+          }
+        }
+      }
+
+      switch (table){
+        case "table1":{
+          this.dataChange.next(temp as moInfo[]);
+          break;
+        }
+        case "table2":{
+          this.dataChange2.next(temp as moInfo2[]);
+          break;
+        }
+        case "table3":{
+          this.dataChange3.next(temp as moInfo3[]);
+          break;
+        }
+        case "table4":{
+          this.dataChange4.next(temp as moInfo4[]);
+          break;
+        }
+        case "table5":{
+          this.dataChange5.next(temp as moInfo4[]);
+          break;
+        }
+        case "table6":{
+          this.dataChange6.next(temp as moInfo6[]);
+          break;
+        }
+      }
+
+    });
+  }
 
 
 
-
-
+  /*
   //таблица 1 - DISP_TABLE1(webofoms@dume). получаем список всех мо и график их работы
   getAllt1() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -394,5 +436,5 @@ export class ModatabaseService {
       }
       this.dataChange6.next(temp);
     });
-  }
+  }*/
 }

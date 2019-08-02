@@ -43,7 +43,7 @@
       	<class>com.careful.clinic.model.PmMo2017</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
-            <property name="hibernate.show_sql" value="true" />
+            <!-- <property name="hibernate.show_sql" value="true" /> -->
             <property name="hibernate.connection.charSet" value="UTF-8"/>
             <!-- <property name="hibernate.connection.username" value="ofoms"/>
     		<property name="hibernate.connection.password" value="12345"/> -->
@@ -99,7 +99,14 @@
             <property name="hibernate.connection.charSet" value="UTF-8"/>
         </properties>
     </persistence-unit>
-
+    <persistence-unit name="OracleMUR2019"  transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:/ds/MUR2019</jta-data-source>
+        <properties>
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+        </properties>
+    </persistence-unit>
 
 
     <persistence-unit name="OracleDSDeveloper"  transaction-type="JTA">

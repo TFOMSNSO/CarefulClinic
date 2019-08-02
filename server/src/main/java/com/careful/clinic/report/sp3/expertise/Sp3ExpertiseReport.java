@@ -1,6 +1,7 @@
 package com.careful.clinic.report.sp3.expertise;
 
 import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
@@ -42,6 +43,7 @@ public class Sp3ExpertiseReport {
 	 */
 	// TODO Реализовать то что делает массив cons с помощью ООП (фабрика или enum или ....)
 	public void executeJasperReportRateMoExpertise(List<Sp3RateMo> ls, String user, String str1, String str2, String [] cons) throws JRException{
+		System.out.println("jasper report rate mo expertise ");
 		String directoryServer = System.getProperty("jboss.home.dir");
 
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(ls);
@@ -79,6 +81,7 @@ public class Sp3ExpertiseReport {
 	 * @throws JRException
 	 */
 	public void executeJasperReportExpertise(List<WrapSp3> ls, String prefix, String user, String str1, String str2, String [] mm) throws JRException{
+		System.out.println("jasperrrrrr asdreport ");
 		String directoryServer = System.getProperty("jboss.home.dir");
 
 		JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(ls);
@@ -86,10 +89,16 @@ public class Sp3ExpertiseReport {
 		parameters.put("DATE", new Date());
 		parameters.put("date_start", str1);
 		parameters.put("date_end", str2);
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		System.out.println("classloader:" + classLoader);
+		URL resource = classLoader.getResource(mm[0]);
+		System.out.println("RESOURCE:" + resource);
+		String path = resource.getPath();
 
-		String path = Thread.currentThread().getContextClassLoader().getResource(mm[0]).getPath();
+
+		System.out.println("PATH:" + path);
 		File f = new File(path);
-
+		                           
 		JasperDesign jasperDesign = JRXmlLoader.load(f);
 		//jasperDesign.setPageHeight(200_000); // устанавливаем высоту в зависимости от количества
 		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);

@@ -10,6 +10,7 @@ import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.careful.clinic.exceptions.CheckStructureExcelException;
@@ -24,7 +25,7 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 	private SimpleDateFormat df3 = new SimpleDateFormat("dd.MM.yyyy");
 	private OPCPackage pkg;
 	private String fileName;
-	private XSSFWorkbook  xssfWorkbook; 
+	private XSSFWorkbook  xssfWorkbook;
 	private List<String> insert_queriues; 
 	
 	 public  List<String> orderingParsingProcess() throws ParseException, IOException, CheckStructureExcelException, ParseDataExcelException, CheckTypizineExcelException{
@@ -52,13 +53,15 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 			else{ return this.insert_queriues;}
 		}
 		public void set(OPCPackage pkg, String fileName) throws IOException{
+	 	    System.out.println("setting");
 			this.pkg = pkg;
 			this.fileName = fileName;
 			setXSSFWorkbook(this.pkg);
 		}
-		
+
 		private void setXSSFWorkbook(OPCPackage pkg) throws IOException{
-			this.xssfWorkbook = new XSSFWorkbook(pkg);
+			System.out.println("set workbook");
+	 		this.xssfWorkbook = new XSSFWorkbook(pkg);
 		}
 		
 		public XSSFWorkbook getXSSFWorkbook(){

@@ -70,7 +70,7 @@ export class MoSchedule2Component implements OnInit {
   connect(){
     this.displayedColumns = ["lpuId", "fio", "dol", "phone","prim"];
     this.dataSource = new Scheduleds2(this.moservice);//------------------------------------------
-    this.moservice.getAllt2();//-------------------------------------------------
+    this.moservice.getAll('table2');//-------------------------------------------------
   }
 
   getNotify(note:string): void{

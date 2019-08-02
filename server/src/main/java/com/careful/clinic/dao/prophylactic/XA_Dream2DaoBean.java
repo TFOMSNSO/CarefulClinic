@@ -151,31 +151,39 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	public boolean insertDataFromExcel(List<String> listOfQueryies,IDataUploadType data ) throws ParseDataExcelException{
 		Query q = null;
 		// TODO разграничить логику проверок для каждого 'фасона' загрузок. Условие if(data !=null){ временно пока не переду все под паттерн
+		System.out.println("Нужно вставить записей:" + listOfQueryies.size());
+		countStr = countDouble = 0;
+		long t1 = System.currentTimeMillis();
 		if(data !=null){
 			doubleList.clear();
-		for(String str : listOfQueryies){
-			q = em_dream2.createNativeQuery(data.construct_querySelect(str));
-			List f = q.getResultList();
-			// если в базе нет полного дубля  то делаем вставку (т.е. избегаем дублирование записей в базе)
-			if(Integer.valueOf(f.get(0).toString()) == 0 )
-			{
-				q = em_dream2.createNativeQuery(str);
-				countStr++;
-				q.executeUpdate();
+			for(String str : listOfQueryies){
+				q = em_dream2.createNativeQuery(data.construct_querySelect(str));
+				List f = q.getResultList();
+				// если в базе нет полного дубля  то делаем вставку (т.е. избегаем дублирование записей в базе)
+				if(Integer.valueOf(f.get(0).toString()) == 0 )
+				{
+					q = em_dream2.createNativeQuery(str);
+					countStr++;
+					q.executeUpdate();
+				}
+				else
+				{
+					doubleList.add(str);
+					countDouble++;
+				}
 			}
-			else
-            {
-                doubleList.add(str);
-				countDouble++;
-            }
-		}
-		System.out.println("count double = "+countDouble);
 		}else{
+			countStr = countDouble = 0;
 			for(String str : listOfQueryies){
 					q = em_dream2.createNativeQuery(str);
 					q.executeUpdate();
+					countStr++;
 			}
 		}
+		long t2 = System.currentTimeMillis();
+		System.out.println("Время вставки:" + (t2 - t1)/1000.0) ;
+		System.out.println("countStr:" + countStr);
+		System.out.println("count double = "+countDouble);
 		return true;
 	}
 

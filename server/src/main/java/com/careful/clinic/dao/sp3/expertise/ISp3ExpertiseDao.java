@@ -17,6 +17,8 @@ public interface ISp3ExpertiseDao {
 
 	List<?> getResalt3b_expertise(String date1, String date2, String user, int iter);
 
+	List<?> getResult3b_new(String date1,String date2,String user);
+
 	List<?> getResalt3a3b_expertise(String date1, String date2, String user, int iter);
 
 	List<Sp3RateMo> getResalt3a_expertiseRateMo(String date1, String date2, String user);

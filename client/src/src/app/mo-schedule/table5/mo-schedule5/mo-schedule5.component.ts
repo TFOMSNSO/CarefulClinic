@@ -68,7 +68,8 @@ export class MoSchedule5Component implements OnInit {
   connect(){
     this.displayedColumns = ["lpuId", "address", "dateBegin", "dateEnd","timeBegin", "timeEnd","typeMo", "prim"];
     this.dataSource = new Scheduleds5(this.moservice);//------------------------------------
-    this.moservice.getAllt5();//-----------------------------------
+    //this.moservice.getAllt5();//-----------------------------------
+    this.moservice.getAll('table5');
   }
 
 

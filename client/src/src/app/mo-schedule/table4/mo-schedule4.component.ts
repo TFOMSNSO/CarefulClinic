@@ -78,7 +78,8 @@ export class MoSchedule4Component implements OnInit {
   connect(){
     this.displayedColumns = ["lpuId", "address", "dateBegin", "dateEnd","timeBegin", "timeEnd","typeMo", "prim"];
     this.dataSource = new Scheduleds4(this.moservice);//------------------------------------
-    this.moservice.getAllt4();//-----------------------------------
+    //this.moservice.getAllt4();//-----------------------------------
+    this.moservice.getAll('table4');
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.selectedDays = '7';
   }
@@ -100,7 +101,6 @@ export class MoSchedule4Component implements OnInit {
         data: {days:this.selectedDays}
       }
       this.dialogRef = this.dialog.open(HistoryDialogComponent,cc);
-
   }
 
   exportData(){

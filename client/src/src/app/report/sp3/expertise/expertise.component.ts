@@ -8,7 +8,7 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import {IMyDpOptions} from 'mydatepicker';
 import { ListExcelFiles } from '../../../model/list.files.excel';
 import {environment} from '../../../../environments/environment';
-
+import {MatSnackBar} from '@angular/material';
 
 
 
@@ -86,7 +86,7 @@ export class ExpertiseComponent implements OnInit{
     };
 
 
-   constructor(private expertiseService: ExpertiseService,private formBuilder: FormBuilder) {
+   constructor(private expertiseService: ExpertiseService,private formBuilder: FormBuilder,public snackBar: MatSnackBar) {
 		this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
    }
 
@@ -108,7 +108,15 @@ export class ExpertiseComponent implements OnInit{
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
+      //console.log(JSON.stringify(result));
+      alert(result._body);
 
+
+
+/*
+      this.snackBar.open(result._body + '.','Закрыть', {
+        duration: 10000,
+      });*/
 		})
 	}
 
@@ -119,7 +127,13 @@ export class ExpertiseComponent implements OnInit{
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
+      alert(result._body);
 
+
+      /*
+      this.snackBar.open(result._body + '.','Закрыть', {
+        duration: 10000,
+      });*/
 		})
 	}
 
@@ -129,7 +143,10 @@ export class ExpertiseComponent implements OnInit{
 		.then(result =>{
 			this.init_Expertise();
 			this.progress_bar = false;
-
+			alert(result._body);
+      /*this.snackBar.open(result._body + '.','Закрыть', {
+        duration: 10000,
+      });*/
 		})
 	}
 
@@ -139,7 +156,12 @@ export class ExpertiseComponent implements OnInit{
       .then(result =>{
         this.init_Expertise();
         this.progress_bar = false;
+        alert(result._body);
 
+/*
+        this.snackBar.open(result._body + '.','Закрыть', {
+          duration: 10000,
+        });*/
       })
   }
 
@@ -149,13 +171,15 @@ export class ExpertiseComponent implements OnInit{
       .then(result =>{
         this.init_Expertise();
         this.progress_bar = false;
-
+        alert(result._body);/*
+        this.snackBar.open(result._body + '.','Закрыть', {
+          duration: 10000,
+        });*/
       })
   }
 
 	resetForm() {
   	  this.myForm.reset();
-
 	}
 
 

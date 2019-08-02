@@ -13,7 +13,7 @@ export class ExpertiseService{
   serverUrl : string = environment.BACKEND_URL + "/rest/sp3/expertise";
 
 
-  constructor(private http: Http) {  console.log('Start!')}
+  constructor(private http: Http) {  console.log('Start ExpertiseService!')}
 
 
 	downloadFile_expertise(date1: string,date2: string,place: number):Promise<any>{
@@ -23,9 +23,9 @@ export class ExpertiseService{
 		 return this.http.get(`${this.serverUrl}/3a_report/${date1}/${date2}/${place}`, options)
 		  .toPromise()
 			.then(response =>response);
-	*/
+
       console.log(date1);
-      console.log(date2);
+      console.log(date2);*/
 			let obj2 = {
 				date1: date1,
 				date2: date2,
@@ -34,7 +34,7 @@ export class ExpertiseService{
 
 			let headers = new Headers({'Content-Type': 'application/json'});
 			return this.http
-			  .post(this.serverUrl + '/3a_report',JSON.stringify(obj2), {headers: headers})
+			  .post(this.serverUrl + '/3a_report_new',JSON.stringify(obj2), {headers: headers})
 			  .debounceTime(500)
 			  .toPromise()
 			  .then(response =>response);
@@ -51,7 +51,7 @@ export class ExpertiseService{
 
 			let headers = new Headers({'Content-Type': 'application/json'});
 			return this.http
-			  .post(this.serverUrl + '/3b_report',JSON.stringify(obj2), {headers: headers})
+			  .post(this.serverUrl + '/3b_report_new',JSON.stringify(obj2), {headers: headers})
 			  .debounceTime(500)
 			  .toPromise()
 			  .then(response =>response);
@@ -67,7 +67,7 @@ export class ExpertiseService{
 
 			let headers = new Headers({'Content-Type': 'application/json'});
 			return this.http
-			  .post(this.serverUrl + '/3a3b_report',JSON.stringify(obj2), {headers: headers})
+			  .post(this.serverUrl + '/3a3b_report_new',JSON.stringify(obj2), {headers: headers})
 			  .debounceTime(500)
 			  .toPromise()
 			  .then(response =>response);
@@ -82,7 +82,7 @@ export class ExpertiseService{
     }
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http
-      .post(this.serverUrl + '/3a3b_noNazrNoGosp_report',JSON.stringify(obj2), {headers: headers})
+      .post(this.serverUrl + '/3a3b_noNazrNoGosp_report_new',JSON.stringify(obj2), {headers: headers})
       .debounceTime(500)
       .toPromise()
       .then(response =>response);

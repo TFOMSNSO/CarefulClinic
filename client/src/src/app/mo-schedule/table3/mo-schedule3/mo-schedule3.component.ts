@@ -97,7 +97,8 @@ export class MoSchedule3Component implements OnInit {
   connect(){
     this.displayedColumns = ["lpuId", "kodOtd", "usl", "kab", "typeMo", "prim", "about"];
     this.dataSource = new Scheduleds3(this.moservice);//------------------------------------
-    this.moservice.getAllt3();//-----------------------------------
+    //this.moservice.getAllt3();//-----------------------------------
+    this.moservice.getAll('table3');
   }
 
   getNotify(note:string): void{

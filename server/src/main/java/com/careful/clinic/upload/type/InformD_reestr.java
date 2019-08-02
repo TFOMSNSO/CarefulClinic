@@ -41,7 +41,6 @@ public class InformD_reestr extends AbstractDataPmI {
 		strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. "+"\r\n") : strb.append("");
 		
 		for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
-			
 			row = sheet.getRow(j);
 			//TODO если в эксель и int поле стоит string то вылетает IllegalStateException во время вызова getNumericCellValue()			
 			strb = super.checkRequredFild(formatter,row) ? strb.append("") : strb.append("ERROR Не указано обязательное поле. Строка "+ (j+1)+"\r\n");
@@ -56,7 +55,7 @@ public class InformD_reestr extends AbstractDataPmI {
 			{
 				strb.append("ERROR В поле 'Дата информирования' некорректная дата. Строка "+ (j+1)+"\r\n. ");
 			}}catch (IllegalStateException e){
-				strb.append("ERROR Неверный формат ячеек в поле 'Дата информирования'. Строка "+ (j+1)+"\r\n");
+				strb.append("ERROR Неверный формат ячеек в поле	 'Дата информирования'. Строка "+ (j+1)+"\r\n");
 			}
 			catch (Exception e){
 				strb.append("ERROR Непредвиденная ошибка. Строка "+ (j+1)+"\r\n");

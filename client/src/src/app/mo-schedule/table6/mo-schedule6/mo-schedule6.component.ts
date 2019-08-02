@@ -69,7 +69,8 @@ export class MoSchedule6Component implements OnInit {
   connect(){
     this.displayedColumns = ["lpuId", "kodOtd", "kab", "date", "timeBegin", "timeEnd", "typeMo", "prim" ];
     this.dataSource = new Scheduleds6(this.moservice);//------------------------------------
-    this.moservice.getAllt6();//-----------------------------------
+    //this.moservice.getAllt6();//-----------------------------------
+    this.moservice.getAll('table6');
   }
 
   getNotify(note:string): void{
