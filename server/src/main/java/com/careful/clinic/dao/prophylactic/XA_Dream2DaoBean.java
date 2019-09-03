@@ -46,7 +46,11 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
     private ArrayList doubleList = new ArrayList();
 	//private int countRows = 0;
 
-
+	{
+		System.out.println(getClass());
+		System.out.println(getClass().getClassLoader());
+		System.out.println("-------------------------------------------------------");
+	}
 
 
 	public void pasteResultPm_a(String sql){

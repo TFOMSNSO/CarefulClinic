@@ -231,7 +231,7 @@ public class RestServiceProphylactic {
 
 		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
 		String addresses2 = "guv@ofoms.sibnet.ru,sja@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
-		String addresses3 = "esa@ofoms.sibnet.ru,kin@ofoms.sib	net.ru";
+		String addresses3 = "esa@ofoms.sibnet.ru,kin@ofoms.sibnet.ru";
 				String topic= "ПРОИЗОШЛА ЗАГРУЗКА ДАННЫХ В ЕИР НСО";
 		OPCPackage pkg = OPCPackage.open(new File(filename));
 		XSSFWorkbook workbook = new XSSFWorkbook(pkg);
