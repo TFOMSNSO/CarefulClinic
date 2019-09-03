@@ -583,7 +583,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                  and pp.dr = p.dr\n" +
 				"              ) \n" +
 				"            ) zz \n" +
-				"            where (zz.mes between '401048' and '401071'  or zz.mes between '401081' and '401120')"
+				"            where (zz.mes between '401048' and '401071'  or  zz.mes between '401081' and '401120')"
 				+" )     z_tmp "
 				+" group  by z_tmp.lpu  "
 				+" ) tmp1,  "
@@ -1272,7 +1272,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          )\n" +
 				"       )\n" +
 				"      )\n" +
-				" 	   and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 	   and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"      and  p.dat_end >= '01.01.2019'\n" +
 				"      and  (p.mes between '401048' and '401071' or  p.mes between '401081' and '401120')\n" +
 				"      and (p.nazr <> 5 and p.nazr <> 7 and p.nazr <> 2 and p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
@@ -1283,7 +1283,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where d.id_demand = p.demand_id\n" +
 				"              and  p.caretype = 30\n" +
 				"              and  p.dat_end >= '01.01.2019'\n" +
-				"              and  d.period between  '201906' and '201906'\n" +
+				"              and  d.period  between  '"+date1+"' and '"+date2+"' " +
 				"              and  p.mes in ('401079','401080','401128','401129')\n" +
 				"       )\n" +
 				"       and p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
@@ -1343,7 +1343,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                      )\n" +
 				"                    )\n" +
 				"                   )\n" +
-				" 					and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 					and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"                   and  p.dat_end >= '01.01.2019'\n" +
 				"                   and (p.nazr <> 5 and p.nazr <> 7 and p.nazr <> 2 and p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"                   and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
@@ -1460,7 +1460,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          )\n" +
 				"       )\n" +
 				"      )\n" +
-				" 	   and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 	   and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"      and  p.dat_end >= '01.01.2019'\n" +
 				"      and  (p.mes between '401048' and '401071' or  p.mes between '401081' and '401120')\n" +
 				"      and (p.nazr <> 5 and p.nazr <> 7 and p.nazr <> 2 and p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
@@ -1471,7 +1471,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where d.id_demand = p.demand_id\n" +
 				"              and  p.caretype = 30\n" +
 				"              and  p.dat_end >= '01.01.2019'\n" +
-				"              and  d.period between  '201906' and '201906'\n" +
+				"              and  d.period  between  '"+date1+"' and '"+date2+"' " +
 				"              and  p.mes in ('401079','401080','401128','401129')\n" +
 				"       )\n" +
 				"       and p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
@@ -1531,7 +1531,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                      )\n" +
 				"                    )\n" +
 				"                   )\n" +
-				" 					and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 					and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"                   and  p.dat_end >= '01.01.2019'\n" +
 				"                   and (p.nazr <> 5 and p.nazr <> 7 and p.nazr <> 2 and p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"                   and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
@@ -1768,7 +1768,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            )\n" +
 				"          )\n" +
 				"       )\n" +
-				" 	    and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"       and  p.dat_end >= '01.01.2019'\n" +
 				"       and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"       and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
@@ -1779,7 +1779,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          where d.id_demand = p.demand_id\n" +
 				"          and  p.caretype = 30\n" +
 				"          and  p.dat_end >= '01.01.2019'\n" +
-				"          and  d.period between  '201906' and '201906'\n" +
+				"          and  d.period  between  '"+date1+"' and '"+date2+"' " +
 				"          and  p.mes in ('401079','401080','401128','401129')\n" +
 				"       )\n" +
 				"       and p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
@@ -1834,7 +1834,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                )\n" +
 				"              )\n" +
 				"          )\n" +
-				" 	    and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"          and  p.dat_end >= '01.01.2019'\n" +
 				"          and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"          and  p.mes in ('401072','401127')\n" +
@@ -1895,7 +1895,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                    )\n" +
 				"                  )\n" +
 				"                 )\n" +
-				" 	    and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"                 and  p.dat_end >= '01.01.2019'\n" +
 				"                 and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"                 and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
@@ -2005,7 +2005,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            )\n" +
 				"          )\n" +
 				"       )\n" +
-				" 	    and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"       and  p.dat_end >= '01.01.2019'\n" +
 				"       and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"       and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
@@ -2016,7 +2016,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          where d.id_demand = p.demand_id\n" +
 				"          and  p.caretype = 30\n" +
 				"          and  p.dat_end >= '01.01.2019'\n" +
-				"          and  d.period between  '201906' and '201906'\n" +
+				"          and  d.period  between  '"+date1+"' and '"+date2+"' " +
 				"          and  p.mes in ('401079','401080','401128','401129')\n" +
 				"       )\n" +
 				"       and p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
@@ -2071,7 +2071,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                )\n" +
 				"              )\n" +
 				"          )\n" +
-				" 	    and  d.period between  '"+date1+"' and '"+date2+"'" + g +
+				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
 				"          and  p.dat_end >= '01.01.2019'\n" +
 				"          and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"          and  p.mes in ('401072','401127')\n" +

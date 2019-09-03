@@ -92,6 +92,8 @@ export class ListProphylacticComponent implements OnInit {
 		this.dataSource.filter = note;
 	}
 
+
+
   /*выпадающее окно с информацией о загруженных данных*/
 	handleProgressUpdated($event):void{
 	//  off progress bar

@@ -101,7 +101,6 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	public Collection<?> getInfoPlanInform(Integer adressid) throws ParseException{
 		
 		TypedQuery<PmMo2017> query = em_dream2.createNamedQuery("PmMo2017.findByAdressid", PmMo2017.class)
-        		
 				.setParameter("tfomsId", adressid);
 		
 		return query.getResultList();
@@ -110,7 +109,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	//ToDo in branch "mis" create a select from MIS DB
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException{
-		
+		System.out.println("getInfoG");
 		
 		StoredProcedureQuery storedProcedure =  em_dream2.createStoredProcedureQuery("sys.connect_mis.disp_fiod");
         
@@ -127,9 +126,9 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
         storedProcedure.setParameter("lastname", personmodel.getLastname());
         storedProcedure.setParameter("datebythday", personmodel.getBithday());
         storedProcedure.setParameter("year", personmodel.getYear());
-
+		System.out.println("before exec");
         storedProcedure.execute();
-
+		System.out.println("executed");
         String respXml = (String)storedProcedure.getOutputParameterValue("response");
         System.out.println("respXml:" + respXml);
         ResponseGer rGer = parseResponse(respXml);
@@ -219,13 +218,16 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	 * @throws IOException
 	 */
 	public ResponseGer parseResponse(String xml) throws ParserConfigurationException, SAXException, IOException{
-		
+		System.out.println("parseResponse");
 		ResponseGer resp = new ResponseGer();
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		 InputSource is = new InputSource(new StringReader(xml));
-		 Document doc = dBuilder.parse(is);
-		 doc.getDocumentElement().normalize();
+		System.out.println("factory Good");
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		System.out.println("document builder good");
+		InputSource is = new InputSource(new StringReader(xml));
+		Document doc = dBuilder.parse(is);
+		System.out.println("parse document good");
+		doc.getDocumentElement().normalize();
 		
 		 
 				 

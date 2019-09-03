@@ -48,7 +48,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
-import com.careful.clinic.dao.zno.znoDAO;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -126,6 +125,8 @@ public class RestServiceProphylactic {
 		String fileName = "";
 
 		List<String> authHeaders = headers.getRequestHeader(HttpHeaders.AUTHORIZATION);
+
+		System.out.println("authHeader:" + authHeaders.get(0));
 		if(Integer.valueOf(authHeaders.get(0)) == 777) UPLOADED_FILE_PATH = "\\content\\upload\\777\\process\\";
 		if(Integer.valueOf(authHeaders.get(0)) == 1)	UPLOADED_FILE_PATH = "\\content\\upload\\1\\process\\";
 		if(Integer.valueOf(authHeaders.get(0)) == 2)	UPLOADED_FILE_PATH = "\\content\\upload\\2\\process\\";
@@ -152,19 +153,23 @@ public class RestServiceProphylactic {
 			/*Блок загрузки в базу
 			 * Парсим и загружаем в базу отработанный файл 
 			 * */
-			System.out.println("fileName:" + fileName);
+//			System.out.println("fileName:" + fileName);
 			IDataUploadType data = uploadFactory.getInstansUploadData(fileName);
+//			IDataUploadType data2 = uploadDataFactory.getInstance(fileName);
+
+//			System.out.println("goody");
 			List<String> listOfQueryies =  null;
 			long t1 = System.currentTimeMillis();
 			if (data != null ) {
-				System.out.println("orderingParsingProcess");
+//				System.out.println("orderingParsingProcess");
 				listOfQueryies =  data.orderingParsingProcess();
 			}
 			long t2 = System.currentTimeMillis();
 			System.out.println("oredering parsing process time:" + (t2-t1)/1000.0);
 			if(listOfQueryies == null) throw new ParseDataExcelException("Ошибка в шаблоне. Не удается определить шаблон.");
-			//data.checkOuTroughDB(listOfQueryies)
-			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
+//			data.checkOuTroughDB(listOfQueryies)
+
+ 			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
 			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){deleteNativeFileFromUser(null, fileName, authHeaders); }
 			 String info =  new String("Файл успешно загружен. Протокол загрузки можно посмотреть в текстовом файле.");
 			 builder = Response.status(Response.Status.OK);
@@ -226,7 +231,7 @@ public class RestServiceProphylactic {
 
 		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
 		String addresses2 = "guv@ofoms.sibnet.ru,sja@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
-		String addresses3 = "esa@ofoms.sibnet.ru,kin@ofoms.sibnet.ru";
+		String addresses3 = "esa@ofoms.sibnet.ru,kin@ofoms.sib	net.ru";
 				String topic= "ПРОИЗОШЛА ЗАГРУЗКА ДАННЫХ В ЕИР НСО";
 		OPCPackage pkg = OPCPackage.open(new File(filename));
 		XSSFWorkbook workbook = new XSSFWorkbook(pkg);

@@ -8,8 +8,9 @@ import java.util.Date;
 
 /**
  * The persistent class for the PM_MO_2017 database table.
- * 
- */
+ *
+ * */
+
 @Entity
 @Table(name="PM_MO_2017")
 @NamedQuery(name="PmMo2017.findByAdressid", query="SELECT p FROM PmMo2017 p where p.tfomsId = :tfomsId")

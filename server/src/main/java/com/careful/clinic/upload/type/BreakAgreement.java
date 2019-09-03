@@ -10,6 +10,10 @@ import com.careful.clinic.upload.interfase.IDataUploadType;
 
 public class BreakAgreement extends AbstractDataUploadType{
 
+	public BreakAgreement(){
+
+	}
+
 	public BreakAgreement(OPCPackage pkg, String fileName) throws IOException {
 		super.set(pkg, fileName);
 	}

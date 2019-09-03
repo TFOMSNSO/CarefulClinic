@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
+//import org.apache.poi.ss.usermodel.CellType;
+
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -61,7 +63,9 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 
 		private void setXSSFWorkbook(OPCPackage pkg) throws IOException{
 			System.out.println("set workbook");
+			Long t1 = System.currentTimeMillis();
 	 		this.xssfWorkbook = new XSSFWorkbook(pkg);
+	 		System.out.println("set workbook ok:" + (System.currentTimeMillis() - t1)/1000.0);
 		}
 		
 		public XSSFWorkbook getXSSFWorkbook(){
@@ -120,6 +124,7 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 					row.getCell(mas[i]).getNumericCellValue();
 				}catch(NullPointerException ex){
 					row.createCell(mas[i], Cell.CELL_TYPE_NUMERIC).setCellValue(1000);
+//					row.createCell(mas[i], CellType.NUMERIC).setCellValue(1000);
 				}catch(IllegalStateException ex){
 					return false;
 				}	

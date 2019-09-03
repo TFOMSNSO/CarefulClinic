@@ -27,7 +27,7 @@ public class ResponseGer implements Serializable{
 	}
 	
 	private String start_date_etap1;
-	 private String end_date_etap1;
+	private String end_date_etap1;
 	 private String start_date_etap2;
 	 private String end_date_etap2;
 	 private String ref_id_person;

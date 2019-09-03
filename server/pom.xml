@@ -162,17 +162,18 @@
 		    <artifactId>jackson-annotations</artifactId>
 		    <version>2.6.4</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.10-FINAL</version>
+			<!--<version>4.0.0</version>-->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.10-FINAL</version>
-		</dependency>
+		    <!--<version>4.0.0</version>-->
+        </dependency>
 		
 		<dependency>
 		   <groupId>dom4j</groupId>
@@ -187,6 +188,7 @@
 		    <artifactId>jasperreports</artifactId>
 		    <version>5.6.1</version>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
 		<dependency>
 		    <groupId>com.lowagie</groupId>
@@ -206,6 +208,18 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
+       <dependency>
+           <groupId>org.junit.jupiter</groupId>
+           <artifactId>junit-jupiter-api</artifactId>
+           <version>5.0.3</version>
+           <scope>test</scope>
+       </dependency>
+       <dependency>
+           <groupId>junit</groupId>
+           <artifactId>junit</artifactId>
+           <scope>compile</scope>
+       </dependency>
+
 
    </dependencies>
     

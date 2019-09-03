@@ -21,6 +21,11 @@ public class ResultEKMPType extends AbstractDataUploadType{
     private SimpleDateFormat df2 = new SimpleDateFormat("dd.MM.yyyy");
     private SimpleDateFormat df3 = new SimpleDateFormat("dd.MM.yyyy");
 
+
+    public ResultEKMPType(){
+
+    }
+
     public ResultEKMPType(OPCPackage pkg, String fileName) throws IOException {
         super.set(pkg,fileName);
     }

@@ -80,6 +80,5 @@ public class SurveyRenouncementDisp extends AbstractDataPmA {
 	@Override
 	public void checkSinchronizeData(List<String> listquery) {
 		// TODO Auto-generated method stub
-		
 	}
 }
