@@ -12,6 +12,9 @@
 
     <artifactId>client</artifactId>
     <packaging>war</packaging>
+
+
+
     <build>
         <plugins>
             <plugin>

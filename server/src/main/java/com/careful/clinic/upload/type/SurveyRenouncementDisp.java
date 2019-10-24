@@ -46,9 +46,20 @@ public class SurveyRenouncementDisp extends AbstractDataPmA {
 		// добавить проверку типа смо и даты подачи
 
 		strb = super.checkDataFormat(sheet.getRow(1),1) ? strb.append("") : strb.append("ERROR Неверный формат даты Поле 'Дата формирования'. "+"\r\n");
-		try{strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. "+"\r\n") : strb.append("");}
+		try{
+			strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. "+"\r\n") : strb.append("");
+		}
         catch (IllegalStateException e){
-            strb.append("ERROR В Поле 'СМО'.Проверьте формат данных. Строка  3\r\n");
+			try{
+				int smo = Integer.parseInt(sheet.getRow(2).getCell(1).getStringCellValue());
+				if(smo > 4 || smo < 1){
+					strb.append("ERROR В Поле 'СМО'.Должно быть 1,2,4 Строка  3\r\n");
+				}
+			}catch(NumberFormatException ex){
+				strb.append("ERROR В Поле 'СМО'.Проверьте формат данных. Строка  3\r\n");
+			}
+
+
         }
 
 		for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){

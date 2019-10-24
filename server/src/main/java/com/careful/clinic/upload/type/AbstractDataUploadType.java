@@ -55,17 +55,13 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 			else{ return this.insert_queriues;}
 		}
 		public void set(OPCPackage pkg, String fileName) throws IOException{
-	 	    System.out.println("setting");
 			this.pkg = pkg;
 			this.fileName = fileName;
 			setXSSFWorkbook(this.pkg);
 		}
 
 		private void setXSSFWorkbook(OPCPackage pkg) throws IOException{
-			System.out.println("set workbook");
-			Long t1 = System.currentTimeMillis();
 	 		this.xssfWorkbook = new XSSFWorkbook(pkg);
-	 		System.out.println("set workbook ok:" + (System.currentTimeMillis() - t1)/1000.0);
 		}
 		
 		public XSSFWorkbook getXSSFWorkbook(){
@@ -74,7 +70,6 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 		
 		public void  closeXSSFWorkbook() throws IOException{
 			//this.pkg = null;
-			System.out.println("PKG close (AbstractDataUploadType)");
 			this.pkg.close();
 		}
 	 
@@ -134,7 +129,7 @@ public abstract class AbstractDataUploadType implements IDataUploadType {
 		}
 		
 		public boolean isLastRowCustom(DataFormatter formatter, Row row) {
-			
+
 			if(formatter.formatCellValue(row.getCell(0)).equals("") &&
 					  formatter.formatCellValue(row.getCell(1)).equals("")  &&
 					  formatter.formatCellValue(row.getCell(2)).equals("")  &&

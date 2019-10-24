@@ -24,6 +24,7 @@ public interface XA_Dream2Dao {
 	public Collection<?> getInfoPlanInform(Integer adressid) throws ParseException;
 	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException;	
 	public boolean insertDataFromExcel(List<String> listOfQueryies, IDataUploadType data) throws ParseDataExcelException;
+	int[] insertDataFromExcel(List<String> listOfQueryies,IDataUploadType data, boolean xxx);
 	ResponseGer parseResponse(String xml) throws ParserConfigurationException, SAXException, IOException;
 
 	String doubleValue();

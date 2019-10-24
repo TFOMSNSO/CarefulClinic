@@ -479,7 +479,7 @@
         <subsystem xmlns="urn:jboss:domain:jpa:1.1">
             <jpa default-datasource="" default-extended-persistence-inheritance="DEEP"/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:jsf:1.0"/>
+        <subsystem xmlns="urn:jboss:domain:jsf:1.0"/>у
         <subsystem xmlns="urn:jboss:domain:mail:2.0">
             <mail-session name="Mail" jndi-name="java:jboss/mail/ofoms">
                 <smtp-server outbound-socket-binding-ref="mail-smtp" username="paa" password="fce123!"/>

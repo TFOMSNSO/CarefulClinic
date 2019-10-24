@@ -1,7 +1,10 @@
 package com.careful.clinic.dao.prophylactic;
 
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +25,12 @@ import javax.persistence.TypedQuery;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,7 +47,6 @@ import com.careful.clinic.upload.interfase.IDataUploadType;
 
 @Stateless
 public class XA_Dream2DaoBean implements XA_Dream2Dao{
-
 	@PersistenceContext(unitName="OracleDream2DS")
     private EntityManager em_dream2;
 	private int countDouble = 0;
@@ -57,13 +65,15 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		sql = sql.replaceAll("\"", "");
         sql = "insert into  pm_a (ID,FAM,IM,OT,DR,D_INFO,TYPE_INFO,PRIM,SMO,DATA,D_INSERT)  values"+sql;
 		
-		Query q = em_dream2.createNativeQuery(sql);
+		 Query q = em_dream2.createNativeQuery(sql);
 		 q.executeUpdate();
 		 //em_dream2.getTransaction().commit();
 	}
 	
 	public Collection<?> getSurveyInform(PersonModel personmodel){
-		
+
+
+
 		String sb = "select distinct p.fam, p.im, p.ot, p.d_info, p.type_info, p.prim, p.smo, p.stat, p.error from pm_a p where p.fam='"+personmodel.getSurname()+"' and p.im='"+personmodel.getFirstname()+"' and p.ot='"+personmodel.getLastname()+"' and p.dr='"+personmodel.getBithday()+"' order by d_info desc, type_info ";
 		Query q = em_dream2.createNativeQuery(sb);
 	    List<Object[]> ls = q.getResultList();
@@ -95,7 +105,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 				.setParameter("dr", new SimpleDateFormat("dd.MM.yyyy").parse(personmodel.getBithday()));
 
 		List<PmI> ls = query.getResultList();
-*/
+		*/
 			  
 			  Set s = new HashSet<>(results);
 		return s;
@@ -110,11 +120,22 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		return query.getResultList();
 		
 	}
+
+
+
+
+	public Collection<?> getInfoMis(PersonModel personModel){
+
+
+		return null;
+	}
+
+
 	//ToDo in branch "mis" create a select from MIS DB
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException{
 		System.out.println("getInfoG");
-		
+		/*
 		StoredProcedureQuery storedProcedure =  em_dream2.createStoredProcedureQuery("sys.connect_mis.disp_fiod");
         
         storedProcedure.registerStoredProcedureParameter("response",String.class, ParameterMode.OUT);
@@ -130,22 +151,72 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
         storedProcedure.setParameter("lastname", personmodel.getLastname());
         storedProcedure.setParameter("datebythday", personmodel.getBithday());
         storedProcedure.setParameter("year", personmodel.getYear());
-		System.out.println("before exec");
         storedProcedure.execute();
-		System.out.println("executed");
         String respXml = (String)storedProcedure.getOutputParameterValue("response");
-        System.out.println("respXml:" + respXml);
-        ResponseGer rGer = parseResponse(respXml);
+*/
+
+
+		String xmlInput =
+				"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:soap=\"http://www.bars-open.ru/med/soap/\">\n" +
+						"<soapenv:Header/>\n" +
+						"<soapenv:Body>\n" +
+						"<soap:getPersonDataRequest>\n" +
+						"<surname>" + personmodel.getSurname() +
+						"</surname>\n" +
+						"<name>" + personmodel.getFirstname() +
+						"</name>\n" +
+						"<middle_name>" + personmodel.getLastname() +
+						"</middle_name>\n" +
+						"<date_birth>" + personmodel.getBithday() +
+						"</date_birth>\n" +
+						"<year>" + + personmodel.getYear() +
+						"</year>\n" +
+						"</soap:getPersonDataRequest>\n" +
+						"</soapenv:Body>\n" +
+						"</soapenv:Envelope>\n";
+
+
+
+		System.out.println("request:\n" +  xmlInput);
+
+
+		String wsEndPoint = "http://10.101.39.16:80/ws/dispancery_info/di";
+		HttpURLConnection httpConn = (HttpURLConnection) new URL(wsEndPoint).openConnection();
+		httpConn.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
+		httpConn.setRequestProperty("Content-Length", String.valueOf(xmlInput.getBytes().length) );
+
+
+		httpConn.setRequestProperty("Authorization","Basic SU5URk9NU05TTzpURk9NUzU0");
+		httpConn.setRequestMethod("POST");
+		httpConn.setDoOutput(true);
+		httpConn.setDoInput(true);
+
+
+		OutputStream out = httpConn.getOutputStream();
+		out.write(xmlInput.getBytes("UTF-8"));
+		out.close();
+
+		String responseString = "";
+		String outputString = "";
+
+		System.out.println("status:" +httpConn.getResponseCode() + "\nmessage:" + httpConn.getResponseMessage());
+
+		InputStreamReader isr = new InputStreamReader(httpConn.getResponseCode() == 200 ? httpConn.getInputStream() : httpConn.getErrorStream(), Charset.forName("UTF-8"));
+		BufferedReader in = new BufferedReader(isr);
+		// Write the SOAP message response to a String.
+		while ((responseString = in.readLine()) != null) {
+			outputString = outputString + responseString;
+		}
+
+		System.out.println("\nRESPONSE:\n" + outputString);
+
+        ResponseGer rGer = parseResponse(outputString);
         List<ResponseGer> ls = new ArrayList<ResponseGer>(1);
         ls.add(rGer);
-        
-        
-		
+
 		return ls;
 		
 	}
-	
-	
 	/*
 	 * Вставка результатов опроса или информирования. Сам запрос  формируется при парсинге Excel и передается в коллекнцию (т.е. в коллекции уже готовые запросы)
 	 * @param listOfQueryies
@@ -157,7 +228,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 		System.out.println("Нужно вставить записей:" + listOfQueryies.size());
 		countStr = countDouble = 0;
 		long t1 = System.currentTimeMillis();
-		if(data !=null){
+		if(data != null){
 			doubleList.clear();
 			for(String str : listOfQueryies){
 				q = em_dream2.createNativeQuery(data.construct_querySelect(str));
@@ -211,6 +282,49 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 
 	    return String.valueOf(doubleListOut);
     }
+
+    @Override
+    public int[] insertDataFromExcel(List<String> listOfQueryies,IDataUploadType data, boolean xxx) {
+		Query q = null;
+		// TODO разграничить логику проверок для каждого 'фасона' загрузок. Условие if(data !=null){ временно пока не переду все под паттерн
+		System.out.println("Нужно вставить записей:" + listOfQueryies.size());
+		countStr = countDouble = 0;
+		long t1 = System.currentTimeMillis();
+		if(data != null){
+			doubleList.clear();
+			for(String str : listOfQueryies){
+				q = em_dream2.createNativeQuery(data.construct_querySelect(str));
+				List f = q.getResultList();
+				// если в базе нет полного дубля  то делаем вставку (т.е. избегаем дублирование записей в базе)
+				if(Integer.valueOf(f.get(0).toString()) == 0 )
+				{
+					q = em_dream2.createNativeQuery(str);
+					countStr++;
+					q.executeUpdate();
+				}
+				else
+				{
+					doubleList.add(str);
+					countDouble++;
+				}
+			}
+		}else{
+			countStr = countDouble = 0;
+			for(String str : listOfQueryies){
+					q = em_dream2.createNativeQuery(str);
+					q.executeUpdate();
+					countStr++;
+			}
+		}
+		long t2 = System.currentTimeMillis();
+		System.out.println("Время вставки:" + (t2 - t1)/1000.0) ;
+		System.out.println("countStr:" + countStr);
+		System.out.println("count double = "+countDouble);
+		int [] arr = new int[2];
+		arr[0] = countStr;
+		arr[1] = countDouble;
+		return arr;
+	}
 
     /**
 	 * Метол парсит xml строку (ответ) ГЭР'а о диспансеризации

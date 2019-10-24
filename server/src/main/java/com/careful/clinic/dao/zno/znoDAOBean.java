@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.inject.Typed;
 import javax.persistence.*;
 import java.io.FileOutputStream;
+import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,7 +34,6 @@ public class znoDAOBean implements znoDAO{
 
 
     public Collection<?> getInfoZNO(PersonSmoModel personmodel) throws ParseException {
-        System.out.println("znoDAOBean.java:getInfoZNO:lulcs" + personmodel);
         String tempSmo = personmodel.getSmo().trim();
         TypedQuery<ZNO_PERSON> qr;
 
@@ -52,10 +52,11 @@ public class znoDAOBean implements znoDAO{
                     .setParameter("smo", tempSmo);
         }
 
-
-
-
         List<?> lq = qr.getResultList();
+        for(Object p : lq){
+            System.out.println(p);
+        }
+
         return lq;
     }
 
@@ -65,8 +66,14 @@ public class znoDAOBean implements znoDAO{
         TypedQuery<ZNO_TREATMENT> tr = zno.createNamedQuery("treatmentZno.findbyid1",ZNO_TREATMENT.class)
                 .setParameter("p_id",id.trim().replaceAll("\"",""));
 
+
         List<ZNO_TREATMENT> ll = tr.getResultList();
-        return ll;
+        Set<ZNO_TREATMENT> setlist= new HashSet<>(ll);
+        System.out.println("list:" + ll.size() + " set:" + setlist.size());
+/*        for(ZNO_TREATMENT treatment : setlist){
+            System.out.println(treatment);
+        }*/
+        return setlist;
     }
 
     @Override
@@ -177,11 +184,11 @@ public class znoDAOBean implements znoDAO{
     public Collection<?> getInfoZNOKeys(SearchZnoKeysModel keysmodel) {
         System.out.println(keysmodel);
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT z.ID1,z.ID2,z.FAM,Z.IM,Z.OT,Z.DR,Z.SMO z FROM ZNO_PERSON z ");
+        sb.append("FROM ZNO_PERSON z ");
         if(keysmodel.getCurrentUser() != 777){
-            sb.append("WHERE z.SMO = ");
+            sb.append("WHERE z.smo = ");
             sb.append(keysmodel.getCurrentUser());
-            sb.append(" AND ");
+//            sb.append(" AND ");
         }else{
             ArrayList<String> smos = new ArrayList<>();
             if(keysmodel.isIngos()){
@@ -196,33 +203,25 @@ public class znoDAOBean implements znoDAO{
             if(!smos.isEmpty()){
                 sb.append(" WHERE ");
                 for(int i = 0; i< smos.size()-1;i++)
-                    sb.append(" z.SMO = " + smos.get(i) + " OR ");
+                    sb.append(" z.smo = " + smos.get(i) + " OR ");
 
-                sb.append(" z.SMO = "  + smos.get(smos.size()-1));
+                sb.append(" z.smo = "  + smos.get(smos.size()-1));
             }
         }
-        sb.append(" FETCH FIRST ");
-        sb.append(keysmodel.getCount_notes());
-        sb.append(" ROWS WITH TIES");
-
-        System.out.println(sb);
-        Query query = oracletestem.createNativeQuery(sb.toString());
-        List<Object[]> list = query.getResultList();
-        List<ZNO_PERSON> zp = new ArrayList<>();
-
-        if(!list.isEmpty()) {
-            for (Object[] obj : list) {
-                ZNO_PERSON p = new ZNO_PERSON();
-                p.setId1(obj[0].toString());
-                p.setId2(obj[1].toString());
-                p.setPersonSurname((String) obj[2]);
-                p.setPersonKindfirstname((String) obj[3]);
-                p.setPersonKindlastname((String) obj[4]);
-                p.setPersonBirthday((Date) obj[5]);
-                p.setSmo(obj[6].toString());
-                zp.add(p);
-            }
+        System.out.println(zno);
+        TypedQuery<ZNO_PERSON> result = zno.createQuery(sb.toString(),ZNO_PERSON.class);
+        if(keysmodel.getCount_notes() != null || !keysmodel.getCount_notes().trim().equals("")) {
+            result = result.setMaxResults(Integer.parseInt(keysmodel.getCount_notes()));
         }
+        List<ZNO_PERSON> zp = result.getResultList();
+
+        System.out.println("length:" + zp.size());
         return zp;
+    }
+
+
+
+    public void configureEntityManager(){
+        zno = Persistence.createEntityManagerFactory("ZNOTEST").createEntityManager();
     }
 }

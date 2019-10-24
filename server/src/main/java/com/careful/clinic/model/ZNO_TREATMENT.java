@@ -20,7 +20,7 @@ import java.util.Date;
 @Entity
 @Table(name = "V_TOR_REGISTR_COLLECT")
 @NamedQueries({
-        @NamedQuery(name="treatmentZno.findbyid1",query = "SELECT z FROM ZNO_TREATMENT z " +
+        @NamedQuery(name="treatmentZno.findbyid1",query = "SELECT distinct z FROM ZNO_TREATMENT z " +
                 "WHERE z.idRegistr = :p_id ORDER BY z.dateBegin")
 })
 public class ZNO_TREATMENT implements Serializable {
@@ -84,6 +84,14 @@ public class ZNO_TREATMENT implements Serializable {
     @Column(name="LT_6")
     private String lt6;
 
+    @Column(name = "ACCOUNT_N")
+    private Integer accountNumber;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy", timezone = "Asia/Novosibirsk")
+    @Column(name = "ACCOUNT_D")
+    private Date accountDate;
+
+
     @NotFound(action = NotFoundAction.IGNORE)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(
@@ -93,6 +101,78 @@ public class ZNO_TREATMENT implements Serializable {
     )
     private Expertise expertise;
 
+    @OneToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "ID_COLLECT")
+    private TOR_PAT pat;
+
+
+    @OneToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "ID_COLLECT")
+    private TOR_HOSPCARD hospcard;
+
+
+    @Override
+    public String toString() {
+        return "ZNO_TREATMENT{" +
+                "ttype='" + ttype + '\'' +
+                ", idRegistr='" + idRegistr + '\'' +
+                ", idCollect='" + idCollect + '\'' +
+                ", typeAcc='" + typeAcc + '\'' +
+                ", linkYear='" + linkYear + '\'' +
+                ", lpuId='" + lpuId + '\'' +
+                ", dateBegin=" + dateBegin +
+                ", dateEnd=" + dateEnd +
+                ", mesKsg='" + mesKsg + '\'' +
+                ", dsOnk='" + dsOnk + '\'' +
+                ", mkb='" + mkb + '\'' +
+                ", otProfk='" + otProfk + '\'' +
+                ", lt1='" + lt1 + '\'' +
+                ", lt2='" + lt2 + '\'' +
+                ", lt3='" + lt3 + '\'' +
+                ", lt4='" + lt4 + '\'' +
+                ", lt5='" + lt5 + '\'' +
+                ", lt6='" + lt6 + '\'' +
+                ", accountNumber=" + accountNumber +
+                ", accountDate=" + accountDate +
+                ", expertise=" + expertise +
+                ", pat=" + pat +
+                ", hospcard=" + hospcard +
+                '}';
+    }
+
+    public TOR_HOSPCARD getHospcard() {
+        return hospcard;
+    }
+
+    public void setHospcard(TOR_HOSPCARD hospcard) {
+        this.hospcard = hospcard;
+    }
+
+    public TOR_PAT getPat() {
+        return pat;
+    }
+
+    public void setPat(TOR_PAT pat) {
+        this.pat = pat;
+    }
+
+    public Integer getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(Integer accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public Date getAccountDate() {
+        return accountDate;
+    }
+
+    public void setAccountDate(Date accountDate) {
+        this.accountDate = accountDate;
+    }
 
     public Expertise getExpertise() {
         return expertise;
@@ -213,10 +293,4 @@ public class ZNO_TREATMENT implements Serializable {
 
     public ZNO_TREATMENT(){}
 
-    @Override
-    public String toString() {
-        return "ZNO_TREATMENT[ttype:"+ ttype +",idRegistr:" + idRegistr +  ",idCollect:" + idCollect +",typeAcc:"+ typeAcc + ",linkYear:" + linkYear
-                + ",lpuId:" + lpuId + ",dateBegin:"+ dateBegin + ",dateEnd:" + dateEnd + ",mesKsg:" + mesKsg + ",dsOnk:" + dsOnk + ",mkb:"+ mkb
-                + ",otProfk:" + otProfk + "\nlt1:" + lt1 + ",lt2:" + lt2+ ",lt3:" + lt3+ ",lt4:" + lt4+ ",lt5:" + lt5+ ",lt6:" + lt6 + "]";
-    }
 }

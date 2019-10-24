@@ -24,6 +24,7 @@ public class DISP_TABLE_DT implements Serializable {
     @Column(name = "DY")
     private String dy;
 
+
     @Column(name = "DT_BEGIN")
     private String timeBegin;
 

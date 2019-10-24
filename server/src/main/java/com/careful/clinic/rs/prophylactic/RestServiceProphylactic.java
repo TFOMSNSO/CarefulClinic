@@ -1,11 +1,10 @@
 package com.careful.clinic.rs.prophylactic;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -48,6 +47,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.careful.clinic.model.ResponseGer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -72,7 +72,10 @@ import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
 
 @javax.ws.rs.Path("/prophylactic")
 public class RestServiceProphylactic {
-	
+
+
+
+
 	final String directoryServer = System.getProperty("jboss.home.dir");
 	
 	@EJB
@@ -121,8 +124,10 @@ public class RestServiceProphylactic {
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response uploadFile(@Context HttpHeaders headers, MultipartFormDataInput input) throws IOException, CheckStructureExcelException, CheckTypizineExcelException {
-		
+		System.out.println("upload thread:" + Thread.currentThread().getName());
 		String fileName = "";
+
+		int[] fakemas = new int[2];
 
 		List<String> authHeaders = headers.getRequestHeader(HttpHeaders.AUTHORIZATION);
 
@@ -169,29 +174,39 @@ public class RestServiceProphylactic {
 			if(listOfQueryies == null) throw new ParseDataExcelException("Ошибка в шаблоне. Не удается определить шаблон.");
 //			data.checkOuTroughDB(listOfQueryies)
 
- 			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
-			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){deleteNativeFileFromUser(null, fileName, authHeaders); }
-			 String info =  new String("Файл успешно загружен. Протокол загрузки можно посмотреть в текстовом файле.");
-			 builder = Response.status(Response.Status.OK);
-		     builder.entity( info );
-		     return builder.build();
+
+/*			if(xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data)){
+				deleteNativeFileFromUser(null, fileName, authHeaders);
+			}*/
+
+
+            int[] count = xa_Dream2Dao.insertDataFromExcel(listOfQueryies,data,true);
+            deleteNativeFileFromUser(null, fileName, authHeaders, count);
+            System.out.println("count:" + count[0]  + "," + count[1]);
+
+
+			send(Integer.valueOf(authHeaders.get(0)),DateFormat.getTimeInstance(DateFormat.DATE_FIELD),fileName);
+			String info =  new String("Файл успешно загружен. Протокол загрузки можно посмотреть в текстовом файле.");
+			builder = Response.status(Response.Status.OK);
+			builder.entity( info );
+			return builder.build();
 		     
 		}catch (IOException e) {
-			deleteNativeFileFromUser(e,fileName,authHeaders);
+			deleteNativeFileFromUser(e,fileName,authHeaders, fakemas);
 			  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity("Произошла ошибка загрузки файла. При отсутствии причины ошибки в протоколе необходимо связаться с разработчиком");
 			  return builder.build();
 		  }
 		catch (InvalidFormatException e) {
-			deleteNativeFileFromUser(e,fileName,authHeaders);
+			deleteNativeFileFromUser(e,fileName,authHeaders, fakemas);
 			  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity("Произошла ошибка загрузки файла. При отсутствии причины ошибки в протоколе необходимо связаться с разработчиком");
 			  return builder.build();
 		}
 		catch (ParseException e) {
-			deleteNativeFileFromUser(e,fileName,authHeaders);
+			deleteNativeFileFromUser(e,fileName,authHeaders, fakemas);
 			  e.printStackTrace();
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity("Произошла ошибка загрузки файла. При отсутствии причины ошибки в протоколе необходимо связаться с разработчиком");
@@ -199,7 +214,7 @@ public class RestServiceProphylactic {
 		}
 		catch(CheckTypizineExcelException e){
 			e.printStackTrace();
-			deleteNativeFileFromUser(e,fileName,authHeaders);
+			deleteNativeFileFromUser(e,fileName,authHeaders, fakemas);
 			
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity(e.getMessage());
@@ -207,14 +222,14 @@ public class RestServiceProphylactic {
 		}
 		catch (ParseDataExcelException e) {
 			e.printStackTrace();
-			deleteNativeFileFromUser(e,fileName,authHeaders);
+			deleteNativeFileFromUser(e,fileName,authHeaders, fakemas);
 			  builder = Response.status(Response.Status.OK);
 			     builder.entity(e.getMessage());
 			  return builder.build();
 		}
 		catch (CheckStructureExcelException e) {
 			e.printStackTrace();
-			deleteNativeFileFromUser(e,fileName,authHeaders);
+			deleteNativeFileFromUser(e,fileName,authHeaders, fakemas);
 		    builder = Response.status(Response.Status.OK);
 		     builder.entity(e.getMessage());
 		   return builder.build();
@@ -228,7 +243,6 @@ public class RestServiceProphylactic {
 	 * @param fileName
 	 */
 	private void send(Integer valueOf, DateFormat timeInstance, String filename) throws InvalidFormatException, IOException {
-
 		String addresses = "moi@ofoms.sibnet.ru,aiv@ofoms.sibnet.ru,mev@ofoms.sibnet.ru,klw@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
 		String addresses2 = "guv@ofoms.sibnet.ru,sja@ofoms.sibnet.ru,esa@ofoms.sibnet.ru";
 		String addresses3 = "esa@ofoms.sibnet.ru,kin@ofoms.sibnet.ru";
@@ -256,11 +270,12 @@ public class RestServiceProphylactic {
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses2));
 			}else if((type.trim().equalsIgnoreCase("ОПРОС ОТКАЗ ДИСПАНСЕРИЗАЦИИ"))||(type.trim().equalsIgnoreCase("ОПРОС УДОВЛЕТВОРЕННОСТИ ДИСПАНСЕРИЗАЦИИ"))||(type.trim().equalsIgnoreCase("ПОДАЧА СОГЛАСИЯ ЗЛ"))||(type.trim().equalsIgnoreCase("АННУЛИРОВАНИЕ&ОТЗЫВ СОГЛАСИЯ ЗЛ"))){
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses3));
+				System.out.println("addr3");
 			}
 			else{
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(addresses));
 			}
-			///////////////////
+			/////////////////
             message.setSubject(topic, "UTF-8");
            // message.setText(textMessage);
             BodyPart messageBodyPart = new MimeBodyPart();
@@ -304,10 +319,9 @@ public class RestServiceProphylactic {
 	 * @param authHeaders  атрибуты которые пришли из запроса
 	 * @throws IOException
 	 */
-	private void  deleteNativeFileFromUser(Throwable e,String fileName, List<String> authHeaders) throws IOException{
-
-		String tmp_val = randomGuid.valueAfterMD5;
-		if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". \r\nКоличество принятых записей: "+xa_Dream2Dao.doubleValueStr()+". \r\nКоличество не принятых записей (дублей): "+xa_Dream2Dao.doubleValue()+xa_Dream2Dao.doubleStr().replace("insert into ", "\r\n"));
+	private void  deleteNativeFileFromUser(Throwable e,String fileName, List<String> authHeaders, int[] arr) throws IOException{
+		String tmp_val = randomGuid.valueAfterMD5;                                                                                                                                                   //xa_Dream2Dao.doubleValueStr()                            xa_Dream2Dao.doubleValue()
+		if(e == null) e = new Throwable("Файл "+fileName.replace(directoryServer+UPLOADED_FILE_PATH, "")+" успешно загружен "+getTimeStamp()+". \r\nКоличество принятых записей: "+ arr[0] +". \r\nКоличество не принятых записей (дублей): "+ arr[1] +xa_Dream2Dao.doubleStr().replace("insert into ", "\r\n"));
 		String toName = directoryServer + getPathTo(authHeaders.get(0)) + tmp_val+"_"+getTimeStamp()+".xlsx";
 		
 		File from_file = new File(fileName);
@@ -315,7 +329,7 @@ public class RestServiceProphylactic {
 		java.nio.file.Path p1 = from_file.toPath();
 		java.nio.file.Path p2 = to_file.toPath();
 		Files.copy(p1, p2);
-		
+
 		// удаляем "старый" файл, то есть который загрузил user со своим именем и назначаем служебное имя.
 		
 		java.nio.file.Path f = Paths.get(toName.replaceAll(".xlsx", ".txt"));
@@ -350,12 +364,26 @@ public class RestServiceProphylactic {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> searchGer(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
-		
 		List<?> df = (List<?>) prophylacticDAO.getInfoProphylactic(personmodel);
 		
 		return df;
 	}
-	
+
+	@POST
+	@Path("/search_person_mis")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<?> searchMis(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
+
+		List<?> df = (List<?>) prophylacticDAO.getInfoProphylactic(personmodel);
+
+		return df;
+	}
+
+
+
+
+
 	@POST
 	@Path("/insert_pm_a")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -442,7 +470,8 @@ public class RestServiceProphylactic {
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Collection<?> searchG(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
-		
+
+
 		List<?> df = (List<?>) xa_Dream2Dao.getInfoG(personmodel);
 		
 		return df;
@@ -559,6 +588,13 @@ public Response getdownloadFile(@PathParam("place") String place, @PathParam("id
         return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
     }
 }
+
+
+
+
+
+
+
 
 /**
  * header sample

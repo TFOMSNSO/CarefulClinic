@@ -21,6 +21,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.SOAPConnection;
+import javax.xml.soap.SOAPConnectionFactory;
+import javax.xml.soap.SOAPException;
 
 import org.xml.sax.SAXException;
 import com.careful.clinic.model.ListExcelFiles;
@@ -48,6 +51,9 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 	
 	@PersistenceContext(unitName="OracleDSDeveloper")
     private EntityManager em_developer;
+
+
+
 	@PersistenceContext(unitName="NONXASDAME")
 	private EntityManager EM_NONXASDAME;
 
@@ -640,9 +646,10 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 
 		List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
 		for(int i=0;i < ob.length;i++){
-			File temp = new File(directoryDestination + "\\" + ob[i]);
-			BasicFileAttributes basicFileAttributes = null;
+//			File temp = new File(directoryDestination + "\\" + ob[i]);
+//			BasicFileAttributes basicFileAttributes = null;
 
+/*
 			try{
 				basicFileAttributes = Files.readAttributes(temp.toPath(),BasicFileAttributes.class);
 				Date timeCreated = new Date(basicFileAttributes.creationTime().toMillis());
@@ -654,9 +661,10 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 			}catch(IOException ex){
 
 			}
+*/
 
-			//if(!ob[i].startsWith("~$"))
-				//ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
+			if(!ob[i].startsWith("~$"))
+				ls.add(new ListExcelFiles(ob[i],directoryDestination+File.separator+ob[i]));
 		}
 		
 		return ls;
@@ -676,6 +684,21 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 			Arrays.sort(files, (a, b) -> Long.compare(b.lastModified(), a.lastModified()));
 			List<ListExcelFiles> ls = new ArrayList<ListExcelFiles>();
 			for(int i=0;i < files.length;i++){
+				/*File temp = new File(directoryDestination + "\\" + files[i].getName());
+				BasicFileAttributes basicFileAttributes = null;
+
+				try{
+					basicFileAttributes = Files.readAttributes(temp.toPath(),BasicFileAttributes.class);
+					Date timeCreated = new Date(basicFileAttributes.creationTime().toMillis());
+					Date today = new Date();
+
+					if( (today.getTime() - timeCreated.getTime()) < 86400000 * 5) {
+						ls.add(new ListExcelFiles(files[i].getName(), directoryDestination + File.separator + files[i].getName(), timeCreated.toString()));
+						System.out.println("Время создания:" + timeCreated.toString());
+					}
+				}catch(IOException ex){
+
+				}*/
 				ls.add(new ListExcelFiles(files[i].getName(),directoryDestination+File.separator+files[i].getName()));
 			}
 		

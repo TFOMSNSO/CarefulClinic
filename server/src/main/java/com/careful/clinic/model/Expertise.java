@@ -143,7 +143,7 @@ public class Expertise implements Serializable {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="MEDEXPR_ID")
-    private List<ME_MEDEXP_DEFECT> defects;
+    private Set<ME_MEDEXP_DEFECT> defects;
 
 
     public ME_SPR_DEFECTS getDefInfo() {
@@ -154,11 +154,11 @@ public class Expertise implements Serializable {
         this.defInfo = defInfo;
     }
 
-    public List<ME_MEDEXP_DEFECT> getDefects() {
+    public Set<ME_MEDEXP_DEFECT> getDefects() {
         return defects;
     }
 
-    public void setDefects(List<ME_MEDEXP_DEFECT> defects) {
+    public void setDefects(Set<ME_MEDEXP_DEFECT> defects) {
         this.defects = defects;
     }
 

@@ -47,6 +47,13 @@ public class RestServiceSp3InformDReestr {
 
 
 	@GET
+	@Path("/make_dreestr")
+	public String make_dreestr(){
+		return "work";
+	}
+
+
+	@GET
 	@Path("/info_d_reestr/{place}/{id}/{namefile}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces("application/vnd.ms-excel")

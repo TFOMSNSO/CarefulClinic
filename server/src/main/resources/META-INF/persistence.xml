@@ -43,7 +43,7 @@
       	<class>com.careful.clinic.model.PmMo2017</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
-            <!-- <property name="hibernate.show_sql" value="true" /> -->
+             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
             <!-- <property name="hibernate.connection.username" value="ofoms"/>
     		<property name="hibernate.connection.password" value="12345"/> -->
@@ -58,7 +58,7 @@
         <jta-data-source>java:/ds/WebOfomsDream2</jta-data-source>
         <class>com.careful.clinic.model.schedulemodels.table1.DISP_TABLE1</class>
         <properties>
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
         </properties>
     </persistence-unit>
@@ -76,7 +76,7 @@
             <property name="hibernate.connection.charSet" value="UTF-8"/>
             <!-- <property name="hibernate.connection.username" value="ofoms"/>
     		<property name="hibernate.connection.password" value="12345"/> -->
-            <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/> -->
+             <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
             <!-- <property name="hibernate.jdbc.driver" value="oracle.jdbc.OracleDriver"/> -->
             <!--  <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" /> -->
         </properties>
@@ -103,7 +103,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/ds/MUR2019</jta-data-source>
         <properties>
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
         </properties>
     </persistence-unit>
@@ -116,7 +116,7 @@
       	<class>com.careful.clinic.model.Personadd</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
             <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/> -->
             <!-- <property name="hibernate.jdbc.driver" value="oracle.jdbc.OracleDriver"/> -->
@@ -129,7 +129,7 @@
         <jta-data-source>java:jboss/datasources/NONXADAMEDS</jta-data-source>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
             <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/> -->
             <!-- <property name="hibernate.jdbc.driver" value="oracle.jdbc.OracleDriver"/> -->
@@ -142,7 +142,7 @@
         <jta-data-source>java:jboss/datasources/NONXAMUR2018</jta-data-source>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
             
         </properties>
@@ -154,7 +154,7 @@
         <class>com.careful.clinic.model.Expertise</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
         </properties>
     </persistence-unit>
@@ -164,7 +164,7 @@
         <jta-data-source>java:/ds/ZNO</jta-data-source>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
 
         </properties>
@@ -173,20 +173,19 @@
     <persistence-unit name="ZNOTEST" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:jboss/datasources/ZNOTEST</jta-data-source>
+        <class>com.careful.clinic.model.ZNO_PERSON</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
-
         </properties>
     </persistence-unit>
-
 
     <persistence-unit name="NONXAMUR2019"  transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:jboss/datasources/NONXAMUR2019</jta-data-source>
         <properties>
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
         </properties>
     </persistence-unit>

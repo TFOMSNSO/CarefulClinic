@@ -8,11 +8,15 @@ import com.careful.clinic.dao.zno.znoDAOBean;
 import com.careful.clinic.guid.RandomGUID;
 import com.careful.clinic.model.*;
 import com.careful.clinic.upload.interfase.factory.UploadDataFactory;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.mail.Session;
+import javax.validation.constraints.AssertTrue;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.ParserConfigurationException;
@@ -55,7 +59,7 @@ public class RestServiceZno {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<?> searchZnoKeys(SearchZnoKeysModel keysModel) throws  ParseException {
-
+        System.out.println("SearchZnoKeys");
         List<?> df = (List<?>) zno.getInfoZNOKeys(keysModel);
         return	df;
     }
@@ -74,8 +78,8 @@ public class RestServiceZno {
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<?>  getTreatment(String id) throws  ParseException {
 
-        List<?>  df =  (List<?>) zno.getTreatmentById(id);
-        return	df;
+        return zno.getTreatmentById(id);
+
     }
 
     @POST
@@ -86,5 +90,17 @@ public class RestServiceZno {
         return	zno.getExpertiseById(person);
     }
 
+
+
+    @Before
+    public void init(){
+        zno = new znoDAOBean();
+    }
+
+    @Test
+    public void testTreat(){
+        System.out.println(zno);
+        Assert.assertTrue(zno.getTreatmentById("66205").size() == 16);
+    }
 
 }

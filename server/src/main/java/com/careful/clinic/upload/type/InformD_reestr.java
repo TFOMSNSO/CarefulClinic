@@ -50,9 +50,20 @@ public class InformD_reestr extends AbstractDataPmI {
 		// добавить проверку типа смо и даты подачи
 		
 		strb = super.checkDataFormat(sheet.getRow(1),1) ? strb.append("") : strb.append("ERROR Неверный формат даты Поле 'Дата формирования'. "+"\r\n");
-		strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. "+"\r\n") : strb.append("");
+		try{
+			strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. "+"\r\n") : strb.append("");
+		}catch (IllegalStateException ex){
+			try {
+				int smo = Integer.parseInt(sheet.getRow(2).getCell(1).getStringCellValue());
+				if (smo > 4 || smo < 1) {
+					strb.append("ERROR Неверно указан id смо. Поле Смо. " + "\r\n");
+				}
+			}catch (NumberFormatException e){
+				strb.append("ERROR Неверно указан id смо(не число). Поле Смо. " + "\r\n");
+			}
+		}
 
-		System.out.println("rows: " + sheet.getPhysicalNumberOfRows());
+//		System.out.println("rows: " + sheet.getPhysicalNumberOfRows());
 		for(int j=4; j < sheet.getPhysicalNumberOfRows(); j++){
 			try {
 				row = sheet.getRow(j);
@@ -91,11 +102,9 @@ public class InformD_reestr extends AbstractDataPmI {
 
 			boolean bl = super.isLastRowCustom(formatter,row);
 			if(bl) break;
-			
 		}
 		
 		if(strb.toString().contains("ERROR")) { System.out.println(strb.toString()); throw new CheckTypizineExcelException(strb.toString()); }
-		
 	}
 
 	
@@ -120,6 +129,6 @@ public class InformD_reestr extends AbstractDataPmI {
 		return this;
 	}
 
-	
 
 }
+

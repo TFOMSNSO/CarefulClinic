@@ -40,6 +40,9 @@ public class ZNO_PERSON implements Serializable {
     @Column(name="ID2")
     private String id2;
 
+    private String enp;
+
+
     @Column(name="FAM")
     private String personSurname;
 
@@ -77,6 +80,34 @@ public class ZNO_PERSON implements Serializable {
     @Column(name="SMO")
     private String smo;
 
+
+    @Override
+    public String toString() {
+        return "ZNO_PERSON{" +
+                "id1='" + id1 + '\'' +
+                ", id2='" + id2 + '\'' +
+                ", enp='" + enp + '\'' +
+                ", personSurname='" + personSurname + '\'' +
+                ", personKindfirstname='" + personKindfirstname + '\'' +
+                ", personKindlastname='" + personKindlastname + '\'' +
+                ", personBirthday=" + personBirthday +
+                ", personDateInsert=" + personDateInsert +
+                ", personStateInsur=" + personStateInsur +
+                ", personDateInsur=" + personDateInsur +
+                ", personStateRegistr=" + personStateRegistr +
+                ", personDateState=" + personDateState +
+                ", personStateInsert=" + personStateInsert +
+                ", smo='" + smo + '\'' +
+                '}';
+    }
+
+    public String getEnp() {
+        return enp;
+    }
+
+    public void setEnp(String enp) {
+        this.enp = enp;
+    }
 
     public String getId1() {
         return id1;
@@ -182,10 +213,4 @@ public class ZNO_PERSON implements Serializable {
         this.smo = smo;
     }
 
-    @Override
-    public String toString() {
-        return "ZNO_PERSON[ID1:"+ id1 + ",ID2:" + id2 +",FAM:"+ personSurname + ",IM:" + personKindfirstname + ",OT:" + personKindlastname +
-                ",DR:"+personBirthday + ",DATE_INSERT:" + personDateInsert + ",DATE_STATE:" + personDateState + ",STATE_INSUR:" + personStateInsur +
-                ",DATE_INSUR:"+ personDateInsur  + ",SMO:" + smo + "]";
-    }
 }

@@ -49,16 +49,20 @@ public abstract class AbstractDataPmA extends AbstractDataUploadType{
 
 	@Override
 	public void constructQuery() throws ParseException, IOException {
-		
 		System.out.println("Метод constructQuery (AbstractDataPmA) "+this.getClass().getName());
 		DataFormatter formatter = new DataFormatter();
 		XSSFWorkbook workbook = super.getXSSFWorkbook();
 		Sheet sheet =  workbook.getSheetAt(0);
 		Row row = null;
 		StringBuilder sb = new StringBuilder();
-		
-		String smo_id = String.valueOf((int)sheet.getRow(2).getCell(1).getNumericCellValue());
-		
+
+		String smo_id;
+		try {
+			smo_id = String.valueOf((int) sheet.getRow(2).getCell(1).getNumericCellValue());
+		}catch (IllegalStateException e){
+			smo_id = Integer.valueOf(sheet.getRow(2).getCell(1).getStringCellValue()).toString();
+		}
+
 		for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
 			row = sheet.getRow(j);
 			

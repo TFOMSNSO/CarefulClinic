@@ -79,8 +79,18 @@ public class ResultEKMPType extends AbstractDataUploadType{
         StringBuilder sb = new StringBuilder();
 
         strb = super.checkDataFormat(sheet.getRow(1),1) ? strb.append("") : strb.append("ERROR Неверный формат даты Поле 'Дата формирования'. "+"\r\n");
-        strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. "+"\r\n") : strb.append("");
-
+        try {
+            strb = sheet.getRow(2).getCell(1).getNumericCellValue() > 4 || sheet.getRow(2).getCell(1).getNumericCellValue() < 1 ? strb.append("ERROR Неверно указан id смо. Поле Смо. " + "\r\n") : strb.append("");
+        }catch (IllegalStateException ex){
+            try {
+                int smo = Integer.parseInt(sheet.getRow(2).getCell(1).getStringCellValue());
+                if (smo > 4 || smo < 1) {
+                    strb.append("ERROR Неверно указан id смо. Поле Смо. " + "\r\n");
+                }
+            }catch (NumberFormatException e){
+                strb.append("ERROR Неверно указан id смо(не число). Поле Смо. " + "\r\n");
+            }
+        }
         for(int j=4; j< sheet.getPhysicalNumberOfRows(); j++){
 
             row = sheet.getRow(j);
