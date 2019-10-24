@@ -14,7 +14,6 @@ import {DomSanitizer} from '@angular/platform-browser';
   providers: [PeopleDatabase]
 })
 export class SidenavExportExcelZnoComponent implements OnInit {
-
   @ViewChild('sidenav_export_excel') variable_sidenave: any;
   public listExcelFiles: ListExcelFiles[] = [];
   private currentUser: User;
@@ -35,7 +34,6 @@ export class SidenavExportExcelZnoComponent implements OnInit {
   }
 
   open(){
-    console.log('export excel zno open()');
     this.variable_sidenave.toggle(true);
   }
 
@@ -46,7 +44,7 @@ export class SidenavExportExcelZnoComponent implements OnInit {
   private getListNameFiles(data : number): void{
     this.flag = true;
     this.personSearchIsurService.listFiles(data)
-      .then(res => {this.listExcelFiles = res;console.log(JSON.stringify(this.listExcelFiles))});
+      .then(res => this.listExcelFiles = res);
     this.flag = false;
   }
 

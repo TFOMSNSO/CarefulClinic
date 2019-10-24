@@ -12,6 +12,9 @@ import {environment} from '../../../../environments/environment';
 
 
 
+
+
+
 @Component({
     selector:'app-info-dreestr',
     templateUrl: './info.d.reestr.component.html',
@@ -34,11 +37,11 @@ import {environment} from '../../../../environments/environment';
                 }))
             ])
     ])
-    
+
     ]
 })
 export class InfoDReestrComponent implements OnInit{
-
+   public months = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
 	 public panelOpenState1 : boolean = false;
 	 public listExcelFiles: ListExcelFiles[] = [];
 	 public allfile: ListExcelFiles[] = [];
@@ -46,7 +49,7 @@ export class InfoDReestrComponent implements OnInit{
 	 public progress_bar: boolean = false;
 	 public panelOpenState2 : boolean = false;
 	 public myForm: FormGroup;
-	 
+
 	 _reset: string = environment.reset;
 	 _info_d_reestr1: string = environment.info_d_reestr1;
 	 _info_d_reestr: string = environment.info_d_reestr;
@@ -54,79 +57,81 @@ export class InfoDReestrComponent implements OnInit{
 	 _report_inform_note: string = environment.report_inform_note;
 	 _reestr_file: string = environment.reestr_file;
 	 _reestr_download: string = environment.reestr_download;
-	 
-	
+
+
 	ngOnInit() {
-			
+
 			 this.myForm =  this.formBuilder.group({
-			  date1: ['', Validators.required],
-			  date2: ['', Validators.required]
+        date1: [Date.now(),Validators.required],
+			  date2: ['', Validators.required]			  // date1: ['', Validators.required],
 			});
-		
+
 		this.init_ListD_reestr();
 	}
-	
+
 	myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy'
-        
-    };
-	
-	
-	constructor(private infoDReestrService: InfoDReestrService,private formBuilder: FormBuilder) { 
+
+  };
+
+
+	constructor(private infoDReestrService: InfoDReestrService,private formBuilder: FormBuilder) {
 		this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-   }
-   
+	}
+
 	setTrue(vl : number, vl2 : boolean){
-		
 		vl == 1 ? this.panelOpenState1= vl2 : vl == 2 ? this.panelOpenState2= vl2 : false;
-	}  
-	
+	}
+
 	init_1():void{
 	 this.getListNameFiles_1(this.currentUser['role'][0].id);
 	}
-	
-	
+
+
 	resetForm() {
-  	  this.myForm.reset(); 
-  	  
+  	  this.myForm.reset();
 	}
-	
+
 	init_ListD_reestr():void{
 		this.getListNameFilesD_reestr(this.currentUser['role'][0].id);
 	}
-	
+
 	downloadFile_D_reestr_Report(form: any){
 		this.progress_bar = true;
 		this.infoDReestrService.downloadFile_d_reestr(form.value.date1.formatted,form.value.date2.formatted,this.currentUser['role'][0].id)
 		.then(result =>{
 			this.init_ListD_reestr();
 			this.progress_bar = false;
-			
+
 		})
 	}
-	
-	
-	
+
+	makeDReestr(){
+    this.infoDReestrService.makeDReestr().then(res => console.log(res));
+  }
+
+
+
 	getListNameFilesD_reestr(data : number): void{
     	 this.infoDReestrService.listFilesD_reestr(data)
 	 	 .then(res => {this.allfile = res});
 	}
-	
-	
-	
-	
+
+
+
+
 	/*  �������������� �-���������*/
 	getListNameFiles_1(data : number): void{
     	 this.infoDReestrService.listFiles_1(data)
 	 	 .then(res => {this.listExcelFiles = res});
 	}
-	
+
 	/* ������� ���� � �����*/
-	
+
 	downloadFile_2(data: string,data2: string):void{
 	this.progress_bar = true;
-	
+
 	this.infoDReestrService.downloadFile_2(data,this.currentUser['role'][0].id,data2)
 	.then(result =>{
 			let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
@@ -137,13 +142,13 @@ export class InfoDReestrComponent implements OnInit{
 		this.progress_bar = false;
 		console.log('e '+e);
 	});
-	
+
 	}
-	
-	
+
+
 	downloadFile(data: string):void{
 	this.progress_bar = true;
-	
+
 	this.infoDReestrService.downloadFile(data,this.currentUser['role'][0].id)
 	.then(result =>{
 			let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
@@ -152,11 +157,11 @@ export class InfoDReestrComponent implements OnInit{
 	})
 	.catch(e =>{
 		this.progress_bar = false;
-		
+
 	});
-	
+
 	}
-  
-   
- 
+
+
+
 }

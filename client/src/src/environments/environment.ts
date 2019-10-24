@@ -48,6 +48,7 @@ export const environment = {
   lpu_name:'Лечебное учреждение',
   no_treatment:'Типы лечения отсутствуют',
   mes_ksg: 'МЭС/КСГ',
+  enp: 'ЕНП',
   surname : 'Фамилия',
   firstname : 'Имя',
   lastname : 'Отчество',

@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export let LATEST_ID: number = 0;
 
 export interface UserData {
+  enp: string;
   personSurname: string;
   personKindfirstname: string;
   personKindlastname: string;
@@ -42,6 +43,7 @@ export interface UserData {
 export interface zno_user{
   id1: string;
   id2: string;
+  enp: string;
   fam: string;
   im: string;
   ot: string;
@@ -74,7 +76,6 @@ export class PeopleZnoDatabaseService {
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(this.serverUrl + '/treatment',id,{headers: headers})
       .toPromise().then(res => res.json());
-
   }
 
   findExpertise(person:any):any{
@@ -86,7 +87,6 @@ export class PeopleZnoDatabaseService {
 
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
-    //return new Promise((resolve, reject) =>{}).then(res=> 0);
   }
 
   searchPersonZNO(per_data: any): Promise<any>{
@@ -97,30 +97,11 @@ export class PeopleZnoDatabaseService {
       .toPromise()
       // lenght передаем как флаг отсутствия записи в рс ерз
       .then(res =>{
-        //res - response with status: 200 OK for URL:...  <- example
         let tmp_data = res.json();
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if(tmp_data.length === 0) return tmp_data.length;
 
         tmp_data[0].currentUser = this.currentUser['role'][0].id;
-
-       /* // ставляю пустою структуру гэра если ее нет
-        if(!("respGerl" in tmp_data[0])){
-          tmp_data[0].respGerl=[{
-            start_date_etap1:'',
-            end_date_etap1:'',
-            start_date_etap2:'',
-            end_date_etap2:'',
-            ref_id_person:'',
-            pm_god:'',
-            pm_kvartal:'',
-            adress:'',
-            tel:'',
-            pm_result:'',
-            pm_HOSPITAL_RESULT:''
-          }];
-        }*/
-
         tmp_data.length != 0  ? this.addPerson_t(tmp_data[0]) : tmp_data.length
 
       })
@@ -129,21 +110,19 @@ export class PeopleZnoDatabaseService {
   }
 
   searchPersonKeysZno(data: any): Promise<any>{
-    console.log(JSON.stringify(data));
-    var time = performance.now();
+    // console.log(JSON.stringify(data));
     let headers = new Headers({'Content-Type': 'application/json'});
     return this.http
       .post(this.serverUrl + '/search_person_zno_keys', JSON.stringify(data), {headers: headers})
       .toPromise()
       .then(res =>{
         let tmp_data =  res.json();
-        time = performance.now() - time;
-        console.log("TIME:" + time/1000.0 );
         console.log("length:" + tmp_data.length);
-        //console.log(JSON.stringify(tmp_data));
+
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         for(let indexmas in tmp_data){
           tmp_data[indexmas].currentUser = this.currentUser['role'][0].id;
+          console.log(JSON.stringify(tmp_data[indexmas]) + '\n\n');
           this.addPerson_t(tmp_data[indexmas]);
         }
       })

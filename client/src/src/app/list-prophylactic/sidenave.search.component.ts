@@ -47,6 +47,12 @@ export class SadeaveSearchComponent   implements OnInit{
 
   }
 
+  soap(){
+	  console.log('making soap');
+	  this.personSearchIsurService.makeSoap().then(res => console.log(res));
+  }
+
+
   myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy'
@@ -66,9 +72,7 @@ export class SadeaveSearchComponent   implements OnInit{
  }
 
  searchPerson(form: any): void{
- 	// �������� ������
  	this.progress_bar_emit.emit({note: 'true', result:''});
-
  	form.value.bithday = form.value.bithday.formatted;
   	//this.sidenaveSearchService.searchPersonGer(form.value);
   	this.personSearchIsurService.searchPersonInsur(form.value)
@@ -78,7 +82,6 @@ export class SadeaveSearchComponent   implements OnInit{
  }
 
  resetForm() {
-    console.log('sidenav.search.component.ts resetForm()');
   	  this.myForm.reset();
   }
 }

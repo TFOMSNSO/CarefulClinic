@@ -12,6 +12,7 @@ export const environment = {
   no_expertise_found:'Данные об экспертизе отсутствуют',
   doct_name:'Врач',
   lpu_mkb:'ЛПУ МКБ',
+  enp: 'ЕНП',
   lpu_mes:'ЛПУ МЭС',
   exp_mes:'ЭКСП МЭС',
   lpu_ukmp:'ЛПУ УКМП',

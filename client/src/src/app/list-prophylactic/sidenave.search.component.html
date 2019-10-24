@@ -12,17 +12,17 @@
       				<!-- Some text for careFull clinic of Novosibirsk TFOMS -->
 	  			</mat-card-title>
   			</mat-card-header>
-  			
+
   			<mat-card-content>
   				<mat-input-container style="width: 40%">
   					<input matInput placeholder="{{surname}}"  formControlName="surname">
   					<mat-error>{{field_is_required}}</mat-error>
   				</mat-input-container><br/>
-  				<mat-input-container style="width: 60%">	
+  				<mat-input-container style="width: 60%">
   					<input matInput placeholder="{{firstname}}"  formControlName="firstname">
   					<mat-error>{{field_is_required}}</mat-error>
   				</mat-input-container><br/>
-  				<mat-input-container style="width: 80%">	
+  				<mat-input-container style="width: 80%">
   					<input matInput placeholder="{{lastname}}"  formControlName="lastname">
   					<mat-error>{{field_is_required}}</mat-error>
   				</mat-input-container><br/>
@@ -30,17 +30,18 @@
 	   				 <my-date-picker [placeholder]="bithday"  name="bithday" [options]="myDatePickerOptions" formControlName="bithday"></my-date-picker>
 	   				 <span *ngIf="!myForm.controls.bithday.valid" class="help-block text-danger">
 	   				 	<mat-error>{{field_is_required}}</mat-error>
-	   				 </span> 
-	   				
+	   				 </span>
+
   				<!-- </mat-input-container> -->
   			</mat-card-content>
-  			
+
   		<!-- </mat-card>
-  		<mat-card id='lastblocksearch'> -->	
+  		<mat-card id='lastblocksearch'> -->
   			<mat-card-actions id='lastblocksearch'>
   				<button type='submit' mat-raised-button color='primary'[disabled]="!myForm.valid">Ok</button>
   				<button type='button' mat-raised-button color='primary' (click)="resetForm()">{{reset}}</button>
   				<button type='button' mat-raised-button color='warn' (click)="sidenav.close()">{{cancel}}</button>
+          <button type="button" mat-raised-button color="primary" (click)="soap()">soap me</button>
   	 		</mat-card-actions>
   	 	</mat-card>
 		</form>

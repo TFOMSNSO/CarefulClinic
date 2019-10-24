@@ -14,6 +14,7 @@ mat-sidenav.nav_header{
 
 .example-card{
   padding:0;
+  height: 100%;
 }
 
 /deep/ .h{
@@ -27,8 +28,7 @@ mat-sidenav.nav_header{
 
 
 #lastblocksearch{
-  margin-top: 90px;
-//margin-bottom: 100%;
+ margin-bottom: 0;
 }
 
 

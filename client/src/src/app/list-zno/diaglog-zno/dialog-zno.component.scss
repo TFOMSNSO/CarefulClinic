@@ -11,6 +11,15 @@ table tr{
 }
 
 
+mat-input-container{
+  width: 270px;
+}
+
+
+matInput{
+  width: 270px;
+}
+
 table{
   width: 100%;
 }
@@ -113,8 +122,4 @@ mat-expansion-panel{
 
 mat-grid-tile {
   background: slategrey;
-}
-
-input{
-  width: 200px;
 }

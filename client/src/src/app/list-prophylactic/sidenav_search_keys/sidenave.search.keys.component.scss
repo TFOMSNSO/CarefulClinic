@@ -12,8 +12,11 @@ mat-sidenav.nav_header{
  width:95%;
 }
 
- .example-card{
- padding:0;
+.example-card{
+  height: 100%;
+  padding:0;
+  margin: 0;
+
 }
 
 /deep/ .h{

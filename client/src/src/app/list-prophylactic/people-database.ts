@@ -8,6 +8,7 @@ import {environment} from '../../environments/environment';
 import { User } from '../model/user';
 import { ListExcelFiles } from '../model/list.files.excel';
 import * as FileSaver from 'file-saver';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 
@@ -54,7 +55,7 @@ export class PeopleDatabase {
   serverUrl : string = environment.BACKEND_URL + "/rest/prophylactic";
   currentUser: User;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private httpClient: HttpClient) {
       this.initialize();
 
   }
@@ -120,6 +121,21 @@ export class PeopleDatabase {
     }
   }
 
+
+  searchPersonMis(data: any): Promise<any>{
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http
+      .post(this.serverUrl + '/search_person_keys', JSON.stringify(data), {headers: headers})
+      .toPromise()
+      .then(res =>{
+        let tmp_data =  res.json();
+      })
+      .catch(this.handleError);
+
+  }
+
+
+
   searchPersonKeys(data: any): Promise<any>{
     console.log('searchPersonKeys');
   	let headers = new Headers({'Content-Type': 'application/json'});
@@ -138,6 +154,36 @@ export class PeopleDatabase {
 	  })
   	.catch(this.handleError);
   }
+
+
+  makeSoap(): Promise<any>{
+    let xmlRequest =
+      '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://www.bars-open.ru/med/soap/">\n' +
+      '<soapenv:Header/>\n' +
+      '<soapenv:Body>\n' +
+      '<soap:getPersonDataRequest>\n' +
+      '<surname>Двнженщина2</surname>\n' +
+      '<name>Приемка</name>\n' +
+      '<middle_name>Тест</middle_name>\n' +
+      '<date_birth>20.12.1987</date_birth>\n' +
+      '<year>2017</year>\n' +
+      '</soap:getPersonDataRequest>\n' +
+      '</soapenv:Body>\n' +
+      '</soapenv:Envelope>\n';
+
+    console.log('length:' + xmlRequest.length.toString());
+    let headers = new HttpHeaders({
+      'Content-Type': 'text/xml;charset=UTF-8',
+      'Content-Length':xmlRequest.length.toString(),
+      SOAPAction: 'getPersonData',
+      'Authorization': 'Basic SU5URk9NU05TTzpURk9NUzU0'
+    });
+      return this.httpClient.post('http://10.101.39.10:80/ws/dispancery_info/di',xmlRequest,{headers : headers}).toPromise();
+  }
+
+
+
+
 
 
 

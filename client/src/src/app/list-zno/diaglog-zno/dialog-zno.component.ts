@@ -68,7 +68,7 @@ export class DialogZnoComponent {
   _linksmo_1: string = environment.linksmo_1;
   _linksmo_4: string = environment.linksmo_4;
   _otkreplen: string = environment.otkreplen;
-
+  enp: string = environment.enp;
   about: string = environment.about;
 
   //лечение
@@ -132,8 +132,8 @@ export class DialogZnoComponent {
       let id_cust = this.data.id1;
       this.peopleDatabase.searchTreatment(id_cust).then(res => {
         this.treats_data = res;
-        console.log(JSON.stringify(res));
-       /* for(let i:number=0;i < this.treats_data.length; i++){
+        // console.log(JSON.stringify(res));
+       /*for(let i:number=0;i < this.treats_data.length; i++){
           this.findexp(res[i].dateBegin,res[i].dateEnd,this.data).then(r =>{
             //this.treats_data[i].expertise = r;
             //if(r != null)
@@ -180,7 +180,6 @@ export class DialogZnoComponent {
     p.dateEnd = dateEnd;
 
     return this.peopleDatabase.findExpertise(p);
-
   }
 }
 

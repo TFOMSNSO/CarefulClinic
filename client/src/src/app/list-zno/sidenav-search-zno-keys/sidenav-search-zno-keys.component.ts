@@ -111,7 +111,7 @@ export class SidenavSearchZnoKeysComponent implements OnInit {
     delete form.value.age;
 
     for(let k in form.value) form.value[k]=== null ?form.value[k]='':form.value[k];
-    //console.log('value to be posed:' + JSON.stringify(form.value) );
+    console.log('value to be posed:' + JSON.stringify(form.value) );
     this.progress_bar_emit.emit({note: 'true', result:''});
     this.personSearchIsurService.searchPersonKeysZno(form.value)
       .then(res => {

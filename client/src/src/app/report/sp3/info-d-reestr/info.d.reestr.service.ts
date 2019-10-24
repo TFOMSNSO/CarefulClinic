@@ -37,7 +37,6 @@ export class InfoDReestrService{
 
 
 	downloadFile_d_reestr(date1: string,date2: string,place: number):Promise<any>{
-
 			let obj2 = {
 				date1: date1 = "01.01.2018",//TODO временное решение. back end ожидает дату, но алгоритм изменился 04.12.2018 и дата больше не нужна. пока что... вдруг потом понадобится
 				date2: date2 = "31.12.2018",//TODO временное решение. back end ожидает дату, но алгоритм изменился 04.12.2018 и дата больше не нужна. пока что... вдруг потом понадобится
@@ -52,6 +51,11 @@ export class InfoDReestrService{
 			  .then(response =>response);
 	}
 
+  makeDReestr():Promise<any> {
+	  return this.http.get(this.serverUrl + '/make_dreestr').toPromise();
+  }
+
+
 
 	listFilesD_reestr(data : number): Promise<ListExcelFiles[]> {
 	  let headers = new Headers({'Content-Type': 'application/json'});
@@ -61,9 +65,6 @@ export class InfoDReestrService{
 	}
 
 
-	/*
-		����� ������������ ��� �������� ����� �� ������� ����.
-	*/
 	downloadFile(data: string,data2: number):Promise<any>{
 	 const headers = new Headers({'Content-Type': 'application/json', 'Accept': '*'});
 		const options = new RequestOptions({headers: headers});

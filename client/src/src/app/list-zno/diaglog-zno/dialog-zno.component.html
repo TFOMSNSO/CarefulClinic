@@ -63,6 +63,13 @@
                 </mat-input-container>
               </mat-list-item>
             </td>
+            <td>
+              <mat-list-item>
+                <mat-input-container>
+                  <input matInput value="{{data.enp == null ? '-' : data.enp}}" placeholder="Енп">
+                </mat-input-container>
+              </mat-list-item>
+            </td>
           </tr>
         </table>
       </mat-card-content>
@@ -80,6 +87,8 @@
                 <div *ngIf="data_treatment.treat_types.length > 0; else no_treatment">
                   {{treat_type}}:
                   <mat-label *ngFor="let type of data_treatment.treat_types" style="border: 1px black;"> <b>{{type}};</b>  </mat-label>
+                  <mat-label> Номер счета: <b>{{data_treatment.accountNumber}}</b></mat-label>
+                  <mat-label> Дата счета: <b>{{data_treatment.accountDate}}</b></mat-label>
                 </div>
                 <ng-template #no_treatment>
                   <p>{{no_treatment_types}}.</p><!--Типы лечения отсутствуют.-->
@@ -130,6 +139,31 @@
                       <mat-list-item>
                         <mat-input-container>
                           <input matInput value="{{data_treatment.mesKsg}}" placeholder="{{mes_ksg}}">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                  </tr>
+                  <tr *ngIf="data_treatment.pat != null">
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input  matInput value="{{data_treatment.pat.sprRezobr.name}}" placeholder="Результат обращения">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.pat.prdn}}" placeholder="Диспансерное наблюдение">
+                        </mat-input-container>
+                      </mat-list-item>
+                    </td>
+                  </tr>
+                  <tr *ngIf="data_treatment.hospcard != null">
+                    <td>
+                      <mat-list-item>
+                        <mat-input-container>
+                          <input matInput value="{{data_treatment.hospcard.result}}" placeholder="Результат обращения">
                         </mat-input-container>
                       </mat-list-item>
                     </td>

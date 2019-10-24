@@ -59,7 +59,7 @@
 
 		  </mat-expansion-panel>
 
-		  <mat-expansion-panel (opened)="setTrue(2,true)" (closed)="setTrue(2,false)">
+		  <mat-expansion-panel (opened)="setTrue(2,true)" (closed)="setTrue(2,false)" *ngIf="currentUser['role'][0].id == 777">
 			<mat-expansion-panel-header>
 			  <mat-panel-title>
           {{_info_d_reestr}}
@@ -77,11 +77,11 @@
 
 
 
-			<mat-list>
-				    <form [formGroup]="myForm" novalidate (ngSubmit)="downloadFile_D_reestr_Report(myForm);resetForm();">
+			  <mat-list>
+				    <form [formGroup]="myForm" novalidate (ngSubmit)="makeDReestr();resetForm();">
 						<mat-list-item>
 							<h4 mat-line>
-							  <button type='submit' mat-raised-button color='primary'[disabled]>сформировать список ЗЛ</button>
+							  <button type='submit' mat-raised-button color='primary'[disabled]>cформировать список ЗЛ</button>
                 (Внимание! Список может формироваться до 30 минут. Не покидайте страницу.)
               </h4>
 						</mat-list-item>
