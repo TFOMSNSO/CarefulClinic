@@ -74,21 +74,38 @@
 
 			</mat-panel-description>
 			</mat-expansion-panel-header>
-
-
-
 			  <mat-list>
 				    <form [formGroup]="myForm" novalidate (ngSubmit)="makeDReestr();resetForm();">
 						<mat-list-item>
 							<h4 mat-line>
-							  <button type='submit' mat-raised-button color='primary'[disabled]>cформировать список ЗЛ</button>
+							  <button type='submit' mat-raised-button color='primary' [disabled]="!isSendButtonActive" id="sendButton">Начать обновление д-реестра</button>
                 (Внимание! Список может формироваться до 30 минут. Не покидайте страницу.)
               </h4>
 						</mat-list-item>
 					</form>
+          <mat-list-item>
+            <h4 mat-line>
+              <button mat-raised-button color='accent' id="formButton" (click)="formDReestr()" [disabled]="isForming">Сформировать список</button>
+            </h4>
+          </mat-list-item>
 				</mat-list>
+        <div *ngIf="isDReestrRunning">
+          <h3>Информация о запросе:</h3>
+          <button mat-raised-button (click)="refreshDReestrInfo();" [disabled] = "isRefreshing">Обновить информацию</button>
+          <div  style="max-height: 400px; overflow-y: auto">
+            <table>
+              <tr>
+                <th>Этап</th>
+                <th>Время завершения этапа</th>
+              </tr>
+              <tr *ngFor="let job of jobs">
+                <td>{{job.state}}</td>
+                <td>{{job.dateInsert}}</td>
+              </tr>
+            </table>
+           </div>
+        </div>
 		  </mat-expansion-panel>
-
 		</mat-accordion>
 	</mat-card-content>
 </div>

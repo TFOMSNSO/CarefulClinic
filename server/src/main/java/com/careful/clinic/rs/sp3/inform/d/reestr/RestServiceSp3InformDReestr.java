@@ -2,24 +2,30 @@ package com.careful.clinic.rs.sp3.inform.d.reestr;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import javax.ejb.EJB;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.careful.clinic.dao.sp3.inform.d.reestr.D_reestrImpDAO;
+import com.careful.clinic.model.JobWork;
+import net.sf.jasperreports.engine.JRException;
 import org.xml.sax.SAXException;
 
 import com.careful.clinic.model.InformDReestr;
@@ -33,6 +39,10 @@ public class RestServiceSp3InformDReestr {
 	private D_reestr d_reestr_dao;
 	@EJB
 	D_reestr_Report d_reestr_Report;
+
+	@EJB
+	D_reestr dReestrImpDAO;
+
 
 	@GET
 	@Path("/d_reestr/{id}")
@@ -48,9 +58,46 @@ public class RestServiceSp3InformDReestr {
 
 	@GET
 	@Path("/make_dreestr")
-	public String make_dreestr(){
-		return "work";
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response make_dreestr(@Context HttpServletRequest request){
+		return dReestrImpDAO.executeDReestrUpdate(request);
 	}
+
+
+	@GET
+	@Path("/refresh_dreestr")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<JobWork> refresh_dreestr(@Context HttpServletRequest request) throws JRException {
+        List<JobWork> jobs = dReestrImpDAO.refreshDReestrInfo(request);
+        return jobs;
+    }
+
+    @GET
+    @Path("/form_dreestr")
+    public Response form_dreestr() {
+        Response.ResponseBuilder builder = null;
+
+        List<InformDReestr> list = dReestrImpDAO.getDReestrUpdated();
+
+        for(int i = 0; i < 10; i++){
+        	System.out.println(list.get(i));
+		}
+        String [] mm = {"reports/sp3/d_reestr_report/d_reestr_report_2019.jrxml", "\\content\\report\\sp3\\d_reestr_report\\777\\Список диспансерного наблюдения_"};
+
+        try {
+            d_reestr_Report.executeJasperReportD_reestr(list, "__", "777", "ddd1","ddd2", mm);
+
+            builder = Response.ok();
+            builder.entity("Список успешно сформирован и готов к скачиванию");
+            return builder.build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            builder = Response.ok();
+            builder.entity("Ошибка формирования списка:" + e);
+            return builder.build();
+        }
+    }
+
 
 
 	@GET

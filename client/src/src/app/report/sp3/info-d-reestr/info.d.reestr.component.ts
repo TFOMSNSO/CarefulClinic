@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger,style,transition,animate,keyframes,query,stagger, state } from '@angular/animations';
 import { User } from '../../../model/user';
-import { InfoDReestrService } from './info.d.reestr.service';
+import {InfoDReestrService, JobInfo} from './info.d.reestr.service';
 //import { ListExcelFiles } from '.../../model/list.files.excel';
 import * as FileSaver from 'file-saver';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
@@ -41,7 +41,6 @@ import {environment} from '../../../../environments/environment';
     ]
 })
 export class InfoDReestrComponent implements OnInit{
-   public months = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
 	 public panelOpenState1 : boolean = false;
 	 public listExcelFiles: ListExcelFiles[] = [];
 	 public allfile: ListExcelFiles[] = [];
@@ -49,6 +48,11 @@ export class InfoDReestrComponent implements OnInit{
 	 public progress_bar: boolean = false;
 	 public panelOpenState2 : boolean = false;
 	 public myForm: FormGroup;
+   public isDReestrRunning: boolean = false;
+   public jobs: JobInfo[];
+   public isRefreshing = false;
+   public isSendButtonActive = true;
+   public isForming = false;
 
 	 _reset: string = environment.reset;
 	 _info_d_reestr1: string = environment.info_d_reestr1;
@@ -60,19 +64,18 @@ export class InfoDReestrComponent implements OnInit{
 
 
 	ngOnInit() {
-
 			 this.myForm =  this.formBuilder.group({
         date1: [Date.now(),Validators.required],
 			  date2: ['', Validators.required]			  // date1: ['', Validators.required],
 			});
-
+    this.isDReestrRunning = false;
 		this.init_ListD_reestr();
+		this.refreshDReestrInfo();
 	}
 
 	myDatePickerOptions: IMyDpOptions = {
         // other options...
         dateFormat: 'dd.mm.yyyy'
-
   };
 
 
@@ -108,17 +111,66 @@ export class InfoDReestrComponent implements OnInit{
 	}
 
 	makeDReestr(){
-    this.infoDReestrService.makeDReestr().then(res => console.log(res));
+	  let pass = prompt('Для продолжения введите \'update\'');
+	  if(pass == 'update') {
+      this.progress_bar = true;
+      this.isSendButtonActive = false;
+      this.infoDReestrService.makeDReestr().then(res => {
+        if (res.status == 200) {
+          this.isDReestrRunning = true;
+        }else{
+          alert(res._body);
+          this.isSendButtonActive = true;
+        }
+        this.progress_bar = false;
+      });
+    }
   }
 
+  refreshDReestrInfo(){
+	  this.isRefreshing = this.progress_bar = true;
+	  this.infoDReestrService.refreshDReestr().then(res => {
+
+	    if(res.status != 200){
+	      alert('Ошибка обновления. Повторите позже.');
+	      return;
+      }
+
+	    this.jobs = res.json() as JobInfo[];
+	    if(this.jobs.length == 4){
+
+	      if(this.isDReestrRunning == false) { // когда первый раз заходим на страницу
+          this.isDReestrRunning = true;
+        }
+	      this.init_ListD_reestr();
+	      this.isSendButtonActive = true;
+      }
+	    this.isRefreshing = false;
+	    if(!this.isForming) this.progress_bar = false;
+    })
+  }
+
+  //сформировать список(эксель файл на сервере) д-реестра
+  formDReestr(){
+	  let pass = prompt('Для продолжения введите \'form\'');
+	  if(pass == 'form'){
+      this.progress_bar = true;
+      this.isForming = true;
+      this.infoDReestrService.formDReestr().then(res => {
+        this.progress_bar = false;
+        this.isForming = false;
+        console.log('status: ' + res.status);
+        this.init_ListD_reestr();
+        alert(res._body);
+      });
+    }
+  }
 
 
 	getListNameFilesD_reestr(data : number): void{
     	 this.infoDReestrService.listFilesD_reestr(data)
 	 	 .then(res => {this.allfile = res});
 	}
-
-
 
 
 	/*  �������������� �-���������*/
@@ -130,19 +182,18 @@ export class InfoDReestrComponent implements OnInit{
 	/* ������� ���� � �����*/
 
 	downloadFile_2(data: string,data2: string):void{
-	this.progress_bar = true;
+    this.progress_bar = true;
 
-	this.infoDReestrService.downloadFile_2(data,this.currentUser['role'][0].id,data2)
-	.then(result =>{
-			let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-			FileSaver.saveAs(blob, data);
-			this.progress_bar = false;
-	})
-	.catch(e =>{
-		this.progress_bar = false;
-		console.log('e '+e);
-	});
-
+    this.infoDReestrService.downloadFile_2(data,this.currentUser['role'][0].id,data2)
+    .then(result =>{
+        let blob = new Blob([result.blob()], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+        FileSaver.saveAs(blob, data);
+        this.progress_bar = false;
+    })
+    .catch(e =>{
+      this.progress_bar = false;
+      console.log('e '+e);
+    });
 	}
 
 
@@ -157,7 +208,6 @@ export class InfoDReestrComponent implements OnInit{
 	})
 	.catch(e =>{
 		this.progress_bar = false;
-
 	});
 
 	}

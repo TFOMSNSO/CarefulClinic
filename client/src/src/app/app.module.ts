@@ -30,7 +30,6 @@ import { AuthenticationService, UserService} from './_services/index';
 import { ListZnoComponent } from './list-zno/list-zno.component';
 import { SidenavSearchZnoComponent } from './list-zno/sidenav-search-zno/sidenav-search-zno.component';
 import { HttpClientModule } from '@angular/common/http';
-
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers/index';
 import { MockBackend, MockConnection } from '@angular/http/testing';

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class InformDReestr {
 
+
     private String fam;
     private String im;
     private String ot;
@@ -12,7 +13,7 @@ public class InformDReestr {
     private String address;
     private Long smoid;
     private String pol;
-    private String lpu;
+    private Long lpu;
     private String ambkarta;
     private Date dat_beg;
     private Date dat_end;
@@ -29,12 +30,14 @@ public class InformDReestr {
     private Date date_inform;
     private String mes6;
     private Date last_treatment_mes6;
+    private Long n;
+    private Long npp_r;
     //private Long id_assent;  Когда-нибудь понадобится
 
-    public InformDReestr(String fam,String im,String ot, Date dr, String tel, String address, Long smoid, String pol, String lpu,
+    public InformDReestr(String fam,String im,String ot, Date dr, String tel, String address, Long smoid, String pol, Long lpu,
                          String ambkarta, Date dat_beg, Date dat_end, String lpu_prik, Long account, Date ac_date, String rezobr,
                          String ds1, Long prdn, String mes, String kratnost, Date last_treatment, Date plan_inform,
-                         Date date_inform, String mes6, Date last_treatment_mes6) {
+                             Date date_inform, String mes6, Date last_treatment_mes6) {
         super();
         this.fam = fam;
         this.im = im;
@@ -64,6 +67,60 @@ public class InformDReestr {
         //this.id_assent = id_assent;  Когда-нибудь понадобится
     }
 
+
+    public InformDReestr(Long npp, String fam,String im,String ot, Date dr, String tel, String address, Long smoid, String pol, Long lpu,
+                         String ambkarta, Date dat_beg, Date dat_end, String lpu_prik, Long account, Date ac_date, String rezobr,
+                         String ds1, Long prdn, String mes, String kratnost, Date last_treatment, Date plan_inform,
+                         Date date_inform, String mes6, Date last_treatment_mes6, Long n) {
+        super();
+        this.npp_r = npp;
+        this.fam = fam;
+        this.im = im;
+        this.ot = ot;
+        this.dr = dr;
+        this.tel = tel;
+        this.address = address;
+        this.smoid = smoid;
+        this.pol = pol;
+        this.lpu = lpu;
+        this.ambkarta = ambkarta;
+        this.dat_beg = dat_beg;
+        this.dat_end = dat_end;
+        this.lpu_prik = lpu_prik;
+        this.account = account;
+        this.ac_date = ac_date;
+        this.rezobr = rezobr;
+        this.ds1 = ds1;
+        this.prdn = prdn;
+        this.mes = mes;
+        this.kratnost = kratnost;
+        this.last_treatment = last_treatment;
+        this.plan_inform = plan_inform;
+        this.date_inform = date_inform;
+        this.mes6 = mes6;
+        this.last_treatment_mes6 = last_treatment_mes6;
+        this.n = n;
+
+        //this.id_assent = id_assent;  Когда-нибудь понадобится
+    }
+
+
+    public Long getNpp_r() {
+        return npp_r;
+    }
+
+    public void setNpp_r(Long npp_r) {
+        this.npp_r = npp_r;
+    }
+
+    public Long getN() {
+        return n;
+    }
+
+    public void setN(Long n) {
+        this.n = n;
+    }
+
     public InformDReestr() {
 
     }
@@ -91,6 +148,9 @@ public class InformDReestr {
     public void setOt(String ot) {
         this.ot = ot;
     }
+
+
+
 
     public Date getDr() {
         return dr;
@@ -122,10 +182,10 @@ public class InformDReestr {
     public void setPol(String pol) {
         this.pol = pol;
     }
-    public String getLpu() {
+    public Long getLpu() {
         return lpu;
     }
-    public void setLpu(String lpu) {
+    public void setLpu(Long lpu) {
         this.lpu = lpu;
     }
     public String getAmbkarta() {
@@ -242,6 +302,39 @@ public class InformDReestr {
     }*/ //Когда-нибудь понадобится
 
 
+
+    @Override
+    public String toString() {
+        return "InformDReestr{" +
+                "fam='" + fam + '\'' +
+                ", im='" + im + '\'' +
+                ", ot='" + ot + '\'' +
+                ", dr=" + dr +
+                ", tel='" + tel + '\'' +
+                ", address='" + address + '\'' +
+                ", smoid=" + smoid +
+                ", pol='" + pol + '\'' +
+                ", lpu=" + lpu +
+                ", ambkarta='" + ambkarta + '\'' +
+                ", dat_beg=" + dat_beg +
+                ", dat_end=" + dat_end +
+                ", lpu_prik='" + lpu_prik + '\'' +
+                ", account=" + account +
+                ", ac_date=" + ac_date +
+                ", rezobr='" + rezobr + '\'' +
+                ", ds1='" + ds1 + '\'' +
+                ", prdn=" + prdn +
+                ", mes='" + mes + '\'' +
+                ", kratnost='" + kratnost + '\'' +
+                ", last_treatment=" + last_treatment +
+                ", plan_inform=" + plan_inform +
+                ", date_inform=" + date_inform +
+                ", mes6='" + mes6 + '\'' +
+                ", last_treatment_mes6=" + last_treatment_mes6 +
+                ", n=" + n +
+                ", npp_r=" + npp_r +
+                '}';
+    }
 }
 
 

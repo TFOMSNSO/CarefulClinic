@@ -9,15 +9,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.ManagedBean;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.Response;
 
+import com.careful.clinic.model.JobWork;
 import com.careful.clinic.model.ListExcelFiles;
 import com.careful.clinic.model.Sp3RateMo;
 import com.careful.clinic.model.InformDReestr;
+import com.careful.clinic.rs.sp3.inform.d.reestr.report.D_reestr_Report;
 
+@ManagedBean
 @Stateless
 public class D_reestrImpDAO  implements D_reestr{
 
@@ -27,14 +35,106 @@ public class D_reestrImpDAO  implements D_reestr{
 	@PersistenceContext(unitName="NONXAMUR2019")
 	private EntityManager non_mur_collect2019;
 
-	private String addDate(String directoryDestination, String ob) {
+	@PersistenceContext(unitName = "OracleDream2DS")
+	private EntityManager ofoms;
 
+	private HttpSession dreestrSession;
+
+
+    @Override
+    public List<InformDReestr> getDReestrUpdated() {
+        List<Object[]> rs = non_mur_collect2019.createNativeQuery("select * from V_DISP_RECORD_NEW_2019_MAIN@LINK_OFOMS").getResultList();
+
+
+        System.out.println("Count rs:"  +  rs.size());
+        System.out.println(Arrays.toString(rs.get(0)));
+        ArrayList<InformDReestr> result = new ArrayList<>();
+
+        rs.stream().forEach(record -> {
+            try {
+                Long npp = ((BigDecimal) record[0]).longValue();
+                String _0 = (String) record[1]; //fam
+                String _1 = (String) record[2];// im
+                String _2 = (String) record[3]; // ot
+                Date _3 = (Date) record[4]; // dr
+                String _tel = record[5] == null ? "" : (String) record[5]; // tel
+                String _5 = record[6] == null ? "" : (String) record[6]; // address
+                Long _6 = record[7] == null ? null : ((BigDecimal) record[7]).longValue(); // smo
+                String _7 = record[8] == null ? "" : (String) record[8]; // polis?
+                Long _8 =  record[9] == null ? null : ((BigDecimal) record[9]).longValue();//kpuid
+                String _9 = record[10] == null ? "" : (String) record[10];// ambkarta
+                Date _10 = record[11] == null ? null : (Date) record[11]; //dat_beg
+                Date _11 = record[12] == null ? null : (Date) record[12];  //date_end_disp
+                String _12 = record[13] == null ? "" : (String) record[13]; // mo_prik
+                Long _13 = record[14] == null ? null :  ((BigDecimal) record[14]).longValue();
+                Date _14 = record[15] == null ? null : (Date) record[15]; // ac_date
+                String _15 = record[16] == null ? "" : (String) record[16]; //rezobr
+                String _16 = record[17] == null ? "" : (String) record[17]; //ds1
+                Long _17 = record[18] == null ? null : ((BigDecimal) record[18]).longValue(); // p_r_dn
+                String _18 = record[19] == null ? "" : (String) record[19]; // mes
+                String _19 = record[20] == null ? "" : (String) record[20]; // kratnost
+                Date _20 = record[21] == null ? null : (Date) record[21];//last_treatment
+                Date _21 = record[22] == null ? null : (Date) record[22]; // plan_inform
+                Date _22 =  record[23] == null ? null :  (Date) record[23]; //date_inform
+                String _23 = record[24] == null ? "" : (String) record[24]; //mes6
+                Date _24 = record[25] == null ?  null : (Date) record[25]; // dat_end_mas6
+                Long _25 = record[25] == null ? null : ((BigDecimal) record[26]).longValue(); // n
+
+                result.add(new InformDReestr(npp, _0, _1, _2, _3, _tel, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25));
+
+            }catch (NullPointerException e){
+                System.out.println("exception:" + e);
+
+            }
+        });
+
+        return result;
+    }
+
+    private String addDate(String directoryDestination, String ob) {
 		File file = new File(directoryDestination + File.separator + ob);
 		final long lastModified = file.lastModified();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy-");
 		String x = sdf.format(new Date(lastModified));
 		return x;
 	}
+
+	@Override
+	public List<JobWork> refreshDReestrInfo(HttpServletRequest request) {
+        List<JobWork> jobs = ofoms.createNamedQuery("findJobByDate",JobWork.class).setParameter("inDate",new Date()).getResultList();
+        return jobs;
+	}
+
+
+	@Override
+	public Response executeDReestrUpdate(HttpServletRequest request) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYYMM");
+		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd.MM.yyyy");
+		Date today = new Date();
+		String targetDate = simpleDateFormat.format(today);
+		List<JobWork> jobWorks = ofoms.createNamedQuery("findJobByDate",JobWork.class).setParameter("inDate",today).getResultList();
+
+
+		if(!jobWorks.isEmpty())
+			return Response.status(222).entity("Сегодня уже было обновление списков. Попробуйте завтра.").build();
+
+
+
+		StoredProcedureQuery storedProcedureQuery = ofoms.createStoredProcedureQuery("eir_d_reestr_update");
+		storedProcedureQuery.registerStoredProcedureParameter("v_date",String.class,ParameterMode.IN);
+		storedProcedureQuery.registerStoredProcedureParameter("jobid",Integer.class,ParameterMode.OUT);
+
+		storedProcedureQuery.setParameter("v_date",targetDate);
+
+		storedProcedureQuery.execute();
+
+		dreestrSession = request.getSession(true);
+		dreestrSession.setAttribute("jobDate",simpleDateFormat1.format(today));
+		return Response.ok().entity("Обновление списков успешно запущено.").build();
+	}
+
+
+
 
 	@Override
 	public List<?> getListDReestr(Integer id) {
@@ -125,7 +225,7 @@ public class D_reestrImpDAO  implements D_reestr{
 				String _5 = (String) record[5];
 				Long _6 = ((BigDecimal) record[6]).longValue();
 				String _7 = (String) record[7];
-				String _8 = (String) record[8];
+				Long _8 = (Long) record[8];
 				String _9 = (String) record[9];
 				Date _10 = (Date) record[10];
 				Date _11 = (Date) record[11];

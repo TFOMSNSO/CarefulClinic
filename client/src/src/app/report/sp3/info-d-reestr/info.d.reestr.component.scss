@@ -35,17 +35,17 @@ color: orangered;
 }
 
 
-#btn_header{
+#btn_header {
     position: absolute;
     right: 10px;
 }
 
-mat-icon{
+mat-icon {
 	cursor: pointer;
 }
 
  /deep/ snack-bar-container {
-	box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 
+	box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),
 					 0 6px 10px 0 rgba(0,0,0,.14),
 					 0 1px 18px 0 rgba(0,0,0,.12);
     background: #9130e6 !important;
@@ -75,4 +75,22 @@ mat-icon{
 .list_files{
     overflow: auto;
     height: 400px;
+}
+
+
+th{
+  background: #3adb76;
+}
+
+table{
+  margin-top: 10px;
+  overflow: auto;
+}
+
+.download-button{
+  background: #3adb76;
+}
+
+#sendButton,#formButton{
+  width: 250px;
 }

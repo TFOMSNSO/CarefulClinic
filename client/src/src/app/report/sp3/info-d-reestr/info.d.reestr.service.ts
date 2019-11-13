@@ -3,7 +3,16 @@ import * as FileSaver from 'file-saver';
 import { Http, Headers, RequestOptions, ResponseContentType } from '@angular/http';
 import {environment} from '../../../../environments/environment';
 import { ListExcelFiles } from '../../../model/list.files.excel';
+import { NgxLoremIpsumService } from 'ngx-lorem-ipsum';
 
+
+
+export class JobInfo{
+  id: number;
+  state: string;
+  dateInsert: string;
+  dateInsertTrunc: string;
+}
 
 
 
@@ -55,7 +64,13 @@ export class InfoDReestrService{
 	  return this.http.get(this.serverUrl + '/make_dreestr').toPromise();
   }
 
+  refreshDReestr():Promise<any>{
+	  return this.http.get(this.serverUrl + '/refresh_dreestr').toPromise();
+  }
 
+  formDReestr():Promise<any>{
+	  return this.http.get(this.serverUrl + '/form_dreestr').toPromise();
+  }
 
 	listFilesD_reestr(data : number): Promise<ListExcelFiles[]> {
 	  let headers = new Headers({'Content-Type': 'application/json'});

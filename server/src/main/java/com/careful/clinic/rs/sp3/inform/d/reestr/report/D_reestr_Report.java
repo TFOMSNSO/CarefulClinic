@@ -14,11 +14,7 @@ import javax.ejb.Stateless;
 import com.careful.clinic.model.Sp3RateMo;
 import com.careful.clinic.model.InformDReestr;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
@@ -43,9 +39,11 @@ public class D_reestr_Report {
 		File f = new File(path);
 
 		JasperDesign jasperDesign = JRXmlLoader.load(f);
+
 		//jasperDesign.setPageHeight(200_000); // устанавливаем высоту в зависимости от количества
 		JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,beanColDataSource);
+
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,beanColDataSource);//
 
 		JRXlsxExporter exporter = new JRXlsxExporter();
 		exporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
