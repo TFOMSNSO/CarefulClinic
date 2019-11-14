@@ -54,14 +54,14 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 
 
 
-	@PersistenceContext(unitName="NONXASDAME")
+	@PersistenceContext(unitName="NONXASDAME")		System.out.println("getInfoInsur:");
+		System.out.println(personmodel);
 	private EntityManager EM_NONXASDAME;
 
 	private int count = 0;
 	
 	public Collection<?> getInfoInsur(PersonModel personmodel) throws ParseException{
-		System.out.println("getInfoInsur:");
-		System.out.println(personmodel);
+
 		TypedQuery<Person> query = em_developer.createNamedQuery("Person.findByFIOD", Person.class)
         		
 				.setParameter("personSurname", personmodel.getSurname().toUpperCase())
@@ -456,7 +456,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 		return new ArrayList<>();
 	}
 	
-	public Collection<?> getInfoProphylactic(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException{
+	public Collection<?> getInfoProphylactic(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException, SOAPException {
 		
 
         TypedQuery<Person> query = em_developer.createNamedQuery("Person.findByFIOD", Person.class)
@@ -502,7 +502,7 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
         */
         List<?>  obj = Stream.concat(results.stream(), ls.stream()).collect(Collectors.toList());
 
-		return (Collection<?>)obj;
+		return obj;
 	}
 	
 	public  void writeListToFile(String fileName, List<WrapRespSerarchKeys> wrapRespSerarchKeys, String querytext) throws Exception{

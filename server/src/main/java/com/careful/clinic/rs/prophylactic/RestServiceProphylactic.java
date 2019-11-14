@@ -46,6 +46,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.SOAPException;
 
 import com.careful.clinic.model.ResponseGer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -363,7 +364,7 @@ public class RestServiceProphylactic {
 	@Path("/search_person_ger")
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Collection<?> searchGer(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
+	public Collection<?> searchGer(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException, SOAPException {
 		List<?> df = (List<?>) prophylacticDAO.getInfoProphylactic(personmodel);
 		
 		return df;
@@ -373,7 +374,7 @@ public class RestServiceProphylactic {
 	@Path("/search_person_mis")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<?> searchMis(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
+	public Collection<?> searchMis(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException, SOAPException {
 
 		List<?> df = (List<?>) prophylacticDAO.getInfoProphylactic(personmodel);
 
@@ -469,7 +470,7 @@ public class RestServiceProphylactic {
 	@Path("/search_ger")
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public Collection<?> searchG(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException {
+	public Collection<?> searchG(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException, SOAPException {
 
 
 		List<?> df = (List<?>) xa_Dream2Dao.getInfoG(personmodel);

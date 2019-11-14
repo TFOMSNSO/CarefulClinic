@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.SOAPException;
 
 import org.xml.sax.SAXException;
 
@@ -23,7 +24,7 @@ public interface ProphylacticDAO {
 	public Collection<?> exportToExcel(ArrayList<WrapRespSerarchKeys> wrapRespSerarchKeys) throws Exception;	
 	public  void writeListToFile(String fileName, List<WrapRespSerarchKeys> wrapRespSerarchKeys, String querytext) throws Exception;
 	public Collection<?> getListUploadedFiles(Integer id);
-	public Collection<?> getInfoProphylactic(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException;
+	public Collection<?> getInfoProphylactic(PersonModel personmodel) throws ParserConfigurationException, SAXException, IOException, ParseException, SOAPException;
 	public Collection<?> getListExcelFiles(Integer id);
 
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.SOAPException;
 
 import org.xml.sax.SAXException;
 
@@ -22,7 +23,7 @@ public interface XA_Dream2Dao {
 	public Collection<?> getSurveyInform(PersonModel personmodel);
 	public Collection<?> getInfoInform(PersonModel personmodel) throws ParseException;	
 	public Collection<?> getInfoPlanInform(Integer adressid) throws ParseException;
-	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException;	
+	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException, SOAPException;
 	public boolean insertDataFromExcel(List<String> listOfQueryies, IDataUploadType data) throws ParseDataExcelException;
 	int[] insertDataFromExcel(List<String> listOfQueryies,IDataUploadType data, boolean xxx);
 	ResponseGer parseResponse(String xml) throws ParserConfigurationException, SAXException, IOException;

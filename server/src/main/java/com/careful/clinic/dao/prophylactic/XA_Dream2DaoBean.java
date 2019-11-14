@@ -7,11 +7,7 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -25,6 +21,7 @@ import javax.persistence.TypedQuery;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.*;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -131,10 +128,13 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 	}
 
 
-	//ToDo in branch "mis" create a select from MIS DB
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException{
-		System.out.println("getInfoG");
+
+	/**
+	* Данные из МИСА
+	* @param personmodel фиод и год по которому ищем
+	 *
+	* */
+	public Collection<?> getInfoG(PersonModel personmodel) throws ParseException, ParserConfigurationException, SAXException, IOException, SOAPException {
 		/*
 		StoredProcedureQuery storedProcedure =  em_dream2.createStoredProcedureQuery("sys.connect_mis.disp_fiod");
         
@@ -155,7 +155,7 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
         String respXml = (String)storedProcedure.getOutputParameterValue("response");
 */
 
-
+/*
 		String xmlInput =
 				"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:soap=\"http://www.bars-open.ru/med/soap/\">\n" +
 						"<soapenv:Header/>\n" +
@@ -212,12 +212,162 @@ public class XA_Dream2DaoBean implements XA_Dream2Dao{
 
         ResponseGer rGer = parseResponse(outputString);
         List<ResponseGer> ls = new ArrayList<ResponseGer>(1);
-        ls.add(rGer);
+        ls.add(rGer);*/
+		final String path = "http://10.101.39.16:80/ws/dispancery_info/di";
+
+		String username = "INTFOMSNSO";
+		String password = "TFOMS54";
+		String auth = Base64.getEncoder().encodeToString((username + ":" + password).getBytes("UTF-8"));
+		auth = "Basic " + auth;
+
+		SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
+		SOAPConnection sc = soapConnectionFactory.createConnection();
+
+		MessageFactory messageFactory = MessageFactory.newInstance();
+		SOAPMessage message = messageFactory.createMessage();
+
+		//Создаем объекты, представляющие различные компоненты сообщения
+		SOAPPart soapPart = message.getSOAPPart();
+		SOAPEnvelope envelope = soapPart.getEnvelope();
+		envelope.addAttribute(envelope.createName("xmlns:soap"), "http://www.bars-open.ru/med/soap/");
+
+		SOAPBody body = envelope.getBody();
+
+		SOAPElement bodyElement = body.addChildElement(envelope.createName("soap:getPersonDataRequest"));
+		SOAPElement surname = bodyElement.addChildElement(envelope.createName("surname"));
+		SOAPElement name = bodyElement.addChildElement(envelope.createName("name"));
+		SOAPElement middle_name = bodyElement.addChildElement(envelope.createName("middle_name"));
+		SOAPElement birthday = bodyElement.addChildElement(envelope.createName("date_birth"));
+		SOAPElement year = bodyElement.addChildElement(envelope.createName("year"));
+
+
+		surname.addTextNode(personmodel.getSurname());
+		name.addTextNode(personmodel.getFirstname());
+		middle_name.addTextNode(personmodel.getLastname());
+		birthday.addTextNode(personmodel.getBithday());
+		year.addTextNode(personmodel.getYear().toString());
+
+		MimeHeaders headers = message.getMimeHeaders();
+		headers.addHeader("Authorization",auth);
+
+		SOAPMessage reply = sc.call(message, path);
+
+		SOAPPart replyPart = reply.getSOAPPart();
+		SOAPBody replyBody = replyPart.getEnvelope().getBody();
+		Iterator iterator = replyBody.getChildElements();
+		SOAPBodyElement bodyElement1 = (SOAPBodyElement) iterator.next();
+
+		ResponseGer responseGer = new ResponseGer();
+
+		NodeList nodeList = null;
+		Element temp = null;
+
+		nodeList = bodyElement1.getElementsByTagName("start_date_etap1");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setStart_date_etap1(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setStart_date_etap1("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("end_date_etap1");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setEnd_date_etap1(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setEnd_date_etap1("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("start_date_etap2");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setStart_date_etap2(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setStart_date_etap2("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("end_date_etap2");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setEnd_date_etap2(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setEnd_date_etap2("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("ref_id_person");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setRef_id_person(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setRef_id_person("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("pm_god");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setPm_god(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setPm_god("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("pm_kvartal");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setPm_kvartal(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setPm_kvartal("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("PM_HOSPITAL_RESULT");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setPm_HOSPITAL_RESULT(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setPm_HOSPITAL_RESULT("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("adress");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setAdress(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setAdress("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("tel");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setTel(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setTel("нет данных");
+		}
+
+
+		nodeList = bodyElement1.getElementsByTagName("pm_result");
+		temp = (Element) nodeList.item(0);
+		if(temp != null) {
+			responseGer.setPm_result(temp.getTextContent().replace("null", "нет данных"));
+		} else {
+			responseGer.setPm_result("нет данных");
+		}
+
+
+		ArrayList<ResponseGer> ls = new ArrayList<>();
+		ls.add(responseGer);
 
 		return ls;
 		
 	}
-	/*
+	/**
 	 * Вставка результатов опроса или информирования. Сам запрос  формируется при парсинге Excel и передается в коллекнцию (т.е. в коллекции уже готовые запросы)
 	 * @param listOfQueryies
 	 * 
