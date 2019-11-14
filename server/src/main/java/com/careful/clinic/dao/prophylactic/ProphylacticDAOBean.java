@@ -54,14 +54,14 @@ public class ProphylacticDAOBean implements ProphylacticDAO{
 
 
 
-	@PersistenceContext(unitName="NONXASDAME")		System.out.println("getInfoInsur:");
-		System.out.println(personmodel);
+	@PersistenceContext(unitName="NONXASDAME")
 	private EntityManager EM_NONXASDAME;
 
 	private int count = 0;
 	
 	public Collection<?> getInfoInsur(PersonModel personmodel) throws ParseException{
-
+		System.out.println("getInfoInsur:");
+		System.out.println(personmodel);
 		TypedQuery<Person> query = em_developer.createNamedQuery("Person.findByFIOD", Person.class)
         		
 				.setParameter("personSurname", personmodel.getSurname().toUpperCase())
