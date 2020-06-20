@@ -203,9 +203,14 @@ _error1: string = environment.error1;
 			this.personSearchIsurService.searchPersonInformir(data_cust)
 			.then(result =>{
 				this.disableSelect = false;
-				this.data_informir = result;
-	 			this.flag_informed = false;
+        this.parseNStage(result);
+
+        this.data_informir = result;
+
+
+        this.flag_informed = false;
 			});
+
 
 
 		}
@@ -271,36 +276,49 @@ _error1: string = environment.error1;
 	 		this.personSearchIsurService.searchPlanPersonInformir('623375')
 	 		.then(result_2 =>{
 	 			this.data_plan_informir = result_2;
-
+        this.parseNStage(result);
 	 			this.data_informir = result;
-	 			this.flag_informed = false;
+
+
+        this.flag_informed = false;
 				this.disableSelect = false;
-
-	 			for (var index in this.data_informir) {
-	 				   this.data_informir[index].nStage=== 0 ?  this.data_informir[index].nStage = environment.no_inform :
-	 				   this.data_informir[index].nStage === 1 ?  this.data_informir[index].nStage = environment.one_part_inform :
-	 				   this.data_informir[index].nStage === 2 ?  this.data_informir[index].nStage= environment.second_part_inform :
-	 				   this.data_informir[index].nStage === 3 ?  this.data_informir[index].nStage = environment.secondory_inform : '';
-
-	 				   this.data_informir[index].tInfo === 1 ?  this.data_informir[index].tInfo = environment.tinfo_1 :
-	 				   this.data_informir[index].tInfo=== 2 ?  this.data_informir[index].tInfo= environment.tinfo_2 :
-	 				   this.data_informir[index].tInfo === 3 ?  this.data_informir[index].tInfo = environment.tinfo_3 :
-	 				   this.data_informir[index].tInfo === 4 ?  this.data_informir[index].tInfo = environment.tinfo_4 :
-	 				   this.data_informir[index].tInfo === 5 ?  this.data_informir[index].tInfo = environment.tinfo_5 :
-	 				   this.data_informir[index].tInfo === 6 ?  this.data_informir[index].tInfo = environment.tinfo_6 :
-	 				   this.data_informir[index].tinfo === 7 ?  this.data_informir[index].tInfo = environment.tinfo_7 : '';
-
-				}
-
-
 	 		});
-
-
 	 	});
  	}
 
  }
 
+
+  parseNStage(data) {
+    for (var index in data) {
+
+      switch(data[index].nStage){
+        case 0: data[index].nStage = environment.no_inform; break;
+        case 1: data[index].nStage = environment.one_part_inform; break;
+        case 2: data[index].nStage = environment.second_part_inform; break;
+        case 3: data[index].nStage = environment.secondory_inform; break;
+        case 4: data[index].nStage = environment.nstage_4_str; break;
+        case 5: data[index].nStage = environment.nstage_5_str; break;
+        case 6: data[index].nStage = environment.nstage_6_str; break;
+        case 7: data[index].nStage = environment.nstage_7_str; break;
+        case 8: data[index].nStage = environment.nstage_8_str; break;
+        case 9: data[index].nStage = environment.nstage_9_str; break;
+        case 10: data[index].nStage = environment.nstage_10_str; break;
+        case 11: data[index].nStage = environment.nstage_11_str; break;
+        case 12: data[index].nStage = environment.nstage_12_str; break;
+      }
+
+
+      data[index].tInfo === 1 ?  data[index].tInfo = environment.tinfo_1 :
+        data[index].tInfo=== 2 ?  data[index].tInfo= environment.tinfo_2 :
+          data[index].tInfo === 3 ?  data[index].tInfo = environment.tinfo_3 :
+            data[index].tInfo === 4 ?  data[index].tInfo = environment.tinfo_4 :
+              data[index].tInfo === 5 ?  data[index].tInfo = environment.tinfo_5 :
+                data[index].tInfo === 6 ?  data[index].tInfo = environment.tinfo_6 :
+                  data[index].tinfo === 7 ?  data[index].tInfo = environment.tinfo_7 : '';
+
+    }
+  }
 
   add_survey(form: any){
 	  // ������� null

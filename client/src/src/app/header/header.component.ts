@@ -64,7 +64,9 @@ export class HeaderComponent{
 
 
 
-    public LOGO = require("./logo_small.png");
+
+
+              public LOGO = require("./logo_small.png");
 
   /*выпадающее окно с информацией о загруженных данных*/
   /*todo разобраться с кодом и убрать лишнее*/

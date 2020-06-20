@@ -24,9 +24,6 @@ import org.hibernate.transform.Transformers;
 @Stateless
 public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 
-	@PersistenceContext(unitName="OracleMUR2017")
-	private EntityManager mur_collect2017;
-
 	@PersistenceContext(unitName="OracleMUR2018")
 	private EntityManager mur_collect2018;
 
@@ -39,6 +36,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 	@PersistenceContext(unitName="NONXAMUR2019")
 	private EntityManager non_mur_collect2019;
 
+	@PersistenceContext(unitName="NONXAMUR2020")
+	private EntityManager non_mur_collect2020;
+
 	@Override
 	public List<?> getResult3b_new(String date1, String date2, String user) {
 
@@ -49,9 +49,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            where \n" +
 				"            d.id_demand = p.demand_id \n" +
 				"            and  p.caretype = 30 \n" +
-				"            and   p.REZOBR in (14,21) \n" +
+				"            and   p.REZOBR in (14,21, 317, 343, 358) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"            and  p.dat_end >= '01.01.2019'\n" + g +
+				"            and  p.dat_end >= '01.01.2020'\n" + g +
 				"            and \n" +
 				"            (\n" +
 				"              substr(ds1,1,1) in ('C','I')\n" +
@@ -72,7 +72,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                where \n" +
 				"                d.id_demand = p.demand_id \n" +
 				"                and  p.caretype = 30 \n" +
-				"                and  p.dat_end >= '01.01.2019' \n" +
+				"                and  p.dat_end >= '01.01.2020' \n" +
 				"                and  \n" +
 				"                (\n" +
 				"                    p.mes between '401048' and '401080' \n" +
@@ -101,9 +101,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30 \n" +
-				"              and   p.REZOBR in (15,23) \n" +
+				"              and   p.REZOBR in (15,23,356, 374) \n" +
 				"              and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019' \n" + g +
+				"              and  p.dat_end >= '01.01.2020' \n" + g +
 				"              and \n" +
 				"              p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
 				"              and \n" +
@@ -137,9 +137,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30\n" +
-				"              and   p.REZOBR in (15,23) \n" +
+				"              and   p.REZOBR in (15,23,356, 374) \n" +
 				"              and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019' \n" + g +
+				"              and  p.dat_end >= '01.01.2020' \n" + g +
 				"              and p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
 				"              and\n" +
 				"              ( \n" +
@@ -162,7 +162,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            where (zz.mes between '401048' and '401071'  or zz.mes between '401081' and '401120')";
 
 
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
 
 		List<Object[]> res = q.getResultList();
 
@@ -207,9 +207,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            where \n" +
 				"            d.id_demand = p.demand_id \n" +
 				"            and  p.caretype = 30 \n" +
-				"            and   p.REZOBR in (14,21) \n" +
+				"            and   p.REZOBR in (14,21, 358, 317, 343) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"            and  p.dat_end >= '01.01.2019'\n" + g +
+				"            and  p.dat_end >= '01.01.2020'\n" + g +
 				"            and \n" +
 				"            (\n" +
 				"              substr(ds1,1,1) in ('C')\n" +
@@ -231,7 +231,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                where \n" +
 				"                d.id_demand = p.demand_id \n" +
 				"                and  p.caretype = 30 \n" +
-				"                and  p.dat_end >= '01.01.2019' \n" +
+				"                and  p.dat_end >= '01.01.2020' \n" +
 				"                and  \n" +
 				"                (\n" +
 				"                    p.mes between '401048' and '401080' \n" +
@@ -262,9 +262,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30 \n" +
-				"              and   p.REZOBR in (15,23) \n" +
+				"              and   p.REZOBR in (15,23, 356, 374) \n" +
 				"              and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019' \n" + g +
+				"              and  p.dat_end >= '01.01.2020' \n" + g +
 				"              and \n" +
 				"              p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
 				"              and \n" +
@@ -299,9 +299,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30\n" +
-				"              and   p.REZOBR in (15,23) \n" +
+				"              and   p.REZOBR in (15,23, 356, 374) \n" +
 				"              and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019' \n" + g +
+				"              and  p.dat_end >= '01.01.2020' \n" + g +
 				"              and p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
 				"              and\n" +
 				"              ( \n" +
@@ -408,7 +408,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+ " where zz.mes between '401048' and '401071'  ";*/
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createNativeQuery(sb);
 		q.setFirstResult(firrstResult);
 		q.setMaxResults(60_000);
@@ -468,9 +468,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            where \n" +
 				"            d.id_demand = p.demand_id \n" +
 				"            and  p.caretype = 30 \n" +
-				"            and   p.REZOBR in (14,21) \n" +
+				"            and   p.REZOBR in (14,21, 358, 317, 343) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"            and  p.dat_end >= '01.01.2019'\n" + g +
+				"            and  p.dat_end >= '01.01.2020'\n" + g +
 				"            and \n" +
 				"            (\n" +
 				"              substr(ds1,1,1) in ('C')\n" +
@@ -492,7 +492,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                where \n" +
 				"                d.id_demand = p.demand_id \n" +
 				"                and  p.caretype = 30 \n" +
-				"                and  p.dat_end >= '01.01.2019' \n" +
+				"                and  p.dat_end >= '01.01.2020' \n" +
 				"                and  \n" +
 				"                (\n" +
 				"                    p.mes between '401048' and '401080' \n" +
@@ -523,9 +523,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30 \n" +
-				"              and   p.REZOBR in (15,23) \n" +
+				"              and   p.REZOBR in (15,23, 356, 374) \n" +
 				"              and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019' \n" + g +
+				"              and  p.dat_end >= '01.01.2020' \n" + g +
 				"              and \n" +
 				"              p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
 				"              and \n" +
@@ -560,9 +560,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30\n" +
-				"              and   p.REZOBR in (15,23) \n" +
+				"              and   p.REZOBR in (15,23, 356, 374) \n" +
 				"              and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019' \n" + g +
+				"              and  p.dat_end >= '01.01.2020' \n" + g +
 				"              and p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
 				"              and\n" +
 				"              ( \n" +
@@ -587,9 +587,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" )     z_tmp "
 				+" group  by z_tmp.lpu  "
 				+" ) tmp1,  "
-				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc ";
+				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc ";
 		// TODO сделать выбор базы на сайте
-	    Query q = non_mur_collect2019.createNativeQuery(sb);
+	    Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createNativeQuery(sb);
 		List<Object[]> res = q.getResultList();
 
@@ -627,9 +627,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            where " +
 				"            d.id_demand = p.demand_id " +
 				"            and  p.caretype = 30 " +
-				"            and   p.REZOBR in (20,22) \n" +
+				"            and   p.REZOBR in (20,22,357, 355, 373) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"            and  p.dat_end >= '01.01.2019'" + g +
+				"            and  p.dat_end >= '01.01.2020'" + g +
 				"            and substr(ds1,1,1) not in ('C')\n" +
 				"            and substr(ds1,1,1) not in ('I')\n" +
 				"            and substr(ds1,1,3) not between 'D00' and 'D09'\n" +
@@ -653,7 +653,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                where \n" +
 				"                d.id_demand = p.demand_id \n" +
 				"                and  p.caretype = 30 \n" +
-				"                and  p.dat_end >= '01.01.2019'\n" +
+				"                and  p.dat_end >= '01.01.2020'\n" +
 				"                and  (p.mes between '401048' and '401080' or p.mes between '401081' and '401129')\n" +
 				"                and exists \n" +
 				"                (" +
@@ -679,9 +679,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30 \n" +
-				"              and   p.REZOBR in (22) \n" +
+				"              and   p.REZOBR in (22, 355, 373) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019'\n"  + g +
+				"              and  p.dat_end >= '01.01.2020'\n"  + g +
 				"              and substr(ds1,1,1) not in ('C')\n" +
 				"              and substr(ds1,1,1) not in ('I')\n" +
 				"              and substr(ds1,1,3) not between 'D00' and 'D09'\n" +
@@ -716,9 +716,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30 \n" +
-				"              and   p.REZOBR in (22) \n" +
+				"              and   p.REZOBR in (22, 355, 373) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019' \n" + g +
+				"              and  p.dat_end >= '01.01.2020' \n" + g +
 				"              and substr(ds1,1,1) not in ('C')\n" +
 				"              and substr(ds1,1,1) not in ('I')\n" +
 				"              and substr(ds1,1,3) not between 'D00' and 'D09'\n" +
@@ -825,7 +825,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+ " where zz.mes between '401048' and '401071'  ";
 		*/
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createQuery(sb);
 		//Query q = mur_collect2019.createNativeQuery(sb);
 		q.setFirstResult(firrstResult);
@@ -886,9 +886,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            where " +
 				"            d.id_demand = p.demand_id " +
 				"            and  p.caretype = 30 " +
-				"            and   p.REZOBR in (20,22) \n" +
+				"            and   p.REZOBR in (20,22, 357, 355, 373) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"            and  p.dat_end >= '01.01.2019'" + g +
+				"            and  p.dat_end >= '01.01.2020'" + g +
 				"            and substr(ds1,1,1) not in ('C')\n" +
 				"            and substr(ds1,1,1) not in ('I')\n" +
 				"            and substr(ds1,1,3) not between 'D00' and 'D09'\n" +
@@ -912,7 +912,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                where \n" +
 				"                d.id_demand = p.demand_id \n" +
 				"                and  p.caretype = 30 \n" +
-				"                and  p.dat_end >= '01.01.2019'\n" +
+				"                and  p.dat_end >= '01.01.2020'\n" +
 				"                and  (p.mes between '401048' and '401080' or p.mes between '401081' and '401129')\n" +
 				"                and exists \n" +
 				"                (" +
@@ -938,9 +938,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30 \n" +
-				"              and   p.REZOBR in (22) \n" +
+				"              and   p.REZOBR in (22,355, 373) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019'\n"  + g +
+				"              and  p.dat_end >= '01.01.2020'\n"  + g +
 				"              and substr(ds1,1,1) not in ('C')\n" +
 				"              and substr(ds1,1,1) not in ('I')\n" +
 				"              and substr(ds1,1,3) not between 'D00' and 'D09'\n" +
@@ -975,9 +975,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              where \n" +
 				"              d.id_demand = p.demand_id \n" +
 				"              and  p.caretype = 30 \n" +
-				"              and   p.REZOBR in (22) \n" +
+				"              and   p.REZOBR in (22, 355, 373) \n" +
 				"            and  d.period between '"+date1+"' and '"+date2+"'  "+
-				"              and  p.dat_end >= '01.01.2019' \n" + g +
+				"              and  p.dat_end >= '01.01.2020' \n" + g +
 				"              and substr(ds1,1,1) not in ('C')\n" +
 				"              and substr(ds1,1,1) not in ('I')\n" +
 				"              and substr(ds1,1,3) not between 'D00' and 'D09'\n" +
@@ -1005,10 +1005,10 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" )     z_tmp "
 				+" group  by z_tmp.lpu "
 				+" ) tmp1,  "
-				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc";
+				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createQuery(sb);
         //Query q = mur_collect2019.createNativeQuery(sb);
 		List<Object[]> res = q.getResultList();
@@ -1224,15 +1224,15 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"      pat  p left join gosp_eir_view@link_webofoms gosp on\n" +
 				"      p.fam = upper(trim(gosp.fam)) and p.im = upper(trim(gosp.im)) and p.ot = upper(trim(gosp.ot)) and p.dr = (gosp.dr)\n" +
 				"      and p.dat_end <= (gosp.d_np) and substr(p.ds1,0,1) = substr(gosp.mkb_priem,0,1)\n" +
-				"      and (gosp.d_np) >= '01.01.2019'\n" +
+				"      and (gosp.d_np) >= '01.01.2020'\n" +
 				"      left join demand  d on d.id_demand = p.demand_id\n" +
 				"      where gosp.fam is  null\n" +
 				"      and  p.caretype = 30\n" +
-				"      and   p.REZOBR in (20,21)\n" +
+				"      and   p.REZOBR in (20,21, 357,358)\n" +
 				"      and\n" +
 				"      (\n" +
 				"       (\n" +
-				"          (rezobr = 20)\n" +
+				"          (rezobr in (20,357))\n" +
 				"          and\n" +
 				"          (\n" +
 				"            substr(ds1,1,1) in ('C')\n" +
@@ -1256,7 +1256,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"       )\n" +
 				"       or\n" +
 				"       (\n" +
-				"          (rezobr = 21)\n" +
+				"          (rezobr in (21,358))\n" +
 				"          and\n" +
 				"          (\n" +
 				"            ds1 between 'J12' and 'J13.99'\n" +
@@ -1273,7 +1273,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"       )\n" +
 				"      )\n" +
 				" 	   and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"      and  p.dat_end >= '01.01.2019'\n" +
+				"      and  p.dat_end >= '01.01.2020'\n" +
 				"      and  (p.mes between '401048' and '401071' or  p.mes between '401081' and '401120')\n" +
 				"      and (p.nazr <> 5 and p.nazr <> 7 and p.nazr <> 2 and p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"      and (p.fio,p.dr)  in \n" +
@@ -1282,7 +1282,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              from demand  d, pat  p\n" +
 				"              where d.id_demand = p.demand_id\n" +
 				"              and  p.caretype = 30\n" +
-				"              and  p.dat_end >= '01.01.2019'\n" +
+				"              and  p.dat_end >= '01.01.2020'\n" +
 				"              and  d.period  between  '"+date1+"' and '"+date2+"' " +
 				"              and  p.mes in ('401079','401080','401128','401129')\n" +
 				"       )\n" +
@@ -1295,15 +1295,15 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              from pat  p left join gosp_eir_view@link_webofoms gosp on\n" +
 				"               p.fam = upper(trim(gosp.fam)) and p.im = upper(trim(gosp.im)) and p.ot = upper(trim(gosp.ot)) and p.dr = (gosp.dr)\n" +
 				"               and p.dat_end <= (gosp.d_np) and substr(p.ds1,0,1) = substr(gosp.mkb_priem,0,1)\n" +
-				"               and (gosp.d_np) >= '01.01.2019'\n" +
+				"               and (gosp.d_np) >= '01.01.2020'\n" +
 				"                   left join demand  d on d.id_demand = p.demand_id\n" +
 				"                   where gosp.fam is  null\n" +
 				"                   and  p.caretype = 30\n" +
-				"                   and   p.REZOBR in (22,23)\n" +
+				"                   and   p.REZOBR in (22,23,355, 373,356, 374)\n" +
 				"                   and\n" +
 				"                   (\n" +
 				"                    (\n" +
-				"                      (rezobr = 22)\n" +
+				"                      (rezobr in (22,355, 373))\n" +
 				"                      and\n" +
 				"                      (\n" +
 				"                      substr(ds1,1,1) in ('C')\n" +
@@ -1327,7 +1327,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                    )\n" +
 				"                    or\n" +
 				"                    (\n" +
-				"                      (rezobr = 23)\n" +
+				"                      (rezobr in (23,356, 374))\n" +
 				"                      and\n" +
 				"                      (\n" +
 				"                      ds1 between 'J12' and 'J13.99'\n" +
@@ -1344,7 +1344,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                    )\n" +
 				"                   )\n" +
 				" 					and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"                   and  p.dat_end >= '01.01.2019'\n" +
+				"                   and  p.dat_end >= '01.01.2020'\n" +
 				"                   and (p.nazr <> 5 and p.nazr <> 7 and p.nazr <> 2 and p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"                   and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"                   and not exists (select 1 from pat  pp where pp.caretype = 30\n" +
@@ -1354,7 +1354,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"            ) zz";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createQuery(sb);
 		q.setFirstResult(firrstResult);
 		q.setMaxResults(60_000);
@@ -1412,15 +1412,15 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"      pat  p left join gosp_eir_view@link_webofoms gosp on\n" +
 				"      p.fam = upper(trim(gosp.fam)) and p.im = upper(trim(gosp.im)) and p.ot = upper(trim(gosp.ot)) and p.dr = (gosp.dr)\n" +
 				"      and p.dat_end <= (gosp.d_np) and substr(p.ds1,0,1) = substr(gosp.mkb_priem,0,1)\n" +
-				"      and (gosp.d_np) >= '01.01.2019'\n" +
+				"      and (gosp.d_np) >= '01.01.2020'\n" +
 				"      left join demand  d on d.id_demand = p.demand_id\n" +
 				"      where gosp.fam is  null\n" +
 				"      and  p.caretype = 30\n" +
-				"      and   p.REZOBR in (20,21)\n" +
+				"      and   p.REZOBR in (20,21, 357,358)\n" +
 				"      and\n" +
 				"      (\n" +
 				"       (\n" +
-				"          (rezobr = 20)\n" +
+				"          (rezobr in (20, 357))\n" +
 				"          and\n" +
 				"          (\n" +
 				"            substr(ds1,1,1) in ('C')\n" +
@@ -1444,7 +1444,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"       )\n" +
 				"       or\n" +
 				"       (\n" +
-				"          (rezobr = 21)\n" +
+				"          (rezobr in (21, 358))\n" +
 				"          and\n" +
 				"          (\n" +
 				"            ds1 between 'J12' and 'J13.99'\n" +
@@ -1461,7 +1461,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"       )\n" +
 				"      )\n" +
 				" 	   and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"      and  p.dat_end >= '01.01.2019'\n" +
+				"      and  p.dat_end >= '01.01.2020'\n" +
 				"      and  (p.mes between '401048' and '401071' or  p.mes between '401081' and '401120')\n" +
 				"      and (p.nazr <> 5 and p.nazr <> 7 and p.nazr <> 2 and p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"      and (p.fio,p.dr)  in \n" +
@@ -1470,7 +1470,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              from demand  d, pat  p\n" +
 				"              where d.id_demand = p.demand_id\n" +
 				"              and  p.caretype = 30\n" +
-				"              and  p.dat_end >= '01.01.2019'\n" +
+				"              and  p.dat_end >= '01.01.2020'\n" +
 				"              and  d.period  between  '"+date1+"' and '"+date2+"' " +
 				"              and  p.mes in ('401079','401080','401128','401129')\n" +
 				"       )\n" +
@@ -1483,15 +1483,15 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              from pat  p left join gosp_eir_view@link_webofoms gosp on\n" +
 				"               p.fam = upper(trim(gosp.fam)) and p.im = upper(trim(gosp.im)) and p.ot = upper(trim(gosp.ot)) and p.dr = (gosp.dr)\n" +
 				"               and p.dat_end <= (gosp.d_np) and substr(p.ds1,0,1) = substr(gosp.mkb_priem,0,1)\n" +
-				"               and (gosp.d_np) >= '01.01.2019'\n" +
+				"               and (gosp.d_np) >= '01.01.2020'\n" +
 				"                   left join demand  d on d.id_demand = p.demand_id\n" +
 				"                   where gosp.fam is  null\n" +
 				"                   and  p.caretype = 30\n" +
-				"                   and   p.REZOBR in (22,23)\n" +
+				"                   and   p.REZOBR in (22,23, 355, 373, 356, 374)\n" +
 				"                   and\n" +
 				"                   (\n" +
 				"                    (\n" +
-				"                      (rezobr = 22)\n" +
+				"                      (rezobr in (22, 355, 373))\n" +
 				"                      and\n" +
 				"                      (\n" +
 				"                      substr(ds1,1,1) in ('C')\n" +
@@ -1515,7 +1515,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                    )\n" +
 				"                    or\n" +
 				"                    (\n" +
-				"                      (rezobr = 23)\n" +
+				"                      (rezobr in (23, 356, 374))\n" +
 				"                      and\n" +
 				"                      (\n" +
 				"                      ds1 between 'J12' and 'J13.99'\n" +
@@ -1532,7 +1532,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                    )\n" +
 				"                   )\n" +
 				" 					and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"                   and  p.dat_end >= '01.01.2019'\n" +
+				"                   and  p.dat_end >= '01.01.2020'\n" +
 				"                   and (p.nazr <> 5 and p.nazr <> 7 and p.nazr <> 2 and p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"                   and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"                   and not exists (select 1 from pat  pp where pp.caretype = 30\n" +
@@ -1544,10 +1544,10 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" )     z_tmp "
 				+" group  by z_tmp.lpu  "
 				+" ) tmp1,  "
-				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc ";
+				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc ";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createQuery(sb);
 		List<Object[]> res = q.getResultList();
 		// for processed data
@@ -1724,11 +1724,11 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"       from\n" +
 				"       pat  p left join demand  d on d.id_demand = p.demand_id\n" +
 				"       where p.caretype = 30\n" +
-				"       and   p.REZOBR in (20,21)\n" +
+				"       and   p.REZOBR in (20,21,357,358)\n" +
 				"       and\n" +
 				"       (\n" +
 				"          (\n" +
-				"            (rezobr = 20)\n" +
+				"            (rezobr in (20, 357))\n" +
 				"            and\n" +
 				"            (\n" +
 				"                substr(ds1,1,1) in ('C')\n" +
@@ -1752,7 +1752,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          )\n" +
 				"          or\n" +
 				"          (\n" +
-				"            (rezobr = 21)\n" +
+				"            (rezobr in (21, 358))\n" +
 				"            and\n" +
 				"            (\n" +
 				"              ds1 between 'J12' and 'J13.99'\n" +
@@ -1769,7 +1769,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          )\n" +
 				"       )\n" +
 				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"       and  p.dat_end >= '01.01.2019'\n" +
+				"       and  p.dat_end >= '01.01.2020'\n" +
 				"       and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"       and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"       and (p.fio,p.dr)  in \n" +
@@ -1778,7 +1778,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          from demand  d, pat  p\n" +
 				"          where d.id_demand = p.demand_id\n" +
 				"          and  p.caretype = 30\n" +
-				"          and  p.dat_end >= '01.01.2019'\n" +
+				"          and  p.dat_end >= '01.01.2020'\n" +
 				"          and  d.period  between  '"+date1+"' and '"+date2+"' " +
 				"          and  p.mes in ('401079','401080','401128','401129')\n" +
 				"       )\n" +
@@ -1790,11 +1790,11 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"       from (select p.mes,p.FIO,p.dr,p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA,p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR,p.ds1,p.fam,p.im,p.ot,p.dr as drr,p.id\n" +
 				"              from pat  p left join demand  d on d.id_demand = p.demand_id\n" +
 				"           where p.caretype = 30\n" +
-				"           and   p.REZOBR in (22,23)\n" +
+				"           and   p.REZOBR in (22,23,355,373,356, 374)\n" +
 				"           and\n" +
 				"           (\n" +
 				"                (\n" +
-				"                  (rezobr = 22)\n" +
+				"                  (rezobr in (22,355,373))\n" +
 				"                  and\n" +
 				"                  (\n" +
 				"                    substr(ds1,1,1) in ('C')\n" +
@@ -1818,7 +1818,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              )\n" +
 				"              or\n" +
 				"              (\n" +
-				"                (rezobr = 23)\n" +
+				"                (rezobr in (23,356, 374))\n" +
 				"                and\n" +
 				"                (\n" +
 				"                  ds1 between 'J12' and 'J13.99'\n" +
@@ -1835,7 +1835,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              )\n" +
 				"          )\n" +
 				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"          and  p.dat_end >= '01.01.2019'\n" +
+				"          and  p.dat_end >= '01.01.2020'\n" +
 				"          and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"          and  p.mes in ('401072','401127')\n" +
 				"          and exists (select 1 from pat  pp \n" +
@@ -1851,11 +1851,11 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"           from (select p.mes,p.FIO,p.dr,p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA,p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR,p.ds1,p.fam,p.im,p.ot,p.dr as drr,p.id\n" +
 				"                 from pat  p left join demand  d on d.id_demand = p.demand_id\n" +
 				"                 where p.caretype = 30\n" +
-				"                 and  p.REZOBR in (22,23)\n" +
+				"                 and  p.REZOBR in (22,23,355,373,356, 374)\n" +
 				"                 and\n" +
 				"                 (\n" +
 				"                   (\n" +
-				"                    (rezobr = 22)\n" +
+				"                    (rezobr in (22,355,373))\n" +
 				"                    and\n" +
 				"                    (\n" +
 				"                      substr(ds1,1,1) in ('C')\n" +
@@ -1879,7 +1879,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                  )\n" +
 				"                  or\n" +
 				"                  (\n" +
-				"                    (rezobr = 23)\n" +
+				"                    (rezobr in (23,356, 374))\n" +
 				"                    and\n" +
 				"                    (\n" +
 				"                      ds1 between 'J12' and 'J13.99'\n" +
@@ -1896,7 +1896,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                  )\n" +
 				"                 )\n" +
 				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"                 and  p.dat_end >= '01.01.2019'\n" +
+				"                 and  p.dat_end >= '01.01.2020'\n" +
 				"                 and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"                 and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"                 and not exists (select 1 from pat  pp where pp.caretype = 30\n" +
@@ -1906,7 +1906,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"               ) zz";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createQuery(sb);
 		q.setFirstResult(firrstResult);
 		q.setMaxResults(60_000);
@@ -1954,18 +1954,22 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" tmp1.total_2, "
 				+" tmp1.total_4 "
 				+" from "
-				+" (  select  z_tmp.lpu as lp,  count(*) total,  count ( case when z_tmp.smoid = 1 then 1 end ) total_1,  count ( case when z_tmp.smoid = 2 then 1 end ) total_2,  count ( case when z_tmp.smoid = 4 then 1 end ) total_4  from "
+				+" (  select  z_tmp.lpu as lp,  " +
+				"     count(*) total," +
+				"	  count ( case when z_tmp.smoid = 1 then 1 end ) total_1," +
+				" 	  count ( case when z_tmp.smoid = 2 then 1 end ) total_2," +
+				"	  count ( case when z_tmp.smoid = 4 then 1 end ) total_4  from "
 				+" ( "
 
 				+"select p.FIO,p.dr,p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA,p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR,p.mes,p.ds1 as f_mkb_usl,f_person_telephone_v2@dome_dev(p.fam, p.im, p.ot, p.dr) as tel,p.id\n" +
 				"       from\n" +
 				"       pat  p left join demand  d on d.id_demand = p.demand_id\n" +
 				"       where p.caretype = 30\n" +
-				"       and   p.REZOBR in (20,21)\n" +
+				"       and   p.REZOBR in (20,21,357,358)\n" +
 				"       and\n" +
 				"       (\n" +
 				"          (\n" +
-				"            (rezobr = 20)\n" +
+				"            (rezobr in (20, 357))\n" +
 				"            and\n" +
 				"            (\n" +
 				"                substr(ds1,1,1) in ('C')\n" +
@@ -1989,7 +1993,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          )\n" +
 				"          or\n" +
 				"          (\n" +
-				"            (rezobr = 21)\n" +
+				"            (rezobr in (21, 358))\n" +
 				"            and\n" +
 				"            (\n" +
 				"              ds1 between 'J12' and 'J13.99'\n" +
@@ -2006,7 +2010,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          )\n" +
 				"       )\n" +
 				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"       and  p.dat_end >= '01.01.2019'\n" +
+				"       and  p.dat_end >= '01.01.2020'\n" +
 				"       and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"       and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"       and (p.fio,p.dr)  in \n" +
@@ -2015,7 +2019,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"          from demand  d, pat  p\n" +
 				"          where d.id_demand = p.demand_id\n" +
 				"          and  p.caretype = 30\n" +
-				"          and  p.dat_end >= '01.01.2019'\n" +
+				"          and  p.dat_end >= '01.01.2020'\n" +
 				"          and  d.period  between  '"+date1+"' and '"+date2+"' " +
 				"          and  p.mes in ('401079','401080','401128','401129')\n" +
 				"       )\n" +
@@ -2027,11 +2031,11 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"       from (select p.mes,p.FIO,p.dr,p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA,p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR,p.ds1,p.fam,p.im,p.ot,p.dr as drr,p.id\n" +
 				"              from pat  p left join demand  d on d.id_demand = p.demand_id\n" +
 				"           where p.caretype = 30\n" +
-				"           and   p.REZOBR in (22,23)\n" +
+				"           and   p.REZOBR in (22,23,355,373,356, 374)\n" +
 				"           and\n" +
 				"           (\n" +
 				"                (\n" +
-				"                  (rezobr = 22)\n" +
+				"                  (rezobr in (22,355,373))\n" +
 				"                  and\n" +
 				"                  (\n" +
 				"                    substr(ds1,1,1) in ('C')\n" +
@@ -2055,7 +2059,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              )\n" +
 				"              or\n" +
 				"              (\n" +
-				"                (rezobr = 23)\n" +
+				"                (rezobr in (23,356, 374))\n" +
 				"                and\n" +
 				"                (\n" +
 				"                  ds1 between 'J12' and 'J13.99'\n" +
@@ -2072,7 +2076,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"              )\n" +
 				"          )\n" +
 				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"          and  p.dat_end >= '01.01.2019'\n" +
+				"          and  p.dat_end >= '01.01.2020'\n" +
 				"          and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"          and  p.mes in ('401072','401127')\n" +
 				"          and exists (select 1 from pat  pp \n" +
@@ -2088,11 +2092,11 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"           from (select p.mes,p.FIO,p.dr,p.SMOID,p.SERPOLIS,p.NUMPOLIS,p.lpu,p.AMBKARTA,p.DAT_BEG,p.DAT_END,LPU_PRIK,p.s1,p.account,p.AC_DATE,p.REZOBR,p.ds1,p.fam,p.im,p.ot,p.dr as drr,p.id\n" +
 				"                 from pat  p left join demand  d on d.id_demand = p.demand_id\n" +
 				"                 where p.caretype = 30\n" +
-				"                 and  p.REZOBR in (22,23)\n" +
+				"                 and  p.REZOBR in (22,23,355,373,356, 374)\n" +
 				"                 and\n" +
 				"                 (\n" +
 				"                   (\n" +
-				"                    (rezobr = 22)\n" +
+				"                    (rezobr in (22,355,373))\n" +
 				"                    and\n" +
 				"                    (\n" +
 				"                      substr(ds1,1,1) in ('C')\n" +
@@ -2116,7 +2120,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                  )\n" +
 				"                  or\n" +
 				"                  (\n" +
-				"                    (rezobr = 23)\n" +
+				"                    (rezobr in (23,356, 374))\n" +
 				"                    and\n" +
 				"                    (\n" +
 				"                      ds1 between 'J12' and 'J13.99'\n" +
@@ -2133,7 +2137,7 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                  )\n" +
 				"                 )\n" +
 				" 	    and  d.period between  '"+date1+"' and '"+date2+"' " + g +
-				"                 and  p.dat_end >= '01.01.2019'\n" +
+				"                 and  p.dat_end >= '01.01.2020'\n" +
 				"                 and (p.pr_d_n = 0 or p.pr_d_n = 3)\n" +
 				"                 and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"                 and not exists (select 1 from pat  pp where pp.caretype = 30\n" +
@@ -2145,10 +2149,14 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				+" )     z_tmp "
 				+" group  by z_tmp.lpu  "
 				+" ) tmp1,  "
-				+" (  select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name from medical_organization@dome_dawn t  where t.mo_d_end is null  and t.mo_mcod like '540%'  and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp  where tmp1.lp = tmp.codl order by tmp1.total desc ";
+				+" (  select  distinct substr(t.mo_mcod,4,6) as codl," +
+				"	t.mo_nam_mok as name from medical_organization@dome_dawn t  " +
+				"	where t.mo_mcod like '540%'  " +
+				"	and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  ) tmp" +
+				"	  where tmp1.lp = tmp.codl order by tmp1.total desc ";
 
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createQuery(sb);
 		List<Object[]> res = q.getResultList();
 		// for processed data
@@ -2313,12 +2321,12 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                 count (case when z_tmp.smoid = 1 then 1 end) total_1,\n" +
 				"                 count (case when z_tmp.smoid = 2 then 1 end) total_2,\n" +
 				"                 count (case when z_tmp.smoid = 4 then 1 end) total_4,\n" +
-				"                 count (case when z_tmp.rezobr in (20,22) then 1 end) as total_20_22,\n" +
-				"                 count (case when z_tmp.rezobr in (20) then 1 end) as total_20,\n" +
-				"                 count (case when z_tmp.rezobr in (22) then 1 end) as total_22,\n" +
-				"                 count (case when z_tmp.rezobr in (21,23) then 1 end ) as total_21_23,\n" +
-				"                 count (case when z_tmp.rezobr in (21) then 1 end) as total_21,\n" +
-				"                 count (case when z_tmp.rezobr in (23) then 1 end) as total_23 \n" +
+				"                 count (case when z_tmp.rezobr in (20,22,357,355,373) then 1 end) as total_20_22,\n" +
+				"                 count (case when z_tmp.rezobr in (20,357) then 1 end) as total_20,\n" +
+				"                 count (case when z_tmp.rezobr in (22,355, 373) then 1 end) as total_22,\n" +
+				"                 count (case when z_tmp.rezobr in (21,23,358,356,374) then 1 end ) as total_21_23,\n" +
+				"                 count (case when z_tmp.rezobr in (21,358) then 1 end) as total_21,\n" +
+				"                 count (case when z_tmp.rezobr in (23,356,374) then 1 end) as total_23 \n" +
 				"           from \n" +
 				"             (select p.FIO,\n" +
 				"                    p.dr,\n" +
@@ -2342,16 +2350,16 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                  where\n" +
 				"                  d.id_demand = p.demand_id\n" +
 				"                  and  p.caretype = 30\n" +
-				"                  and   p.REZOBR in (20,21)\n" +
+				"                  and   p.REZOBR in (20,21,357,358)\n" +
 				"                  and  d.period between  '"+date1+"' and '"+date2+"' " +
-				"                  and  p.dat_end >= '01.01.2019'\n" +
+				"                  and  p.dat_end >= '01.01.2020'\n" +
 				"                  and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"                  and (p.fio,p.dr)  in \n" +
 				"                  (\n" +
 				"                    select fio, dr\n" +
 				"                    from pat  pp\n" +
 				"                    where pp.caretype = 30\n" +
-				"                    and  pp.dat_end >= '01.01.2019'\n" +
+				"                    and  pp.dat_end >= '01.01.2020'\n" +
 				"                    and  pp.mes in ('401079','401080','401128','401129')\n" +
 				"                  )\n" +
 				"                  and p.id not in (select ot.id_pred from otkl_id  ot where ot.id_pred = p.id)\n" +
@@ -2362,9 +2370,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                         where\n" +
 				"                         d.id_demand = p.demand_id\n" +
 				"                         and  p.caretype = 30\n" +
-				"                         and   p.REZOBR in (22,23)\n" +
+				"                         and   p.REZOBR in (22,23,355,373,356,374)\n" +
 				"                  	      and  d.period between  '"+date1+"' and '"+date2+"' " +
-				"                         and  p.dat_end >= '01.01.2019'\n" +
+				"                         and  p.dat_end >= '01.01.2020'\n" +
 				"                         and  p.mes in ('401072','401127')\n" +
 				"                         and exists \n" +
 				"                         (\n" +
@@ -2382,9 +2390,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                          where\n" +
 				"                                 d.id_demand = p.demand_id\n" +
 				"                                 and  p.caretype = 30\n" +
-				"                                 and  p.REZOBR in (22,23)\n" +
+				"                                 and  p.REZOBR in (22,23,355,373,356,374)\n" +
 				"                                 and  d.period between  '"+date1+"' and '"+date2+"' " +
-				"                                 and  p.dat_end >= '01.01.2019'\n" +
+				"                                 and  p.dat_end >= '01.01.2020'\n" +
 				"                                 and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120')\n" +
 				"                                 and not exists \n" +
 				"                                 (\n" +
@@ -2402,9 +2410,9 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"                          where \n" +
 				"                                d.id_demand = p.demand_id \n" +
 				"                                and  p.caretype = 30 \n" +
-				"                                and   p.REZOBR in (20,21) \n" +
+				"                                and   p.REZOBR in (20,21,357,358) \n" +
 				"                                and  d.period between  '"+date1+"' and '"+date2+"' " +
-				"                                and  p.dat_end >= '01.01.2019' \n" +
+				"                                and  p.dat_end >= '01.01.2020' \n" +
 				"                                and  (p.mes between '401048' and '401071' or p.mes between '401081' and '401120') \n" +
 				"                                and not exists \n" +
 				"                                (\n" +
@@ -2419,13 +2427,13 @@ public class Sp3ExpertiseDaoBean implements ISp3ExpertiseDao {
 				"         group  by z_tmp.lpu \n" +
 				"         ) tmp1, (select  distinct substr(t.mo_mcod,4,6) as codl,t.mo_nam_mok as name \n" +
 				"        from medical_organization@dome_dawn t \n" +
-				"        where t.mo_d_end is null \n" +
-				"        and t.mo_mcod like '540%' \n" +
+				"        where  \n" +
+				"        t.mo_mcod like '540%' \n" +
 				"        and t.mo_d_edit = (select max(t2.mo_d_edit) from medical_organization@dome_dawn t2 where t.mo_mcod = t2.mo_mcod)  \n" +
 				"      ) tmp where tmp1.lp = tmp.codl \n" +
 				"      order by tmp1.total desc";
 		// TODO сделать выбор базы на сайте
-		Query q = non_mur_collect2019.createNativeQuery(sb);
+		Query q = non_mur_collect2020.createNativeQuery(sb);
         //Query q = mur_collect2019.createQuery(sb);
 		List<Object[]> res = q.getResultList();
 		// for processed data

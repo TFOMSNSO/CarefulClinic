@@ -85,14 +85,14 @@
     </persistence-unit>
 
 
-    <persistence-unit name="OracleMUR2017"  transaction-type="JTA">
-   		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:/ds/MUR2017</jta-data-source>
-        <properties>
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.connection.charSet" value="UTF-8"/>
-        </properties>
-    </persistence-unit>
+    <!--<persistence-unit name="OracleMUR2017"  transaction-type="JTA">-->
+   		<!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+        <!--<jta-data-source>java:/ds/MUR2017</jta-data-source>-->
+        <!--<properties>-->
+            <!--<property name="hibernate.show_sql" value="true" />-->
+            <!--<property name="hibernate.connection.charSet" value="UTF-8"/>-->
+        <!--</properties>-->
+    <!--</persistence-unit>-->
     <persistence-unit name="OracleMUR2018"  transaction-type="JTA">
    		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/ds/MUR2018</jta-data-source>
@@ -150,6 +150,16 @@
         </properties>
     </persistence-unit>
 
+    <persistence-unit name="OfomsNONXA"  transaction-type="JTA">
+   		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:jboss/datasources/OfomsNONXA</jta-data-source>
+        <properties>
+            <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+        </properties>
+    </persistence-unit>
+
     <persistence-unit name="MEDEXP"  transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:jboss/datasources/MEDEXP</jta-data-source>
@@ -178,6 +188,16 @@
         <class>com.careful.clinic.model.ZNO_PERSON</class>
         <properties>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+        </properties>
+    </persistence-unit>
+
+
+    <persistence-unit name="NONXAMUR2020"  transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:jboss/datasources/NONXAMUR2020</jta-data-source>
+        <properties>
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.connection.charSet" value="UTF-8"/>
         </properties>

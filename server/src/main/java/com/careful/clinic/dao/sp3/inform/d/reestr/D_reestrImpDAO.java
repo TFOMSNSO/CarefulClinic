@@ -37,15 +37,22 @@ public class D_reestrImpDAO  implements D_reestr{
 	@PersistenceContext(unitName="NONXAMUR2019")
 	private EntityManager non_mur_collect2019;
 
+	@PersistenceContext(unitName="NONXAMUR2020")
+	private EntityManager non_mur_collect2020;
+
 	@PersistenceContext(unitName = "OracleDream2DS")
 	private EntityManager ofoms;
+
+	@PersistenceContext(unitName = "OfomsNONXA")
+	private EntityManager nonxaofoms;
 
 	private HttpSession dreestrSession;
 
 
     @Override
     public List<InformDReestr> getDReestrUpdated() {
-        List<Object[]> rs = non_mur_collect2019.createNativeQuery("select * from V_DISP_RECORD_NEW_2019_MAIN@LINK_OFOMS").getResultList();
+//        List<Object[]> rs = non_mur_collect2019.createNativeQuery("select * from V_DISP_RECORD_NEW_2019_MAIN@LINK_OFOMS").getResultList();
+        List<Object[]> rs = nonxaofoms.createNativeQuery("select * from V_DISP_RECORD_NEW_2019_MAIN").getResultList();
 
 
         System.out.println("Count rs:"  +  rs.size());

@@ -159,11 +159,8 @@ public class RestServiceProphylactic {
 			/*Блок загрузки в базу
 			 * Парсим и загружаем в базу отработанный файл 
 			 * */
-//			System.out.println("fileName:" + fileName);
 			IDataUploadType data = uploadFactory.getInstansUploadData(fileName);
-//			IDataUploadType data2 = uploadDataFactory.getInstance(fileName);
 
-//			System.out.println("goody");
 			List<String> listOfQueryies =  null;
 			long t1 = System.currentTimeMillis();
 			if (data != null ) {
@@ -380,8 +377,6 @@ public class RestServiceProphylactic {
 
 		return df;
 	}
-
-
 
 
 

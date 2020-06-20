@@ -4,6 +4,7 @@
   <span style="align-self: flex-end; font-size: 12px;">{{_year_disp}}
 			<mat-form-field style="width: 70px;">
 			  <mat-select [(value)]="selected"   (change)="filterChanged($event)" [disabled]=disableSelect>
+        <mat-option value="2020">2020</mat-option>
         <mat-option value="2019">2019</mat-option>
 				<mat-option value="2018">2018</mat-option>
 				<mat-option value="2017">2017</mat-option>
@@ -381,7 +382,7 @@
         <br>
         {{myFormsurvey.value | json}}
 
-        
+
 
       </ng-template>
     </ng-template>

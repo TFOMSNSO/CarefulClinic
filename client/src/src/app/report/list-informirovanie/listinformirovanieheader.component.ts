@@ -122,6 +122,7 @@ export class ListInformirovanieHeader{
     	 this.listInformirovanieHeaderService.listFilesKvartals(data)
 	 	 .then(res => {this.listonKvartal = res});
 	}
+
 	/* Актуальный план информирования за определенный квартал */
 	getListNameFilesInformirovanieActual(data : number): void{
     	 this.listInformirovanieHeaderService.listFilesKvartalsActual(data)

@@ -81,7 +81,9 @@ public class InformD_reestr extends AbstractDataPmI {
 						strb.append("ERROR В поле 'Дата информирования' некорректная дата. Строка " + (j + 1) + "\r\n. ");
 					}
 				} catch (IllegalStateException e) {
+					e.printStackTrace();
 					strb.append("ERROR Неверный формат ячеек в поле	 'Дата информирования'. Строка " + (j + 1) + "\r\n");
+					break;
 				} catch (Exception e) {
 					strb.append("ERROR Непредвиденная ошибка. Строка " + (j + 1) + "\r\n");
 				}
